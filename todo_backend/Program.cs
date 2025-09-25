@@ -1,26 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
+using todo_backend.Services.FriendshipService;
+using todo_backend.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Dodaj DbContext z SQLite
+//Database connection
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=mydb.db"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 🔹 Dodaj kontrolery
+//Controllers
 builder.Services.AddControllers();
 
-// 🔹 Swagger (do testowania API)
+//Swagger - for endpoint testing
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 🔹 CORS – zezwalamy tylko frontendowi z Vite
+//serwisy
+builder.Services.AddScoped<IFriendshipService, FriendshipService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+//CORS - connection with frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173") // adres frontendu
+            policy.WithOrigins("http://localhost:5173") //frontend address
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -28,14 +34,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// 🔹 Swagger UI
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// 🔹 Użycie CORS
 app.UseCors("AllowFrontend");
 
-// 🔹 Routing dla kontrolerów
 app.MapControllers();
 
 app.Run();

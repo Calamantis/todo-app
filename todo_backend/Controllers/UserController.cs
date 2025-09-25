@@ -4,6 +4,7 @@ using todo_backend.Data;
 using todo_backend.Models;
 using todo_backend.Dtos;
 using todo_backend.Services.UserService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyApp.Controllers
 {
@@ -19,6 +20,7 @@ namespace MyApp.Controllers
         }
 
         // GET: api/users
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
         {

@@ -3,24 +3,68 @@
   "WorkspaceRootPath": "H:\\todo_application\\todo_backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\friendshipconstroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\friendshipconstroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\authservice\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\authservice\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\authservice\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\useractivitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\useractivitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\authresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\authresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\friendshipconstroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\friendshipconstroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\securityservice\\passwordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\securityservice\\passwordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\securityservice\\ipasswordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\securityservice\\ipasswordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\friendshipservice\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\friendshipservice\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\friendshipservice\\ifriendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,10 +87,6 @@
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\friendshipservice\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\friendshipservice\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -65,50 +105,12 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 709,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 556,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T20:06:43.221Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 696,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserService\\UserService.cs",
-              "RelativeDocumentMoniker": "Services\\UserService\\UserService.cs",
-              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\UserService\\UserService.cs",
-              "RelativeToolTip": "Services\\UserService\\UserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T20:07:12.931Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 446,
-          "SelectedChildIndex": 3,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "IFriendshipService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\FriendshipService\\IFriendshipService.cs",
               "RelativeDocumentMoniker": "Services\\FriendshipService\\IFriendshipService.cs",
@@ -122,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 22,
               "Title": "FriendshipResponseDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\FriendshipResponseDto.cs",
               "RelativeDocumentMoniker": "Dtos\\FriendshipResponseDto.cs",
@@ -136,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 23,
               "Title": "Friendship.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\Friendship.cs",
               "RelativeDocumentMoniker": "Models\\Friendship.cs",
@@ -150,13 +152,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-19T12:11:33.962Z",
               "IsPinned": true,
@@ -164,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 21,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
@@ -178,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "IUserService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserService\\IUserService.cs",
               "RelativeDocumentMoniker": "Services\\UserService\\IUserService.cs",
@@ -192,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 18,
               "Title": "User.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -206,7 +208,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 19,
               "Title": "UserCreateDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\UserCreateDto.cs",
               "RelativeDocumentMoniker": "Dtos\\UserCreateDto.cs",
@@ -220,7 +222,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 20,
               "Title": "UserResponseDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\UserResponseDto.cs",
               "RelativeDocumentMoniker": "Dtos\\UserResponseDto.cs",
@@ -234,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 17,
               "Title": "UserUpdateDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\UserUpdateDto.cs",
               "RelativeDocumentMoniker": "Dtos\\UserUpdateDto.cs",
@@ -245,31 +247,140 @@
               "WhenOpened": "2025-09-24T20:07:24.134Z",
               "IsPinned": true,
               "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "3c187cbd-edfe-4098-be5d-95780d5204d4",
-        "Display": 1,
-        "X": 317,
-        "Y": 86,
-        "Width": 752,
-        "Height": 1033,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-25T11:03:28.974Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "H:\\todo_application\\todo_backend\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-25T10:46:33.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserActivitiesController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\UserActivitiesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserActivitiesController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\UserActivitiesController.cs",
+              "RelativeToolTip": "Controllers\\UserActivitiesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T10:46:07.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T10:45:53.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AuthResponseDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\AuthResponseDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\AuthResponseDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\AuthResponseDto.cs",
+              "RelativeToolTip": "Dtos\\AuthResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T10:37:40.5Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\LoginDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\LoginDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\LoginDto.cs",
+              "RelativeToolTip": "Dtos\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T10:37:25.41Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\AuthService\\AuthService.cs",
+              "RelativeDocumentMoniker": "Services\\AuthService\\AuthService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\AuthService\\AuthService.cs",
+              "RelativeToolTip": "Services\\AuthService\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T09:59:18.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\AuthService\\IAuthService.cs",
+              "RelativeDocumentMoniker": "Services\\AuthService\\IAuthService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\AuthService\\IAuthService.cs",
+              "RelativeToolTip": "Services\\AuthService\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T09:59:07.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PasswordService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\SecurityService\\PasswordService.cs",
+              "RelativeDocumentMoniker": "Services\\SecurityService\\PasswordService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\SecurityService\\PasswordService.cs",
+              "RelativeToolTip": "Services\\SecurityService\\PasswordService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T09:54:02.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IPasswordService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\SecurityService\\IPasswordService.cs",
+              "RelativeDocumentMoniker": "Services\\SecurityService\\IPasswordService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\SecurityService\\IPasswordService.cs",
+              "RelativeToolTip": "Services\\SecurityService\\IPasswordService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T09:53:56.109Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "FriendshipService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\FriendshipService\\FriendshipService.cs",
               "RelativeDocumentMoniker": "Services\\FriendshipService\\FriendshipService.cs",
@@ -279,24 +390,44 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T13:34:58.42Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
+            },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T20:06:43.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "FriendshipConstroller.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\FriendshipConstroller.cs",
               "RelativeDocumentMoniker": "Controllers\\FriendshipConstroller.cs",
               "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\FriendshipConstroller.cs",
               "RelativeToolTip": "Controllers\\FriendshipConstroller.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAADcAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T17:58:49.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserService\\UserService.cs",
+              "RelativeDocumentMoniker": "Services\\UserService\\UserService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\UserService\\UserService.cs",
+              "RelativeToolTip": "Services\\UserService\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T20:07:12.931Z",
               "EditorCaption": ""
             }
           ]

@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "todo_backend.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "todo_backend.Dtos.AuthResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "todo_backend.Controllers.FriendshipController",
     "Method": "AddFriendship",
     "RelativePath": "api/Friendship",
@@ -14,32 +40,6 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "GetFriendships",
-    "RelativePath": "api/Friendship/{userId}/friends",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.FriendshipResponseDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   },
   {
     "ContainingType": "todo_backend.Controllers.FriendshipController",
@@ -113,6 +113,36 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.FriendshipController",
+    "Method": "DebugClaims",
+    "RelativePath": "api/Friendship/debug/claims",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.FriendshipController",
+    "Method": "GetMyFriends",
+    "RelativePath": "api/Friendship/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.FriendshipResponseDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "todo_backend.Controllers.FriendshipController",

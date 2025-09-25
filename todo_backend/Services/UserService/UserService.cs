@@ -4,16 +4,19 @@ using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
 using todo_backend.Dtos;
 using todo_backend.Models;
+using todo_backend.Services.SecurityService;
 
 namespace todo_backend.Services.UserService
 {
     public class UserService : IUserService
     {
         private readonly AppDbContext _context;
+        private readonly IPasswordService _passwordService;
 
-        public UserService(AppDbContext context)
+        public UserService(AppDbContext context, IPasswordService passwordService)
         {
             _context = context;
+            _passwordService = passwordService;
         }
 
         public async Task<IEnumerable<UserResponseDto>> GetUsersAsync()
@@ -51,7 +54,7 @@ namespace todo_backend.Services.UserService
             var user = new User
             {
                 Email = dto.Email,
-                PasswordHash = dto.Password,
+                PasswordHash = _passwordService.Hash(dto.Password),
                 FullName = dto.FullName
             };
 

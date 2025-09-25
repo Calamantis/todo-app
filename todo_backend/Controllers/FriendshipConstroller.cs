@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
 using todo_backend.Dtos;
 using todo_backend.Models;
+using System.Security.Claims;
 using todo_backend.Services.FriendshipService;
 
 namespace todo_backend.Controllers
@@ -34,11 +36,32 @@ namespace todo_backend.Controllers
             return NoContent();
         }
 
-        [HttpGet("{userId}/friends")]
-        public async Task<ActionResult<IEnumerable<FriendshipResponseDto>>> GetFriendships(int userId)
+        //[HttpGet("{userId}/friends")]
+        //public async Task<ActionResult<IEnumerable<FriendshipResponseDto>>> GetFriendships(int userId)
+        //{
+        //    var friendships = await _friendshipService.GetUserFriendshipsAsync(userId);
+        //    return Ok(friendships);
+        //}
+
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<ActionResult<IEnumerable<FriendshipResponseDto>>> GetMyFriends()
         {
-            var friendships = await _friendshipService.GetUserFriendshipsAsync(userId);
-            return Ok(friendships);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized("Brak claimu 'sub' w tokenie.");
+
+            var userId = int.Parse(userIdClaim.Value);
+
+            var friends = await _friendshipService.GetUserFriendshipsAsync(userId);
+            return Ok(friends);
+        }
+
+        [Authorize]
+        [HttpGet("debug/claims")]
+        public IActionResult DebugClaims()
+        {
+            return Ok(User.Claims.Select(c => new { c.Type, c.Value }));
         }
 
         // GET: api/friendship/{userId}/sent

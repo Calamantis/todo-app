@@ -7,6 +7,8 @@ using todo_backend.Services.AuthService;
 using todo_backend.Services.FriendshipService;
 using todo_backend.Services.SecurityService;
 using todo_backend.Services.UserService;
+using todo_backend.Services.UserAccountService;
+using todo_backend.Services.UserFriendActions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +63,8 @@ builder.Services.AddScoped<IFriendshipService, FriendshipService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserAccountService, UserAccountService>();
+builder.Services.AddScoped<IUserFriendActionsService, UserFriendActionsService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

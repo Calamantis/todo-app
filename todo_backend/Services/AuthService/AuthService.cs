@@ -4,9 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using todo_backend.Data;
-using todo_backend.Dtos;
+using todo_backend.Dtos.Auth;
+using todo_backend.Dtos.User;
 using todo_backend.Models;
 using todo_backend.Services.SecurityService;
+using todo_backend.Services.UserService;
 
 namespace todo_backend.Services.AuthService
 {
@@ -24,6 +26,27 @@ namespace todo_backend.Services.AuthService
             _config = config;
         }
 
+        public async Task<UserResponseDto> CreateUserAsync(UserCreateDto dto)
+        {
+            var user = new User
+            {
+                Email = dto.Email,
+                PasswordHash = _passwordService.Hash(dto.Password),
+                FullName = dto.FullName
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var response = new UserResponseDto
+            {
+                Email = user.Email,
+                FullName = user.FullName
+            };
+
+            return response;
+        }
+
         public async Task<AuthResponseDto?> AuthenticateAsync(LoginDto dto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
@@ -36,10 +59,12 @@ namespace todo_backend.Services.AuthService
 
             return new AuthResponseDto
             {
-                Token = token,
-                UserId = user.UserId,
-                Email = user.Email,
-                FullName = user.FullName
+                Token = token//,
+                //UserId = user.UserId,
+                //Email = user.Email,
+                //FullName = user.FullName,
+                //AllowMentions = user.AllowMentions,
+                //AllowFriendInvites = user.AllowFriendInvites
             };
         }
 

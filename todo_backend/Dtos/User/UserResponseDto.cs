@@ -1,9 +1,10 @@
-﻿namespace todo_backend.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace todo_backend.Dtos.User
 {
-    public class UserCreateDto
+    public class UserResponseDto
     {
         public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
     }
 }

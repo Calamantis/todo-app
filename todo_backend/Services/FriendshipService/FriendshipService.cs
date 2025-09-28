@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
-using todo_backend.Dtos;
+using todo_backend.Dtos.Friendship;
 using todo_backend.Models;
 
 namespace todo_backend.Services.FriendshipService
@@ -13,6 +13,12 @@ namespace todo_backend.Services.FriendshipService
         {
             _context = context;
         }
+
+        //GET all friendships
+        //GET friendships by user id
+        //GET recieved/send invites by user id
+        //DELETE friendship
+
 
         public async Task<Friendship?> AddFriendshipAsync(int requesterId, int friendId)
         {
@@ -59,11 +65,11 @@ namespace todo_backend.Services.FriendshipService
             return true;
         }
 
-        public async Task<IEnumerable<FriendshipResponseDto>> GetUserFriendshipsAsync(int userId)
+        public async Task<IEnumerable<FullFriendshipDetailDto>> GetUserFriendshipsAsync(int userId)
         {
             var friends = await _context.Friendships
                 .Where(f => f.Status == "accepted" && (f.UserId == userId || f.FriendId == userId))
-                .Select(f => new FriendshipResponseDto
+                .Select(f => new FullFriendshipDetailDto
                 {
                     UserId = f.UserId,
                     FriendId = f.FriendId,
@@ -78,14 +84,14 @@ namespace todo_backend.Services.FriendshipService
             return friends;
         }
 
-        public async Task<IEnumerable<FriendshipResponseDto>> GetSentInvitesAsync(int userId)
+        public async Task<IEnumerable<FullFriendshipDetailDto>> GetSentInvitesAsync(int userId)
         {
             return await _context.Friendships
                 .Where(f => f.UserId == userId && f.Status == "pending")
                 .Join(_context.Users,
                       f => f.FriendId,
                       u => u.UserId,
-                      (f, u) => new FriendshipResponseDto
+                      (f, u) => new FullFriendshipDetailDto
                       {
                           UserId = f.UserId,
                           FriendId = f.FriendId,
@@ -95,14 +101,14 @@ namespace todo_backend.Services.FriendshipService
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<FriendshipResponseDto>> GetReceivedInvitesAsync(int userId)
+        public async Task<IEnumerable<FullFriendshipDetailDto>> GetReceivedInvitesAsync(int userId)
         {
             return await _context.Friendships
                 .Where(f => f.FriendId == userId && f.Status == "pending")
                 .Join(_context.Users,
                       f => f.UserId,
                       u => u.UserId,
-                      (f, u) => new FriendshipResponseDto
+                      (f, u) => new FullFriendshipDetailDto
                       {
                           UserId = f.UserId,
                           FriendId = f.FriendId,

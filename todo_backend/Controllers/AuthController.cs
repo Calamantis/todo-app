@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using todo_backend.Dtos;
+using todo_backend.Dtos.Auth;
+using todo_backend.Dtos.User;
 using todo_backend.Services.AuthService;
 
 namespace todo_backend.Controllers
@@ -23,6 +24,16 @@ namespace todo_backend.Controllers
                 return Unauthorized("Invalid email or password");
 
             return Ok(result);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserCreateDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _authService.CreateUserAsync(dto);
+            return Ok(user);
         }
     }
 }

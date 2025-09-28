@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using todo_backend.Dtos;
+using todo_backend.Dtos.User;
 using todo_backend.Models;
 
 namespace todo_backend.Services.UserService
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserResponseDto>> GetUsersAsync();
-        Task<UserResponseDto?> GetUserAsync(int id);
-        Task<UserResponseDto> CreateUserAsync(UserCreateDto dto);
-        Task<UserResponseDto?> UpdateUserAsync(int id, UserUpdateDto dto);
+        Task<IEnumerable<FullUserDetailsDto>> GetUsersAsync();
+        Task<FullUserDetailsDto?> GetUserAsync(int id);
+        //Task<UserResponseDto> CreateUserAsync(UserCreateDto dto);
+        Task<FullUserDetailsDto?> UpdateUserAsync(int id, UpdateFullNameDto dto);
         Task<bool> DeleteUserAsync(int id);
     }
 }

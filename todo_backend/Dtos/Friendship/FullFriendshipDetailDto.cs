@@ -1,6 +1,6 @@
-﻿namespace todo_backend.Dtos
+﻿namespace todo_backend.Dtos.Friendship
 {
-    public class FriendshipResponseDto
+    public class FullFriendshipDetailDto
     {
         public int UserId { get; set; }
         public int FriendId { get; set; }

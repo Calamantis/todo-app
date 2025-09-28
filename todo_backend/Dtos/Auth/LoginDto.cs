@@ -1,4 +1,6 @@
-﻿namespace todo_backend.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace todo_backend.Dtos.Auth
 {
     public class LoginDto
     {

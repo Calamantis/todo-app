@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
-using todo_backend.Dtos;
 using todo_backend.Models;
 using System.Security.Claims;
 using todo_backend.Services.FriendshipService;
+using todo_backend.Dtos.Friendship;
 
 namespace todo_backend.Controllers
 {
@@ -20,13 +20,13 @@ namespace todo_backend.Controllers
             _friendshipService = friendshipService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddFriendship(FriendshipCreateDto dto)
-        {
-            var friendship = await _friendshipService.AddFriendshipAsync(dto.UserId, dto.FriendId);
-            if (friendship == null) return BadRequest("Friendship already exists or invalid.");
-            return Ok(friendship);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> AddFriendship(FriendshipCreateDto dto)
+        //{
+        //    var friendship = await _friendshipService.AddFriendshipAsync(dto.UserId, dto.FriendId);
+        //    if (friendship == null) return BadRequest("Friendship already exists or invalid.");
+        //    return Ok(friendship);
+        //}
 
         [HttpPatch("accept/{userId}/{friendId}")]
         public async Task<IActionResult> AcceptFriendship(int userId, int friendId)
@@ -45,7 +45,7 @@ namespace todo_backend.Controllers
 
         [Authorize]
         [HttpGet("me")]
-        public async Task<ActionResult<IEnumerable<FriendshipResponseDto>>> GetMyFriends()
+        public async Task<ActionResult<IEnumerable<FullFriendshipDetailDto>>> GetMyFriends()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
@@ -66,7 +66,7 @@ namespace todo_backend.Controllers
 
         // GET: api/friendship/{userId}/sent
         [HttpGet("{userId}/sent")]
-        public async Task<ActionResult<IEnumerable<FriendshipResponseDto>>> GetSentInvites(int userId)
+        public async Task<ActionResult<IEnumerable<FullFriendshipDetailDto>>> GetSentInvites(int userId)
         {
             var invites = await _friendshipService.GetSentInvitesAsync(userId);
             return Ok(invites);
@@ -74,7 +74,7 @@ namespace todo_backend.Controllers
 
         // GET: api/friendship/{userId}/received
         [HttpGet("{userId}/received")]
-        public async Task<ActionResult<IEnumerable<FriendshipResponseDto>>> GetReceivedInvites(int userId)
+        public async Task<ActionResult<IEnumerable<FullFriendshipDetailDto>>> GetReceivedInvites(int userId)
         {
             var invites = await _friendshipService.GetReceivedInvitesAsync(userId);
             return Ok(invites);

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
-using todo_backend.Dtos;
+using todo_backend.Dtos.User;
 using todo_backend.Models;
 using todo_backend.Services.SecurityService;
 
@@ -19,59 +19,64 @@ namespace todo_backend.Services.UserService
             _passwordService = passwordService;
         }
 
-        public async Task<IEnumerable<UserResponseDto>> GetUsersAsync()
+        public async Task<IEnumerable<FullUserDetailsDto>> GetUsersAsync()
         {
-         var users = await _context.Users
-            .Select(u => new  UserResponseDto
-            {
-                UserId = u.UserId,
-                Email = u.Email,
-                FullName = u.FullName
-            })
-            .ToListAsync();
+            var users = await _context.Users
+               .Select(u => new FullUserDetailsDto
+               {
+                   UserId = u.UserId,
+                   Email = u.Email,
+                   FullName = u.FullName,
+                   AllowFriendInvites = u.AllowFriendInvites,
+                   AllowMentions = u.AllowMentions,
+               })
+               .ToListAsync();
 
             return users;
         }
 
-        public async Task<UserResponseDto?> GetUserAsync(int id)
+        public async Task<FullUserDetailsDto?> GetUserAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
             if (user == null) return null;
 
-            var dto = new UserResponseDto
+            var dto = new FullUserDetailsDto
             {
                 UserId = user.UserId,
                 Email = user.Email,
-                FullName = user.FullName
+                FullName = user.FullName,
+                AllowFriendInvites = user.AllowFriendInvites,
+                AllowMentions = user.AllowMentions,
             };
 
             return dto;
         }
 
-        public async Task<UserResponseDto> CreateUserAsync(UserCreateDto dto)
-        {
-            var user = new User
-            {
-                Email = dto.Email,
-                PasswordHash = _passwordService.Hash(dto.Password),
-                FullName = dto.FullName
-            };
+        //public async Task<UserResponseDto> CreateUserAsync(UserCreateDto dto)
+        //{
+        //    var user = new User
+        //    {
+        //        Email = dto.Email,
+        //        PasswordHash = _passwordService.Hash(dto.Password),
+        //        FullName = dto.FullName,
+        //        AllowMentions = dto.AllowMentions,
+        //        AllowFriendInvites = dto.AllowFriendInvites,
+        //    };
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+        //    _context.Users.Add(user);
+        //    await _context.SaveChangesAsync();
 
-            var response = new UserResponseDto
-            {
-                UserId = user.UserId,
-                Email = user.Email,
-                FullName = user.FullName
-            };
+        //    var response = new UserResponseDto
+        //    {
+        //        Email = user.Email,
+        //        FullName = user.FullName
+        //    };
 
-            return response;
-        }
+        //    return response;
+        //}
 
-        public async Task<UserResponseDto?> UpdateUserAsync(int id, UserUpdateDto dto)
+        public async Task<FullUserDetailsDto?> UpdateUserAsync(int id, UpdateFullNameDto dto)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return null;
@@ -79,11 +84,13 @@ namespace todo_backend.Services.UserService
             user.FullName = dto.FullName;
             await _context.SaveChangesAsync();
 
-            var response = new UserResponseDto
+            var response = new FullUserDetailsDto
             {
                 UserId = user.UserId,
                 Email = user.Email,
-                FullName = user.FullName
+                FullName = user.FullName,
+                AllowFriendInvites = user.AllowFriendInvites,
+                AllowMentions = user.AllowMentions,
             };
 
             return response;

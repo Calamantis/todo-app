@@ -9,6 +9,8 @@ using todo_backend.Services.SecurityService;
 using todo_backend.Services.UserService;
 using todo_backend.Services.UserAccountService;
 using todo_backend.Services.UserFriendActions;
+using todo_backend.Services.TimelineActivityService;
+using todo_backend.Services.CategoryService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +67,8 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IUserFriendActionsService, UserFriendActionsService>();
+builder.Services.AddScoped<ITimelineActivityService, TimelineActivityService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

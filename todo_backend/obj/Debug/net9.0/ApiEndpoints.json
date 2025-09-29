@@ -1,21 +1,5 @@
 [
   {
-    "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
-    "Method": "AcceptFriendship",
-    "RelativePath": "accept-invite",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "friendId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "todo_backend.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -53,6 +37,84 @@
         "Name": "dto",
         "Type": "todo_backend.Dtos.User.UserCreateDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.CategoryController",
+    "Method": "BrowseCategories",
+    "RelativePath": "api/Category/browse-categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.Category.CategoryDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.CategoryController",
+    "Method": "CreateCategory",
+    "RelativePath": "api/Category/create-category",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.Category.CategoryDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.CategoryController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/Category/delete-category",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "deleteActivities",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.CategoryController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/Category/update-category",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.Category.CategoryDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -344,8 +406,24 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
+    "Method": "AcceptFriendship",
+    "RelativePath": "api/UserFriendActions/accept-invite",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "friendId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "BrowseUsers",
-    "RelativePath": "browse-users",
+    "RelativePath": "api/UserFriendActions/browse-users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -365,7 +443,7 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "CancelInvite",
-    "RelativePath": "cancel-send-invite",
+    "RelativePath": "api/UserFriendActions/cancel-send-invite",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -381,7 +459,7 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "GetMyFriends",
-    "RelativePath": "me",
+    "RelativePath": "api/UserFriendActions/me",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -401,7 +479,7 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "GetReceivedInvites",
-    "RelativePath": "recieved-invites",
+    "RelativePath": "api/UserFriendActions/recieved-invites",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -421,7 +499,7 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "RejectInvite",
-    "RelativePath": "reject-invite",
+    "RelativePath": "api/UserFriendActions/reject-invite",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -437,7 +515,7 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "RemoveFriend",
-    "RelativePath": "remove-friend",
+    "RelativePath": "api/UserFriendActions/remove-friend",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -453,15 +531,15 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "AddFriendship",
-    "RelativePath": "sent-invite",
+    "RelativePath": "api/UserFriendActions/sent-invite",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "FriendId",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.Friendship.FriendshipCreateDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -469,7 +547,7 @@
   {
     "ContainingType": "todo_backend.Controllers.UserFriendActionsController",
     "Method": "GetSentInvites",
-    "RelativePath": "sent-invites",
+    "RelativePath": "api/UserFriendActions/sent-invites",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

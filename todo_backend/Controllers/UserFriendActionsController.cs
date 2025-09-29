@@ -11,6 +11,8 @@ using todo_backend.Services.UserFriendActions;
 
 namespace todo_backend.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserFriendActionsController : ControllerBase
     {
         private readonly IUserFriendActionsService _userFriendActionsService;

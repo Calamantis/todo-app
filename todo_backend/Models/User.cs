@@ -26,5 +26,7 @@ namespace todo_backend.Models
 
         //opcjonalne, do latwego includowania w kodzie
         public ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
+        public ICollection<Category> Categories { get; set; } = new List<Category>();
+        public ICollection<TimelineActivity> TimelineActivities { get; set; } = new List<TimelineActivity>();
     }
 }

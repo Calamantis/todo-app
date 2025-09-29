@@ -49,12 +49,19 @@ namespace todo_backend.Services.UserAccountService
 
         public async Task<bool> DeleteUserAsync(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+            .Include(u => u.TimelineActivities)
+            .Include(u => u.Categories)
+            .FirstOrDefaultAsync(u => u.UserId == id);
             if (user == null) return false;
 
             var friendships = _context.Friendships
             .Where(f => f.UserId == id || f.FriendId == id);
             _context.Friendships.RemoveRange(friendships);
+
+            _context.TimelineActivities.RemoveRange(user.TimelineActivities);
+
+            _context.Categories.RemoveRange(user.Categories);
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();

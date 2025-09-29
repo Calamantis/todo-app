@@ -84,6 +84,146 @@
         }
       }
     },
+    "/api/Category/browse-categories": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Category/create-category": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Category/update-category": {
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Category/delete-category": {
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "deleteActivities",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Friendship/accept/{userId}/{friendId}": {
       "patch": {
         "tags": [
@@ -569,7 +709,7 @@
         }
       }
     },
-    "/me": {
+    "/api/UserFriendActions/me": {
       "get": {
         "tags": [
           "UserFriendActions"
@@ -607,7 +747,7 @@
         }
       }
     },
-    "/sent-invites": {
+    "/api/UserFriendActions/sent-invites": {
       "get": {
         "tags": [
           "UserFriendActions"
@@ -645,7 +785,7 @@
         }
       }
     },
-    "/recieved-invites": {
+    "/api/UserFriendActions/recieved-invites": {
       "get": {
         "tags": [
           "UserFriendActions"
@@ -683,7 +823,7 @@
         }
       }
     },
-    "/browse-users": {
+    "/api/UserFriendActions/browse-users": {
       "get": {
         "tags": [
           "UserFriendActions"
@@ -721,21 +861,30 @@
         }
       }
     },
-    "/sent-invite": {
+    "/api/UserFriendActions/sent-invite": {
       "post": {
         "tags": [
           "UserFriendActions"
         ],
-        "parameters": [
-          {
-            "name": "FriendId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendshipCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendshipCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendshipCreateDto"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -743,7 +892,7 @@
         }
       }
     },
-    "/accept-invite": {
+    "/api/UserFriendActions/accept-invite": {
       "patch": {
         "tags": [
           "UserFriendActions"
@@ -765,7 +914,7 @@
         }
       }
     },
-    "/cancel-send-invite": {
+    "/api/UserFriendActions/cancel-send-invite": {
       "delete": {
         "tags": [
           "UserFriendActions"
@@ -787,7 +936,7 @@
         }
       }
     },
-    "/reject-invite": {
+    "/api/UserFriendActions/reject-invite": {
       "delete": {
         "tags": [
           "UserFriendActions"
@@ -809,7 +958,7 @@
         }
       }
     },
-    "/remove-friend": {
+    "/api/UserFriendActions/remove-friend": {
       "delete": {
         "tags": [
           "UserFriendActions"
@@ -840,6 +989,35 @@
           "token": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "colorHex": {
+            "maxLength": 7,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FriendshipCreateDto": {
+        "type": "object",
+        "properties": {
+          "friendId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

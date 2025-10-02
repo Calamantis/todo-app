@@ -15,6 +15,8 @@ namespace todo_backend.Data
         public DbSet<TimelineActivity> TimelineActivities { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<ActivityMembers> ActivityMembers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

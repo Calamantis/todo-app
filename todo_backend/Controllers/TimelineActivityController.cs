@@ -97,12 +97,5 @@ namespace todo_backend.Controllers
             return NoContent();
 
         }
-
-
-
-        //POST wyslanie zaproszenia
-        //PATCH akceptacja zaproszenia
-        //DELETE usuniecie (cofniecie zaproszenia)
-
     }
 }

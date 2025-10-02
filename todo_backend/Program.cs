@@ -11,6 +11,7 @@ using todo_backend.Services.UserAccountService;
 using todo_backend.Services.UserFriendActions;
 using todo_backend.Services.TimelineActivityService;
 using todo_backend.Services.CategoryService;
+using todo_backend.Services.ActivityMembersService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +70,7 @@ builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IUserFriendActionsService, UserFriendActionsService>();
 builder.Services.AddScoped<ITimelineActivityService, TimelineActivityService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IActivityMembersService, ActivityMembersService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

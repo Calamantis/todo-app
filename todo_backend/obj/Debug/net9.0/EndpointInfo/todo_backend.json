@@ -5,6 +5,148 @@
     "version": "v1"
   },
   "paths": {
+    "/api/ActivityMembers/browse-invites": {
+      "get": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullActivityMembersDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullActivityMembersDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullActivityMembersDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/browse-accepted": {
+      "get": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullActivityMembersDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullActivityMembersDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullActivityMembersDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/send-invitation": {
+      "post": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/accept-invitation": {
+      "patch": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/revoke-invitation": {
+      "delete": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [
@@ -423,6 +565,219 @@
             "name": "friendId",
             "in": "path",
             "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/browse-activities": {
+      "get": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullTimelineActivityDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullTimelineActivityDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FullTimelineActivityDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/{id}": {
+      "get": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/create-activity": {
+      "post": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTimelineActivityDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTimelineActivityDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTimelineActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/edit-activity": {
+      "put": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTimelineActivityDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTimelineActivityDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTimelineActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/delete-activity": {
+      "delete": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -1012,6 +1367,41 @@
         },
         "additionalProperties": false
       },
+      "CreateTimelineActivityDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "recurrenceRule": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "FriendshipCreateDto": {
         "type": "object",
         "properties": {
@@ -1034,6 +1424,36 @@
             "nullable": true
           },
           "friendEmail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FullActivityMembersDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "userFullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "userEmail": {
             "type": "string",
             "nullable": true
           }
@@ -1064,6 +1484,44 @@
             "nullable": true
           },
           "friendEmail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FullTimelineActivityDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "recurrenceRule": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryName": {
             "type": "string",
             "nullable": true
           }
@@ -1112,6 +1570,41 @@
             "maxLength": 50,
             "minLength": 0,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTimelineActivityDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "recurrenceRule": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

@@ -94,6 +94,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "invitedUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
@@ -616,7 +624,7 @@
         }
       }
     },
-    "/api/TimelineActivity/{id}": {
+    "/api/TimelineActivity/find-activity": {
       "get": {
         "tags": [
           "TimelineActivity"
@@ -628,14 +636,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],

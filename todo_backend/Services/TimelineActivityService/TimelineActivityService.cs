@@ -59,37 +59,51 @@ namespace todo_backend.Services.TimelineActivityService
         }
 
         //POST stworzenie aktywnosci
-        public async Task<FullTimelineActivityDto> CreateTimelineActivityAsync(CreateTimelineActivityDto dto, int currentUserId)
+        public async Task<FullTimelineActivityDto?> CreateTimelineActivityAsync(CreateTimelineActivityDto dto, int currentUserId)
         {
-            var entity = new TimelineActivity
+            try
             {
-                OwnerId = currentUserId,
-                Title = dto.Title,
-                Description = dto.Description,
-                CategoryId = dto.CategoryId,
-                Start_time = dto.StartTime,
-                End_time = dto.EndTime,
-                Is_recurring = dto.IsRecurring,
-                Recurrence_rule = dto.RecurrenceRule
-            };
+                // Sprawdź czy kategoria istnieje (jeżeli została podana)
+                Category? category = null;
+                if (dto.CategoryId.HasValue)
+                {
+                    category = await _context.Categories.FindAsync(dto.CategoryId.Value);
+                    if (category == null)
+                        return null; // zwracamy null zamiast rzucać wyjątkiem
+                }
 
-            _context.TimelineActivities.Add(entity);
-            await _context.SaveChangesAsync();
+                var entity = new TimelineActivity
+                {
+                    OwnerId = currentUserId,
+                    Title = dto.Title,
+                    Description = dto.Description,
+                    CategoryId = dto.CategoryId,
+                    Start_time = dto.StartTime,
+                    End_time = dto.EndTime,
+                    Is_recurring = dto.IsRecurring,
+                    Recurrence_rule = dto.RecurrenceRule
+                };
 
-            var category = await _context.Categories.FindAsync(dto.CategoryId);
+                _context.TimelineActivities.Add(entity);
+                await _context.SaveChangesAsync();
 
-            return new FullTimelineActivityDto
+                return new FullTimelineActivityDto
+                {
+                    ActivityId = entity.ActivityId,
+                    Title = entity.Title,
+                    Description = entity.Description,
+                    StartTime = entity.Start_time,
+                    EndTime = entity.End_time,
+                    IsRecurring = entity.Is_recurring,
+                    RecurrenceRule = entity.Recurrence_rule,
+                    CategoryName = category?.Name
+                };
+            }
+            catch
             {
-                ActivityId = entity.ActivityId,
-                Title = entity.Title,
-                Description = entity.Description,
-                StartTime = entity.Start_time,
-                EndTime = entity.End_time,
-                IsRecurring = entity.Is_recurring,
-                RecurrenceRule = entity.Recurrence_rule,
-                CategoryName = category?.Name
-            };
-
+                // Złap każdy błąd runtime i zwróć null
+                return null;
+            }
         }
 
         //PUT modyfikacja aktywności
@@ -133,6 +147,12 @@ namespace todo_backend.Services.TimelineActivityService
                 .FirstOrDefaultAsync(t => t.ActivityId == activityId && t.OwnerId == currentUserId);
 
             if (entity == null) return false;
+
+
+            // Usuń zaproszenia związane z tą aktywnością
+            var activityMembers = _context.ActivityMembers
+                .Where(am => am.ActivityId == activityId);
+            _context.ActivityMembers.RemoveRange(activityMembers);
 
             _context.TimelineActivities.Remove(entity);
             await _context.SaveChangesAsync();

@@ -66,6 +66,8 @@ namespace todo_backend.Controllers
                 return BadRequest(ModelState);
 
             var category = await _categoryService.UpdateCategoryAsync(dto, id, userId);
+            if (category == null) return NotFound();
+
             return Ok(category);
         }
 

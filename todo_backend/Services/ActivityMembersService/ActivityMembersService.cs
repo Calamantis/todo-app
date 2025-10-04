@@ -51,25 +51,30 @@ namespace todo_backend.Services.ActivityMembersService
                            })
                            .ToListAsync();
 
+
             return sentInvites;
         }
 
         //POST wyslanie zaproszenia
-        public async Task<bool> SendInviteAsync(int activityId, int userId)
+        public async Task<bool> SendInviteAsync(int activityId, int ownerId, int invitedUserId)
         {
-            var activity = await _context.TimelineActivities.FindAsync(activityId);
-            if (activity == null || activity.OwnerId != userId) return false; // tylko owner może wysłać zaproszenie
+            // Nie można zaprosić samego siebie
+            if (ownerId == invitedUserId) return false;
 
-            var existingInvite = await _context.ActivityMembers
-                .AnyAsync(am => am.ActivityId == activityId && am.UserId == userId);
-            if (existingInvite) return false; // zaproszenie już zostało wysłane
+            var activity = await _context.TimelineActivities.FindAsync(activityId);
+            if (activity == null || activity.OwnerId != ownerId) return false;
+
+            // Sprawdź czy taki rekord już istnieje
+            var exists = await _context.ActivityMembers
+                .AnyAsync(am => am.ActivityId == activityId && am.UserId == invitedUserId);
+            if (exists) return false;
 
             var activityMember = new ActivityMembers
             {
                 ActivityId = activityId,
-                UserId = userId,
-                Role = "participant", // standardowa rola
-                Status = "pending" // zaproszenie w stanie "pending"
+                UserId = invitedUserId,
+                Role = "participant",
+                Status = "pending"
             };
 
             _context.ActivityMembers.Add(activityMember);

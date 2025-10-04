@@ -36,7 +36,7 @@ namespace todo_backend.Controllers
 
         //GET po id
         [Authorize]
-        [HttpGet("{id}")]
+        [HttpGet("find-activity")]
         public async Task<ActionResult<FullTimelineActivityDto>> GetActivity(int activityId)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -44,6 +44,7 @@ namespace todo_backend.Controllers
             int userId = int.Parse(userIdClaim.Value);
 
             var activity = await _timelineActivityService.GetTimelineActivityByIdAsync(activityId, userId);
+            if (activity == null) return BadRequest();
             return Ok(activity);
         }
         //POST stworzenie aktywnosci
@@ -59,6 +60,7 @@ namespace todo_backend.Controllers
                 return BadRequest(ModelState);
 
             var activity = await _timelineActivityService.CreateTimelineActivityAsync(dto, userId);
+            if (activity == null) return BadRequest("errormessage");
             return CreatedAtAction(nameof(GetActivity), new { id = activity.ActivityId }, activity);
             //return NoContent();
         }

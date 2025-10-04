@@ -83,6 +83,11 @@
         "Name": "activityId",
         "Type": "System.Int32",
         "IsRequired": false
+      },
+      {
+        "Name": "invitedUserId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -333,37 +338,6 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "GetActivity",
-    "RelativePath": "api/TimelineActivity/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "id",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
     "Method": "GetActivities",
     "RelativePath": "api/TimelineActivity/browse-activities",
     "HttpMethod": "GET",
@@ -437,6 +411,32 @@
         "Type": "todo_backend.Dtos.TimelineActivity.UpdateTimelineActivityDto",
         "IsRequired": true
       },
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "GetActivity",
+    "RelativePath": "api/TimelineActivity/find-activity",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
         "Name": "activityId",
         "Type": "System.Int32",

@@ -56,10 +56,10 @@ namespace todo_backend.Services.CategoryService
         }
 
         //PUT modyfikowanie kategorii
-        public async Task<CategoryDto> UpdateCategoryAsync(CategoryDto dto, int id, int currentUserId)
+        public async Task<CategoryDto?> UpdateCategoryAsync(CategoryDto dto, int id, int currentUserId)
         {
             var category = await _context.Categories.FindAsync(id); //id kategorii a nie uzytkownika
-            if (category == null) return null!;
+            if (category == null) return null;
 
             if (category.UserId != currentUserId)
                 throw new UnauthorizedAccessException("You cannot edit someone else's category.");

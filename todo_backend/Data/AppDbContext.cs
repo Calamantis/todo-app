@@ -64,9 +64,17 @@ namespace todo_backend.Data
                 .HasForeignKey(a => a.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            //klucz do aktywnosci z znajomymi
+            modelBuilder.Entity<ActivityMembers>()
+                .HasKey(am => new { am.ActivityId, am.UserId });
 
+
+            // Zaproszenia do aktywnosci usuwane razem z aktywnością
+            //modelBuilder.Entity<ActivityMembers>()
+            //.HasOne(am => am.Activity)
+            //.WithMany(a => a.ActivityMembers)
+            //.HasForeignKey(am => am.ActivityId)
+            //.OnDelete(DeleteBehavior.Cascade); 
         }
-
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace todo_backend.Models
 {
@@ -15,6 +16,7 @@ namespace todo_backend.Models
 
         [Required]
         [MaxLength(100)]
+        [MinLength(1)]
         public string Title { get; set; } = string.Empty;
 
         [MaxLength(500)]

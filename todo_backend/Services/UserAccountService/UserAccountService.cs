@@ -55,13 +55,26 @@ namespace todo_backend.Services.UserAccountService
             .FirstOrDefaultAsync(u => u.UserId == id);
             if (user == null) return false;
 
+
+            // Usuń wszystkich znajomych i z ich znajomych
             var friendships = _context.Friendships
             .Where(f => f.UserId == id || f.FriendId == id);
             _context.Friendships.RemoveRange(friendships);
 
+            // Usuń wszystkie aktywności
             _context.TimelineActivities.RemoveRange(user.TimelineActivities);
 
+            // Usuń wszystkie kategorie
             _context.Categories.RemoveRange(user.Categories);
+
+            // Usuń wszystkie zaproszenia, które użytkownik wysłał (ActivityMembers - Role: owner)
+            var sentInvites = _context.ActivityMembers.Where(am => am.UserId == id);
+            _context.ActivityMembers.RemoveRange(sentInvites);
+
+            // Usuń zaproszenia, które użytkownik otrzymał
+            var receivedInvites = _context.ActivityMembers.Where(am => am.UserId == id && am.Status == "pending");
+            _context.ActivityMembers.RemoveRange(receivedInvites);
+
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();

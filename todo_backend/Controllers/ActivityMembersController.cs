@@ -47,7 +47,7 @@ namespace todo_backend.Controllers
         //POST wyslanie zaproszenia
         [Authorize]
         [HttpPost("send-invitation")]
-        public async Task<ActionResult> SendInvite(int activityId)
+        public async Task<ActionResult> SendInvite(int activityId, int invitedUserId)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null) return Unauthorized();
@@ -56,9 +56,9 @@ namespace todo_backend.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var invite = await _activityMembersService.SendInviteAsync(activityId, userId);
+            var invite = await _activityMembersService.SendInviteAsync(activityId, userId, invitedUserId);
 
-            if (!invite) return BadRequest("Invite already sent or you are not the owner.");
+            if (!invite) return BadRequest();
 
             return NoContent();
         }
@@ -73,7 +73,7 @@ namespace todo_backend.Controllers
             int userId = int.Parse(userIdClaim.Value);
 
             var accept = await _activityMembersService.AcceptInviteAsync(activityId, userId);
-            if (!accept) return BadRequest("Invite already sent or you are not the owner.");
+            if (!accept) return BadRequest();
             return NoContent();
 
         }
@@ -88,7 +88,7 @@ namespace todo_backend.Controllers
             int userId = int.Parse(userIdClaim.Value);
 
             var success = await _activityMembersService.RevokeInviteAsync(activityId, userId);
-            if (!success) return BadRequest("Invite not found or already accepted.");
+            if (!success) return BadRequest();
             return NoContent();
         }
     }

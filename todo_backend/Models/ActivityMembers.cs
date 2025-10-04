@@ -5,6 +5,7 @@ namespace todo_backend.Models
 {
     public class ActivityMembers
     {
+        [Key]
         [Required]
         public int ActivityId { get; set; }
 

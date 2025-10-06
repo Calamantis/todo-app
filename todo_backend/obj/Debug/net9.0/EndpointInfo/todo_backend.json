@@ -5,10 +5,44 @@
     "version": "v1"
   },
   "paths": {
+    "/api/ActivityMembers/browse-recieved": {
+      "get": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/show-accepted": {
+      "get": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ActivityMembers/browse-invites": {
       "get": {
         "tags": [
           "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -43,10 +77,20 @@
         }
       }
     },
-    "/api/ActivityMembers/browse-accepted": {
+    "/api/ActivityMembers/show-participants": {
       "get": {
         "tags": [
           "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -111,8 +155,109 @@
         }
       }
     },
-    "/api/ActivityMembers/accept-invitation": {
+    "/api/ActivityMembers/update-invite-status": {
       "patch": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInviteStatusDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInviteStatusDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInviteStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/revoke-invite": {
+      "delete": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/remove-participant": {
+      "delete": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMembers/cancel-attendance": {
+      "delete": {
         "tags": [
           "ActivityMembers"
         ],
@@ -133,7 +278,7 @@
         }
       }
     },
-    "/api/ActivityMembers/revoke-invitation": {
+    "/api/ActivityMembers/remove-everyone": {
       "delete": {
         "tags": [
           "ActivityMembers"
@@ -1570,6 +1715,16 @@
             "maxLength": 50,
             "minLength": 0,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateInviteStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

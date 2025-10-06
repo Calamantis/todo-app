@@ -1,9 +1,45 @@
 [
   {
     "ContainingType": "todo_backend.Controllers.ActivityMembersController",
-    "Method": "AcceptInvite",
-    "RelativePath": "api/ActivityMembers/accept-invitation",
-    "HttpMethod": "PATCH",
+    "Method": "GetSendInvites",
+    "RelativePath": "api/ActivityMembers/browse-invites",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.ActivityMembers.FullActivityMembersDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "GetRevievedInvites",
+    "RelativePath": "api/ActivityMembers/browse-recieved",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "CancelInvite",
+    "RelativePath": "api/ActivityMembers/cancel-attendance",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -17,54 +53,56 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.ActivityMembersController",
-    "Method": "GetAcceptedInvites",
-    "RelativePath": "api/ActivityMembers/browse-accepted",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.ActivityMembers.FullActivityMembersDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
-    "Method": "GetSendInvites",
-    "RelativePath": "api/ActivityMembers/browse-invites",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.ActivityMembers.FullActivityMembersDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
-    "Method": "RevokeInvite",
-    "RelativePath": "api/ActivityMembers/revoke-invitation",
+    "Method": "DeleteActivity",
+    "RelativePath": "api/ActivityMembers/remove-everyone",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "RemoveParticipant",
+    "RelativePath": "api/ActivityMembers/remove-participant",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "targetUserId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "RevokeInvite",
+    "RelativePath": "api/ActivityMembers/revoke-invite",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "targetUserId",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -88,6 +126,63 @@
         "Name": "invitedUserId",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "GetAcceptedInvites",
+    "RelativePath": "api/ActivityMembers/show-accepted",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "ShowParticipants",
+    "RelativePath": "api/ActivityMembers/show-participants",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.ActivityMembers.FullActivityMembersDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "UpdateInviteStatus",
+    "RelativePath": "api/ActivityMembers/update-invite-status",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityMembers.UpdateInviteStatusDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

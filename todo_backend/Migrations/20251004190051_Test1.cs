@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace todo_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Categories : Migration
+    public partial class Test1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,6 +103,37 @@ namespace todo_backend.Migrations
                         principalColumn: "UserId");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ActivityMembers",
+                columns: table => new
+                {
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivityMembers", x => new { x.ActivityId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_ActivityMembers_TimelineActivities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "TimelineActivities",
+                        principalColumn: "ActivityId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ActivityMembers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityMembers_UserId",
+                table: "ActivityMembers",
+                column: "UserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_UserId_Name",
                 table: "Categories",
@@ -128,6 +159,9 @@ namespace todo_backend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ActivityMembers");
+
             migrationBuilder.DropTable(
                 name: "Friendships");
 

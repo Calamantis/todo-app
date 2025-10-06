@@ -36,7 +36,7 @@ namespace todo_backend.Models
 
         public string? Recurrence_rule { get; set; }
 
-
+        public ICollection<ActivityMembers> ActivityMembers { get; set; } = new List<ActivityMembers>();
         public User User { get; set; } = null!;
     }
 }

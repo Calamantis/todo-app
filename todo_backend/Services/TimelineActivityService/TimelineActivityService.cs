@@ -87,6 +87,17 @@ namespace todo_backend.Services.TimelineActivityService
                 _context.TimelineActivities.Add(entity);
                 await _context.SaveChangesAsync();
 
+                // 🔹 Dodaj ownera do ActivityMembers
+                var ownerMember = new ActivityMembers
+                {
+                    ActivityId = entity.ActivityId,
+                    UserId = currentUserId,
+                    Role = "owner",
+                    Status = "accepted" // automatycznie zaakceptowany
+                };
+                _context.ActivityMembers.Add(ownerMember);
+                await _context.SaveChangesAsync();
+
                 return new FullTimelineActivityDto
                 {
                     ActivityId = entity.ActivityId,

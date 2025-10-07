@@ -70,6 +70,9 @@ namespace todo_backend.Services.UserAccountService
             // Usuń wszystkie kategorie
             _context.Categories.RemoveRange(user.Categories);
 
+            //Usuń wszystkich zablokowanych użytkowników
+            _context.BlockedUsers.RemoveRange(user.BlockedUsers);
+
             // Usuń wszystkie zaproszenia, które użytkownik wysłał (ActivityMembers - Role: owner)
             var sentInvites = _context.ActivityMembers.Where(am => am.UserId == id);
             _context.ActivityMembers.RemoveRange(sentInvites);

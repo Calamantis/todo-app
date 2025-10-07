@@ -3,16 +3,19 @@ using todo_backend.Data;
 using todo_backend.Dtos.Friendship;
 using todo_backend.Dtos.User;
 using todo_backend.Models;
+using todo_backend.Services.BlockedUsersService;
 
 namespace todo_backend.Services.UserFriendActions
 {
     public class UserFriendActionsService : IUserFriendActionsService
     {
         private readonly AppDbContext _context;
+        private readonly IBlockedUsersService _blockedUsersService;
 
-        public UserFriendActionsService(AppDbContext context)
+        public UserFriendActionsService(AppDbContext context, IBlockedUsersService blockedUsersService)
         {
             _context = context;
+            _blockedUsersService = blockedUsersService;
         }
 
         //GET user's friendships
@@ -91,21 +94,17 @@ namespace todo_backend.Services.UserFriendActions
             if (targetUser == null || !targetUser.AllowFriendInvites)
                 return null;
 
-            // normalizacja pary
-            int userId = requesterId;
-            if (userId > friendId)
-                (userId, friendId) = (friendId, userId);
-
-            // sprawdź czy istnieje
             var exists = await _context.Friendships
-                .AnyAsync(f => f.UserId == userId && f.FriendId == friendId);
+                .AnyAsync(f => (f.UserId == requesterId && f.FriendId == friendId) ||
+                               (f.UserId == friendId && f.FriendId == requesterId));
             if (exists) return null;
 
-             
+            var isBlocked = await _blockedUsersService.IsBlockedAsync(requesterId, friendId);
+            if (isBlocked) return null; 
 
             var friendship = new Friendship
             {
-                UserId = userId,
+                UserId = requesterId,
                 FriendId = friendId,
                 Status = "pending",
                 FriendsSince = DateTime.UtcNow
@@ -121,10 +120,10 @@ namespace todo_backend.Services.UserFriendActions
         //PATCH accept recieved friend request
         public async Task<bool> AcceptFriendshipAsync(int userId, int friendId)
         {
-            if (userId > friendId) (userId, friendId) = (friendId, userId);
-
             var friendship = await _context.Friendships
-                .FirstOrDefaultAsync(f => f.UserId == userId && f.FriendId == friendId);
+                    .FirstOrDefaultAsync(f =>
+                        f.UserId == friendId && f.FriendId == userId &&
+                        f.Status == "pending"); // akceptacja tylko pending
 
             if (friendship == null) return false;
 
@@ -169,11 +168,11 @@ namespace todo_backend.Services.UserFriendActions
         //DELETE delete friend from friendlist
         public async Task<bool> RemoveFriendAsync(int userId, int friendId)
         {
-            // normalizacja pary
-            if (userId > friendId) (userId, friendId) = (friendId, userId);
-
             var friendship = await _context.Friendships
-                .FirstOrDefaultAsync(f => f.UserId == userId && f.FriendId == friendId && f.Status == "accepted");
+                .FirstOrDefaultAsync(f =>
+                    ((f.UserId == userId && f.FriendId == friendId) ||
+                     (f.UserId == friendId && f.FriendId == userId)) &&
+                     f.Status == "accepted");
 
             if (friendship == null) return false;
 

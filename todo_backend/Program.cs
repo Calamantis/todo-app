@@ -13,6 +13,7 @@ using todo_backend.Services.TimelineActivityService;
 using todo_backend.Services.CategoryService;
 using todo_backend.Services.ActivityMembersService;
 using todo_backend.Services.ActivityStorage;
+using todo_backend.Services.BlockedUsersService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +74,7 @@ builder.Services.AddScoped<ITimelineActivityService, TimelineActivityService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IActivityMembersService, ActivityMembersService>();
 builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
+builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

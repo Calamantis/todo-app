@@ -19,6 +19,8 @@ namespace todo_backend.Data
 
         public DbSet<ActivityStorage> ActivityStorage { get; set; }
 
+        public DbSet<BlockedUsers>  BlockedUsers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -92,7 +94,26 @@ namespace todo_backend.Data
                   .HasOne(e => e.Category)
                   .WithMany(c => c.ActivityStorage) 
                   .HasForeignKey(e => e.CategoryId)
-                  .OnDelete(DeleteBehavior.NoAction); 
+                  .OnDelete(DeleteBehavior.NoAction);
+
+
+            //Blokowanie
+            modelBuilder.Entity<BlockedUsers>()
+                .HasKey(b => new { b.UserId, b.BlockedUserId });
+
+            // Relacja User -> BlockedUsers (użytkownik blokuje innych)
+            modelBuilder.Entity<BlockedUsers>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.BlockedUsers)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Relacja do zablokowanego użytkownika (opcjonalna nawigacja)
+            modelBuilder.Entity<BlockedUsers>()
+                .HasOne(b => b.BlockedUser)
+                .WithMany()
+                .HasForeignKey(b => b.BlockedUserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
         }

@@ -64,6 +64,9 @@ namespace todo_backend.Services.UserAccountService
             // Usuń wszystkie aktywności
             _context.TimelineActivities.RemoveRange(user.TimelineActivities);
 
+            //Usuń wszystkie templatki aktywnosci
+            _context.ActivityStorage.RemoveRange(user.ActivityStorage);
+
             // Usuń wszystkie kategorie
             _context.Categories.RemoveRange(user.Categories);
 

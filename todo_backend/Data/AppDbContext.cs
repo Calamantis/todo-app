@@ -17,6 +17,8 @@ namespace todo_backend.Data
 
         public DbSet<ActivityMembers> ActivityMembers { get; set; }
 
+        public DbSet<ActivityStorage> ActivityStorage { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -75,6 +77,24 @@ namespace todo_backend.Data
             .WithMany(a => a.ActivityMembers)
             .HasForeignKey(am => am.ActivityId)
             .OnDelete(DeleteBehavior.NoAction);
+
+
+            //activity storage
+            // Relacja do User
+            modelBuilder.Entity<ActivityStorage>()
+                  .HasOne(e => e.User)
+                  .WithMany(u => u.ActivityStorage) 
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.NoAction);
+
+            // Relacja do Category
+            modelBuilder.Entity<ActivityStorage>()
+                  .HasOne(e => e.Category)
+                  .WithMany(c => c.ActivityStorage) 
+                  .HasForeignKey(e => e.CategoryId)
+                  .OnDelete(DeleteBehavior.NoAction); 
+
+
         }
     }
 }

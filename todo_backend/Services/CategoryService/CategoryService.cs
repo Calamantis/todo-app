@@ -97,6 +97,7 @@ namespace todo_backend.Services.CategoryService
             {
                 // tryb 1: usuń wszystkie aktywności
                 _context.TimelineActivities.RemoveRange(category.TimelineActivities);
+                _context.ActivityStorage.RemoveRange(category.ActivityStorage);
             }
 
             // tryb 2: samo usunięcie kategorii → SetNull zadba o FK

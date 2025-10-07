@@ -28,5 +28,7 @@ namespace todo_backend.Models
         public ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
         public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<TimelineActivity> TimelineActivities { get; set; } = new List<TimelineActivity>();
+        public ICollection<ActivityStorage> ActivityStorage { get; set; } = new List<ActivityStorage>();
+
     }
 }

@@ -21,6 +21,8 @@ namespace todo_backend.Data
 
         public DbSet<BlockedUsers>  BlockedUsers { get; set; }
 
+        public DbSet<Statistics> Statistics { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -115,7 +117,12 @@ namespace todo_backend.Data
                 .HasForeignKey(b => b.BlockedUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
+            // Statystyka
+            modelBuilder.Entity<Statistics>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.Statistics) // musisz dodać ICollection<Statistics> Statistics w User
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.NoAction); // jeśli chcesz usuwać statystyki przy usuwaniu użytkownika
         }
     }
 }

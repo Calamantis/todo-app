@@ -14,6 +14,7 @@ using todo_backend.Services.CategoryService;
 using todo_backend.Services.ActivityMembersService;
 using todo_backend.Services.ActivityStorage;
 using todo_backend.Services.BlockedUsersService;
+using todo_backend.Services.StatisticsService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IActivityMembersService, ActivityMembersService>();
 builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
 builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
+builder.Services.AddScoped<IStatisticService, StatisticService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

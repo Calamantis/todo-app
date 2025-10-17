@@ -30,7 +30,8 @@ namespace todo_backend.Services.TimelineActivityService
                             EndTime = t.End_time,
                             IsRecurring = t.Is_recurring,
                             RecurrenceRule = t.Recurrence_rule,
-                            CategoryName = t.Category != null ? t.Category.Name : null
+                            CategoryName = t.Category != null ? t.Category.Name : null,
+                            JoinCode = t.JoinCode
                         })
                         .ToListAsync();
         }
@@ -53,7 +54,8 @@ namespace todo_backend.Services.TimelineActivityService
                 EndTime = activity.End_time,
                 IsRecurring = activity.Is_recurring,
                 RecurrenceRule = activity.Recurrence_rule,
-                CategoryName = activity.Category != null ? activity.Category.Name : null
+                CategoryName = activity.Category != null ? activity.Category.Name : null,
+                JoinCode = activity.JoinCode
             };
 
         }
@@ -81,7 +83,8 @@ namespace todo_backend.Services.TimelineActivityService
                     Start_time = dto.StartTime,
                     End_time = dto.EndTime,
                     Is_recurring = dto.IsRecurring,
-                    Recurrence_rule = dto.RecurrenceRule
+                    Recurrence_rule = dto.RecurrenceRule,
+                    JoinCode = GenerateJoinCode()
                 };
 
                 _context.TimelineActivities.Add(entity);
@@ -146,7 +149,8 @@ namespace todo_backend.Services.TimelineActivityService
                 EndTime = entity.End_time,
                 IsRecurring = entity.Is_recurring,
                 RecurrenceRule = entity.Recurrence_rule,
-                CategoryName = category?.Name
+                CategoryName = category?.Name,
+                JoinCode = entity.JoinCode
             };
 
         }
@@ -170,5 +174,13 @@ namespace todo_backend.Services.TimelineActivityService
 
             return true;
         }
+
+        private static string GenerateJoinCode(int length = 8)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
+        }
+
     }
 }

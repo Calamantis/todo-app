@@ -91,6 +91,23 @@ namespace todo_backend.Controllers
             return NoContent();
         }
 
+        //POST dolaczenie po kodzie aktywnosci (dla osob spoza listy znajomych)
+        [Authorize]
+        [HttpPost("join-by-code/{joinCode}")]
+        public async Task<IActionResult> JoinByCode(string joinCode)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var success = await _activityMembersService.JoinActivityByCodeAsync(joinCode, userId);
+            if (!success) return BadRequest("Invalid or expired code.");
+
+            return Ok("Successfully joined the activity.");
+        }
+
+
         //PATCH akceptacja zaproszenia
         //[Authorize]
         //[HttpPatch("accept-invitation")]

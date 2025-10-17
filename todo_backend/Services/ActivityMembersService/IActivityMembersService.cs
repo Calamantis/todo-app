@@ -9,6 +9,7 @@ namespace todo_backend.Services.ActivityMembersService
         Task<IEnumerable<FullActivityMembersDto?>> GetSentInvitesAsync(int activityId, int userId);
         Task<IEnumerable<FullActivityMembersDto?>> GetParticipantsOfActivityAsync(int activityId, int requestingUserId);
         Task<ActivityInviteDto?> SendInviteAsync(int activityId, int userId, int invitedUserId);
+        Task<bool> JoinActivityByCodeAsync(string joinCode, int userId);
         //Task<bool> AcceptInviteAsync(int activityId, int userId);
         Task<bool> UpdateInviteStatusAsync(int activityId, int userId, string status);
         //Task<bool> RevokeInviteAsync(int activityId, int userId);

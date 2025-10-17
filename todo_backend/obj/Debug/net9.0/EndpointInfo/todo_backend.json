@@ -155,6 +155,28 @@
         }
       }
     },
+    "/api/ActivityMembers/join-by-code/{joinCode}": {
+      "post": {
+        "tags": [
+          "ActivityMembers"
+        ],
+        "parameters": [
+          {
+            "name": "joinCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ActivityMembers/update-invite-status": {
       "patch": {
         "tags": [
@@ -1413,17 +1435,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateFullNameDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateFullNameDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateFullNameDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             }
           }
@@ -1494,17 +1516,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateFullNameDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateFullNameDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateFullNameDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             }
           }
@@ -1904,6 +1926,10 @@
           "token": {
             "type": "string",
             "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2004,6 +2030,18 @@
           "friendEmail": {
             "type": "string",
             "nullable": true
+          },
+          "friendImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "friendBackground": {
+            "type": "string",
+            "nullable": true
+          },
+          "synopsis": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2102,6 +2140,10 @@
           "categoryName": {
             "type": "string",
             "nullable": true
+          },
+          "joinCode": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2160,20 +2202,6 @@
         },
         "additionalProperties": false
       },
-      "UpdateFullNameDto": {
-        "required": [
-          "fullName"
-        ],
-        "type": "object",
-        "properties": {
-          "fullName": {
-            "maxLength": 50,
-            "minLength": 0,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "UpdateInviteStatusDto": {
         "type": "object",
         "properties": {
@@ -2219,6 +2247,32 @@
         },
         "additionalProperties": false
       },
+      "UpdateUserDto": {
+        "required": [
+          "fullName"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "profileImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "backgroundImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "synopsis": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UserCreateDto": {
         "required": [
           "email",
@@ -2254,6 +2308,18 @@
             "nullable": true
           },
           "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "profileImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "backgroundImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "synopsis": {
             "type": "string",
             "nullable": true
           }

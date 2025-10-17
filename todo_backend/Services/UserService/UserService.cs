@@ -76,7 +76,9 @@ namespace todo_backend.Services.UserService
         //    return response;
         //}
 
-        public async Task<FullUserDetailsDto?> UpdateUserAsync(int id, UpdateFullNameDto dto)
+
+        // OUTDATED DTO !!! NEEDS TO BE REWRITED FOR ADMIN USE !!!
+        public async Task<FullUserDetailsDto?> UpdateUserAsync(int id, UpdateUserDto dto)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return null;

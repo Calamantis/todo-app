@@ -55,7 +55,7 @@ namespace MyApp.Controllers
 
         // PUT: api/users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UpdateFullNameDto dto)
+        public async Task<IActionResult> UpdateUser(int id, UpdateUserDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

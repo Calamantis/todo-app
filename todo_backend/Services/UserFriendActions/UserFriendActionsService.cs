@@ -28,7 +28,10 @@ namespace todo_backend.Services.UserFriendActions
                     FriendsSince = f.FriendsSince,
                     // jeśli ja jestem UserId, to znajomym jest FriendId, w przeciwnym razie odwrotnie
                     FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,
-                    FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email
+                    FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email,
+                    FriendImage = f.UserId == userId ? f.Friend.ProfileImageUrl : f.User.ProfileImageUrl,
+                    FriendBackground = f.UserId == userId ? f.Friend.BackgroundImageUrl : f.User.BackgroundImageUrl,
+                    Synopsis = f.UserId == userId ? f.Friend.Synopsis : f.User.Synopsis
                 })
                 .ToListAsync();
 
@@ -47,7 +50,10 @@ namespace todo_backend.Services.UserFriendActions
                       {
                           FriendsSince = f.FriendsSince,
                           FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,
-                          FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email
+                          FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email,
+                          FriendImage = f.UserId == userId ? f.Friend.ProfileImageUrl : f.User.ProfileImageUrl,
+                          FriendBackground = f.UserId == userId ? f.Friend.BackgroundImageUrl : f.User.BackgroundImageUrl,
+                          Synopsis = f.UserId == userId ? f.Friend.Synopsis : f.User.Synopsis
                       })
                 .ToListAsync();
         }
@@ -64,7 +70,10 @@ namespace todo_backend.Services.UserFriendActions
                       {
                           FriendsSince = f.FriendsSince,
                           FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,
-                          FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email
+                          FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email,
+                          FriendImage = f.UserId == userId ? f.Friend.ProfileImageUrl : f.User.ProfileImageUrl,
+                          FriendBackground = f.UserId == userId ? f.Friend.BackgroundImageUrl : f.User.BackgroundImageUrl,
+                          Synopsis = f.UserId == userId ? f.Friend.Synopsis : f.User.Synopsis
                       })
                 .ToListAsync();
         }
@@ -77,7 +86,10 @@ namespace todo_backend.Services.UserFriendActions
                .Select(u => new UserResponseDto
                {
                    Email = u.Email,
-                   FullName = u.FullName
+                   FullName = u.FullName,
+                   ProfileImageUrl = u.ProfileImageUrl,
+                   BackgroundImageUrl = u.BackgroundImageUrl,
+                   Synopsis = u.Synopsis
                })
                .ToListAsync();
 

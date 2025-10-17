@@ -123,6 +123,18 @@ namespace todo_backend.Data
                 .WithMany(u => u.Statistics) // musisz dodać ICollection<Statistics> Statistics w User
                 .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.NoAction); // jeśli chcesz usuwać statystyki przy usuwaniu użytkownika
+
+            // Unikalne kody dołączania do aktywości dla nie-znajomych
+            modelBuilder.Entity<TimelineActivity>()
+                .HasIndex(a => a.JoinCode)
+                .IsUnique();
+
+            //Role jako string
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
+                .HasConversion<string>()
+                .HasMaxLength(20);
+
         }
     }
 }

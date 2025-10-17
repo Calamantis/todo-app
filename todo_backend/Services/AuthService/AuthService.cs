@@ -32,7 +32,8 @@ namespace todo_backend.Services.AuthService
             {
                 Email = dto.Email,
                 PasswordHash = _passwordService.Hash(dto.Password),
-                FullName = dto.FullName
+                FullName = dto.FullName,
+                Role = UserRole.User
             };
 
             _context.Users.Add(user);
@@ -59,7 +60,8 @@ namespace todo_backend.Services.AuthService
 
             return new AuthResponseDto
             {
-                Token = token//,
+                Token = token,
+                Role = user.Role.ToString()//,
                 //UserId = user.UserId,
                 //Email = user.Email,
                 //FullName = user.FullName,
@@ -77,7 +79,8 @@ namespace todo_backend.Services.AuthService
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("fullName", user.FullName)
+                new Claim("fullName", user.FullName),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             var token = new JwtSecurityToken(

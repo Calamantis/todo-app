@@ -53,6 +53,22 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.ActivityMembersController",
+    "Method": "JoinByCode",
+    "RelativePath": "api/ActivityMembers/join-by-code/{joinCode}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "joinCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMembersController",
     "Method": "DeleteActivity",
     "RelativePath": "api/ActivityMembers/remove-everyone",
     "HttpMethod": "DELETE",
@@ -813,7 +829,7 @@
       },
       {
         "Name": "dto",
-        "Type": "todo_backend.Dtos.User.UpdateFullNameDto",
+        "Type": "todo_backend.Dtos.User.UpdateUserDto",
         "IsRequired": true
       }
     ],
@@ -917,7 +933,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "todo_backend.Dtos.User.UpdateFullNameDto",
+        "Type": "todo_backend.Dtos.User.UpdateUserDto",
         "IsRequired": true
       }
     ],

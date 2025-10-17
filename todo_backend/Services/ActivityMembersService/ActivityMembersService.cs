@@ -100,7 +100,7 @@ namespace todo_backend.Services.ActivityMembersService
 
 
             var participants = await _context.ActivityMembers
-                .Where(am => am.ActivityId == activityId && am.Status == "accepted")
+                .Where(am => am.ActivityId == activityId && am.Status == "accepted" || am.Status == "auto_accepted")
                 .Include(am => am.User)
                 .Select(am => new FullActivityMembersDto
                 {
@@ -159,6 +159,37 @@ namespace todo_backend.Services.ActivityMembersService
                 OwnerFullName = activity.User.FullName,
                 Status = activityMember.Status
             };
+        }
+
+        //POST dolaczenie po kodzie
+        public async Task<bool> JoinActivityByCodeAsync(string joinCode, int userId)
+        {
+            var activity = await _context.TimelineActivities
+                .FirstOrDefaultAsync(a => a.JoinCode == joinCode);
+
+            if (activity == null)
+                return false;
+
+            // Sprawdź czy już jest uczestnikiem
+            var alreadyMember = await _context.ActivityMembers
+                .AnyAsync(am => am.ActivityId == activity.ActivityId && am.UserId == userId);
+
+            if (alreadyMember)
+                return false;
+
+            // Dodaj użytkownika jako uczestnika (auto accepted)
+            var newMember = new ActivityMembers
+            {
+                ActivityId = activity.ActivityId,
+                UserId = userId,
+                Role = "participant",
+                Status = "auto_accepted"
+            };
+
+            _context.ActivityMembers.Add(newMember);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
         //PATCH akceptacja zaproszenia

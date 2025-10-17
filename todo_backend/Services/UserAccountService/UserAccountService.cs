@@ -28,22 +28,31 @@ namespace todo_backend.Services.UserAccountService
             return new UserResponseDto
             {
                 Email = entity.Email,
-                FullName = entity.FullName
+                FullName = entity.FullName,
+                ProfileImageUrl = entity.ProfileImageUrl,
+                BackgroundImageUrl = entity.BackgroundImageUrl,
+                Synopsis = entity.Synopsis
             };
         }
 
-        public async Task<UserResponseDto> UpdateUserAsync(int id, UpdateFullNameDto dto)
+        public async Task<UserResponseDto> UpdateUserAsync(int id, UpdateUserDto dto)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return null!;
 
             user.FullName = dto.FullName;
+            user.ProfileImageUrl = dto.ProfileImageUrl;
+            user.BackgroundImageUrl = dto.BackgroundImageUrl;
+            user.Synopsis = dto.Synopsis;
             await _context.SaveChangesAsync();
 
             return new UserResponseDto
             {
                 Email = user.Email,
-                FullName = user.FullName
+                FullName = user.FullName,
+                ProfileImageUrl = user.ProfileImageUrl,
+                BackgroundImageUrl = user.BackgroundImageUrl,
+                Synopsis = user.Synopsis
             };
         }
 

@@ -24,6 +24,21 @@ namespace todo_backend.Models
 
         public bool AllowFriendInvites { get; set; } = true;
 
+        [MaxLength(255)]
+        [Url(ErrorMessage = "Invalid profile image URL format.")]
+        public string? ProfileImageUrl { get; set; } = "\\TempImageTests\\DefaultProfileImage.png";
+
+        [MaxLength(255)]
+        [Url(ErrorMessage = "Invalid background image URL format.")]
+        public string? BackgroundImageUrl { get; set; } = "\\TempImageTests\\DefaultBgImage.jpg";
+
+        [MaxLength(30)]
+        public string? Synopsis { get; set; } = "No information.";
+
+        [Required]
+        public UserRole Role { get; set; } = UserRole.User;
+
+
         //opcjonalne, do latwego includowania w kodzie
         public ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
         public ICollection<Category> Categories { get; set; } = new List<Category>();
@@ -32,4 +47,13 @@ namespace todo_backend.Models
         public ICollection<BlockedUsers> BlockedUsers { get; set; } = new List<BlockedUsers>();
         public ICollection<Statistics> Statistics { get; set; } = new List<Statistics>();
     }
+
+
+    public enum UserRole
+    {
+        User,
+        Moderator,
+        Admin
+    }
+
 }

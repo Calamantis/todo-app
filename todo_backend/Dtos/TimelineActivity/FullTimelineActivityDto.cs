@@ -13,5 +13,6 @@ namespace todo_backend.Dtos.TimelineActivity
         public bool IsRecurring { get; set; }
         public string? RecurrenceRule { get; set; }
         public string? CategoryName { get; set; }
+        public string? JoinCode { get; set; }
     }
 }

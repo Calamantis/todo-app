@@ -85,6 +85,9 @@ namespace todo_backend.Services.UserAccountService
             //Usuń statystyki uzytkownika
             _context.Statistics.RemoveRange(user.Statistics);
 
+            // Usuń wszystkie alerty i remindery użytkownika
+            _context.Notification.RemoveRange(user.Notifications);
+
             // Usuń wszystkie zaproszenia, które użytkownik wysłał (ActivityMembers - Role: owner)
             var sentInvites = _context.ActivityMembers.Where(am => am.UserId == id);
             _context.ActivityMembers.RemoveRange(sentInvites);

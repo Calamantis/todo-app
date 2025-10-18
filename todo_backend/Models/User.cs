@@ -46,6 +46,7 @@ namespace todo_backend.Models
         public ICollection<ActivityStorage> ActivityStorage { get; set; } = new List<ActivityStorage>();
         public ICollection<BlockedUsers> BlockedUsers { get; set; } = new List<BlockedUsers>();
         public ICollection<Statistics> Statistics { get; set; } = new List<Statistics>();
+        public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
     }
 
 

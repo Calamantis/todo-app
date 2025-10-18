@@ -23,6 +23,8 @@ namespace todo_backend.Data
 
         public DbSet<Statistics> Statistics { get; set; }
 
+        public DbSet<Notification> Notification { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -134,6 +136,13 @@ namespace todo_backend.Data
                 .Property(u => u.Role)
                 .HasConversion<string>()
                 .HasMaxLength(20);
+
+            // Alert i reminders
+            modelBuilder.Entity<Notification>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.Notifications)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

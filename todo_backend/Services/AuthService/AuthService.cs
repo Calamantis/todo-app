@@ -26,8 +26,11 @@ namespace todo_backend.Services.AuthService
             _config = config;
         }
 
-        public async Task<UserResponseDto> CreateUserAsync(UserCreateDto dto)
+        public async Task<UserResponseDto?> CreateUserAsync(UserCreateDto dto)
         {
+            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+               return null;
+
             var user = new User
             {
                 Email = dto.Email,

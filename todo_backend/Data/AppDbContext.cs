@@ -137,6 +137,11 @@ namespace todo_backend.Data
                 .HasConversion<string>()
                 .HasMaxLength(20);
 
+            //Unikalny email
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             // Alert i reminders
             modelBuilder.Entity<Notification>()
                 .HasOne(r => r.User)

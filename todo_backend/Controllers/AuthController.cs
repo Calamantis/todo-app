@@ -33,6 +33,7 @@ namespace todo_backend.Controllers
                 return BadRequest(ModelState);
 
             var user = await _authService.CreateUserAsync(dto);
+            if (user == null) return BadRequest("Email already exists!");
             return Ok(user);
         }
     }

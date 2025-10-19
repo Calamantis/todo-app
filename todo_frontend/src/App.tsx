@@ -35,57 +35,17 @@
 // export default App
 
 
-import { useEffect, useState } from "react";
-import { getUsers, addUser } from "./api";
-import type { User } from "./api";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "../pages/LoginPage";
+import TimelinePage from "../pages/TimelinePage";
 
-function App() {
-  // lista użytkowników (tablica Userów)
-  const [users, setUsers] = useState<User[]>([]);
-
-  // nowy użytkownik (bez id, bo to nada backend)
-  const [newUser, setNewUser] = useState<Omit<User, "id">>({
-    name: "",
-    email: "",
-  });
-
-  useEffect(() => {
-    getUsers().then(setUsers);
-  }, []);
-
-  const handleAddUser = async () => {
-    const created = await addUser(newUser);
-    setUsers([...users, created]);
-    setNewUser({ name: "", email: "" });
-  };
-
+export default function App() {
   return (
-    <div>
-      <h1>Lista użytkowników</h1>
-      <ul>
-        {users.map((u) => (
-          <li key={u.id}>
-            {u.name} ({u.email})
-          </li>
-        ))}
-      </ul>
-
-      <h2>Dodaj użytkownika</h2>
-      <input
-        type="text"
-        placeholder="Imię"
-        value={newUser.name}
-        onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={newUser.email}
-        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-      />
-      <button onClick={handleAddUser}>Dodaj</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/timeline" element={<TimelinePage />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

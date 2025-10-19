@@ -6,7 +6,7 @@ namespace todo_backend.Services.AuthService
 {
     public interface IAuthService
     {
-        Task<UserResponseDto> CreateUserAsync(UserCreateDto dto);
+        Task<UserResponseDto?> CreateUserAsync(UserCreateDto dto);
         Task<AuthResponseDto?> AuthenticateAsync(LoginDto dto);
         string GenerateJwtToken(User user);
     }

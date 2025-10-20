@@ -4,16 +4,19 @@ using todo_backend.Data;
 using todo_backend.Dtos.Friendship;
 using todo_backend.Dtos.TimelineActivity;
 using todo_backend.Models;
+using todo_backend.Services.RecurrenceService;
 
 namespace todo_backend.Services.TimelineActivityService
 {
     public class TimelineActivityService : ITimelineActivityService
     {
         private readonly AppDbContext _context;
+        private readonly IRecurrenceService _recurrenceService;
 
-        public TimelineActivityService(AppDbContext context) 
+        public TimelineActivityService(AppDbContext context, IRecurrenceService recurrenceService) 
         { 
             _context = context;
+            _recurrenceService = recurrenceService;
         }
 
         //GET przeglądanie (swoich) aktywnosci
@@ -174,6 +177,53 @@ namespace todo_backend.Services.TimelineActivityService
 
             return true;
         }
+
+        // Pod wyswietlanie rekurencyjne
+        public async Task<IEnumerable<TimelineActivityInstanceDto>> GetTimelineForUserAsync(int userId, int daysAhead)
+        {
+            var activities = await _context.TimelineActivities
+                .Include(a => a.Category)
+                .Where(a => a.OwnerId == userId)
+                .ToListAsync();
+
+            var allInstances = new List<TimelineActivityInstanceDto>();
+
+            foreach (var activity in activities)
+            {
+                if (activity.Is_recurring && !string.IsNullOrEmpty(activity.Recurrence_rule))
+                {
+                    var occurrences = _recurrenceService.GenerateOccurrences(activity.Start_time, activity.Recurrence_rule, daysAhead);
+                    foreach (var date in occurrences)
+                    {
+                        allInstances.Add(new TimelineActivityInstanceDto
+                        {
+                            ActivityId = activity.ActivityId,
+                            Title = activity.Title,
+                            StartTime = date,
+                            EndTime = activity.End_time?.Add(date - activity.Start_time),
+                            ColorHex = activity.Category?.ColorHex,
+                            IsRecurring = true
+                        });
+                    }
+                }
+                else
+                {
+                    allInstances.Add(new TimelineActivityInstanceDto
+                    {
+                        ActivityId = activity.ActivityId,
+                        Title = activity.Title,
+                        StartTime = activity.Start_time,
+                        EndTime = activity.End_time,
+                        ColorHex = activity.Category?.ColorHex,
+                        IsRecurring = false
+                    });
+                }
+            }
+
+            return allInstances;
+        }
+
+
 
         private static string GenerateJoinCode(int length = 8)
         {

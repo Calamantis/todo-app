@@ -99,5 +99,20 @@ namespace todo_backend.Controllers
             return NoContent();
 
         }
+
+        [Authorize]
+        [HttpGet("get-timeline")]
+        public async Task<IActionResult> GetTimeline([FromQuery] int daysAhead = 30)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
+
+
+            var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, daysAhead);
+            return Ok(activities);
+        }
+
+
     }
 }

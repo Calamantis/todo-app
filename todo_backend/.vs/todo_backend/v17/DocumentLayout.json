@@ -3,12 +3,52 @@
   "WorkspaceRootPath": "H:\\todo_application\\todo_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\timelineactivity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\timelineactivity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\recurrenceservice\\recurrenceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\recurrenceservice\\recurrenceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\recurrencecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\recurrencecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\timelineactivityservice\\itimelineactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\timelineactivityservice\\itimelineactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\timelineactivityservice\\timelineactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\timelineactivityservice\\timelineactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\timelineactivity\\timelineactivityinstancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\timelineactivity\\timelineactivityinstancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\timelineactivitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\timelineactivitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\timelineactivity\\fulltimelineactivitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\timelineactivity\\fulltimelineactivitydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\recurrenceservice\\irecurrenceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\recurrenceservice\\irecurrenceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\authservice\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,10 +99,6 @@
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\notification\\createnotificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\notification\\notificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\notification\\notificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -74,24 +110,25 @@
       "DocumentGroups": [
         {
           "DockedWidth": 556,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAFIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-28T16:05:51.303Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
@@ -105,7 +142,124 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TimelineActivity.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\TimelineActivity.cs",
+              "RelativeDocumentMoniker": "Models\\TimelineActivity.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\TimelineActivity.cs",
+              "RelativeToolTip": "Models\\TimelineActivity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T12:10:25.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ITimelineActivityService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\TimelineActivityService\\ITimelineActivityService.cs",
+              "RelativeDocumentMoniker": "Services\\TimelineActivityService\\ITimelineActivityService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\TimelineActivityService\\ITimelineActivityService.cs",
+              "RelativeToolTip": "Services\\TimelineActivityService\\ITimelineActivityService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:45:07.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FullTimelineActivityDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\TimelineActivity\\FullTimelineActivityDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\TimelineActivity\\FullTimelineActivityDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\TimelineActivity\\FullTimelineActivityDto.cs",
+              "RelativeToolTip": "Dtos\\TimelineActivity\\FullTimelineActivityDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:17:19.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TimelineActivityInstanceDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\TimelineActivity\\TimelineActivityInstanceDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\TimelineActivity\\TimelineActivityInstanceDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\TimelineActivity\\TimelineActivityInstanceDto.cs",
+              "RelativeToolTip": "Dtos\\TimelineActivity\\TimelineActivityInstanceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:17:04.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TimelineActivityController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\TimelineActivityController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TimelineActivityController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\TimelineActivityController.cs",
+              "RelativeToolTip": "Controllers\\TimelineActivityController.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAiwG8AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:13:48.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TimelineActivityService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\TimelineActivityService\\TimelineActivityService.cs",
+              "RelativeDocumentMoniker": "Services\\TimelineActivityService\\TimelineActivityService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\TimelineActivityService\\TimelineActivityService.cs",
+              "RelativeToolTip": "Services\\TimelineActivityService\\TimelineActivityService.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAALUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:13:44.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "RecurrenceController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\RecurrenceController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RecurrenceController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\RecurrenceController.cs",
+              "RelativeToolTip": "Controllers\\RecurrenceController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:10:34.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RecurrenceService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\RecurrenceService\\RecurrenceService.cs",
+              "RelativeDocumentMoniker": "Services\\RecurrenceService\\RecurrenceService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\RecurrenceService\\RecurrenceService.cs",
+              "RelativeToolTip": "Services\\RecurrenceService\\RecurrenceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:10:11.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IRecurrenceService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\RecurrenceService\\IRecurrenceService.cs",
+              "RelativeDocumentMoniker": "Services\\RecurrenceService\\IRecurrenceService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\RecurrenceService\\IRecurrenceService.cs",
+              "RelativeToolTip": "Services\\RecurrenceService\\IRecurrenceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T11:10:03.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\AuthService\\IAuthService.cs",
               "RelativeDocumentMoniker": "Services\\AuthService\\IAuthService.cs",
@@ -113,12 +267,11 @@
               "RelativeToolTip": "Services\\AuthService\\IAuthService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T16:54:29.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T16:54:29.265Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 13,
               "Title": "AuthService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\AuthService\\AuthService.cs",
               "RelativeDocumentMoniker": "Services\\AuthService\\AuthService.cs",
@@ -126,25 +279,24 @@
               "RelativeToolTip": "Services\\AuthService\\AuthService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T16:52:52.636Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T16:52:52.636Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 11,
               "Title": "AuthController.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
               "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\AuthController.cs",
               "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAABJAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAwCMAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-19T16:36:56.548Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 15,
               "Title": "UserController.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
@@ -152,12 +304,11 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T16:01:59.999Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T16:01:59.999Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 16,
               "Title": "UserService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserService\\UserService.cs",
               "RelativeDocumentMoniker": "Services\\UserService\\UserService.cs",
@@ -165,12 +316,11 @@
               "RelativeToolTip": "Services\\UserService\\UserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T16:01:51.635Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T16:01:51.635Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 17,
               "Title": "IUserService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserService\\IUserService.cs",
               "RelativeDocumentMoniker": "Services\\UserService\\IUserService.cs",
@@ -178,12 +328,11 @@
               "RelativeToolTip": "Services\\UserService\\IUserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T16:01:50.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T16:01:50.659Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 23,
               "Title": "CreateNotificationDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\Notification\\CreateNotificationDto.cs",
               "RelativeDocumentMoniker": "Dtos\\Notification\\CreateNotificationDto.cs",
@@ -195,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 22,
               "Title": "EditNotificationDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\Notification\\EditNotificationDto.cs",
               "RelativeDocumentMoniker": "Dtos\\Notification\\EditNotificationDto.cs",
@@ -207,7 +356,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "User.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -215,12 +364,11 @@
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T12:27:46.028Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T12:27:46.028Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 21,
               "Title": "INotificationService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\NotificationService\\INotificationService.cs",
               "RelativeDocumentMoniker": "Services\\NotificationService\\INotificationService.cs",
@@ -232,7 +380,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 19,
               "Title": "NotificationService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\NotificationService\\NotificationService.cs",
               "RelativeDocumentMoniker": "Services\\NotificationService\\NotificationService.cs",
@@ -244,7 +392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 18,
               "Title": "NotificationController.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\NotificationController.cs",
               "RelativeDocumentMoniker": "Controllers\\NotificationController.cs",
@@ -252,12 +400,11 @@
               "RelativeToolTip": "Controllers\\NotificationController.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAABwAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T11:09:06.072Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T11:09:06.072Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "NotificationDto.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\Notification\\NotificationDto.cs",
               "RelativeDocumentMoniker": "Dtos\\Notification\\NotificationDto.cs",
@@ -269,7 +416,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 20,
               "Title": "Notification.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\Notification.cs",
               "RelativeDocumentMoniker": "Models\\Notification.cs",

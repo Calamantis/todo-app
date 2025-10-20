@@ -16,6 +16,7 @@ using todo_backend.Services.ActivityStorage;
 using todo_backend.Services.BlockedUsersService;
 using todo_backend.Services.StatisticsService;
 using todo_backend.Services.NotificationService;
+using todo_backend.Services.RecurrenceService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +80,7 @@ builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
 builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IRecurrenceService, RecurrenceService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

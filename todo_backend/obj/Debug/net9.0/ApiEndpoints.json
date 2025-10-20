@@ -954,6 +954,22 @@
     ]
   },
   {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "GetTimeline",
+    "RelativePath": "api/TimelineActivity/get-timeline",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "daysAhead",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MyApp.Controllers.UserController",
     "Method": "GetUser",
     "RelativePath": "api/User/{id}",

@@ -1621,6 +1621,29 @@
         }
       }
     },
+    "/api/TimelineActivity/get-timeline": {
+      "get": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "daysAhead",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/all-users": {
       "get": {
         "tags": [

@@ -10,6 +10,7 @@ namespace todo_backend.Dtos.TimelineActivity
         public string? Description { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
+        public int PlannedDurationMinutes { get; set; }
         public bool IsRecurring { get; set; }
         public string? RecurrenceRule { get; set; }
         public string? CategoryName { get; set; }

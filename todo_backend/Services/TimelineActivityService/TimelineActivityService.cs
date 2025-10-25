@@ -33,6 +33,7 @@ namespace todo_backend.Services.TimelineActivityService
                             EndTime = t.End_time,
                             IsRecurring = t.Is_recurring,
                             RecurrenceRule = t.Recurrence_rule,
+                            PlannedDurationMinutes = t.PlannedDurationMinutes,
                             CategoryName = t.Category != null ? t.Category.Name : null,
                             JoinCode = t.JoinCode
                         })
@@ -57,6 +58,7 @@ namespace todo_backend.Services.TimelineActivityService
                 EndTime = activity.End_time,
                 IsRecurring = activity.Is_recurring,
                 RecurrenceRule = activity.Recurrence_rule,
+                PlannedDurationMinutes = activity.PlannedDurationMinutes,
                 CategoryName = activity.Category != null ? activity.Category.Name : null,
                 JoinCode = activity.JoinCode
             };
@@ -87,22 +89,23 @@ namespace todo_backend.Services.TimelineActivityService
                     End_time = dto.EndTime,
                     Is_recurring = dto.IsRecurring,
                     Recurrence_rule = dto.RecurrenceRule,
-                    JoinCode = GenerateJoinCode()
+                    PlannedDurationMinutes = dto.PlannedDurationMinutes,
+                    JoinCode = null
                 };
 
                 _context.TimelineActivities.Add(entity);
                 await _context.SaveChangesAsync();
 
-                // 🔹 Dodaj ownera do ActivityMembers
-                var ownerMember = new ActivityMembers
-                {
-                    ActivityId = entity.ActivityId,
-                    UserId = currentUserId,
-                    Role = "owner",
-                    Status = "accepted" // automatycznie zaakceptowany
-                };
-                _context.ActivityMembers.Add(ownerMember);
-                await _context.SaveChangesAsync();
+                //// 🔹 Dodaj ownera do ActivityMembers
+                //var ownerMember = new ActivityMembers
+                //{
+                //    ActivityId = entity.ActivityId,
+                //    UserId = currentUserId,
+                //    Role = "owner",
+                //    Status = "accepted" // automatycznie zaakceptowany
+                //};
+                //_context.ActivityMembers.Add(ownerMember);
+                //await _context.SaveChangesAsync();
 
                 return new FullTimelineActivityDto
                 {
@@ -113,6 +116,7 @@ namespace todo_backend.Services.TimelineActivityService
                     EndTime = entity.End_time,
                     IsRecurring = entity.Is_recurring,
                     RecurrenceRule = entity.Recurrence_rule,
+                    PlannedDurationMinutes = entity.PlannedDurationMinutes,
                     CategoryName = category?.Name
                 };
             }
@@ -121,6 +125,41 @@ namespace todo_backend.Services.TimelineActivityService
                 // Złap każdy błąd runtime i zwróć null
                 return null;
             }
+        }
+
+        //PATCH Przekształć aktywność na PUBLICZNĄ
+        public async Task<bool> ConvertToOnlineAsync(int activityId, int currentUserId)
+        {
+            var activity = await _context.TimelineActivities
+                .FirstOrDefaultAsync(a => a.ActivityId == activityId && a.OwnerId == currentUserId);
+
+            if (activity == null)
+                return false; // brak dostępu lub nie istnieje
+
+            if (activity.JoinCode != null)
+                return true; // już jest online
+
+            // 🔹 wygeneruj kod
+            activity.JoinCode = GenerateJoinCode();
+
+            // 🔹 dodaj ownera do ActivityMembers (jeśli nie istnieje)
+            var ownerMemberExists = await _context.ActivityMembers
+                .AnyAsync(m => m.ActivityId == activityId && m.UserId == currentUserId);
+
+            if (!ownerMemberExists)
+            {
+                var ownerMember = new ActivityMembers
+                {
+                    ActivityId = activityId,
+                    UserId = currentUserId,
+                    Role = "owner",
+                    Status = "accepted"
+                };
+                _context.ActivityMembers.Add(ownerMember);
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         //PUT modyfikacja aktywności
@@ -138,6 +177,7 @@ namespace todo_backend.Services.TimelineActivityService
             entity.End_time = dto.EndTime;
             entity.Is_recurring = dto.IsRecurring;
             entity.Recurrence_rule = dto.RecurrenceRule;
+            entity.PlannedDurationMinutes = dto.PlannedDurationMinutes;
 
             await _context.SaveChangesAsync();
 
@@ -152,6 +192,7 @@ namespace todo_backend.Services.TimelineActivityService
                 EndTime = entity.End_time,
                 IsRecurring = entity.Is_recurring,
                 RecurrenceRule = entity.Recurrence_rule,
+                PlannedDurationMinutes = entity.PlannedDurationMinutes,
                 CategoryName = category?.Name,
                 JoinCode = entity.JoinCode
             };
@@ -187,40 +228,56 @@ namespace todo_backend.Services.TimelineActivityService
                 .ToListAsync();
 
             var allInstances = new List<TimelineActivityInstanceDto>();
+            var now = DateTime.UtcNow;
 
             foreach (var activity in activities)
             {
+                // 🔸 Jeśli aktywność ma regułę powtarzalności → generuj wystąpienia
                 if (activity.Is_recurring && !string.IsNullOrEmpty(activity.Recurrence_rule))
                 {
-                    var occurrences = _recurrenceService.GenerateOccurrences(activity.Start_time, activity.Recurrence_rule, daysAhead);
-                    foreach (var date in occurrences)
+                    var occurrences = _recurrenceService.GenerateOccurrences(
+                        activity.Start_time,
+                        activity.Recurrence_rule,
+                        daysAhead
+                    );
+
+                    foreach (var occurrence in occurrences)
                     {
-                        allInstances.Add(new TimelineActivityInstanceDto
+                        // Filtrujemy tylko przyszłe i bieżące zdarzenia
+                        if (occurrence >= now.AddDays(-1))
                         {
-                            ActivityId = activity.ActivityId,
-                            Title = activity.Title,
-                            StartTime = date,
-                            EndTime = activity.End_time?.Add(date - activity.Start_time),
-                            ColorHex = activity.Category?.ColorHex,
-                            IsRecurring = true
-                        });
+                            allInstances.Add(new TimelineActivityInstanceDto
+                            {
+                                ActivityId = activity.ActivityId,
+                                Title = activity.Title,
+                                StartTime = occurrence,
+                                EndTime = activity.End_time != null
+                                    ? occurrence.Add(activity.End_time.Value - activity.Start_time)
+                                    : occurrence.AddHours(1),
+                                ColorHex = activity.Category?.ColorHex ?? "#3b82f6",
+                                IsRecurring = true,
+                                PlannedDurationMinutes = activity.PlannedDurationMinutes
+                            });
+                        }
                     }
                 }
                 else
                 {
+                    // 🔸 Zwykła (jednorazowa) aktywność
                     allInstances.Add(new TimelineActivityInstanceDto
                     {
                         ActivityId = activity.ActivityId,
                         Title = activity.Title,
                         StartTime = activity.Start_time,
                         EndTime = activity.End_time,
-                        ColorHex = activity.Category?.ColorHex,
-                        IsRecurring = false
+                        ColorHex = activity.Category?.ColorHex ?? "#3b82f6",
+                        IsRecurring = false,
+                        PlannedDurationMinutes = activity.PlannedDurationMinutes
                     });
                 }
             }
-
-            return allInstances;
+            // 🔹 Sortujemy po dacie rozpoczęcia
+            return allInstances.OrderBy(a => a.StartTime);
         }
 
 

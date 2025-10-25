@@ -1541,6 +1541,28 @@
         }
       }
     },
+    "/api/TimelineActivity/convert-activity-to-online": {
+      "patch": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/TimelineActivity/edit-activity": {
       "put": {
         "tags": [
@@ -2335,6 +2357,10 @@
           "recurrenceRule": {
             "type": "string",
             "nullable": true
+          },
+          "plannedDurationMinutes": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2488,6 +2514,10 @@
             "format": "date-time",
             "nullable": true
           },
+          "plannedDurationMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
           "isRecurring": {
             "type": "boolean"
           },
@@ -2630,6 +2660,10 @@
           "recurrenceRule": {
             "type": "string",
             "nullable": true
+          },
+          "plannedDurationMinutes": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

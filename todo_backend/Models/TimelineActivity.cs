@@ -31,6 +31,10 @@ namespace todo_backend.Models
 
         public DateTime? End_time { get; set; }
 
+        public int PlannedDurationMinutes { get; set; }
+
+        public bool IsManuallyFinished { get; set; }
+
         [Required]
         public bool Is_recurring { get; set; }
 

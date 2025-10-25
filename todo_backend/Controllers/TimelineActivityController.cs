@@ -65,6 +65,24 @@ namespace todo_backend.Controllers
             //return NoContent();
         }
 
+        //PATCH ustaw aktywność na PUBLICZNĄ
+        [Authorize]
+        [HttpPatch("convert-activity-to-online")]
+        public async Task<IActionResult> ConvertToOnline(int activityId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var result = await _timelineActivityService.ConvertToOnlineAsync(activityId, userId);
+            if (!result)
+                return BadRequest("Activity not found or not owned by user.");
+
+            return Ok(new { message = "Activity converted to online successfully." });
+        }
+
         //PUT modyfikacja aktywności
         [Authorize]
         [HttpPut("edit-activity")]

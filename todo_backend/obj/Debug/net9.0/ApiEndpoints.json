@@ -856,6 +856,22 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "ConvertToOnline",
+    "RelativePath": "api/TimelineActivity/convert-activity-to-online",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
     "Method": "CreateActivity",
     "RelativePath": "api/TimelineActivity/create-activity",
     "HttpMethod": "POST",

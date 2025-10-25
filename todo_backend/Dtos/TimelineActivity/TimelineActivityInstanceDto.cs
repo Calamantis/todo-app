@@ -9,5 +9,6 @@
         public DateTime? EndTime { get; set; }
         public bool IsRecurring { get; set; }
         public string ColorHex { get; set; }
+        public int PlannedDurationMinutes { get; set; }
     }
 }

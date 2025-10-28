@@ -1122,8 +1122,18 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.UserAccountController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/UserAccount/delete-account",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.UserAccountController",
     "Method": "UpdateUser",
-    "RelativePath": "api/UserAccount/change-name",
+    "RelativePath": "api/UserAccount/update-account-details",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -1134,16 +1144,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.UserAccountController",
-    "Method": "DeleteUser",
-    "RelativePath": "api/UserAccount/delete-account",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

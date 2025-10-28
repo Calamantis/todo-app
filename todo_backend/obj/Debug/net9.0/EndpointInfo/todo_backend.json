@@ -1834,7 +1834,7 @@
         }
       }
     },
-    "/api/UserAccount/change-name": {
+    "/api/UserAccount/update-account-details": {
       "put": {
         "tags": [
           "UserAccount"

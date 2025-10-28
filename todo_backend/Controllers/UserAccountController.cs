@@ -34,8 +34,8 @@ namespace todo_backend.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPut("change-name")]
+        [Authorize]
+        [HttpPut("update-account-details")]
         public async Task<IActionResult> UpdateUser(UpdateUserDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);

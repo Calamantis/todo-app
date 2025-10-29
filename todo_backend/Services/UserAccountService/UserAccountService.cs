@@ -35,16 +35,25 @@ namespace todo_backend.Services.UserAccountService
             };
         }
 
-        public async Task<UserResponseDto> UpdateUserAsync(int id, UpdateUserDto dto)
+        public async Task<UserResponseDto?> UpdateUserAsync(int id, UpdateUserDto dto)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user == null) return null!;
+            if (user == null) return null;
 
             user.FullName = dto.FullName;
             user.ProfileImageUrl = dto.ProfileImageUrl;
             user.BackgroundImageUrl = dto.BackgroundImageUrl;
             user.Synopsis = dto.Synopsis;
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database update failed: {ex.InnerException?.Message}");
+                return null;
+            }
 
             return new UserResponseDto
             {

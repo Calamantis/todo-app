@@ -177,13 +177,13 @@ namespace todo_backend.Services.ActivityMembersService
             if (alreadyMember)
                 return false;
 
-            // Dodaj użytkownika jako uczestnika (auto accepted)
+            // Dodaj użytkownika jako uczestnika (accepted)
             var newMember = new ActivityMembers
             {
                 ActivityId = activity.ActivityId,
                 UserId = userId,
                 Role = "participant",
-                Status = "auto_accepted"
+                Status = "accepted"
             };
 
             _context.ActivityMembers.Add(newMember);

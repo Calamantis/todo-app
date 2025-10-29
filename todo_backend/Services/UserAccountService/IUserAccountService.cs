@@ -8,7 +8,7 @@ namespace todo_backend.Services.UserAccountService
     public interface IUserAccountService
     {
         Task<UserResponseDto?> GetUserDetailsAsync(int id);
-        Task<UserResponseDto> UpdateUserAsync(int id, UpdateUserDto dto);
+        Task<UserResponseDto?> UpdateUserAsync(int id, UpdateUserDto dto);
         Task<bool> DeleteUserAsync(int id);
         Task<bool?> ToggleAllowMentionsAsync(int id);
         Task<bool?> ToggleAllowFriendInvitesAsync(int id);

@@ -46,7 +46,8 @@ namespace todo_backend.Controllers
                 return BadRequest(ModelState);
 
             var user = await _userAccountService.UpdateUserAsync(userId, dto);
-            if (user == null) return NotFound();
+            if (user == null)
+                return BadRequest("Cannot save changes, check input data");
 
             return NoContent();
         }

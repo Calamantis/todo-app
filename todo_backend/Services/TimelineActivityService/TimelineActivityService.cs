@@ -79,6 +79,8 @@ namespace todo_backend.Services.TimelineActivityService
                         return null; // zwracamy null zamiast rzucać wyjątkiem
                 }
 
+                if (dto.PlannedDurationMinutes < 1 || dto.PlannedDurationMinutes > 1440) return null; // jescze w dto mozna dodac range 
+
                 var entity = new TimelineActivity
                 {
                     OwnerId = currentUserId,

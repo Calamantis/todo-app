@@ -11,10 +11,16 @@ namespace todo_backend.Services.RecurrenceService
             var occurrences = new List<DateTime>();
 
             // 🔹 1. Parsowanie reguły
+            //var ruleParts = recurrenceRule
+            //    .Split(';', StringSplitOptions.RemoveEmptyEntries)
+            //    .Select(p => p.Split('='))
+            //    .ToDictionary(p => p[0].ToUpper(), p => p[1]);
+
             var ruleParts = recurrenceRule
                 .Split(';', StringSplitOptions.RemoveEmptyEntries)
                 .Select(p => p.Split('='))
-                .ToDictionary(p => p[0].ToUpper(), p => p[1]);
+                .Where(p => p.Length == 2 && !string.IsNullOrWhiteSpace(p[0]))
+                .ToDictionary(p => p[0].Trim().ToUpper(), p => p[1].Trim());
 
             string type = ruleParts.ContainsKey("TYPE") ? ruleParts["TYPE"].ToUpper() : "DAY";
             int interval = ruleParts.ContainsKey("INTERVAL") ? int.Parse(ruleParts["INTERVAL"]) : 1;

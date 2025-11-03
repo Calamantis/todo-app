@@ -21,7 +21,7 @@ namespace todo_backend.Services.CategoryService
         public async Task<IEnumerable<CategoryDto?>> GetCategoriesAsync(int id)
         {
             return await _context.Categories
-                .Where(c => c.UserId == id)
+                .Where(c => c.UserId == id || c.IsSystem == true)
                 .Select(c => new CategoryDto
                 {
                     Name = c.Name,

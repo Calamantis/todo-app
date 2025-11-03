@@ -10,12 +10,6 @@ namespace todo_backend.Services.RecurrenceService
         {
             var occurrences = new List<DateTime>();
 
-            // 🔹 1. Parsowanie reguły
-            //var ruleParts = recurrenceRule
-            //    .Split(';', StringSplitOptions.RemoveEmptyEntries)
-            //    .Select(p => p.Split('='))
-            //    .ToDictionary(p => p[0].ToUpper(), p => p[1]);
-
             var ruleParts = recurrenceRule
                 .Split(';', StringSplitOptions.RemoveEmptyEntries)
                 .Select(p => p.Split('='))
@@ -132,5 +126,41 @@ namespace todo_backend.Services.RecurrenceService
             // 🔹 3. Zwracanie wyników
             return occurrences.OrderBy(o => o);
         }
+
+
+
+
+
+        public IEnumerable<DateTime> GenerateOccurrences(
+    DateTime start,
+    string recurrenceRule,
+    DateTime from,
+    DateTime to)
+        {
+            // ✅ Jeśli 'to' < 'from' – zwróć pustą listę
+            if (to <= from)
+                return Enumerable.Empty<DateTime>();
+
+            // 🔹 Ustal zakres dniAhead na podstawie różnicy
+            int daysAhead = (int)Math.Ceiling((to - from).TotalDays);
+            if (daysAhead <= 0) daysAhead = 1;
+
+            // 🔹 Wygeneruj pełną listę wystąpień (używa Twojej głównej metody)
+            var allOccurrences = GenerateOccurrences(start, recurrenceRule, daysAhead);
+
+            // 🔹 Filtruj wystąpienia w podanym zakresie
+            var filtered = allOccurrences
+                .Where(o => o >= from && o <= to)
+                .OrderBy(o => o)
+                .ToList();
+
+            return filtered;
+        }
+
+
+
+
+
+
     }
 }

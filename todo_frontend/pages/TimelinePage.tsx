@@ -36,44 +36,44 @@ export default function TimelinePage() {
     });
   }, [currentWeekStart]);
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/";
-      return;
-    }
-
-    setLoading(true);
-    fetch(`/api/TimelineActivity/get-timeline?daysAhead=60`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data: TimelineEvent[]) => {
-        setEvents(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
-        <p>Loading timeline...</p>
-      </div>
-    );
+useEffect(() => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/";
+    return;
   }
 
-  const startOfWeek = daysOfWeek[0];
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 7);
+  setLoading(true);
+  setEvents([]); // 🔹 wyczyść listę przed nowym requestem
 
-  const weekEvents = events.filter((e) => {
-    const start = new Date(e.startTime);
-    return start >= startOfWeek && start < endOfWeek;
-  });
+  const from = currentWeekStart.toISOString();
+  const to = new Date(currentWeekStart.getTime() + 6 * 24 * 60 * 60 * 1000).toISOString();
+
+  fetch(`/api/TimelineActivity/get-timeline?from=${from}&to=${to}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then((res) => res.json())
+    .then((data: TimelineEvent[]) => {
+      setEvents(data); // 🔹 nadpisz, nie doklejaj
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error(err);
+      setLoading(false);
+    });
+}, [currentWeekStart]);
+
+
+  const startOfWeek = daysOfWeek[0];
+  const startOfWeekMidnight = new Date(startOfWeek);
+startOfWeekMidnight.setHours(0, 0, 0, 0);
+const endOfWeekMidnight = new Date(startOfWeekMidnight);
+endOfWeekMidnight.setDate(startOfWeekMidnight.getDate() + 7);
+
+const weekEvents = events.filter((e) => {
+  const start = new Date(e.startTime);
+  return start >= startOfWeekMidnight && start < endOfWeekMidnight;
+});
 
   // 🔹 ustawienia osi czasu
   const HOURS_START = 6;
@@ -156,6 +156,12 @@ export default function TimelinePage() {
               ))}
 
               {/* Aktywności */}
+
+
+
+
+
+
 {weekEvents.map((e, idx) => {
   const start = new Date(e.startTime);
   const durationMinutes = e.plannedDurationMinutes ?? 60;

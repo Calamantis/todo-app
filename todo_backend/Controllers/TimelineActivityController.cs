@@ -120,14 +120,14 @@ namespace todo_backend.Controllers
 
         [Authorize]
         [HttpGet("get-timeline")]
-        public async Task<IActionResult> GetTimeline([FromQuery] int daysAhead = 30)
+        public async Task<IActionResult> GetTimeline([FromQuery] DateTime from, [FromQuery] DateTime to)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null) return Unauthorized();
             int userId = int.Parse(userIdClaim.Value);
 
 
-            var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, daysAhead);
+            var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, from, to);
             return Ok(activities);
         }
 

@@ -10,7 +10,7 @@ namespace todo_backend.Models
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -18,6 +18,8 @@ namespace todo_backend.Models
 
         [MaxLength(7)]
         public string? ColorHex { get; set; }
+
+        public bool IsSystem { get; set; } = false;
 
         public User User { get; set; } = null!;
         public ICollection<TimelineActivity> TimelineActivities { get; set; } = new List<TimelineActivity>();

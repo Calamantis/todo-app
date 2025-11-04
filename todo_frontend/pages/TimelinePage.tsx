@@ -15,19 +15,23 @@ export default function TimelinePage() {
   const [loading, setLoading] = useState(true);
   const [currentWeekStart, setCurrentWeekStart] = useState(getStartOfWeek(new Date()));
 
+  // 🔹 zawsze zaczynamy tydzień od PONIEDZIAŁKU 00:00
   function getStartOfWeek(date: Date) {
     const d = new Date(date);
     const day = d.getDay();
-    const diff = d.getDate() - (day === 0 ? 6 : day - 1);
-    return new Date(d.setDate(diff));
+    const diff = d.getDate() - (day === 0 ? 6 : day - 1); // poniedziałek jako start
+    const monday = new Date(d.setDate(diff));
+    monday.setHours(0, 0, 0, 0); // północ
+    return monday;
   }
 
   function changeWeek(offset: number) {
     const newDate = new Date(currentWeekStart);
     newDate.setDate(currentWeekStart.getDate() + offset * 7);
-    setCurrentWeekStart(newDate);
+    setCurrentWeekStart(getStartOfWeek(newDate));
   }
 
+  // 🔹 generuj dni tygodnia od poniedziałku do niedzieli
   const daysOfWeek = useMemo(() => {
     return Array.from({ length: 7 }).map((_, i) => {
       const d = new Date(currentWeekStart);
@@ -36,52 +40,64 @@ export default function TimelinePage() {
     });
   }, [currentWeekStart]);
 
-useEffect(() => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/";
-    return;
+  // 🔹 pobieranie danych — od poniedziałku 00:00 do niedzieli 23:59:59
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
+
+    setLoading(true);
+    setEvents([]);
+
+    const from = new Date(currentWeekStart);
+    from.setHours(0, 0, 0, 0);
+    const to = new Date(from);
+    to.setDate(from.getDate() + 7);
+    to.setHours(23, 59, 59, 999);
+
+    fetch(`/api/TimelineActivity/get-timeline?from=${from.toISOString()}&to=${to.toISOString()}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data: TimelineEvent[]) => {
+        setEvents(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [currentWeekStart]);
+
+  // 🔹 lokalne przeliczenie czasu (z UTC -> lokalny)
+  function toLocal(dateStr: string) {
+    const d = new Date(dateStr);
+    return new Date(d.getTime() + d.getTimezoneOffset() * 60000);
   }
 
-  setLoading(true);
-  setEvents([]); // 🔹 wyczyść listę przed nowym requestem
-
-  const from = currentWeekStart.toISOString();
-  const to = new Date(currentWeekStart.getTime() + 6 * 24 * 60 * 60 * 1000).toISOString();
-
-  fetch(`/api/TimelineActivity/get-timeline?from=${from}&to=${to}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then((res) => res.json())
-    .then((data: TimelineEvent[]) => {
-      setEvents(data); // 🔹 nadpisz, nie doklejaj
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error(err);
-      setLoading(false);
-    });
-}, [currentWeekStart]);
-
-
-  const startOfWeek = daysOfWeek[0];
-  const startOfWeekMidnight = new Date(startOfWeek);
-startOfWeekMidnight.setHours(0, 0, 0, 0);
-const endOfWeekMidnight = new Date(startOfWeekMidnight);
-endOfWeekMidnight.setDate(startOfWeekMidnight.getDate() + 7);
-
-const weekEvents = events.filter((e) => {
-  const start = new Date(e.startTime);
-  return start >= startOfWeekMidnight && start < endOfWeekMidnight;
-});
+  // 🔹 filtr aktywności w obrębie bieżącego tygodnia
+  const weekEvents = events.filter((e) => {
+    const start = toLocal(e.startTime);
+    return start >= currentWeekStart && start < new Date(currentWeekStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+  });
 
   // 🔹 ustawienia osi czasu
   const HOURS_START = 6;
   const HOURS_END = 22;
-  const PIXELS_PER_HOUR = 100; // 1h = 100px
+  const PIXELS_PER_HOUR = 100;
   const PIXELS_PER_MINUTE = PIXELS_PER_HOUR / 60;
   const TOTAL_HOURS = HOURS_END - HOURS_START;
   const MIN_HEIGHT = 40;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
+        <p>Loading timeline...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -146,7 +162,6 @@ const weekEvents = events.filter((e) => {
 
             {/* Kolumny dni */}
             <div className="col-span-7 grid grid-cols-7 border-t border-gray-700 relative">
-              {/* Linie godzinowe */}
               {Array.from({ length: TOTAL_HOURS + 1 }).map((_, i) => (
                 <div
                   key={`row-${i}`}
@@ -155,64 +170,51 @@ const weekEvents = events.filter((e) => {
                 />
               ))}
 
-              {/* Aktywności */}
+              {/* 🔹 Aktywności */}
+              {weekEvents.map((e, idx) => {
+                const start = toLocal(e.startTime);
+                const durationMinutes = e.plannedDurationMinutes ?? 60;
+                const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
 
+                const dayOfWeek = start.getDay() === 0 ? 6 : start.getDay() - 1;
+                const startMinutes = start.getHours() * 60 + start.getMinutes();
+                const top = (startMinutes - HOURS_START * 60) * PIXELS_PER_MINUTE;
+                const left = (dayOfWeek / 7) * 100;
 
+                let height = durationMinutes * PIXELS_PER_MINUTE;
+                if (height < MIN_HEIGHT) height = MIN_HEIGHT;
 
+                if (start.getHours() < HOURS_START || start.getHours() >= HOURS_END) return null;
 
-
-
-{weekEvents.map((e, idx) => {
-  const start = new Date(e.startTime);
-  const durationMinutes = e.plannedDurationMinutes ?? 60;
-
-  // ✅ end zawsze liczymy jako start + plannedDurationMinutes
-  const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
-
-  const dayOfWeek = start.getDay() === 0 ? 6 : start.getDay() - 1;
-  const startMinutes = start.getHours() * 60 + start.getMinutes();
-  const top = (startMinutes - HOURS_START * 60) * PIXELS_PER_MINUTE;
-
-  let height = durationMinutes * PIXELS_PER_MINUTE;
-  if (height < MIN_HEIGHT) height = MIN_HEIGHT;
-
-  const left = (dayOfWeek / 7) * 100;
-
-  // Ukryj aktywności spoza widocznego zakresu (opcjonalne)
-  if (start.getHours() < HOURS_START || start.getHours() >= HOURS_END) return null;
-
-  return (
-    <div
-      key={idx}
-      className="absolute rounded-md text-xs sm:text-sm text-center px-2 py-1 overflow-hidden shadow-md border border-gray-700"
-      style={{
-        top: `${top}px`,
-        left: `${left}%`,
-        height: `${height}px`,
-        width: `${100 / 7}%`,
-        backgroundColor: e.colorHex || "#3b82f6",
-      }}
-      title={`${e.title} (${start.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      })} → ${end.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      })})`}
-    >
-      <div className="font-semibold truncate">{e.title}</div>
-      <div className="text-[10px] opacity-80">
-        {start.toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        })}
-      </div>
-    </div>
-  );
-})}
-
-
-
+                return (
+                  <div
+                    key={idx}
+                    className="absolute rounded-md text-xs sm:text-sm text-center px-2 py-1 overflow-hidden shadow-md border border-gray-700"
+                    style={{
+                      top: `${top}px`,
+                      left: `${left}%`,
+                      height: `${height}px`,
+                      width: `${100 / 7}%`,
+                      backgroundColor: e.colorHex || "#3b82f6",
+                    }}
+                    title={`${e.title} (${start.toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })} → ${end.toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })})`}
+                  >
+                    <div className="font-semibold truncate">{e.title}</div>
+                    <div className="text-[10px] opacity-80">
+                      {start.toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

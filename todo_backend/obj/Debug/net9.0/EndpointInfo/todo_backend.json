@@ -580,6 +580,37 @@
         }
       }
     },
+    "/suggestions/placement": {
+      "post": {
+        "tags": [
+          "ActivitySuggestion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [
@@ -2276,6 +2307,43 @@
   },
   "components": {
     "schemas": {
+      "ActivityPlacementSuggestionDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "preferredStart": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
+          },
+          "preferredEnd": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
+          },
+          "preferredDays": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DayOfWeek"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ActivityStorageDto": {
         "type": "object",
         "properties": {

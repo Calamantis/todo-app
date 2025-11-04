@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using todo_backend.Data;
 using todo_backend.Dtos.ActivitySuggestionDto;
 using todo_backend.Services.RecurrenceService;
+using todo_backend.Services.TimelineActivityService;
 
 namespace todo_backend.Services.ActivitySuggestionService
 {
@@ -10,210 +14,16 @@ namespace todo_backend.Services.ActivitySuggestionService
     {
         private readonly AppDbContext _context;
         private readonly IRecurrenceService _recurrenceService;
+        private readonly ITimelineActivityService _timelineActivityService;
 
-        public ActivitySuggestionService(AppDbContext context, IRecurrenceService recurrenceService)
+        public ActivitySuggestionService(AppDbContext context, IRecurrenceService recurrenceService, ITimelineActivityService timelineActivityService)
         {
             _context = context;
             _recurrenceService = recurrenceService;
+            _timelineActivityService = timelineActivityService;
         }
-
-        //public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId, ActivitySuggestionDto dto)
-        //{
-        //    var history = await _context.TimelineActivities
-        //        .Include(a => a.Category)
-        //        .Where(a => a.OwnerId == userId && a.Start_time > DateTime.UtcNow.AddMonths(-3))
-        //        .ToListAsync();
-
-        //    if (dto.CategoryId.HasValue)
-        //        history = history.Where(a => a.CategoryId == dto.CategoryId.Value).ToList();
-
-        //    var suggestions = new List<SuggestedTimelineActivityDto>();
-
-        //    foreach (var act in history)
-        //    {
-        //        var avgDuration = history
-        //            .Where(a => a.Title == act.Title && a.PlannedDurationMinutes > 0)
-        //            .Average(a => a.PlannedDurationMinutes);
-
-        //        // --- Fuzzy dopasowanie czasu trwania ---
-        //        double μ_duration = 1.0;
-        //        if (dto.PlannedDurationMinutes.HasValue)
-        //        {
-        //            var diff = Math.Abs(dto.PlannedDurationMinutes.Value - avgDuration);
-        //            μ_duration = Math.Max(0, 1 - diff / (double)(dto.PlannedDurationMinutes.Value + 1));
-        //        }
-
-        //        // --- Fuzzy dopasowanie godziny ---
-        //        double μ_time = 1.0;
-        //        if (dto.PreferredStart.HasValue && dto.PreferredEnd.HasValue)
-        //        {
-        //            var actStart = act.Start_time.ToLocalTime().TimeOfDay;
-        //            if (actStart < dto.PreferredStart)
-        //            {
-        //                var diff = (dto.PreferredStart.Value - actStart).TotalMinutes;
-
-        //                if (diff <= 15)
-        //                    μ_time = Math.Max(0.85, 1.0 - diff * 0.01); // spadek łagodny
-        //                else
-        //                    μ_time = Math.Max(0.0, 0.85 - (diff - 15) * 0.03); // szybszy spadek
-        //            }
-        //            else if (actStart > dto.PreferredEnd)
-        //            {
-        //                var diff = (actStart - dto.PreferredEnd.Value).TotalMinutes;
-
-        //                if (diff <= 15)
-        //                    μ_time = Math.Max(0.85, 1.0 - diff * 0.01);
-        //                else
-        //                    μ_time = Math.Max(0.0, 0.85 - (diff - 15) * 0.03);
-        //            }
-        //            else
-        //            {
-        //                μ_time = 1.0; // idealnie w widełkach
-        //            }
-        //        }
-
-
-        //        // --- Fuzzy dopasowanie dnia tygodnia ---
-        //        double μ_day = 1.0;
-        //        if (dto.PreferredDays != null && dto.PreferredDays.Count > 0)
-        //        {
-        //            var actDay = act.Start_time.ToLocalTime().DayOfWeek;
-        //            μ_day = dto.PreferredDays.Contains(act.Start_time.DayOfWeek) ? 1.0 : 0.3;
-        //        }
-
-
-        //        // --- Łączny wynik fuzzy ---
-        //        double score = 0.6 * μ_duration + 0.25 * μ_time + 0.15 * μ_day;
-
-
-        //        suggestions.Add(new SuggestedTimelineActivityDto
-        //        {
-        //            ActivityId = act.ActivityId,
-        //            Title = act.Title,
-        //            CategoryName = act.Category?.Name,
-        //            SuggestedDurationMinutes = (int)Math.Round(avgDuration),
-        //            Score = Math.Round(score, 3)
-        //        });
-        //    }
-
-        //    return suggestions
-        //        .OrderByDescending(s => s.Score)
-        //        .Take(3)
-        //        .ToList();
-        //}
-
-
-        //public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId, ActivitySuggestionDto dto)
-        //{
-        //    var history = await _context.TimelineActivities
-        //        .Include(a => a.Category)
-        //        .Where(a => a.OwnerId == userId && a.Start_time > DateTime.UtcNow.AddMonths(-3))
-        //        .ToListAsync();
-
-        //    if (dto.CategoryId.HasValue)
-        //        history = history.Where(a => a.CategoryId == dto.CategoryId.Value).ToList();
-
-        //    var suggestions = new List<SuggestedTimelineActivityDto>();
-
-        //    foreach (var act in history)
-        //    {
-        //        //streafa czasowa
-        //        var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
-        //        var actLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(act.Start_time, DateTimeKind.Utc), localZone);
-
-        //        Console.WriteLine("========== [DEBUG] START SUGGESTION ==========");
-        //        Console.WriteLine($"UserId: {userId}");
-        //        Console.WriteLine($"Input DTO:");
-        //        Console.WriteLine($"  PlannedDurationMinutes: {dto.PlannedDurationMinutes}");
-        //        Console.WriteLine($"  PreferredStart: {dto.PreferredStart}");
-        //        Console.WriteLine($"  PreferredEnd:   {dto.PreferredEnd}");
-        //        Console.WriteLine($"  PreferredDays:  {(dto.PreferredDays != null ? string.Join(",", dto.PreferredDays) : "null")}");
-        //        Console.WriteLine($"  CategoryId:     {dto.CategoryId}");
-        //        Console.WriteLine("----------------------------------------------");
-
-        //        var avgDuration = history
-        //            .Where(a => a.Title == act.Title && a.PlannedDurationMinutes > 0)
-        //            .Average(a => a.PlannedDurationMinutes);
-
-        //        // --- 1️⃣ Fuzzy dopasowanie czasu trwania ---
-        //        double μ_duration = 1.0;
-        //        if (dto.PlannedDurationMinutes.HasValue)
-        //        {
-        //            var diff = Math.Abs(dto.PlannedDurationMinutes.Value - avgDuration);
-
-        //            if (diff == 0)
-        //                μ_duration = 1.0;
-        //            else if (diff <= 15)
-        //                μ_duration = Math.Max(0.75, 1 - diff * 0.015);  // do 15 min spada delikatnie
-        //            else
-        //                μ_duration = Math.Max(0.05, 0.75 - (diff - 15) * 0.05); // po 15 min spada mocniej
-        //        }
-
-        //        // --- 2️⃣ Fuzzy dopasowanie godzin (z buforem ±15 min) ---
-        //        double μ_time = 1.0;
-        //        if (dto.PreferredStart.HasValue && dto.PreferredEnd.HasValue)
-        //        {
-        //            var actStart = actLocal.TimeOfDay;
-        //            var prefStart = dto.PreferredStart.Value;
-        //            var prefEnd = dto.PreferredEnd.Value;
-
-        //            if (actStart < prefStart || actStart > prefEnd)
-        //            {
-        //                var diffStart = Math.Abs((actStart - prefStart).TotalMinutes);
-        //                var diffEnd = Math.Abs((actStart - prefEnd).TotalMinutes);
-        //                var minDiff = Math.Min(diffStart, diffEnd);
-
-        //                if (minDiff <= 15)
-        //                    μ_time = 1.0 - (minDiff / 15.0) * 0.01; // 15 min bufor
-        //                else if (minDiff <= 60)
-        //                    μ_time = Math.Max(0.85, 1 - (minDiff - 15) * 0.03); // łagodne obniżenie do 0.85
-        //                else
-        //                    μ_time = Math.Max(0.2, 0.85 - (minDiff - 60) * 0.05); // szybki spadek
-        //            }
-        //        }
-
-        //        var actDay = actLocal.DayOfWeek;
-        //        // --- 3️⃣ Fuzzy dopasowanie dnia tygodnia ---
-        //        double μ_day = 1.0;
-        //        if (dto.PreferredDays != null && dto.PreferredDays.Count > 0)
-        //        {
-
-        //            μ_day = (dto.PreferredDays != null && dto.PreferredDays.Contains(actDay)) ? 1.0 : 0.3;
-        //        }
-
-        //        // --- 4️⃣ Łączny wynik fuzzy (waga: czas > godzina > dzień) ---
-        //        double score = 0.6 * μ_duration + 0.25 * μ_time + 0.15 * μ_day;
-        //        Console.WriteLine($"[DEBUG] {act.Title}: μ_duration={μ_duration:F3}, μ_time={μ_time:F3}, μ_day={μ_day:F3}, score={score:F3}");
-
-        //        // 🔹 Debug — pokaz dokładne porównania
-        //        Console.WriteLine($"[DEBUG] Activity: {act.Title}");
-        //        Console.WriteLine($"  -> Act StartTime (UTC): {act.Start_time}");
-        //        Console.WriteLine($"  -> Act LocalTime: {actLocal} ({actDay})");
-        //        Console.WriteLine($"  -> Avg Duration: {avgDuration} min");
-        //        Console.WriteLine($"  -> μ_duration={μ_duration:F3}, μ_time={μ_time:F3}, μ_day={μ_day:F3}, SCORE={score:F3}");
-        //        Console.WriteLine("----------------------------------------------");
-
-        //        Console.WriteLine("========== [DEBUG] END ==========");
-        //        suggestions.Add(new SuggestedTimelineActivityDto
-        //        {
-        //            ActivityId = act.ActivityId,
-        //            Title = act.Title,
-        //            CategoryName = act.Category?.Name,
-        //            SuggestedDurationMinutes = (int)Math.Round(avgDuration),
-        //            Score = Math.Round(score, 3)
-        //        });
-        //    }
-
-        //    return suggestions
-        //        .OrderByDescending(s => s.Score)
-        //        .Take(3)
-        //        .ToList();
-        //}
-
-
-        public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(
-    int userId,
-    ActivitySuggestionDto dto)
+        // Opcja 1. sugerowanie na podstawie poprzednich aktywnosci uzytkownika
+        public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId,ActivitySuggestionDto dto)
         {
             var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
 
@@ -368,7 +178,108 @@ namespace todo_backend.Services.ActivitySuggestionService
                 .ToList();
         }
 
+        // Opcja 2.1. sugerowanie gdzie umiescic aktywność - bez modyfikacji osi czasu użytkownika
+        public async Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementAsync(int userId, ActivityPlacementSuggestionDto dto)
+        {
+            // 1) Aktywność i jej czas trwania
+            var activity = await _context.TimelineActivities
+                .FirstOrDefaultAsync(t => t.ActivityId == dto.ActivityId && t.OwnerId == userId);
+            if (activity == null) return Enumerable.Empty<DayFreeSummaryDto>();
 
+            var activityMinutes = activity.PlannedDurationMinutes; // np. 160
+            var minRequired = activityMinutes + 20; // co najmniej 20 minut więcej
 
+            // 2) Zakres analizy – bez konwersji
+            var start = (dto.StartDate ?? DateTime.UtcNow);
+            var end = (dto.EndDate ?? start.AddDays(14));
+            if (end <= start) return Enumerable.Empty<DayFreeSummaryDto>();
+
+            // 3) Dane osi czasu (zakładamy spójny czas z 'start'/'end')
+            var userTimeline = await _timelineActivityService.GetTimelineForUserAsync(userId, start, end);
+
+            // 4) Okno dzienne i ew. filtr dni tygodnia – bez konwersji
+            var prefStart = dto.PreferredStart ?? TimeSpan.FromHours(6);   // 06:00
+            var prefEnd = dto.PreferredEnd ?? TimeSpan.FromHours(22);  // 22:00
+            var onlyDays = dto.PreferredDays != null ? new HashSet<DayOfWeek>(dto.PreferredDays) : null;
+
+            // 5) Proste wydarzenia: od filtracji nulli do uporządkowanej listy
+            var events = userTimeline
+                .Select(e => new { Start = e.StartTime, End = e.EndTime })
+                .Where(e => e.End > start && e.Start < end)
+                .OrderBy(e => e.Start)
+                .ToList();
+
+            var result = new List<DayFreeSummaryDto>();
+
+            // 6) Iteracja dzień po dniu (bez TZ – w tej samej skali co dane)
+            for (var day = start.Date; day <= end.Date; day = day.AddDays(1))
+            {
+                if (onlyDays != null && !onlyDays.Contains(day.DayOfWeek)) continue;
+
+                var windowStart = day + prefStart;
+                var windowEnd = day + prefEnd;
+                if (windowEnd <= windowStart) continue;
+
+                // przycięcie do globalnego zakresu
+                if (windowEnd <= start || windowStart >= end) continue;
+                if (windowStart < start) windowStart = start;
+                if (windowEnd > end) windowEnd = end;
+
+                // Zdarzenia nachodzące okno
+                var overlaps = events
+                    .Select(e => new
+                    {
+                        S = e.Start < windowStart ? windowStart : e.Start,
+                        E = e.End > windowEnd ? windowEnd : e.End
+                    })
+                    .Where(e => e.E > e.S)
+                    .OrderBy(e => e.S)
+                    .ToList();
+
+                // Zbieramy luki
+                var gaps = new List<(DateTime s, DateTime e)>();
+                if (overlaps.Count == 0)
+                {
+                    gaps.Add((windowStart, windowEnd));
+                }
+                else
+                {
+                    if (overlaps[0].S > windowStart) gaps.Add((windowStart, overlaps[0].S));
+                    for (int i = 0; i < overlaps.Count - 1; i++)
+                    {
+                        var gs = overlaps[i].E;
+                        var ge = overlaps[i + 1].S;
+                        if (ge > gs) gaps.Add(((DateTime s, DateTime e))(gs, ge));
+                    }
+                    if (overlaps[overlaps.Count - 1].E < windowEnd) gaps.Add(((DateTime s, DateTime e))(overlaps[overlaps.Count - 1].E, windowEnd));
+                }
+
+                // Dla każdej luki spełniającej warunek zwróć propozycję (w połowie luki)
+                foreach (var (gs, ge) in gaps)
+                {
+                    var gapMinutes = (int)(ge - gs).TotalMinutes;
+                    if (gapMinutes < minRequired) continue;
+
+                    var slack = gapMinutes - activityMinutes;  // >= 20
+                    var pad = slack / 2;                     // wyśrodkowanie
+                    var sugStart = gs.AddMinutes(pad);
+                    var sugEnd = sugStart.AddMinutes(activityMinutes);
+
+                    result.Add(new DayFreeSummaryDto
+                    {
+                        DateLocal = day,                 // „dzień” tej luki
+                        TotalFreeMinutes = gapMinutes,          // długość tej luki (jeśli chcesz, zmień nazwę pola)
+                        SuggestedStart = sugStart,
+                        SuggestedEnd = sugEnd
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        // Opcja 2.2 sugerowanie gdzie umiescic aktywność - z modyfikację osi czasu użytkownika
+
+        
     }
 }

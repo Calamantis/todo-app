@@ -26,5 +26,21 @@ namespace todo_backend.Controllers
             return Ok(result);
         }
 
+        [HttpPost("suggestions/placement")]
+        public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
+            if (results == null) return NoContent();
+            if (!results.Any())
+                return NotFound("No suitable placement found.");
+
+            return Ok(results);
+        }
+
     }
 }

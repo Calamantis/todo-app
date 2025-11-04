@@ -1346,5 +1346,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
+    "Method": "SuggestPlacement",
+    "RelativePath": "suggestions/placement",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ActivityPlacementSuggestionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

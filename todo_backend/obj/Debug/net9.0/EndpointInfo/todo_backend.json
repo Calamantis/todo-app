@@ -611,6 +611,37 @@
         }
       }
     },
+    "/suggestions/shifted": {
+      "post": {
+        "tags": [
+          "ActivitySuggestion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [

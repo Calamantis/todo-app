@@ -7,7 +7,9 @@ namespace todo_backend.Services.ActivitySuggestionService
         Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId, ActivitySuggestionDto dto);
         //Task<IEnumerable<ActivityPlacementSuggestionResultDto>> SuggestPlacementAsync(ActivityPlacementSuggestionDto dto);
         //Task<IEnumerable<ActivityPlacementSuggestionDto?>> SuggestActivityPlacementAsync(int userId, ActivityPlacementSuggestionDto dto);
-        Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementAsync(
-    int userId, ActivityPlacementSuggestionDto dto);
+        Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementAsync(int userId, ActivityPlacementSuggestionDto dto);
+
+        Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementShiftedAsync(int userId, ActivityPlacementSuggestionDto dto);
+
     }
 }

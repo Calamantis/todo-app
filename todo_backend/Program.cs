@@ -5,7 +5,7 @@ using System.Text;
 using todo_backend.Data;
 using todo_backend.Services;
 using todo_backend.Services.ActivityMembersService;
-using todo_backend.Services.ActivityStorage;
+//using todo_backend.Services.ActivityStorage;
 using todo_backend.Services.ActivitySuggestionService;
 using todo_backend.Services.AuthService;
 using todo_backend.Services.BlockedUsersService;
@@ -16,6 +16,8 @@ using todo_backend.Services.RecurrenceService;
 using todo_backend.Services.SecurityService;
 using todo_backend.Services.StatisticsService;
 using todo_backend.Services.TimelineActivityService;
+using todo_backend.Services.TimelineRecurrenceExceptionService;
+using todo_backend.Services.TimelineRecurrenceInstanceService;
 using todo_backend.Services.UserAccountService;
 using todo_backend.Services.UserFriendActions;
 using todo_backend.Services.UserService;
@@ -78,12 +80,14 @@ builder.Services.AddScoped<IUserFriendActionsService, UserFriendActionsService>(
 builder.Services.AddScoped<ITimelineActivityService, TimelineActivityService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IActivityMembersService, ActivityMembersService>();
-builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
+//builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
 builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IRecurrenceService, RecurrenceService>();
 builder.Services.AddScoped<IActivitySuggestionService, ActivitySuggestionService>();
+builder.Services.AddScoped<ITimelineRecurrenceExceptionService, TimelineRecurrenceExceptionService>();
+builder.Services.AddScoped<ITimelineRecurrenceInstanceService,  TimelineRecurrenceInstanceService>();
 builder.Services.AddTransient<DataSeeder>();
 
 

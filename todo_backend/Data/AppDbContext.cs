@@ -17,13 +17,16 @@ namespace todo_backend.Data
 
         public DbSet<ActivityMembers> ActivityMembers { get; set; }
 
-        public DbSet<ActivityStorage> ActivityStorage { get; set; }
+        //public DbSet<ActivityStorage> ActivityStorage { get; set; }
 
         public DbSet<BlockedUsers>  BlockedUsers { get; set; }
 
         public DbSet<Statistics> Statistics { get; set; }
 
         public DbSet<Notification> Notification { get; set; }
+
+        public DbSet<TimelineRecurrenceException> TimelineRecurrenceExceptions { get; set; }
+        public DbSet<TimelineRecurrenceInstance> TimelineRecurrenceInstances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -85,20 +88,47 @@ namespace todo_backend.Data
             .OnDelete(DeleteBehavior.NoAction);
 
 
-            //activity storage
-            // Relacja do User
-            modelBuilder.Entity<ActivityStorage>()
-                  .HasOne(e => e.User)
-                  .WithMany(u => u.ActivityStorage) 
-                  .HasForeignKey(e => e.UserId)
-                  .OnDelete(DeleteBehavior.NoAction);
 
-            // Relacja do Category
-            modelBuilder.Entity<ActivityStorage>()
-                  .HasOne(e => e.Category)
-                  .WithMany(c => c.ActivityStorage) 
-                  .HasForeignKey(e => e.CategoryId)
-                  .OnDelete(DeleteBehavior.NoAction);
+
+
+
+
+
+            //Rekurencja
+            modelBuilder.Entity<TimelineRecurrenceException>()
+                .HasOne(e => e.Activity)
+                .WithMany()
+                .HasForeignKey(e => e.ActivityId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TimelineRecurrenceInstance>()
+                .HasOne(i => i.Activity)
+                .WithMany()
+                .HasForeignKey(i => i.ActivityId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
+
+
+
+
+
+
+            ////activity storage
+            //// Relacja do User
+            //modelBuilder.Entity<ActivityStorage>()
+            //      .HasOne(e => e.User)
+            //      .WithMany(u => u.ActivityStorage) 
+            //      .HasForeignKey(e => e.UserId)
+            //      .OnDelete(DeleteBehavior.NoAction);
+
+            //// Relacja do Category
+            //modelBuilder.Entity<ActivityStorage>()
+            //      .HasOne(e => e.Category)
+            //      .WithMany(c => c.ActivityStorage) 
+            //      .HasForeignKey(e => e.CategoryId)
+            //      .OnDelete(DeleteBehavior.NoAction);
 
 
             //Blokowanie

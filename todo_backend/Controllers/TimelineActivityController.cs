@@ -119,46 +119,46 @@ namespace todo_backend.Controllers
 
         }
 
-        [Authorize]
-        [HttpGet("get-timeline")]
-        public async Task<IActionResult> GetTimeline([FromQuery] DateTime from, [FromQuery] DateTime to)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null) return Unauthorized();
-            int userId = int.Parse(userIdClaim.Value);
+        //[Authorize]
+        //[HttpGet("get-timeline")]
+        //public async Task<IActionResult> GetTimeline([FromQuery] DateTime from, [FromQuery] DateTime to)
+        //{
+        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        //    if (userIdClaim == null) return Unauthorized();
+        //    int userId = int.Parse(userIdClaim.Value);
 
 
-            var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, from, to);
-            return Ok(activities);
-        }
+        //    var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, from, to);
+        //    return Ok(activities);
+        //}
 
-        [Authorize]
-        [HttpPut("adjust-timeline")]
-        public async Task<ActionResult<FullTimelineActivityDto>> AdjustTimeline(ActivityModificationSuggestionDto dto)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null) return Unauthorized();
-            int userId = int.Parse(userIdClaim.Value);
+        //[Authorize]
+        //[HttpPut("adjust-timeline")]
+        //public async Task<ActionResult<FullTimelineActivityDto>> AdjustTimeline(ActivityModificationSuggestionDto dto)
+        //{
+        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        //    if (userIdClaim == null) return Unauthorized();
+        //    int userId = int.Parse(userIdClaim.Value);
 
-            var updated = await _timelineActivityService.AdjustTimelineAsync(dto, userId);
-            if (updated == null) return NotFound();
+        //    var updated = await _timelineActivityService.AdjustTimelineAsync(dto, userId);
+        //    if (updated == null) return NotFound();
 
-            return Ok(updated);
-        }
+        //    return Ok(updated);
+        //}
 
-        [Authorize]
-        [HttpPut("place-activity")]
-        public async Task<ActionResult<FullTimelineActivityDto>> PlaceActivity([FromBody] ActivityPlacementDto dto)
-        {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        //[Authorize]
+        //[HttpPut("place-activity")]
+        //public async Task<ActionResult<FullTimelineActivityDto>> PlaceActivity([FromBody] ActivityPlacementDto dto)
+        //{
+        //    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-            var result = await _timelineActivityService.PlaceActivityAsync(userId, dto);
+        //    var result = await _timelineActivityService.PlaceActivityAsync(userId, dto);
 
-            if (result == null)
-                return NotFound("Activity not found.");
+        //    if (result == null)
+        //        return NotFound("Activity not found.");
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
 
 

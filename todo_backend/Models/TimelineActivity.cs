@@ -40,7 +40,7 @@ namespace todo_backend.Models
 
         public string? Recurrence_rule { get; set; }
 
-        public string? Recurrence_exception { get; set; }
+        public bool IsActive { get; set; } = true;
 
         [MaxLength(12)]
         public string? JoinCode { get; set; } = Guid.NewGuid().ToString("N")[..8].ToUpper();

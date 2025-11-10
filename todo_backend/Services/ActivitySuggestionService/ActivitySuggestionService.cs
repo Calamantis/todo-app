@@ -396,10 +396,7 @@ namespace todo_backend.Services.ActivitySuggestionService
             return finalresult;
         }
 
-
-
-
-        // 2.1
+        // 2.2 kontynuacja
         public async Task<List<DayOverlapActivitiesDto>> GetActivitiesOverlappingSuggestionsAsync(int userId, List<DayFreeSummaryDto> suggestedSlots, int activityTime, int activityId)
         {
             var overlapsPerSlot = new List<DayOverlapActivitiesDto>();
@@ -579,11 +576,132 @@ namespace todo_backend.Services.ActivitySuggestionService
             return overlapsPerSlot;
         }
 
+        // 3. "Zaskocz mnie" sugerowanie aktywnosci na podstawie losowych 100 użytkowników (którzy wyrazili zgode)
+        public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesFromCommunityAsync(int userId, ActivitySuggestionDto dto)
+        {
+            var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
 
+            Console.WriteLine("========== [DEBUG] COMMUNITY SUGGESTIONS ==========");
 
+            // 1️⃣ Losowe 100 użytkowników z włączonym AllowDataStatistics
+            var userPool = await _context.Users
+                .Where(u => u.AllowDataStatistics && u.UserId != userId)
+                .OrderBy(r => Guid.NewGuid())
+                .Take(100)
+                .Select(u => u.UserId)
+                .ToListAsync();
 
+            if (userPool.Count == 0)
+            {
+                Console.WriteLine("⚠️ Brak użytkowników z włączoną zgodą na statystyki.");
+                return Enumerable.Empty<SuggestedTimelineActivityDto>();
+            }
 
+            Console.WriteLine($"Wybrano {userPool.Count} użytkowników do analizy.");
 
+            // 2️⃣ Pobierz ich aktywności z ostatnich 2 miesięcy
+            var referenceDate = DateTime.UtcNow.AddMonths(-2);
+
+            var allActivities = await _context.TimelineActivities
+                .Include(a => a.Category)
+                .Where(a => userPool.Contains(a.OwnerId) && a.Start_time >= referenceDate)
+                .ToListAsync();
+
+            if (!allActivities.Any())
+            {
+                Console.WriteLine("⚠️ Brak danych aktywności do analizy.");
+                return Enumerable.Empty<SuggestedTimelineActivityDto>();
+            }
+
+            // 3️⃣ Normalizacja: zamiana dat na lokalne i ekstrakcja cech
+            var activityGroups = allActivities
+                .Select(a =>
+                {
+                    var local = TimeZoneInfo.ConvertTimeFromUtc(
+                        DateTime.SpecifyKind(a.Start_time, DateTimeKind.Utc), localZone);
+
+                    string timeSlot = local.Hour switch
+                    {
+                        >= 5 and < 12 => "morning",
+                        >= 12 and < 18 => "afternoon",
+                        _ => "evening"
+                    };
+
+                    return new
+                    {
+                        a.Title,
+                        a.CategoryId,
+                        CategoryName = a.Category?.Name ?? "Unknown",
+                        a.PlannedDurationMinutes,
+                        Day = local.DayOfWeek,
+                        TimeSlot = timeSlot
+                    };
+                })
+                .GroupBy(x => new { x.Title, x.CategoryId, x.CategoryName, x.TimeSlot, x.Day })
+                .Select(g => new
+                {
+                    g.Key.Title,
+                    g.Key.CategoryId,
+                    g.Key.CategoryName,
+                    g.Key.TimeSlot,
+                    g.Key.Day,
+                    Count = g.Count(),
+                    AvgDuration = g.Average(x => x.PlannedDurationMinutes)
+                })
+                .ToList();
+
+            Console.WriteLine($"Zanalizowano {activityGroups.Count} różnych wzorców aktywności.");
+
+            // 4️⃣ Oblicz zgodność z preferencjami użytkownika
+            var suggestions = new List<SuggestedTimelineActivityDto>();
+
+            foreach (var g in activityGroups)
+            {
+                double muDuration = 1.0;
+                if (dto.PlannedDurationMinutes.HasValue)
+                {
+                    var diff = Math.Abs(dto.PlannedDurationMinutes.Value - g.AvgDuration);
+                    muDuration = Math.Exp(-Math.Pow(diff / 60.0, 2)); // gaussian-like
+                }
+
+                double muDay = dto.PreferredDays != null && dto.PreferredDays.Count > 0
+                    ? (dto.PreferredDays.Contains(g.Day) ? 1.0 : 0.4)
+                    : 1.0;
+
+                double muTime = 1.0;
+                if (dto.PreferredStart.HasValue)
+                {
+                    string preferredSlot = dto.PreferredStart.Value.Hours switch
+                    {
+                        >= 5 and < 12 => "morning",
+                        >= 12 and < 18 => "afternoon",
+                        _ => "evening"
+                    };
+                    muTime = (preferredSlot == g.TimeSlot) ? 1.0 : 0.5;
+                }
+
+                // liczba wystąpień jako waga popularności
+                double popularity = Math.Min(1.0, g.Count / 25.0); // nasyca się przy 25+
+
+                double score = 0.5 * muDuration + 0.2 * muDay + 0.2 * muTime + 0.1 * popularity;
+
+                suggestions.Add(new SuggestedTimelineActivityDto
+                {
+                    ActivityId = g.CategoryId ?? 0,
+                    Title = g.Title,
+                    CategoryName = g.CategoryName,
+                    SuggestedDurationMinutes = (int)Math.Round(g.AvgDuration),
+                    Score = Math.Round(score, 3)
+                });
+            }
+
+            Console.WriteLine("========== [DEBUG] COMMUNITY END ==========");
+
+            return suggestions
+                .OrderByDescending(s => s.Score)
+                .Take(5)
+                .ToList();
+        }
 
 
     }

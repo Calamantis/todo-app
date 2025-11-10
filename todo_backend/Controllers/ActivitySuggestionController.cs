@@ -60,5 +60,23 @@ namespace todo_backend.Controllers
             return Ok(results);
         }
 
+        [Authorize]
+        [HttpPost("surprise-me")]
+        public async Task<ActionResult<IEnumerable<SuggestedTimelineActivityDto>>> GetCommunitySuggestions([FromBody] ActivitySuggestionDto dto)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var suggestions = await _activitySuggestionService.SuggestActivitiesFromCommunityAsync(userId, dto);
+
+            if (suggestions == null || !suggestions.Any())
+                return NotFound("Brak dostępnych rekomendacji społecznościowych.");
+
+            return Ok(suggestions);
+        }
+
     }
 }

@@ -11,5 +11,7 @@ namespace todo_backend.Services.ActivitySuggestionService
 
         Task<IEnumerable<DayOverlapActivitiesDto>> SuggestActivityPlacementShiftedAsync(int userId, ActivityPlacementSuggestionDto dto);
 
+        Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesFromCommunityAsync(int userId, ActivitySuggestionDto dto);
+
     }
 }

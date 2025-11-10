@@ -24,6 +24,8 @@ namespace todo_backend.Models
 
         public bool AllowFriendInvites { get; set; } = true;
 
+        public bool AllowDataStatistics { get; set; } = true;
+
         [MaxLength(255)]
         [Url(ErrorMessage = "Invalid profile image URL format.")]
         public string? ProfileImageUrl { get; set; } = "\\TempImageTests\\DefaultProfileImage.png";

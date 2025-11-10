@@ -836,6 +836,32 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "AdjustTimeline",
+    "RelativePath": "api/TimelineActivity/adjust-timeline",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ActivityModificationSuggestionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
     "Method": "GetActivities",
     "RelativePath": "api/TimelineActivity/browse-activities",
     "HttpMethod": "GET",
@@ -989,6 +1015,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "PlaceActivity",
+    "RelativePath": "api/TimelineActivity/place-activity",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ActivityPlacementDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "MyApp.Controllers.UserController",

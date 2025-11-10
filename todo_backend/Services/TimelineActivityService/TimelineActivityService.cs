@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using todo_backend.Data;
+using todo_backend.Dtos.ActivitySuggestionDto;
 using todo_backend.Dtos.Friendship;
 using todo_backend.Dtos.TimelineActivity;
 using todo_backend.Models;
@@ -179,7 +180,10 @@ namespace todo_backend.Services.TimelineActivityService
             entity.End_time = dto.EndTime;
             entity.Is_recurring = dto.IsRecurring;
             entity.Recurrence_rule = dto.RecurrenceRule;
-            entity.PlannedDurationMinutes = dto.PlannedDurationMinutes;
+            entity.Recurrence_exception = dto.RecurrenceException;
+
+            if (!entity.Is_recurring)
+                entity.PlannedDurationMinutes = dto.PlannedDurationMinutes;
 
             await _context.SaveChangesAsync();
 
@@ -201,6 +205,48 @@ namespace todo_backend.Services.TimelineActivityService
 
         }
 
+        //PUT modyfikacja aktywności
+        public async Task<FullTimelineActivityDto> UpdateTimelineActivityAutomaticAsync(int activityId, int currentUserId, UpdateTimelineActivityDto dto)
+        {
+            var entity = await _context.TimelineActivities
+                .FirstOrDefaultAsync(t => t.ActivityId == activityId && t.OwnerId == currentUserId);
+
+            if (entity == null) return null;
+
+            entity.Title = dto.Title;
+            entity.Description = dto.Description;
+            entity.CategoryId = dto.CategoryId;
+            entity.Start_time = dto.StartTime;
+            entity.End_time = dto.EndTime;
+            entity.Is_recurring = dto.IsRecurring;
+            entity.Recurrence_rule = dto.RecurrenceRule;
+            entity.Recurrence_exception = dto.RecurrenceException;
+
+            if (!entity.Is_recurring)
+                entity.PlannedDurationMinutes = dto.PlannedDurationMinutes;
+
+            await _context.SaveChangesAsync();
+
+            var category = await _context.Categories.FindAsync(dto.CategoryId);
+
+            return new FullTimelineActivityDto
+            {
+                ActivityId = entity.ActivityId,
+                Title = entity.Title,
+                Description = entity.Description,
+                StartTime = entity.Start_time,
+                EndTime = entity.End_time,
+                IsRecurring = entity.Is_recurring,
+                RecurrenceRule = entity.Recurrence_rule,
+                PlannedDurationMinutes = entity.PlannedDurationMinutes,
+                CategoryName = category?.Name,
+                JoinCode = entity.JoinCode
+            };
+
+        }
+
+
+
         //DELETE usunięcie aktywnosci
         public async Task<bool> DeleteTimelineActivityAsync(int activityId, int currentUserId)
         {
@@ -221,6 +267,8 @@ namespace todo_backend.Services.TimelineActivityService
             return true;
         }
 
+
+
         //Wyświetlanie rekurencyjne
         public async Task<IEnumerable<TimelineActivityInstanceDto>> GetTimelineForUserAsync(int userId, DateTime from, DateTime to)
         {
@@ -235,14 +283,25 @@ namespace todo_backend.Services.TimelineActivityService
             {
                 if (activity.Is_recurring && !string.IsNullOrEmpty(activity.Recurrence_rule))
                 {
+
+                    // start generacji to max(zakres_od, start_aktywności)
+                    var actualFrom = activity.Start_time > from ? activity.Start_time : from;
+
                     var occurrences = _recurrenceService.GenerateOccurrences(
-                        from,
-                        activity.Recurrence_rule,
-                        (int)(to - from).TotalDays + 30 // bufor
+                    actualFrom,
+                    activity.Recurrence_rule,
+                    activity.Recurrence_exception,
+                    (int)(to - actualFrom).TotalDays + 30,
+                    activity.End_time
                     );
 
                     foreach (var occurrence in occurrences)
                     {
+
+                        var customDur = _recurrenceService.GetExceptionDuration(occurrence.Date);
+
+                        var durationMinutes = customDur ??
+                            (activity.PlannedDurationMinutes > 0 ? activity.PlannedDurationMinutes : 60);
                         if (occurrence >= from && occurrence <= to)
                         {
                             allInstances.Add(new TimelineActivityInstanceDto
@@ -250,12 +309,10 @@ namespace todo_backend.Services.TimelineActivityService
                                 ActivityId = activity.ActivityId,
                                 Title = activity.Title,
                                 StartTime = occurrence,
-                                EndTime = occurrence.AddMinutes(activity.PlannedDurationMinutes > 0
-                                    ? activity.PlannedDurationMinutes
-                                    : 60),
+                                EndTime = occurrence.AddMinutes(durationMinutes),
                                 ColorHex = activity.Category?.ColorHex ?? "#3b82f6",
                                 IsRecurring = true,
-                                PlannedDurationMinutes = activity.PlannedDurationMinutes
+                                PlannedDurationMinutes = durationMinutes
                             });
                         }
                         else if (activity.End_time == null && occurrence <= to)
@@ -265,12 +322,13 @@ namespace todo_backend.Services.TimelineActivityService
                                 ActivityId = activity.ActivityId,
                                 Title = activity.Title,
                                 StartTime = occurrence,
-                                EndTime = occurrence.AddMinutes(activity.PlannedDurationMinutes > 0
-                                    ? activity.PlannedDurationMinutes
-                                    : 60),
+                                EndTime = occurrence.AddMinutes(durationMinutes),
+                                //occurrence.AddMinutes(activity.PlannedDurationMinutes > 0
+                                //    ? activity.PlannedDurationMinutes
+                                //    : 60),
                                 ColorHex = activity.Category?.ColorHex ?? "#3b82f6",
                                 IsRecurring = true,
-                                PlannedDurationMinutes = activity.PlannedDurationMinutes
+                                PlannedDurationMinutes = durationMinutes
                             });
                         }
                     }
@@ -282,12 +340,16 @@ namespace todo_backend.Services.TimelineActivityService
 
                     if (activity.Start_time <= to && endTime >= from)
                     {
+
+                        var startUtc = DateTime.SpecifyKind(activity.Start_time, DateTimeKind.Utc);
+                        var endUtc   = DateTime.SpecifyKind(endTime, DateTimeKind.Utc);
+
                         allInstances.Add(new TimelineActivityInstanceDto
                         {
                             ActivityId = activity.ActivityId,
                             Title = activity.Title,
-                            StartTime = activity.Start_time,
-                            EndTime = endTime,
+                            StartTime = startUtc,
+                            EndTime = endUtc,
                             ColorHex = activity.Category?.ColorHex ?? "#3b82f6",
                             IsRecurring = false,
                             PlannedDurationMinutes = activity.PlannedDurationMinutes
@@ -300,6 +362,115 @@ namespace todo_backend.Services.TimelineActivityService
         }
 
 
+        public async Task<FullTimelineActivityDto?> AdjustTimelineAsync(ActivityModificationSuggestionDto dto, int userId)
+        {
+            var entity = await _context.TimelineActivities
+                .FirstOrDefaultAsync(t => t.ActivityId == dto.ActivityId && t.OwnerId == userId);
+
+            if (entity == null)
+                return null;
+
+            UpdateTimelineActivityDto updateDto;
+
+            if (entity.Is_recurring == true)
+                updateDto = BuildRecurrenceUpdateDto(entity, dto);
+            else
+                updateDto = BuildSingleUpdateDto(entity, dto);
+
+            return await UpdateTimelineActivityAutomaticAsync(dto.ActivityId, userId, updateDto);
+        }
+
+
+        private UpdateTimelineActivityDto BuildSingleUpdateDto(TimelineActivity entity, ActivityModificationSuggestionDto dto)
+        {
+            // dla jednorazowych — modyfikujemy czas startu / końca + przeliczamy długość
+            var plannedMinutes = (int)(dto.NewEndTime.Value - dto.NewStartTime).TotalMinutes;
+
+            return new UpdateTimelineActivityDto
+            {
+                Title = entity.Title,
+                Description = entity.Description,
+                CategoryId = entity.CategoryId,
+                StartTime = dto.NewStartTime,
+                EndTime = dto.NewEndTime,
+                IsRecurring = false,
+                RecurrenceRule = entity.Recurrence_rule,
+                RecurrenceException = entity.Recurrence_exception,
+                PlannedDurationMinutes = plannedMinutes
+            };
+        }
+
+        private UpdateTimelineActivityDto BuildRecurrenceUpdateDto(TimelineActivity entity, ActivityModificationSuggestionDto dto)
+        {
+            var plannedMinutes = (int)(dto.NewEndTime.Value - dto.NewStartTime).TotalMinutes;
+
+            // generujemy zaktualizowany wpis RecurrenceException (np. "20251110@TIMES=15:00|DUR=180")
+            var newException = UpsertRecurrenceException(
+                entity.Recurrence_exception,
+                dto.NewStartTime.Date,
+                dto.NewStartTime.TimeOfDay,
+                plannedMinutes
+            );
+
+            return new UpdateTimelineActivityDto
+            {
+                Title = entity.Title,
+                Description = entity.Description,
+                CategoryId = entity.CategoryId,
+                StartTime = entity.Start_time,         // bez zmian
+                EndTime = entity.End_time,             // bez zmian
+                IsRecurring = true,
+                RecurrenceRule = entity.Recurrence_rule,
+                RecurrenceException = newException,    // zaktualizowany wyjątek
+                PlannedDurationMinutes = entity.PlannedDurationMinutes
+            };
+        }
+
+
+        private static string UpsertRecurrenceException(
+    string? currentExceptions,
+    DateTime date,           // np. 2025-11-06
+    TimeSpan timeOfDay,      // np. 15:00
+    int? durationMinutes = null // na razie ignorowany jeśli brak
+)
+        {
+            // Słownik (klucz = data w formacie yyyyMMdd)
+            var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            // 1️⃣ Wczytaj istniejące wyjątki
+            if (!string.IsNullOrWhiteSpace(currentExceptions))
+            {
+                foreach (var token in currentExceptions.Split(';', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    var trimmed = token.Trim();
+                    var at = trimmed.IndexOf('@');
+                    if (at <= 0) continue;
+
+                    var key = trimmed.Substring(0, at); // yyyyMMdd
+                    map[key] = trimmed;                 // pełny wpis
+                }
+            }
+
+            // 2️⃣ Zbuduj nowy wpis dla podanej daty
+            var keyDate = date.ToString("yyyyMMdd");
+            var hhmm = $"{timeOfDay:hh\\:mm}"; // 15:00
+
+            string newEntry;
+
+            if (durationMinutes.HasValue)
+                newEntry = $"{keyDate}@TIMES={hhmm}|DUR={durationMinutes.Value}";
+            else
+                newEntry = $"{keyDate}@TIMES={hhmm}";
+
+            // 3️⃣ Dodaj lub nadpisz
+            map[keyDate] = newEntry;
+
+            // 4️⃣ Połącz z powrotem w string
+            var result = string.Join(";", map.Values.OrderBy(v => v, StringComparer.Ordinal));
+
+            return result;
+        }
+
 
         private static string GenerateJoinCode(int length = 8)
         {
@@ -307,6 +478,54 @@ namespace todo_backend.Services.TimelineActivityService
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
         }
+
+
+
+
+        public async Task<FullTimelineActivityDto?> PlaceActivityAsync(int userId, ActivityPlacementDto dto)
+        {
+            var entity = await _context.TimelineActivities
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(t => t.ActivityId == dto.ActivityId && t.OwnerId == userId);
+
+            if (entity == null)
+                return null;
+
+            if (entity.Is_recurring)
+            {
+                // 🔹 Dopisanie wyjątku z nowym terminem (i ewentualnie DUR)
+                entity.Recurrence_exception = UpsertRecurrenceException(
+                    entity.Recurrence_exception,
+                    dto.SuggestedStart,
+                    dto.SuggestedStart.TimeOfDay,
+                    dto.DurationMinutes
+                );
+            }
+            else
+            {
+                // 🔹 Aktywność jednorazowa – zmiana daty i długości
+                entity.Start_time = dto.SuggestedStart;
+                entity.End_time = dto.SuggestedStart.AddMinutes(dto.DurationMinutes);
+                entity.PlannedDurationMinutes = dto.DurationMinutes;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new FullTimelineActivityDto
+            {
+                ActivityId = entity.ActivityId,
+                Title = entity.Title,
+                Description = entity.Description,
+                StartTime = entity.Start_time,
+                EndTime = entity.End_time,
+                IsRecurring = entity.Is_recurring,
+                RecurrenceRule = entity.Recurrence_rule,
+                PlannedDurationMinutes = entity.PlannedDurationMinutes,
+                CategoryName = entity.Category?.Name
+            };
+        }
+
+
 
     }
 }

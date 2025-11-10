@@ -9,6 +9,7 @@
         public DateTime? EndTime { get; set; }
         public bool IsRecurring { get; set; }
         public string? RecurrenceRule { get; set; }
+        public string? RecurrenceException { get; set; }
         public int PlannedDurationMinutes { get; set; }
     }
 }

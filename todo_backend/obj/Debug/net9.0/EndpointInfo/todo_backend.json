@@ -1791,6 +1791,102 @@
         }
       }
     },
+    "/api/TimelineActivity/adjust-timeline": {
+      "put": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityModificationSuggestionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityModificationSuggestionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityModificationSuggestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/place-activity": {
+      "put": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullTimelineActivityDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User/all-users": {
       "get": {
         "tags": [
@@ -2338,6 +2434,55 @@
   },
   "components": {
     "schemas": {
+      "ActivityModificationSuggestionDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modificationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "newStartTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "newEndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivityPlacementDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "suggestedStart": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "ActivityPlacementSuggestionDto": {
         "type": "object",
         "properties": {
@@ -2833,6 +2978,10 @@
             "type": "boolean"
           },
           "recurrenceRule": {
+            "type": "string",
+            "nullable": true
+          },
+          "recurrenceException": {
             "type": "string",
             "nullable": true
           },

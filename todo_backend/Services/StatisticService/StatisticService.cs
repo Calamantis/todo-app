@@ -128,7 +128,9 @@ namespace todo_backend.Services.StatisticsService
                     var occurrences = _recurrenceService.GenerateOccurrences(
                         activity.Start_time,
                         activity.Recurrence_rule,
-                        totalDays
+                        activity.Recurrence_exception,
+                        totalDays,
+                        activity.End_time
                     );
 
                     foreach (var occurrence in occurrences)

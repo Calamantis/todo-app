@@ -2,11 +2,8 @@
 {
     public interface IRecurrenceService
     {
-        IEnumerable<DateTime> GenerateOccurrences(DateTime start, string recurrenceRule, int daysAhead);
-        IEnumerable<DateTime> GenerateOccurrences(
-    DateTime start,
-    string recurrenceRule,
-    DateTime from,
-    DateTime to);
+        IEnumerable<DateTime> GenerateOccurrences(DateTime start, string recurrenceRule,string recurrenceException, int daysAhead, DateTime? end);
+        IEnumerable<DateTime> GenerateOccurrences(DateTime start, string recurrenceRule,string recurrenceException, DateTime from, DateTime to);
+        int? GetExceptionDuration(DateTime date);
     }
 }

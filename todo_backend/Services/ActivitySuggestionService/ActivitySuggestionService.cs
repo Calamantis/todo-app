@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using todo_backend.Data;
@@ -22,7 +24,7 @@ namespace todo_backend.Services.ActivitySuggestionService
             _recurrenceService = recurrenceService;
             _timelineActivityService = timelineActivityService;
         }
-        // Opcja 1. sugerowanie na podstawie poprzednich aktywnosci uzytkownika
+        // Opcja 1. sugerowanie aktywności na podstawie poprzednich aktywnosci uzytkownika
         public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId,ActivitySuggestionDto dto)
         {
             var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
@@ -80,7 +82,7 @@ namespace todo_backend.Services.ActivitySuggestionService
                     // Używamy Twojego serwisu, ale w wersji "z zakresem"
                     // Jeśli nie masz overloadu (start, rule, from, to) → zrób go zgodnie z poprzednimi wskazówkami
                     var occ = _recurrenceService.GenerateOccurrences(
-                        act.Start_time, act.Recurrence_rule, occFromUtc, occToUtc);
+                        act.Start_time, act.Recurrence_rule, act.Recurrence_exception, occFromUtc, occToUtc);
 
                     // Zmapuj na lokalną strefę i zostaw tylko unikalne (dzień, godzina), żeby nie liczyć 100x tego samego
                     foreach (var o in occ.Take(200))
@@ -279,12 +281,12 @@ namespace todo_backend.Services.ActivitySuggestionService
         }
 
         // Opcja 2.2 sugerowanie gdzie umiescic aktywność - z modyfikację osi czasu użytkownika
-        public async Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementShiftedAsync(int userId, ActivityPlacementSuggestionDto dto)
+        public async Task<IEnumerable<DayOverlapActivitiesDto>> SuggestActivityPlacementShiftedAsync(int userId, ActivityPlacementSuggestionDto dto)
         {
             // 1) Aktywność i jej czas trwania
             var activity = await _context.TimelineActivities
                 .FirstOrDefaultAsync(t => t.ActivityId == dto.ActivityId && t.OwnerId == userId);
-            if (activity == null) return Enumerable.Empty<DayFreeSummaryDto>();
+            if (activity == null) return Enumerable.Empty<DayOverlapActivitiesDto>();
 
             var activityMinutes = activity.PlannedDurationMinutes; // np. 160
             var minRequired = activityMinutes + 20; // co najmniej 20 minut więcej
@@ -292,7 +294,7 @@ namespace todo_backend.Services.ActivitySuggestionService
             // 2) Zakres analizy – bez konwersji
             var start = (dto.StartDate ?? DateTime.UtcNow);
             var end = (dto.EndDate ?? start.AddDays(14));
-            if (end <= start) return Enumerable.Empty<DayFreeSummaryDto>();
+            if (end <= start) return Enumerable.Empty<DayOverlapActivitiesDto>();
 
             // 3) Dane osi czasu (zakładamy spójny czas z 'start'/'end')
             var userTimeline = await _timelineActivityService.GetTimelineForUserAsync(userId, start, end);
@@ -310,6 +312,7 @@ namespace todo_backend.Services.ActivitySuggestionService
                 .ToList();
 
             var result = new List<DayFreeSummaryDto>();
+            var finalresult = new List<DayOverlapActivitiesDto>();
 
             // 6) Iteracja dzień po dniu (bez TZ – w tej samej skali co dane)
             for (var day = start.Date; day <= end.Date; day = day.AddDays(1))
@@ -338,6 +341,7 @@ namespace todo_backend.Services.ActivitySuggestionService
 
                 // Zbieramy luki
                 var gaps = new List<(DateTime s, DateTime e)>();
+
                 if (overlaps.Count == 0)
                 {
                     gaps.Add((windowStart, windowEnd));
@@ -354,224 +358,230 @@ namespace todo_backend.Services.ActivitySuggestionService
                     if (overlaps[overlaps.Count - 1].E < windowEnd) gaps.Add(((DateTime s, DateTime e))(overlaps[overlaps.Count - 1].E, windowEnd));
                 }
 
-                //// Dla każdej luki spełniającej warunek zwróć propozycję (w połowie luki)
-                //foreach (var (gs, ge) in gaps)
-                //{
-                //    var gapMinutes = (int)(ge - gs).TotalMinutes;
-                //    if (gapMinutes < minRequired) continue;
-
-                //    // Placeholder: Propozycje (do zaimplementowania później)
-                //    // 4.1: Skrócenie poprzedniej aktywności
-                //    // 4.2: Skrócenie aktywności
-                //    // 4.3: Przesunięcie aktywności poprzedzającej i następnej
-
-                //    var slack = gapMinutes - activityMinutes;  // >= 20
-                //    var pad = slack / 2;                     // wyśrodkowanie
-                //    var sugStart = gs.AddMinutes(pad);
-                //    var sugEnd = sugStart.AddMinutes(activityMinutes);
-
-                //    result.Add(new DayFreeSummaryDto
-                //    {
-                //        DateLocal = day,                 // „dzień” tej luki
-                //        TotalFreeMinutes = gapMinutes,          // długość tej luki (jeśli chcesz, zmień nazwę pola)
-                //        SuggestedStart = sugStart,
-                //        SuggestedEnd = sugEnd
-                //    });
-                //}
-
                 foreach (var (gs, ge) in gaps)
                 {
                     var gapMinutes = (int)(ge - gs).TotalMinutes;
 
-                    // jezeli luka jest za krotka calkowicie 
-                    if (activity.PlannedDurationMinutes - gapMinutes > 30) 
+                    // tylko luki lekko za krótkie (np. 150–179 minut przy aktywności 180)
+                    if (gapMinutes <= activityMinutes && gapMinutes >= activityMinutes - 30)
                     {
-                        continue;
-                    }
-                        // Jeżeli luka jest mniejsza niż wymagany czas (mniejsze niż 180 minut), rozważ opcje:
-                    else if (activity.PlannedDurationMinutes - gapMinutes <= 30)
-                    {
-                        // Placeholder: Propozycje (do zaimplementowania później)
-                        // 4.1: Skrócenie poprzedniej aktywności
-                        // 4.2: Skrócenie aktywności
-                        // 4.3: Przesunięcie aktywności poprzedzającej i następnej
-
-                        var slack = gapMinutes - activityMinutes;  // >= 20
-                        var pad = slack / 2;                     // wyśrodkowanie
+                        var slack = gapMinutes - activityMinutes;  // np. -20
+                        var pad = slack / 2;                       // "środek" luki
                         var sugStart = gs.AddMinutes(pad);
                         var sugEnd = sugStart.AddMinutes(activityMinutes);
 
+                        Console.WriteLine("-------------------------------------------------");
+                        Console.WriteLine($"🕓 Luka dnia: {day:yyyy-MM-dd}");
+                        Console.WriteLine($"Długość luki: {gapMinutes} min");
+                        Console.WriteLine($"Czas aktywności: {activityMinutes} min");
+                        Console.WriteLine($"Start sugerowany: {sugStart:HH:mm}");
+                        Console.WriteLine($"Koniec sugerowany: {sugEnd:HH:mm}");
+                        Console.WriteLine("-------------------------------------------------\n");
+
+
                         result.Add(new DayFreeSummaryDto
                         {
-                            DateLocal = day,                 // „dzień” tej luki
-                            TotalFreeMinutes = gapMinutes,          // długość tej luki (jeśli chcesz, zmień nazwę pola)
+                            DateLocal = day,
+                            TotalFreeMinutes = gapMinutes,
                             SuggestedStart = sugStart,
                             SuggestedEnd = sugEnd
                         });
-
-                        var modifications = await GetSurroundingActivitiesAsync(userId, new DayFreeSummaryDto
-                        {
-                            SuggestedStart = sugStart,
-                            SuggestedEnd = sugEnd,
-                            TotalFreeMinutes = gapMinutes
-                        });
-
-                        // Możesz dodać modyfikacje, jeśli są dostępne
-                        if (modifications.Any())
-                        {
-                            foreach (var mod in modifications)
-                            {
-                                // Dodaj modyfikacje aktywności do listy, np. zmiana czasu, itp.
-                                Console.WriteLine($"Modification: ActivityId {mod.ActivityId}, Type: {mod.ModificationType}, NewStart: {mod.NewStartTime}, NewEnd: {mod.NewEndTime}");
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        //// Tradycyjne rozwiązanie – pełna luka
-                        //var slack = gapMinutes - activityMinutes;  // >= 20
-                        //var pad = slack / 2;                     // wyśrodkowanie
-                        //var sugStart = gs.AddMinutes(pad);
-                        //var sugEnd = sugStart.AddMinutes(activityMinutes);
-
-                        //result.Add(new DayFreeSummaryDto
-                        //{
-                        //    DateLocal = day,                 // „dzień” tej luki
-                        //    TotalFreeMinutes = gapMinutes,          // długość tej luki
-                        //    SuggestedStart = sugStart,
-                        //    SuggestedEnd = sugEnd
-                        //});
-                        continue;
                     }
                 }
+
+
+                finalresult = await GetActivitiesOverlappingSuggestionsAsync(userId, result, activityMinutes, dto.ActivityId);
+
             }
-            return result;
+            return finalresult;
         }
 
 
 
 
-
-
-
-
-        //public async Task<List<ActivityModificationSuggestionDto>> GetSurroundingActivitiesAsync(int userId, DayFreeSummaryDto proposedSlot)
-        //{
-        //    var modifications = new List<ActivityModificationSuggestionDto>();
-
-        //    // Pobieramy wszystkie aktywności użytkownika w oknie czasowym
-        //    var start = (proposedSlot.SuggestedStart ?? DateTime.UtcNow);
-        //    var end = (proposedSlot.SuggestedEnd ?? start.AddDays(14));
-        //    //if (end <= start) return Enumerable.Empty<DayFreeSummaryDto>();
-
-        //    // 3) Dane osi czasu (zakładamy spójny czas z 'start'/'end')
-        //    var userTimeline = await _timelineActivityService.GetTimelineForUserAsync(userId, start, end);
-
-        //    // 1) Znajdź poprzednią aktywność (aktywność, która kończy się przed proposedSlot.SuggestedStart)
-        //    var prevActivity = userTimeline
-        //        .Where(a => a.EndTime <= proposedSlot.SuggestedStart)
-        //        .OrderByDescending(a => a.EndTime)
-        //        .FirstOrDefault();
-
-        //    // 2) Znajdź następującą aktywność (aktywność, która zaczyna się po proposedSlot.SuggestedEnd)
-        //    var nextActivity = userTimeline
-        //        .Where(a => a.StartTime >= proposedSlot.SuggestedEnd)
-        //        .OrderBy(a => a.StartTime)
-        //        .FirstOrDefault();
-
-        //    // 3) Dodaj aktywności do listy modyfikacji
-        //    if (prevActivity != null)
-        //    {
-        //        modifications.Add(new ActivityModificationSuggestionDto
-        //        {
-        //            ActivityId = prevActivity.ActivityId,
-        //            ModificationType = "Previous Activity",  // Typ modyfikacji: "Previous" lub inne w zależności od tego, co chcesz robić
-        //            NewStartTime = prevActivity.StartTime,
-        //            NewEndTime = prevActivity.EndTime
-        //        });
-        //    }
-
-        //    if (nextActivity != null)
-        //    {
-        //        modifications.Add(new ActivityModificationSuggestionDto
-        //        {
-        //            ActivityId = nextActivity.ActivityId,
-        //            ModificationType = "Next Activity",  // Typ modyfikacji: "Next" lub inne
-        //            NewStartTime = nextActivity.StartTime,
-        //            NewEndTime = nextActivity.EndTime
-        //        });
-        //    }
-
-        //    return modifications;
-        //}
-
-        public async Task<List<ActivityModificationSuggestionDto>> GetSurroundingActivitiesAsync(int userId, DayFreeSummaryDto proposedSlot)
+        // 2.1
+        public async Task<List<DayOverlapActivitiesDto>> GetActivitiesOverlappingSuggestionsAsync(int userId, List<DayFreeSummaryDto> suggestedSlots, int activityTime, int activityId)
         {
-            var modifications = new List<ActivityModificationSuggestionDto>();
+            var overlapsPerSlot = new List<DayOverlapActivitiesDto>();
 
-            // Pobieramy wszystkie aktywności użytkownika w oknie czasowym
-            var start = (proposedSlot.SuggestedStart ?? DateTime.UtcNow);
-            var end = (proposedSlot.SuggestedEnd ?? start.AddDays(14));
+            // pobierz pełny timeline użytkownika tylko raz (dla zakresu całego okresu)
+            var minStart = suggestedSlots.Min(s => s.SuggestedStart) ?? DateTime.UtcNow;
+            var maxEnd = suggestedSlots.Max(s => s.SuggestedEnd) ?? minStart.AddDays(14);
 
-            Console.WriteLine($"Fetching user timeline for {userId} from {start} to {end}");
-
-            // 3) Dane osi czasu (zakładamy spójny czas z 'start'/'end')
-            var userTimeline = await _timelineActivityService.GetTimelineForUserAsync(userId, start, end);
+            var userTimeline = await _timelineActivityService.GetTimelineForUserAsync(userId, minStart, maxEnd);
 
             if (userTimeline == null || !userTimeline.Any())
             {
-                Console.WriteLine("No activities found in the timeline.");
+                Console.WriteLine("Brak aktywności w osi czasu użytkownika.");
+                return overlapsPerSlot;
             }
 
-            // 1) Znajdź poprzednią aktywność (aktywność, która kończy się przed proposedSlot.SuggestedStart)
-            var prevActivity = userTimeline
-                .Where(a => a.EndTime <= proposedSlot.SuggestedStart)
-                .OrderByDescending(a => a.EndTime)
-                .FirstOrDefault();
-
-            if (prevActivity != null)
+            foreach (var slot in suggestedSlots)
             {
-                modifications.Add(new ActivityModificationSuggestionDto
+                var slotStart = slot.SuggestedStart ?? DateTime.MinValue;
+                var slotEnd = slot.SuggestedEnd ?? DateTime.MinValue;
+
+                //// znajdź aktywności, które trwają w tym zakresie
+                //var overlapping = userTimeline
+                //    .Where(a =>
+                //        a.StartTime <= slotEnd &&   // zaczyna się przed końcem
+                //        a.EndTime >= slotStart      // kończy się po rozpoczęciu
+                //    )
+                //    .OrderBy(a => a.StartTime)
+                //    .ToList();
+
+                //if (overlapping.Any())
+                //{
+                //    overlapsPerSlot.Add(new DayOverlapActivitiesDto
+                //    {
+                //        Date = slot.DateLocal,
+                //        SuggestedStart = slotStart,
+                //        SuggestedEnd = slotEnd,
+                //        gapTime = slot.TotalFreeMinutes,
+                //        activityTime = activityTime,
+                //        OverlappingActivities = overlapping.Select(a => new ActivityBasicInfoDto
+                //        {
+                //            ActivityId = a.ActivityId,
+                //            Title = a.Title,
+                //            StartTime = a.StartTime,
+                //            EndTime = a.EndTime
+                //        }).ToList()
+                //    });
+                //}
+
+
+                // znajdź aktywności, które trwają w tym zakresie
+                var overlapping = userTimeline
+                    .Where(a =>
+                        a.StartTime <= slotEnd &&   // zaczyna się przed końcem
+                        a.EndTime >= slotStart      // kończy się po rozpoczęciu
+                    )
+                    .OrderBy(a => a.StartTime)
+                    .ToList();
+
+                // znajdź poprzednią i następną aktywność względem luki
+                var prevActivity = userTimeline
+                    .Where(a => a.EndTime <= slotStart)
+                    .OrderByDescending(a => a.EndTime)
+                    .FirstOrDefault();
+
+                var nextActivity = userTimeline
+                    .Where(a => a.StartTime >= slotEnd)
+                    .OrderBy(a => a.StartTime)
+                    .FirstOrDefault();
+
+                if (overlapping.Any() || prevActivity != null || nextActivity != null)
                 {
-                    ActivityId = prevActivity.ActivityId,
-                    ModificationType = "Previous Activity",  // Typ modyfikacji: "Previous" lub inne w zależności od tego, co chcesz robić
-                    NewStartTime = prevActivity.StartTime,
-                    NewEndTime = prevActivity.EndTime
-                });
+                    var modificationProposals = new List<ActivityModificationSuggestionDto>();
+
+                    // --- 🔹 1. Skrócenie poprzedniej aktywności ---
+                    if (prevActivity != null)
+                    {
+                        // jak bardzo można skrócić (min 5, max 15)
+                        var maxShorten = Math.Min(15, (slotStart - prevActivity.EndTime!.Value).TotalMinutes + 15);
+                        if (maxShorten >= 5)
+                        {
+                            var newEnd = prevActivity.EndTime!.Value.AddMinutes(-maxShorten);
+                            modificationProposals.Add(new ActivityModificationSuggestionDto
+                            {
+                                ActivityId = prevActivity.ActivityId,
+                                ModificationType = "ShortenPrevious",
+                                Description = $"Skróć poprzednią aktywność o {maxShorten:F0} min, aby uzyskać przerwę ≥5 min.",
+                                NewStartTime = prevActivity.StartTime,
+                                NewEndTime = newEnd
+                            });
+                        }
+                    }
+
+                    // --- 🔹 2. Przesunięcie następnej aktywności ---
+                    if (nextActivity != null)
+                    {
+                        var maxShift = Math.Min(15, (nextActivity.StartTime - slotEnd).TotalMinutes + 15);
+                        if (maxShift >= 5)
+                        {
+                            var newStart = nextActivity.StartTime.AddMinutes(maxShift);
+                            var newEnd = nextActivity.EndTime!.Value.AddMinutes(maxShift);
+
+                            modificationProposals.Add(new ActivityModificationSuggestionDto
+                            {
+                                ActivityId = nextActivity.ActivityId,
+                                ModificationType = "ShiftNext",
+                                Description = $"Przesuń następną aktywność o {maxShift:F0} min, aby uzyskać przerwę ≥5 min.",
+                                NewStartTime = newStart,
+                                NewEndTime = newEnd
+                            });
+                        }
+                    }
+
+                    // --- 🔹 3. Skrócenie bieżącej (proponowanej) aktywności ---
+                    if (overlapping.Any())
+                    {
+                        var totalOverlap = overlapping.Sum(a =>
+                        {
+                            var start = a.StartTime;
+                            var end = a.EndTime;
+
+                            // sprawdzenie dla nulli, żeby uniknąć problemów
+                            if (start == null || end == null) return 0;
+
+                            var overlapStart = start > slotStart ? start : slotStart;
+                            var overlapEnd = end < slotEnd ? end.Value : slotEnd;
+
+                            var overlapMinutes = (overlapEnd - overlapStart).TotalMinutes;
+                            return overlapMinutes > 0 ? overlapMinutes : 0;
+                        });
+
+                        if (totalOverlap >= 0 && totalOverlap <= 20)
+                        {
+                            // skróć z każdej strony tyle, żeby zostawić min. 5 minut przerwy
+                            var shortenLeft = Math.Min(10, (totalOverlap + 10) / 2);
+                            var shortenRight = Math.Min(10, (totalOverlap + 10) - shortenLeft);
+
+                            var newStart = slotStart.AddMinutes(shortenLeft);
+                            var newEnd = slotEnd.AddMinutes(-shortenRight);
+
+                            modificationProposals.Add(new ActivityModificationSuggestionDto
+                            {
+                                ActivityId = activityId, // bieżąca (nowa) aktywność
+                                ModificationType = "ShortenCurrent",
+                                Description = $"Skróć planowaną aktywność o {shortenLeft + shortenRight:F0} min, aby uzyskać odstęp ≥5 min z obu stron.",
+                                NewStartTime = newStart,
+                                NewEndTime = newEnd
+                            });
+                        }
+                    }
+
+                    overlapsPerSlot.Add(new DayOverlapActivitiesDto
+                    {
+                        Date = slot.DateLocal,
+                        SuggestedStart = slotStart,
+                        SuggestedEnd = slotEnd,
+                        gapTime = slot.TotalFreeMinutes,
+                        activityTime = activityTime,
+                        OverlappingActivities = overlapping.Select(a => new ActivityBasicInfoDto
+                        {
+                            ActivityId = a.ActivityId,
+                            Title = a.Title,
+                            StartTime = a.StartTime,
+                            EndTime = a.EndTime
+                        }).ToList(),
+                        ModificationSuggestions = modificationProposals // 🔥 nowe pole
+                    });
+                }
+
+
             }
 
-            // 2) Znajdź następującą aktywność (aktywność, która zaczyna się po proposedSlot.SuggestedEnd)
-            var nextActivity = userTimeline
-                .Where(a => a.StartTime >= proposedSlot.SuggestedEnd)
-                .OrderBy(a => a.StartTime)
-                .FirstOrDefault();
+            // wypisz całość ładnie po zakończeniu
+            Console.WriteLine("=== Aktywności nachodzące na sugerowane zakresy ===");
+            Console.WriteLine(JsonSerializer.Serialize(overlapsPerSlot, new JsonSerializerOptions { WriteIndented = true }));
 
-            if (nextActivity != null)
-            {
-                modifications.Add(new ActivityModificationSuggestionDto
-                {
-                    ActivityId = nextActivity.ActivityId,
-                    ModificationType = "Next Activity",  // Typ modyfikacji: "Next" lub inne
-                    NewStartTime = nextActivity.StartTime,
-                    NewEndTime = nextActivity.EndTime
-                });
-            }
-
-            // Wypisz wszystkie zmodyfikowane aktywności po przetworzeniu
-            if (modifications.Any())
-            {
-                // Serializacja całości do JSON w celu łatwiejszego podglądu
-                Console.WriteLine("Suggested Modifications:");
-                Console.WriteLine(JsonSerializer.Serialize(modifications, new JsonSerializerOptions { WriteIndented = true }));
-            }
-            else
-            {
-                Console.WriteLine("No modifications suggested.");
-            }
-
-            return modifications;
+            return overlapsPerSlot;
         }
+
+
+
+
 
 
 

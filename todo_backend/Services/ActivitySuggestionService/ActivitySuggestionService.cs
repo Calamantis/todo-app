@@ -24,8 +24,8 @@ namespace todo_backend.Services.ActivitySuggestionService
             _recurrenceService = recurrenceService;
             _timelineActivityService = timelineActivityService;
         }
-        //// Opcja 1. sugerowanie aktywności na podstawie poprzednich aktywnosci uzytkownika
-        //public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId,ActivitySuggestionDto dto)
+        // Opcja 1. sugerowanie aktywności na podstawie poprzednich aktywnosci uzytkownika
+        //public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId, ActivitySuggestionDto dto)
         //{
         //    var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
 
@@ -80,24 +80,24 @@ namespace todo_backend.Services.ActivitySuggestionService
         //        if (act.Is_recurring && !string.IsNullOrWhiteSpace(act.Recurrence_rule))
         //        {
         //            // Używamy Twojego serwisu, ale w wersji "z zakresem"
-        //            // Jeśli nie masz overloadu (start, rule, from, to) → zrób go zgodnie z poprzednimi wskazówkami
-        //            //var occ = _recurrenceService.GenerateOccurrences(
-        //            //    act.Start_time, act.Recurrence_rule, act.Recurrence_exception, occFromUtc, occToUtc);
+        //            //Jeśli nie masz overloadu(start, rule, from, to) → zrób go zgodnie z poprzednimi wskazówkami
+        //            var occ = _recurrenceService.GenerateOccurrences(
+        //                act.Start_time, act.Recurrence_rule, act.Recurrence_exception, occFromUtc, occToUtc);
 
-        //            //// Zmapuj na lokalną strefę i zostaw tylko unikalne (dzień, godzina), żeby nie liczyć 100x tego samego
-        //            //foreach (var o in occ.Take(200))
-        //            //{
-        //            //    var loc = TimeZoneInfo.ConvertTimeFromUtc(
-        //            //        DateTime.SpecifyKind(o, DateTimeKind.Utc), localZone);
-        //            //    candidateSlots.Add((loc.DayOfWeek, loc.TimeOfDay, loc));
-        //            //}
+        //            // Zmapuj na lokalną strefę i zostaw tylko unikalne (dzień, godzina), żeby nie liczyć 100x tego samego
+        //            foreach (var o in occ.Take(200))
+        //            {
+        //                var loc = TimeZoneInfo.ConvertTimeFromUtc(
+        //                    DateTime.SpecifyKind(o, DateTimeKind.Utc), localZone);
+        //                candidateSlots.Add((loc.DayOfWeek, loc.TimeOfDay, loc));
+        //            }
 
-        //            //// DEBUG: pokaż kilka slotów
-        //            //Console.WriteLine($"[DEBUG] Activity '{act.Title}' recurrence slots (sample):");
-        //            //foreach (var s in candidateSlots.Take(5))
-        //            //    Console.WriteLine($"   - {s.local:yyyy-MM-dd HH:mm} ({s.day}, {s.time})");
-        //            //if (candidateSlots.Count == 0)
-        //            //    Console.WriteLine("   - (no recurrence slots found in window)");
+        //            // DEBUG: pokaż kilka slotów
+        //            Console.WriteLine($"[DEBUG] Activity '{act.Title}' recurrence slots (sample):");
+        //            foreach (var s in candidateSlots.Take(5))
+        //                Console.WriteLine($"   - {s.local:yyyy-MM-dd HH:mm} ({s.day}, {s.time})");
+        //            if (candidateSlots.Count == 0)
+        //                Console.WriteLine("   - (no recurrence slots found in window)");
         //        }
         //        else
         //        {
@@ -179,6 +179,161 @@ namespace todo_backend.Services.ActivitySuggestionService
         //        .Take(3)
         //        .ToList();
         //}
+
+        public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesAsync(int userId, ActivitySuggestionDto dto)
+        {
+            var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+
+            Console.WriteLine("========== [DEBUG] START SUGGESTION ==========");
+            Console.WriteLine($"UserId: {userId}");
+            Console.WriteLine($"Input DTO:");
+            Console.WriteLine($"  PlannedDurationMinutes: {dto.PlannedDurationMinutes}");
+            Console.WriteLine($"  PreferredStart: {dto.PreferredStart}");
+            Console.WriteLine($"  PreferredEnd:   {dto.PreferredEnd}");
+            Console.WriteLine($"  PreferredDays:  {(dto.PreferredDays != null ? string.Join(",", dto.PreferredDays) : "null")}");
+            Console.WriteLine($"  CategoryId:     {dto.CategoryId}");
+            Console.WriteLine("----------------------------------------------");
+
+            // 🔹 1️⃣ Pobierz historię aktywności użytkownika
+            var history = await _context.TimelineActivities
+                .Include(a => a.Category)
+                .Where(a => a.OwnerId == userId && a.IsActive)
+                .ToListAsync();
+
+            if (dto.CategoryId.HasValue)
+                history = history.Where(a => a.CategoryId == dto.CategoryId.Value).ToList();
+
+            var suggestions = new List<SuggestedTimelineActivityDto>();
+
+            // Okno do analizy wystąpień
+            var windowFrom = DateTime.UtcNow.AddMonths(-2).Date;
+            var windowTo = DateTime.UtcNow.AddDays(14).Date;
+
+            foreach (var act in history)
+            {
+                // 🔹 2️⃣ μ_duration – średni planowany czas dla tej aktywności
+                var avgDuration = history
+                    .Where(a => a.Title == act.Title && a.PlannedDurationMinutes > 0)
+                    .DefaultIfEmpty()
+                    .Average(a => a?.PlannedDurationMinutes ?? act.PlannedDurationMinutes);
+
+                double muDuration = 1.0;
+                if (dto.PlannedDurationMinutes.HasValue)
+                {
+                    var diff = Math.Abs(dto.PlannedDurationMinutes.Value - avgDuration);
+                    if (diff <= 15)
+                        muDuration = Math.Max(0.75, 1.0 - diff * 0.016);
+                    else
+                        muDuration = Math.Max(0.05, 0.75 - (diff - 15) * 0.05);
+                    muDuration = Math.Round(muDuration, 3);
+                }
+
+                // 🔹 3️⃣ Wystąpienia (slots) – pobrane z bazy
+                var candidateSlots = new List<(DayOfWeek day, TimeSpan time, DateTime local)>();
+
+                if (act.Is_recurring)
+                {
+                    var occ = await _context.TimelineRecurrenceInstances
+                        .Where(i => i.ActivityId == act.ActivityId &&
+                                    i.OccurrenceDate >= windowFrom &&
+                                    i.OccurrenceDate <= windowTo)
+                        .OrderBy(i => i.OccurrenceDate)
+                        .ToListAsync();
+
+                    foreach (var o in occ)
+                    {
+                        var utcStart = o.OccurrenceDate.Date + o.StartTime;
+                        var local = TimeZoneInfo.ConvertTimeFromUtc(
+                            DateTime.SpecifyKind(utcStart, DateTimeKind.Utc), localZone);
+                        candidateSlots.Add((local.DayOfWeek, local.TimeOfDay, local));
+                    }
+
+                    Console.WriteLine($"[DEBUG] Activity '{act.Title}' recurrence slots (DB): {candidateSlots.Count}");
+                    foreach (var s in candidateSlots.Take(3))
+                        Console.WriteLine($"   - {s.local:yyyy-MM-dd HH:mm} ({s.day}, {s.time})");
+                }
+                else
+                {
+                    // Jednorazowa – pojedynczy slot
+                    var local = TimeZoneInfo.ConvertTimeFromUtc(
+                        DateTime.SpecifyKind(act.Start_time, DateTimeKind.Utc), localZone);
+                    candidateSlots.Add((local.DayOfWeek, local.TimeOfDay, local));
+                    Console.WriteLine($"[DEBUG] Activity '{act.Title}' single slot: {local:yyyy-MM-dd HH:mm}");
+                }
+
+                if (candidateSlots.Count == 0)
+                    continue;
+
+                //mnożnik częstotliwości
+                var totalOccurrences = candidateSlots.Count;
+                var stabilityFactor = Math.Min(1.0, Math.Log10(totalOccurrences + 1) / 2.0);
+
+                // 🔹 4️⃣ μ_day / μ_time
+                double bestMuTime = 0.0;
+                double bestMuDay = 0.0;
+                (DayOfWeek day, TimeSpan time, DateTime local) bestSlot = default;
+
+                foreach (var slot in candidateSlots)
+                {
+                    // μ_day
+                    double muDay = 1.0;
+                    if (dto.PreferredDays != null && dto.PreferredDays.Count > 0)
+                        muDay = dto.PreferredDays.Contains(slot.day) ? 1.0 : 0.3;
+
+                    // μ_time
+                    double muTime = 1.0;
+                    if (dto.PreferredStart.HasValue && dto.PreferredEnd.HasValue)
+                    {
+                        var startDiff = Math.Abs((slot.time - dto.PreferredStart.Value).TotalMinutes);
+                        var endDiff = Math.Abs((slot.time - dto.PreferredEnd.Value).TotalMinutes);
+                        var diff = Math.Min(startDiff, endDiff);
+
+                        if (diff <= 15)
+                            muTime = Math.Max(0.85, 1.0 - diff * 0.01);
+                        else
+                            muTime = Math.Max(0.2, 0.85 - (diff - 15) * 0.03);
+                    }
+
+                    var weighted = 0.25 * muTime + 0.15 * muDay;
+                    var bestWeighted = 0.25 * bestMuTime + 0.15 * bestMuDay;
+                    if (weighted > bestWeighted)
+                    {
+                        bestMuTime = muTime;
+                        bestMuDay = muDay;
+                        bestSlot = slot;
+                    }
+                }
+
+                // 🔹 5️⃣ Score końcowy
+                double score = 0.6 * muDuration + 0.25 * bestMuTime + 0.15 * bestMuDay;
+
+                score *= stabilityFactor;
+
+                Console.WriteLine($"[DEBUG] Activity: {act.Title}");
+                Console.WriteLine($"  -> Avg Duration: {avgDuration} min");
+                Console.WriteLine($"  -> BEST slot: {bestSlot.local:yyyy-MM-dd HH:mm} ({bestSlot.day}, {bestSlot.time})");
+                Console.WriteLine($"  -> μ_duration={muDuration:F3}, μ_time={bestMuTime:F3}, μ_day={bestMuDay:F3}, SCORE={score:F3}");
+                Console.WriteLine("----------------------------------------------");
+
+                suggestions.Add(new SuggestedTimelineActivityDto
+                {
+                    ActivityId = act.ActivityId,
+                    Title = act.Title,
+                    CategoryName = act.Category?.Name,
+                    SuggestedDurationMinutes = (int)Math.Round(avgDuration),
+                    Score = Math.Round(score, 3),
+                });
+            }
+
+            Console.WriteLine("========== [DEBUG] END ==========");
+            return suggestions
+                .OrderByDescending(s => s.Score)
+                .Take(3)
+                .ToList();
+        }
+
+
+
 
         //// Opcja 2.1. sugerowanie gdzie umiescic aktywność - bez modyfikacji osi czasu użytkownika
         //public async Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementAsync(int userId, ActivityPlacementSuggestionDto dto)

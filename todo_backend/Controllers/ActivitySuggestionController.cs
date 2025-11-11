@@ -17,14 +17,14 @@ namespace todo_backend.Controllers
         }
 
 
-        //[Authorize]
-        //[HttpGet("suggestions/personal")]
-        //public async Task<IActionResult> GetPersonalSuggestions(ActivitySuggestionDto dto)
-        //{
-        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-        //    var result = await _activitySuggestionService.SuggestActivitiesAsync(userId, dto);
-        //    return Ok(result);
-        //}
+        [Authorize]
+        [HttpGet("suggestions/personal")]
+        public async Task<IActionResult> GetPersonalSuggestions(ActivitySuggestionDto dto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var result = await _activitySuggestionService.SuggestActivitiesAsync(userId, dto);
+            return Ok(result);
+        }
 
         //[Authorize]
         //[HttpPost("suggestions/placement")]

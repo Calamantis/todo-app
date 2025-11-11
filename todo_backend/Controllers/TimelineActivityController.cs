@@ -6,8 +6,11 @@ using System.Security.Claims;
 using todo_backend.Data;
 using todo_backend.Dtos.ActivitySuggestionDto;
 using todo_backend.Dtos.TimelineActivity;
+using todo_backend.Dtos.TimelineRecurrenceInstanceDto;
 using todo_backend.Models;
 using todo_backend.Services.TimelineActivityService;
+using todo_backend.Services.TimelineRecurrenceExceptionService;
+using todo_backend.Services.TimelineRecurrenceInstanceService;
 
 namespace todo_backend.Controllers
 {
@@ -16,10 +19,12 @@ namespace todo_backend.Controllers
     public class TimelineActivityController : ControllerBase
     {
         private readonly ITimelineActivityService _timelineActivityService;
+        private readonly ITimelineRecurrenceInstanceService _recurrenceInstanceService;
 
-        public TimelineActivityController(ITimelineActivityService timelineActivityService)
+        public TimelineActivityController(ITimelineActivityService timelineActivityService, ITimelineRecurrenceInstanceService recurrenceInstanceService)
         {
             _timelineActivityService = timelineActivityService;
+            _recurrenceInstanceService = recurrenceInstanceService;
         }
 
         //GET przeglądanie (swoich) aktywnosci
@@ -119,18 +124,44 @@ namespace todo_backend.Controllers
 
         }
 
-        //[Authorize]
-        //[HttpGet("get-timeline")]
-        //public async Task<IActionResult> GetTimeline([FromQuery] DateTime from, [FromQuery] DateTime to)
-        //{
-        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-        //    if (userIdClaim == null) return Unauthorized();
-        //    int userId = int.Parse(userIdClaim.Value);
+        [Authorize]
+        [HttpPost("repeat/{activityId}")]
+        public async Task<IActionResult> RepeatActivity(int activityId, [FromBody] DateTime newStart)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
+
+            var activity = await _timelineActivityService.GetTimelineActivityByIdAsync(activityId, userId);
+            if (activity == null)
+                return NotFound();
+
+            var dto = new TimelineRecurrenceInstanceCreateDto
+            {
+                ActivityId = activityId,
+                OccurrenceDate = newStart.Date,
+                StartTime = newStart.TimeOfDay,
+                EndTime = newStart.AddMinutes(activity.PlannedDurationMinutes).TimeOfDay,
+                DurationMinutes = activity.PlannedDurationMinutes,
+                IsCompleted = false
+            };
+
+            var result = await _recurrenceInstanceService.CreateAsync(dto);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("get-timeline")]
+        public async Task<IActionResult> GetTimeline([FromQuery] DateTime from, [FromQuery] DateTime to)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
 
 
-        //    var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, from, to);
-        //    return Ok(activities);
-        //}
+            var activities = await _timelineActivityService.GetTimelineForUserAsync(userId, from, to);
+            return Ok(activities);
+        }
 
         //[Authorize]
         //[HttpPut("adjust-timeline")]

@@ -1441,7 +1441,82 @@
         }
       }
     },
-    "/api/recurrence-exceptions/activity/{activityId}": {
+    "/api/TimelineActivity/repeat/{activityId}": {
+      "post": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TimelineActivity/get-timeline": {
+      "get": {
+        "tags": [
+          "TimelineActivity"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recurrence-exceptions/{activityId}": {
       "get": {
         "tags": [
           "TimelineRecurrenceException"
@@ -1490,125 +1565,7 @@
         }
       }
     },
-    "/api/recurrence-exceptions/{id}": {
-      "get": {
-        "tags": [
-          "TimelineRecurrenceException"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "TimelineRecurrenceException"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceExceptionUpdateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceExceptionUpdateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceExceptionUpdateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "TimelineRecurrenceException"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/recurrence-exceptions": {
+    "/api/recurrence-exceptions/recurrence-exceptions": {
       "post": {
         "tags": [
           "TimelineRecurrenceException"
@@ -1652,6 +1609,29 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/recurrence-exceptions/{exceptionId}": {
+      "delete": {
+        "tags": [
+          "TimelineRecurrenceException"
+        ],
+        "parameters": [
+          {
+            "name": "exceptionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -2750,6 +2730,15 @@
         },
         "additionalProperties": false
       },
+      "RecurrenceExceptionMode": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "StatisticsDto": {
         "type": "object",
         "properties": {
@@ -2793,8 +2782,8 @@
             "format": "int32",
             "nullable": true
           },
-          "isSkipped": {
-            "type": "boolean"
+          "mode": {
+            "$ref": "#/components/schemas/RecurrenceExceptionMode"
           }
         },
         "additionalProperties": false
@@ -2824,27 +2813,8 @@
             "format": "int32",
             "nullable": true
           },
-          "isSkipped": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TimelineRecurrenceExceptionUpdateDto": {
-        "type": "object",
-        "properties": {
-          "newStartTime": {
-            "type": "string",
-            "format": "date-span",
-            "nullable": true
-          },
-          "newDurationMinutes": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isSkipped": {
-            "type": "boolean"
+          "mode": {
+            "$ref": "#/components/schemas/RecurrenceExceptionMode"
           }
         },
         "additionalProperties": false

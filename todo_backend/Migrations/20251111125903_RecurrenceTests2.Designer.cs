@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using todo_backend.Data;
 
@@ -11,9 +12,11 @@ using todo_backend.Data;
 namespace todo_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251111125903_RecurrenceTests2")]
+    partial class RecurrenceTests2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,8 +273,11 @@ namespace todo_backend.Migrations
                     b.Property<DateTime>("ExceptionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Mode")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsAdditional")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSkipped")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("NewDurationMinutes")
                         .HasColumnType("int");

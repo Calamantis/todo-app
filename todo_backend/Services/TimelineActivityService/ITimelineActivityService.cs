@@ -11,8 +11,7 @@ namespace todo_backend.Services.TimelineActivityService
         Task<bool> ConvertToOnlineAsync(int activityId, int currentUserId);
         Task<FullTimelineActivityDto> UpdateTimelineActivityAsync(int activityId, int currentUserId, UpdateTimelineActivityDto dto);
         Task<bool> DeleteTimelineActivityAsync(int activityId, int currentUserId);
-        //Task<IEnumerable<TimelineActivityInstanceDto>> GetTimelineForUserAsync(int userId, int daysAhead);
-        //Task<IEnumerable<TimelineActivityInstanceDto>> GetTimelineForUserAsync(int userId, DateTime from, DateTime to);
+        Task<IEnumerable<TimelineActivityInstanceDto>> GetTimelineForUserAsync(int userId, DateTime from, DateTime to);
         //Task<FullTimelineActivityDto?> AdjustTimelineAsync(ActivityModificationSuggestionDto dto, int userId);
         //Task<FullTimelineActivityDto?> PlaceActivityAsync(int userId, ActivityPlacementDto dto);
         //Task<FullTimelineActivityDto> UpdateTimelineActivityAutomaticAsync(int activityId, int currentUserId, UpdateTimelineActivityDto dto); //ONLY FOR ALGHORITM

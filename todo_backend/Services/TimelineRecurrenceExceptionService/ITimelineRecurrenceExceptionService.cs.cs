@@ -3,10 +3,8 @@ namespace todo_backend.Services.TimelineRecurrenceExceptionService
 {
     public interface ITimelineRecurrenceExceptionService
     {
-        Task<IEnumerable<TimelineRecurrenceExceptionResponseDto>> GetAllAsync(int activityId);
-        Task<TimelineRecurrenceExceptionResponseDto?> GetByIdAsync(int id);
-        Task<TimelineRecurrenceExceptionResponseDto> CreateAsync(TimelineRecurrenceExceptionCreateDto dto);
-        Task<TimelineRecurrenceExceptionResponseDto?> UpdateAsync(int id, TimelineRecurrenceExceptionUpdateDto dto);
-        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<TimelineRecurrenceExceptionResponseDto>> GetExceptionsForActivityAsync(int activityId);
+        Task<TimelineRecurrenceExceptionResponseDto?> CreateExceptionAsync(TimelineRecurrenceExceptionCreateDto dto);
+        Task<bool> DeleteExceptionAsync(int exceptionId, int userId);
     }
 }

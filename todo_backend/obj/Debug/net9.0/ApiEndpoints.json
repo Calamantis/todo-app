@@ -686,107 +686,8 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "Create",
-    "RelativePath": "api/recurrence-exceptions",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "GetById",
-    "RelativePath": "api/recurrence-exceptions/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "Update",
-    "RelativePath": "api/recurrence-exceptions/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionUpdateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "Delete",
-    "RelativePath": "api/recurrence-exceptions/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "GetAll",
-    "RelativePath": "api/recurrence-exceptions/activity/{activityId}",
+    "Method": "GetForActivity",
+    "RelativePath": "api/recurrence-exceptions/{activityId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -800,6 +701,48 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
+    "Method": "Delete",
+    "RelativePath": "api/recurrence-exceptions/{exceptionId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "exceptionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
+    "Method": "Create",
+    "RelativePath": "api/recurrence-exceptions/recurrence-exceptions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1099,6 +1042,48 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "GetTimeline",
+    "RelativePath": "api/TimelineActivity/get-timeline",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "from",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "to",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
+    "Method": "RepeatActivity",
+    "RelativePath": "api/TimelineActivity/repeat/{activityId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newStart",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "MyApp.Controllers.UserController",

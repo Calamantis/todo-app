@@ -28,12 +28,17 @@ namespace todo_backend.Models
         /// </summary>
         public int? NewDurationMinutes { get; set; }
 
-        /// <summary>
-        /// Czy wystąpienie ma być pominięte całkowicie (SKIP)
-        /// </summary>
-        public bool IsSkipped { get; set; } = false;
+        public RecurrenceExceptionMode Mode { get; set; } = RecurrenceExceptionMode.ReplaceExisting;
 
         // 🔗 Powiązanie z główną aktywnością
         public TimelineActivity? Activity { get; set; }
     }
+
+    public enum RecurrenceExceptionMode
+    {
+        ReplaceExisting = 0, // zastąp istniejące wystąpienie
+        SkipExisting = 1,    // pomiń całkowicie
+        AddAdditional = 2    // dodaj nowe (dodatkowe)
+    }
+
 }

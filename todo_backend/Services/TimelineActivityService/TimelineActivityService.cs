@@ -3,6 +3,7 @@
 using todo_backend.Data;
 using todo_backend.Dtos.ActivitySuggestionDto;
 using todo_backend.Dtos.Friendship;
+using todo_backend.Dtos.Recurrence;
 using todo_backend.Dtos.TimelineActivity;
 using todo_backend.Models;
 using todo_backend.Services.RecurrenceService;
@@ -99,16 +100,26 @@ namespace todo_backend.Services.TimelineActivityService
                 _context.TimelineActivities.Add(entity);
                 await _context.SaveChangesAsync();
 
-                //// 🔹 Dodaj ownera do ActivityMembers
-                //var ownerMember = new ActivityMembers
+                //if (entity.Is_recurring && !string.IsNullOrEmpty(entity.Recurrence_rule))
                 //{
-                //    ActivityId = entity.ActivityId,
-                //    UserId = currentUserId,
-                //    Role = "owner",
-                //    Status = "accepted" // automatycznie zaakceptowany
-                //};
-                //_context.ActivityMembers.Add(ownerMember);
-                //await _context.SaveChangesAsync();
+                //    await _recurrenceService.GenerateInitialInstancesAsync(entity);
+                //}
+
+                if (!entity.Is_recurring)
+                {
+                    var instance = new TimelineRecurrenceInstance
+                    {
+                        ActivityId = entity.ActivityId,
+                        OccurrenceDate = dto.StartTime.Date,
+                        StartTime = dto.StartTime.TimeOfDay,
+                        EndTime = dto.StartTime.AddMinutes(dto.PlannedDurationMinutes).TimeOfDay,
+                        DurationMinutes = dto.PlannedDurationMinutes,
+                        IsCompleted = false
+                    };
+
+                    _context.TimelineRecurrenceInstances.Add(instance);
+                    await _context.SaveChangesAsync();
+                }
 
                 return new FullTimelineActivityDto
                 {
@@ -205,45 +216,45 @@ namespace todo_backend.Services.TimelineActivityService
 
         }
 
-        //PUT modyfikacja aktywności
-        public async Task<FullTimelineActivityDto> UpdateTimelineActivityAutomaticAsync(int activityId, int currentUserId, UpdateTimelineActivityDto dto)
-        {
-            var entity = await _context.TimelineActivities
-                .FirstOrDefaultAsync(t => t.ActivityId == activityId && t.OwnerId == currentUserId);
+        ////PUT modyfikacja aktywności
+        //public async Task<FullTimelineActivityDto> UpdateTimelineActivityAutomaticAsync(int activityId, int currentUserId, UpdateTimelineActivityDto dto)
+        //{
+        //    var entity = await _context.TimelineActivities
+        //        .FirstOrDefaultAsync(t => t.ActivityId == activityId && t.OwnerId == currentUserId);
 
-            if (entity == null) return null;
+        //    if (entity == null) return null;
 
-            entity.Title = dto.Title;
-            entity.Description = dto.Description;
-            entity.CategoryId = dto.CategoryId;
-            entity.Start_time = dto.StartTime;
-            entity.End_time = dto.EndTime;
-            entity.Is_recurring = dto.IsRecurring;
-            entity.Recurrence_rule = dto.RecurrenceRule;
-            //entity.Recurrence_exception = dto.RecurrenceException;
+        //    entity.Title = dto.Title;
+        //    entity.Description = dto.Description;
+        //    entity.CategoryId = dto.CategoryId;
+        //    entity.Start_time = dto.StartTime;
+        //    entity.End_time = dto.EndTime;
+        //    entity.Is_recurring = dto.IsRecurring;
+        //    entity.Recurrence_rule = dto.RecurrenceRule;
+        //    //entity.Recurrence_exception = dto.RecurrenceException;
 
-            if (!entity.Is_recurring)
-                entity.PlannedDurationMinutes = dto.PlannedDurationMinutes;
+        //    if (!entity.Is_recurring)
+        //        entity.PlannedDurationMinutes = dto.PlannedDurationMinutes;
 
-            await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-            var category = await _context.Categories.FindAsync(dto.CategoryId);
+        //    var category = await _context.Categories.FindAsync(dto.CategoryId);
 
-            return new FullTimelineActivityDto
-            {
-                ActivityId = entity.ActivityId,
-                Title = entity.Title,
-                Description = entity.Description,
-                StartTime = entity.Start_time,
-                EndTime = entity.End_time,
-                IsRecurring = entity.Is_recurring,
-                RecurrenceRule = entity.Recurrence_rule,
-                PlannedDurationMinutes = entity.PlannedDurationMinutes,
-                CategoryName = category?.Name,
-                JoinCode = entity.JoinCode
-            };
+        //    return new FullTimelineActivityDto
+        //    {
+        //        ActivityId = entity.ActivityId,
+        //        Title = entity.Title,
+        //        Description = entity.Description,
+        //        StartTime = entity.Start_time,
+        //        EndTime = entity.End_time,
+        //        IsRecurring = entity.Is_recurring,
+        //        RecurrenceRule = entity.Recurrence_rule,
+        //        PlannedDurationMinutes = entity.PlannedDurationMinutes,
+        //        CategoryName = category?.Name,
+        //        JoinCode = entity.JoinCode
+        //    };
 
-        }
+        //}
 
 
 
@@ -265,6 +276,94 @@ namespace todo_backend.Services.TimelineActivityService
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<TimelineActivityInstanceDto>> GetTimelineForUserAsync(int userId, DateTime from, DateTime to)
+        {
+            var activities = await _context.TimelineActivities
+                .Include(a => a.Category)
+                .Where(a => a.OwnerId == userId)
+                .ToListAsync();
+
+            var allInstances = new List<TimelineActivityInstanceDto>();
+
+            //// 🧹 1️⃣ Auto-cleanup: usuń instancje wybiegające dalej niż 7 dni w przyszłość
+            //var cleanupThreshold = DateTime.UtcNow.AddDays(7).Date;
+            var cleanupThreshold = DateTime.UtcNow;
+
+            var futureInstances = await _context.TimelineRecurrenceInstances
+                .Where(i => i.OccurrenceDate > cleanupThreshold)
+                .ToListAsync();
+
+
+            if (futureInstances.Count > 0)
+            {
+                _context.TimelineRecurrenceInstances.RemoveRange(futureInstances);
+                await _context.SaveChangesAsync();
+            }
+
+            // 🧠 2️⃣ Lazy loading: dogeneruj brakujące wystąpienia
+            foreach (var activity in activities)
+            {
+
+                if (!activity.Is_recurring || string.IsNullOrEmpty(activity.Recurrence_rule))
+                    continue;
+
+                Console.WriteLine($"[ITER] {activity.ActivityId} | recurring={activity.Is_recurring} | rule={activity.Recurrence_rule}");
+
+                var activityStart = activity.Start_time.Date;
+                var activityEnd = activity.End_time?.Date ?? DateTime.UtcNow.AddMonths(1).Date;
+
+                //przycinamy zakresy do granic aktywnosci
+                var genFrom = from.Date < activityStart ? activityStart : from.Date;
+                var genTo = to.Date > activityEnd ? activityEnd : to.Date;
+
+                //pusty zakres - pomiń
+                if (genTo < genFrom)
+                    continue;
+
+                var dto = new InstanceDto
+                {
+                    ActivityId = activity.ActivityId,
+                    Start_time = genFrom,
+                    End_time = genTo,
+                    Is_recurring = true,
+                    Recurrence_rule = activity.Recurrence_rule,
+                    PlannedDurationMinutes = activity.PlannedDurationMinutes
+                };
+                await _recurrenceService.GenerateInstancesAsync(dto);
+            }
+
+            // 🔹 3️⃣ Pobierz wystąpienia w żądanym zakresie
+            //var instances = await _context.TimelineRecurrenceInstances
+            //    .Include(i => i.Activity)
+            //    .ThenInclude(a => a.Category)
+            //    .Where(i => i.Activity.OwnerId == userId && i.OccurrenceDate >= from.Date && i.OccurrenceDate <= to.Date)
+            //    .ToListAsync();
+
+            var instances = await _context.TimelineRecurrenceInstances
+                .Include(i => i.Activity)
+                .ThenInclude(a => a.Category)
+                .Where(i => i.Activity.OwnerId == userId &&
+                    i.OccurrenceDate >= from.Date &&
+                    i.OccurrenceDate <= to.Date)
+                .ToListAsync();
+
+            foreach (var inst in instances)
+            {
+                allInstances.Add(new TimelineActivityInstanceDto
+                {
+                    ActivityId = inst.ActivityId,
+                    Title = inst.Activity.Title,
+                    StartTime = inst.OccurrenceDate.Date + inst.StartTime,
+                    EndTime = inst.OccurrenceDate.Date + inst.StartTime.Add(TimeSpan.FromMinutes(inst.DurationMinutes)),
+                    ColorHex = inst.Activity.Category?.ColorHex ?? "#3b82f6",
+                    IsRecurring = inst.Activity.Is_recurring,
+                    PlannedDurationMinutes = inst.DurationMinutes
+                });
+            }
+
+            return allInstances.OrderBy(a => a.StartTime);
         }
 
 

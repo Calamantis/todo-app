@@ -14,39 +14,25 @@ namespace todo_backend.Services.TimelineRecurrenceExceptionService
             _context = context;
         }
 
-        public async Task<IEnumerable<TimelineRecurrenceExceptionResponseDto>> GetAllAsync(int activityId)
+        public async Task<IEnumerable<TimelineRecurrenceExceptionResponseDto>> GetExceptionsForActivityAsync(int activityId)
         {
-            return await _context.TimelineRecurrenceExceptions
+            var items = await _context.TimelineRecurrenceExceptions
                 .Where(e => e.ActivityId == activityId)
                 .OrderBy(e => e.ExceptionDate)
-                .Select(e => new TimelineRecurrenceExceptionResponseDto
-                {
-                    ExceptionId = e.ExceptionId,
-                    ActivityId = e.ActivityId,
-                    ExceptionDate = e.ExceptionDate,
-                    NewStartTime = e.NewStartTime,
-                    NewDurationMinutes = e.NewDurationMinutes,
-                    IsSkipped = e.IsSkipped
-                }).ToListAsync();
-        }
+                .ToListAsync();
 
-        public async Task<TimelineRecurrenceExceptionResponseDto?> GetByIdAsync(int id)
-        {
-            var e = await _context.TimelineRecurrenceExceptions.FindAsync(id);
-            if (e == null) return null;
-
-            return new TimelineRecurrenceExceptionResponseDto
+            return items.Select(e => new TimelineRecurrenceExceptionResponseDto
             {
                 ExceptionId = e.ExceptionId,
                 ActivityId = e.ActivityId,
                 ExceptionDate = e.ExceptionDate,
                 NewStartTime = e.NewStartTime,
                 NewDurationMinutes = e.NewDurationMinutes,
-                IsSkipped = e.IsSkipped
-            };
+                Mode = e.Mode
+            });
         }
 
-        public async Task<TimelineRecurrenceExceptionResponseDto> CreateAsync(TimelineRecurrenceExceptionCreateDto dto)
+        public async Task<TimelineRecurrenceExceptionResponseDto?> CreateExceptionAsync(TimelineRecurrenceExceptionCreateDto dto)
         {
             var entity = new TimelineRecurrenceException
             {
@@ -54,7 +40,7 @@ namespace todo_backend.Services.TimelineRecurrenceExceptionService
                 ExceptionDate = dto.ExceptionDate,
                 NewStartTime = dto.NewStartTime,
                 NewDurationMinutes = dto.NewDurationMinutes,
-                IsSkipped = dto.IsSkipped
+                Mode = dto.Mode
             };
 
             _context.TimelineRecurrenceExceptions.Add(entity);
@@ -67,36 +53,18 @@ namespace todo_backend.Services.TimelineRecurrenceExceptionService
                 ExceptionDate = entity.ExceptionDate,
                 NewStartTime = entity.NewStartTime,
                 NewDurationMinutes = entity.NewDurationMinutes,
-                IsSkipped = entity.IsSkipped
+                Mode = entity.Mode
             };
         }
 
-        public async Task<TimelineRecurrenceExceptionResponseDto?> UpdateAsync(int id, TimelineRecurrenceExceptionUpdateDto dto)
+        public async Task<bool> DeleteExceptionAsync(int exceptionId, int userId)
         {
-            var entity = await _context.TimelineRecurrenceExceptions.FindAsync(id);
-            if (entity == null) return null;
+            var entity = await _context.TimelineRecurrenceExceptions
+                .Include(e => e.Activity)
+                .FirstOrDefaultAsync(e => e.ExceptionId == exceptionId && e.Activity!.OwnerId == userId);
 
-            entity.NewStartTime = dto.NewStartTime;
-            entity.NewDurationMinutes = dto.NewDurationMinutes;
-            entity.IsSkipped = dto.IsSkipped;
-
-            await _context.SaveChangesAsync();
-
-            return new TimelineRecurrenceExceptionResponseDto
-            {
-                ExceptionId = entity.ExceptionId,
-                ActivityId = entity.ActivityId,
-                ExceptionDate = entity.ExceptionDate,
-                NewStartTime = entity.NewStartTime,
-                NewDurationMinutes = entity.NewDurationMinutes,
-                IsSkipped = entity.IsSkipped
-            };
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var entity = await _context.TimelineRecurrenceExceptions.FindAsync(id);
-            if (entity == null) return false;
+            if (entity == null)
+                return false;
 
             _context.TimelineRecurrenceExceptions.Remove(entity);
             await _context.SaveChangesAsync();

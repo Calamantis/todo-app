@@ -1,4 +1,6 @@
-﻿namespace todo_backend.Dtos.TimelineRecurrenceExceptionDto
+﻿using todo_backend.Models;
+
+namespace todo_backend.Dtos.TimelineRecurrenceExceptionDto
 {
     public class TimelineRecurrenceExceptionCreateDto
     {
@@ -6,6 +8,6 @@
         public DateTime ExceptionDate { get; set; }
         public TimeSpan? NewStartTime { get; set; }
         public int? NewDurationMinutes { get; set; }
-        public bool IsSkipped { get; set; } = false;
+        public RecurrenceExceptionMode Mode { get; set; }
     }
 }

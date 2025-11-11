@@ -306,32 +306,56 @@ namespace todo_backend.Services.TimelineActivityService
             foreach (var activity in activities)
             {
 
-                if (!activity.Is_recurring || string.IsNullOrEmpty(activity.Recurrence_rule))
-                    continue;
-
-                Console.WriteLine($"[ITER] {activity.ActivityId} | recurring={activity.Is_recurring} | rule={activity.Recurrence_rule}");
-
-                var activityStart = activity.Start_time.Date;
-                var activityEnd = activity.End_time?.Date ?? DateTime.UtcNow.AddMonths(1).Date;
-
-                //przycinamy zakresy do granic aktywnosci
-                var genFrom = from.Date < activityStart ? activityStart : from.Date;
-                var genTo = to.Date > activityEnd ? activityEnd : to.Date;
-
-                //pusty zakres - pomiń
-                if (genTo < genFrom)
-                    continue;
-
-                var dto = new InstanceDto
+                if (activity.Is_recurring || !string.IsNullOrEmpty(activity.Recurrence_rule))
                 {
-                    ActivityId = activity.ActivityId,
-                    Start_time = genFrom,
-                    End_time = genTo,
-                    Is_recurring = true,
-                    Recurrence_rule = activity.Recurrence_rule,
-                    PlannedDurationMinutes = activity.PlannedDurationMinutes
-                };
-                await _recurrenceService.GenerateInstancesAsync(dto);
+
+
+                    var activityStart = activity.Start_time.Date;
+                    var activityEnd = activity.End_time?.Date ?? DateTime.UtcNow.AddMonths(1).Date;
+
+                    //przycinamy zakresy do granic aktywnosci
+                    var genFrom = from.Date < activityStart ? activityStart : from.Date;
+                    var genTo = to.Date > activityEnd ? activityEnd : to.Date;
+
+                    //pusty zakres - pomiń
+                    if (genTo < genFrom)
+                        continue;
+
+                    var dto = new InstanceDto
+                    {
+                        ActivityId = activity.ActivityId,
+                        Start_time = genFrom,
+                        End_time = genTo,
+                        Is_recurring = true,
+                        Recurrence_rule = activity.Recurrence_rule,
+                        PlannedDurationMinutes = activity.PlannedDurationMinutes
+                    };
+                    await _recurrenceService.GenerateInstancesAsync(dto);
+                }
+                else if (!activity.Is_recurring)
+                {
+                    // Aktywność jednorazowa - generujemy jej instancję, jeśli nie istnieje
+                    var existingInstance = await _context.TimelineRecurrenceInstances
+                        .Where(i => i.ActivityId == activity.ActivityId && i.OccurrenceDate >= from.Date && i.OccurrenceDate <= to.Date)
+                        .FirstOrDefaultAsync();
+                    Console.WriteLine($"[GENERUJE POJEDYNCZA DLA ID = ] {activity.ActivityId} | recurring={activity.Is_recurring} | rule={activity.Recurrence_rule}");
+
+                    if (existingInstance == null)
+                    {
+                        var instance = new TimelineRecurrenceInstance
+                        {
+                            ActivityId = activity.ActivityId,
+                            OccurrenceDate = activity.Start_time.Date,
+                            StartTime = activity.Start_time.TimeOfDay,
+                            EndTime = activity.Start_time.AddMinutes(activity.PlannedDurationMinutes).TimeOfDay,
+                            DurationMinutes = activity.PlannedDurationMinutes,
+                            IsCompleted = false
+                        };
+
+                        _context.TimelineRecurrenceInstances.Add(instance);
+                        await _context.SaveChangesAsync();
+                    }
+                }
             }
 
             // 🔹 3️⃣ Pobierz wystąpienia w żądanym zakresie

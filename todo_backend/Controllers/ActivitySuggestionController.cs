@@ -26,22 +26,22 @@ namespace todo_backend.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
-        //[HttpPost("suggestions/placement")]
-        //public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
-        //{
-        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        [Authorize]
+        [HttpPost("suggestions/placement")]
+        public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
-        //    if (results == null) return NoContent();
-        //    if (!results.Any())
-        //        return NotFound("No suitable placement found.");
+            var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
+            if (results == null) return NoContent();
+            if (!results.Any())
+                return NotFound("No suitable placement found.");
 
-        //    return Ok(results);
-        //}
+            return Ok(results);
+        }
 
         //[Authorize]
         //[HttpPost("suggestions/shifted")]
@@ -60,23 +60,23 @@ namespace todo_backend.Controllers
         //    return Ok(results);
         //}
 
-        //[Authorize]
-        //[HttpPost("surprise-me")]
-        //public async Task<ActionResult<IEnumerable<SuggestedTimelineActivityDto>>> GetCommunitySuggestions([FromBody] ActivitySuggestionDto dto)
-        //{
-        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-        //    if (userIdClaim == null)
-        //        return Unauthorized();
+        [Authorize]
+        [HttpPost("surprise-me")]
+        public async Task<ActionResult<IEnumerable<SuggestedTimelineActivityDto>>> GetCommunitySuggestions([FromBody] ActivitySuggestionDto dto)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
 
-        //    int userId = int.Parse(userIdClaim.Value);
+            int userId = int.Parse(userIdClaim.Value);
 
-        //    var suggestions = await _activitySuggestionService.SuggestActivitiesFromCommunityAsync(userId, dto);
+            var suggestions = await _activitySuggestionService.SuggestActivitiesFromCommunityAsync(userId, dto);
 
-        //    if (suggestions == null || !suggestions.Any())
-        //        return NotFound("Brak dostępnych rekomendacji społecznościowych.");
+            if (suggestions == null || !suggestions.Any())
+                return NotFound("Brak dostępnych rekomendacji społecznościowych.");
 
-        //    return Ok(suggestions);
-        //}
+            return Ok(suggestions);
+        }
 
     }
 }

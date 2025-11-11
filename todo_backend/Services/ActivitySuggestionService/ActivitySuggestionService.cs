@@ -435,6 +435,114 @@ namespace todo_backend.Services.ActivitySuggestionService
         //    return result;
         //}
 
+        public async Task<IEnumerable<DayFreeSummaryDto>> SuggestActivityPlacementAsync(int userId, ActivityPlacementSuggestionDto dto)
+        {
+            var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+
+            Console.WriteLine("========== [DEBUG] SUGGEST ACTIVITY PLACEMENT ==========");
+
+            // 1️⃣ Pobierz aktywność użytkownika
+            var activity = await _context.TimelineActivities
+                .FirstOrDefaultAsync(t => t.ActivityId == dto.ActivityId && t.OwnerId == userId);
+
+            if (activity == null) return Enumerable.Empty<DayFreeSummaryDto>();
+
+            var activityMinutes = activity.PlannedDurationMinutes;
+            var minRequired = activityMinutes + 20; // co najmniej 20 minut więcej
+
+            Console.WriteLine($"UserId: {userId}, ActivityId: {dto.ActivityId}");
+
+            // 2️⃣ Zakres analizy
+            var start = (dto.StartDate ?? DateTime.UtcNow);
+            var end = (dto.EndDate ?? start.AddDays(14));
+
+            if (end <= start) return Enumerable.Empty<DayFreeSummaryDto>();
+
+            // 3️⃣ Pobierz wszystkie wydarzenia użytkownika (rekurencyjne i jednorazowe)
+            var userTimeline = await _timelineActivityService.GetTimelineForUserAsync(userId, start, end);
+
+            // 4️⃣ Okno dzienne i filtr dni tygodnia
+            var prefStart = dto.PreferredStart ?? TimeSpan.FromHours(6); // 06:00
+            var prefEnd = dto.PreferredEnd ?? TimeSpan.FromHours(22); // 22:00
+            var onlyDays = dto.PreferredDays != null ? new HashSet<DayOfWeek>(dto.PreferredDays) : null;
+
+            // 5️⃣ Proste wydarzenia: uporządkowana lista
+            var events = userTimeline
+                .Select(e => new { Start = e.StartTime, End = e.EndTime })
+                .Where(e => e.End > start && e.Start < end)
+                .OrderBy(e => e.Start)
+                .ToList();
+
+            var result = new List<DayFreeSummaryDto>();
+
+            // 6️⃣ Iteracja dzień po dniu
+            for (var day = start.Date; day <= end.Date; day = day.AddDays(1))
+            {
+                if (onlyDays != null && !onlyDays.Contains(day.DayOfWeek)) continue;
+
+                var windowStart = day + prefStart;
+                var windowEnd = day + prefEnd;
+
+                // przycięcie do globalnego zakresu
+                if (windowEnd <= start || windowStart >= end) continue;
+                if (windowStart < start) windowStart = start;
+                if (windowEnd > end) windowEnd = end;
+
+                // Zdarzenia nachodzące na okno
+                var overlaps = events
+                    .Select(e => new
+                    {
+                        S = e.Start < windowStart ? windowStart : e.Start,
+                        E = e.End > windowEnd ? windowEnd : e.End
+                    })
+                    .Where(e => e.E > e.S)
+                    .OrderBy(e => e.S)
+                    .ToList();
+
+                // Zbieranie luk czasowych
+                var gaps = new List<(DateTime s, DateTime e)>();
+                if (overlaps.Count == 0)
+                {
+                    gaps.Add((windowStart, windowEnd));
+                }
+                else
+                {
+                    if (overlaps[0].S > windowStart) gaps.Add((windowStart, overlaps[0].S));
+                    for (int i = 0; i < overlaps.Count - 1; i++)
+                    {
+                        var gs = overlaps[i].E;
+                        var ge = overlaps[i + 1].S;
+                        if (ge > gs) gaps.Add(((DateTime s, DateTime e))(gs, ge));
+                    }
+                    if (overlaps[overlaps.Count - 1].E < windowEnd) gaps.Add(((DateTime s, DateTime e))(overlaps[overlaps.Count - 1].E, windowEnd));
+                }
+
+                // Dla każdej luki spełniającej warunki
+                foreach (var (gs, ge) in gaps)
+                {
+                    var gapMinutes = (int)(ge - gs).TotalMinutes;
+                    if (gapMinutes < minRequired) continue;
+
+                    var slack = gapMinutes - activityMinutes;
+                    var pad = slack / 2; // wyśrodkowanie
+                    var sugStart = gs.AddMinutes(pad);
+                    var sugEnd = sugStart.AddMinutes(activityMinutes);
+
+                    result.Add(new DayFreeSummaryDto
+                    {
+                        DateLocal = day,                // „dzień” tej luki
+                        TotalFreeMinutes = gapMinutes,   // długość tej luki
+                        SuggestedStart = sugStart,
+                        SuggestedEnd = sugEnd
+                    });
+                }
+            }
+
+            return result;
+        }
+
+
+
         //// Opcja 2.2 sugerowanie gdzie umiescic aktywność - z modyfikację osi czasu użytkownika
         //public async Task<IEnumerable<DayOverlapActivitiesDto>> SuggestActivityPlacementShiftedAsync(int userId, ActivityPlacementSuggestionDto dto)
         //{
@@ -857,6 +965,137 @@ namespace todo_backend.Services.ActivitySuggestionService
         //        .Take(5)
         //        .ToList();
         //}
+
+        public async Task<IEnumerable<SuggestedTimelineActivityDto>> SuggestActivitiesFromCommunityAsync(int userId, ActivitySuggestionDto dto)
+        {
+            var localZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+
+            Console.WriteLine("========== [DEBUG] COMMUNITY SUGGESTIONS ==========");
+
+            // 1️⃣ Losowe 100 użytkowników z włączonym AllowDataStatistics
+            var userPool = await _context.Users
+                .Where(u => u.AllowDataStatistics && u.UserId != userId)
+                .OrderBy(r => Guid.NewGuid())
+                .Take(100)
+                .Select(u => u.UserId)
+                .ToListAsync();
+
+            if (userPool.Count == 0)
+            {
+                Console.WriteLine("⚠️ Brak użytkowników z włączoną zgodą na statystyki.");
+                return Enumerable.Empty<SuggestedTimelineActivityDto>();
+            }
+
+            Console.WriteLine($"Wybrano {userPool.Count} użytkowników do analizy.");
+
+            // 2️⃣ Pobierz ich aktywności z ostatnich 2 miesięcy
+            var referenceDate = DateTime.UtcNow.AddMonths(-2);
+
+            var allActivities = await _context.TimelineActivities
+                .Include(a => a.Category)
+                .Where(a => userPool.Contains(a.OwnerId) && a.Start_time >= referenceDate)
+                .ToListAsync();
+
+            if (!allActivities.Any())
+            {
+                Console.WriteLine("⚠️ Brak danych aktywności do analizy.");
+                return Enumerable.Empty<SuggestedTimelineActivityDto>();
+            }
+
+            // 3️⃣ Normalizacja: zamiana dat na lokalne i ekstrakcja cech
+            var activityGroups = allActivities
+                .Select(a =>
+                {
+                    var local = TimeZoneInfo.ConvertTimeFromUtc(
+                        DateTime.SpecifyKind(a.Start_time, DateTimeKind.Utc), localZone);
+
+                    string timeSlot = local.Hour switch
+                    {
+                        >= 5 and < 12 => "morning",
+                        >= 12 and < 18 => "afternoon",
+                        _ => "evening"
+                    };
+
+                    return new
+                    {
+                        a.Title,
+                        a.CategoryId,
+                        CategoryName = a.Category?.Name ?? "Unknown",
+                        a.PlannedDurationMinutes,
+                        Day = local.DayOfWeek,
+                        TimeSlot = timeSlot,
+                        a.Is_recurring,
+                        a.Recurrence_rule
+                    };
+                })
+                .GroupBy(x => new { x.Title, x.CategoryId, x.CategoryName, x.TimeSlot, x.Day, x.Is_recurring, x.Recurrence_rule })
+                .Select(g => new
+                {
+                    g.Key.Title,
+                    g.Key.CategoryId,
+                    g.Key.CategoryName,
+                    g.Key.TimeSlot,
+                    g.Key.Day,
+                    g.Key.Is_recurring,
+                    g.Key.Recurrence_rule,
+                    Count = g.Count(),
+                    AvgDuration = g.Average(x => x.PlannedDurationMinutes)
+                })
+                .ToList();
+
+            Console.WriteLine($"Zanalizowano {activityGroups.Count} różnych wzorców aktywności.");
+
+            // 4️⃣ Oblicz zgodność z preferencjami użytkownika
+            var suggestions = new List<SuggestedTimelineActivityDto>();
+
+            foreach (var g in activityGroups)
+            {
+                double muDuration = 1.0;
+                if (dto.PlannedDurationMinutes.HasValue)
+                {
+                    var diff = Math.Abs(dto.PlannedDurationMinutes.Value - g.AvgDuration);
+                    muDuration = Math.Exp(-Math.Pow(diff / 60.0, 2)); // gaussian-like
+                }
+
+                double muDay = dto.PreferredDays != null && dto.PreferredDays.Count > 0
+                    ? (dto.PreferredDays.Contains(g.Day) ? 1.0 : 0.4)
+                    : 1.0;
+
+                double muTime = 1.0;
+                if (dto.PreferredStart.HasValue)
+                {
+                    string preferredSlot = dto.PreferredStart.Value.Hours switch
+                    {
+                        >= 5 and < 12 => "morning",
+                        >= 12 and < 18 => "afternoon",
+                        _ => "evening"
+                    };
+                    muTime = (preferredSlot == g.TimeSlot) ? 1.0 : 0.5;
+                }
+
+                // liczba wystąpień jako waga popularności
+                double popularity = Math.Min(1.0, g.Count / 25.0); // nasyca się przy 25+
+
+                double score = 0.5 * muDuration + 0.2 * muDay + 0.2 * muTime + 0.1 * popularity;
+
+                suggestions.Add(new SuggestedTimelineActivityDto
+                {
+                    ActivityId = g.CategoryId ?? 0,
+                    Title = g.Title,
+                    CategoryName = g.CategoryName,
+                    SuggestedDurationMinutes = (int)Math.Round(g.AvgDuration),
+                    Score = Math.Round(score, 3),
+                });
+            }
+
+            Console.WriteLine("========== [DEBUG] COMMUNITY END ==========");
+
+            return suggestions
+                .OrderByDescending(s => s.Score)
+                .Take(5)
+                .ToList();
+        }
+
 
 
     }

@@ -1,5 +1,163 @@
 [
   {
+    "ContainingType": "todo_backend.Controllers.ActivityController",
+    "Method": "CreateActivity",
+    "RelativePath": "api/Activity/create-activity",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityDto.ActivityCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityController",
+    "Method": "DeleteActivity",
+    "RelativePath": "api/Activity/delete-activity",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityController",
+    "Method": "UpdateActivity",
+    "RelativePath": "api/Activity/edit-activity",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityDto.UpdateActivityDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityController",
+    "Method": "GetActivityById",
+    "RelativePath": "api/Activity/get-activity-by-id",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityController",
+    "Method": "GetActivitiesByUserId",
+    "RelativePath": "api/Activity/user/get-activities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
+    "Method": "GetInstancesByActivityId",
+    "RelativePath": "api/ActivityInstance/activity/get-activity-instances",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
+    "Method": "CreateInstance",
+    "RelativePath": "api/ActivityInstance/create-instance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityInstance.ActivityInstanceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
+    "Method": "DeleteInstance",
+    "RelativePath": "api/ActivityInstance/delete-instance",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "instanceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
+    "Method": "UpdateInstance",
+    "RelativePath": "api/ActivityInstance/edit-instance",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "instanceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityInstance.ActivityInstanceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
+    "Method": "GetAllInstancesByUserId",
+    "RelativePath": "api/ActivityInstance/user/get-instances",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "todo_backend.Controllers.ActivityMembersController",
     "Method": "GetSendInvites",
     "RelativePath": "api/ActivityMembers/browse-invites",
@@ -201,6 +359,85 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityRecurrenceRuleController",
+    "Method": "CreateRecurrenceRule",
+    "RelativePath": "api/ActivityRecurrenceRule",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityRecurrenceRuleDto.ActivityRecurrenceRuleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityRecurrenceRuleController",
+    "Method": "GetRecurrenceRulesByActivityId",
+    "RelativePath": "api/ActivityRecurrenceRule/activity/get-activity-recurrence-rules",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityRecurrenceRuleController",
+    "Method": "DeleteRecurrenceRule",
+    "RelativePath": "api/ActivityRecurrenceRule/delete-recurrence-rule",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recurrenceRuleId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityRecurrenceRuleController",
+    "Method": "UpdateRecurrenceRule",
+    "RelativePath": "api/ActivityRecurrenceRule/edit-recurrence-rule",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recurrenceRuleId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivityRecurrenceRuleDto.ActivityRecurrenceRuleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityRecurrenceRuleController",
+    "Method": "GetRecurrenceRulesByUserId",
+    "RelativePath": "api/ActivityRecurrenceRule/user/get-recurrence-rules",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -685,199 +922,6 @@
     ]
   },
   {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "GetForActivity",
-    "RelativePath": "api/recurrence-exceptions/{activityId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "Delete",
-    "RelativePath": "api/recurrence-exceptions/{exceptionId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "exceptionId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceExceptionController",
-    "Method": "Create",
-    "RelativePath": "api/recurrence-exceptions/recurrence-exceptions",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceExceptionDto.TimelineRecurrenceExceptionResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceInstanceController",
-    "Method": "Create",
-    "RelativePath": "api/recurrence-instances",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineRecurrenceInstanceDto.TimelineRecurrenceInstanceCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceInstanceDto.TimelineRecurrenceInstanceResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceInstanceController",
-    "Method": "GetById",
-    "RelativePath": "api/recurrence-instances/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceInstanceDto.TimelineRecurrenceInstanceResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceInstanceController",
-    "Method": "Update",
-    "RelativePath": "api/recurrence-instances/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineRecurrenceInstanceDto.TimelineRecurrenceInstanceUpdateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineRecurrenceInstanceDto.TimelineRecurrenceInstanceResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceInstanceController",
-    "Method": "Delete",
-    "RelativePath": "api/recurrence-instances/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineRecurrenceInstanceController",
-    "Method": "GetAll",
-    "RelativePath": "api/recurrence-instances/activity/{activityId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.TimelineRecurrenceInstanceDto.TimelineRecurrenceInstanceResponseDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "todo_backend.Controllers.StatisticsController",
     "Method": "GetStatistics",
     "RelativePath": "api/Statistics/show-statistics",
@@ -907,183 +951,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "GetActivities",
-    "RelativePath": "api/TimelineActivity/browse-activities",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "ConvertToOnline",
-    "RelativePath": "api/TimelineActivity/convert-activity-to-online",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "CreateActivity",
-    "RelativePath": "api/TimelineActivity/create-activity",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineActivity.CreateTimelineActivityDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "DeleteActivity",
-    "RelativePath": "api/TimelineActivity/delete-activity",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "EditActivity",
-    "RelativePath": "api/TimelineActivity/edit-activity",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.TimelineActivity.UpdateTimelineActivityDto",
-        "IsRequired": true
-      },
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "GetActivity",
-    "RelativePath": "api/TimelineActivity/find-activity",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.TimelineActivity.FullTimelineActivityDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "GetTimeline",
-    "RelativePath": "api/TimelineActivity/get-timeline",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "from",
-        "Type": "System.DateTime",
-        "IsRequired": false
-      },
-      {
-        "Name": "to",
-        "Type": "System.DateTime",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.TimelineActivityController",
-    "Method": "RepeatActivity",
-    "RelativePath": "api/TimelineActivity/repeat/{activityId}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "activityId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "newStart",
-        "Type": "System.DateTime",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "MyApp.Controllers.UserController",
@@ -1405,58 +1272,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
-    "Method": "GetPersonalSuggestions",
-    "RelativePath": "suggestions/personal",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "CategoryId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "PlannedDurationMinutes",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "PreferredStart",
-        "Type": "System.Nullable\u00601[[System.TimeSpan, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "PreferredEnd",
-        "Type": "System.Nullable\u00601[[System.TimeSpan, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "PreferredDays",
-        "Type": "System.Collections.Generic.List\u00601[[System.DayOfWeek, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
-    "Method": "SuggestPlacement",
-    "RelativePath": "suggestions/placement",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ActivityPlacementSuggestionDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",

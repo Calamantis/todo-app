@@ -10,7 +10,7 @@ namespace todo_backend.Models
         public int ActivityId { get; set; }
 
         [ForeignKey(nameof(ActivityId))]
-        public TimelineActivity Activity { get; set; } = null!;
+        public Activity Activity { get; set; } = null!;
 
         [Required]
         public int UserId { get; set; }

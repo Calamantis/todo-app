@@ -22,12 +22,101 @@ namespace todo_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("todo_backend.Models.ActivityMembers", b =>
+            modelBuilder.Entity("todo_backend.Models.Activity", b =>
                 {
+                    b.Property<int>("ActivityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActivityId"));
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRecurring")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JoinCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ActivityId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("JoinCode")
+                        .IsUnique()
+                        .HasFilter("[JoinCode] IS NOT NULL");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Activities");
+                });
+
+            modelBuilder.Entity("todo_backend.Models.ActivityInstance", b =>
+                {
+                    b.Property<int>("InstanceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstanceId"));
+
                     b.Property<int>("ActivityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("ActivityRecurrenceRuleRecurrenceRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("DidOccur")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsException")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("OccurrenceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RecurrenceRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("InstanceId");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("ActivityRecurrenceRuleRecurrenceRuleId");
+
+                    b.HasIndex("RecurrenceRuleId");
+
+                    b.ToTable("ActivityInstances");
+                });
+
+            modelBuilder.Entity("todo_backend.Models.ActivityMembers", b =>
+                {
+                    b.Property<int>("ActivityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Role")
@@ -40,11 +129,63 @@ namespace todo_backend.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("ActivityId", "UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActivityId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("ActivityMembers");
+                });
+
+            modelBuilder.Entity("todo_backend.Models.ActivityRecurrenceRule", b =>
+                {
+                    b.Property<int>("RecurrenceRuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecurrenceRuleId"));
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateRangeEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateRangeStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DaysOfMonth")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DaysOfWeek")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<int?>("Interval")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RecurrenceRuleId");
+
+                    b.HasIndex("ActivityId");
+
+                    b.ToTable("ActivityRecurrenceRules");
                 });
 
             modelBuilder.Entity("todo_backend.Models.BlockedUsers", b =>
@@ -195,130 +336,6 @@ namespace todo_backend.Migrations
                     b.ToTable("Statistics");
                 });
 
-            modelBuilder.Entity("todo_backend.Models.TimelineActivity", b =>
-                {
-                    b.Property<int>("ActivityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActivityId"));
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime?>("End_time")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsManuallyFinished")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Is_recurring")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JoinCode")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlannedDurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Recurrence_rule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Start_time")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("ActivityId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("JoinCode")
-                        .IsUnique()
-                        .HasFilter("[JoinCode] IS NOT NULL");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("TimelineActivities");
-                });
-
-            modelBuilder.Entity("todo_backend.Models.TimelineRecurrenceException", b =>
-                {
-                    b.Property<int>("ExceptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExceptionId"));
-
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ExceptionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Mode")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NewDurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan?>("NewStartTime")
-                        .HasColumnType("time");
-
-                    b.HasKey("ExceptionId");
-
-                    b.HasIndex("ActivityId");
-
-                    b.ToTable("TimelineRecurrenceExceptions");
-                });
-
-            modelBuilder.Entity("todo_backend.Models.TimelineRecurrenceInstance", b =>
-                {
-                    b.Property<int>("InstanceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InstanceId"));
-
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("OccurrenceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
-
-                    b.HasKey("InstanceId");
-
-                    b.HasIndex("ActivityId");
-
-                    b.ToTable("TimelineRecurrenceInstances");
-                });
-
             modelBuilder.Entity("todo_backend.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -376,12 +393,52 @@ namespace todo_backend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("todo_backend.Models.ActivityMembers", b =>
+            modelBuilder.Entity("todo_backend.Models.Activity", b =>
                 {
-                    b.HasOne("todo_backend.Models.TimelineActivity", "Activity")
-                        .WithMany("ActivityMembers")
+                    b.HasOne("todo_backend.Models.Category", "Category")
+                        .WithMany("TimelineActivities")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("todo_backend.Models.User", "Owner")
+                        .WithMany("Activities")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("todo_backend.Models.ActivityInstance", b =>
+                {
+                    b.HasOne("todo_backend.Models.Activity", "Activity")
+                        .WithMany("Instances")
                         .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("todo_backend.Models.ActivityRecurrenceRule", null)
+                        .WithMany("Instances")
+                        .HasForeignKey("ActivityRecurrenceRuleRecurrenceRuleId");
+
+                    b.HasOne("todo_backend.Models.ActivityRecurrenceRule", "RecurrenceRule")
+                        .WithMany()
+                        .HasForeignKey("RecurrenceRuleId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("RecurrenceRule");
+                });
+
+            modelBuilder.Entity("todo_backend.Models.ActivityMembers", b =>
+                {
+                    b.HasOne("todo_backend.Models.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("todo_backend.Models.User", "User")
@@ -393,6 +450,17 @@ namespace todo_backend.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("todo_backend.Models.ActivityRecurrenceRule", b =>
+                {
+                    b.HasOne("todo_backend.Models.Activity", "Activity")
+                        .WithMany("RecurrenceRules")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
                 });
 
             modelBuilder.Entity("todo_backend.Models.BlockedUsers", b =>
@@ -465,44 +533,16 @@ namespace todo_backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("todo_backend.Models.TimelineActivity", b =>
+            modelBuilder.Entity("todo_backend.Models.Activity", b =>
                 {
-                    b.HasOne("todo_backend.Models.Category", "Category")
-                        .WithMany("TimelineActivities")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                    b.Navigation("Instances");
 
-                    b.HasOne("todo_backend.Models.User", "User")
-                        .WithMany("TimelineActivities")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("User");
+                    b.Navigation("RecurrenceRules");
                 });
 
-            modelBuilder.Entity("todo_backend.Models.TimelineRecurrenceException", b =>
+            modelBuilder.Entity("todo_backend.Models.ActivityRecurrenceRule", b =>
                 {
-                    b.HasOne("todo_backend.Models.TimelineActivity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
-                });
-
-            modelBuilder.Entity("todo_backend.Models.TimelineRecurrenceInstance", b =>
-                {
-                    b.HasOne("todo_backend.Models.TimelineActivity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
+                    b.Navigation("Instances");
                 });
 
             modelBuilder.Entity("todo_backend.Models.Category", b =>
@@ -510,13 +550,10 @@ namespace todo_backend.Migrations
                     b.Navigation("TimelineActivities");
                 });
 
-            modelBuilder.Entity("todo_backend.Models.TimelineActivity", b =>
-                {
-                    b.Navigation("ActivityMembers");
-                });
-
             modelBuilder.Entity("todo_backend.Models.User", b =>
                 {
+                    b.Navigation("Activities");
+
                     b.Navigation("BlockedUsers");
 
                     b.Navigation("Categories");
@@ -526,8 +563,6 @@ namespace todo_backend.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Statistics");
-
-                    b.Navigation("TimelineActivities");
                 });
 #pragma warning restore 612, 618
         }

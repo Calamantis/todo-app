@@ -17,31 +17,31 @@ namespace todo_backend.Controllers
         }
 
 
-        [Authorize]
-        [HttpGet("suggestions/personal")]
-        public async Task<IActionResult> GetPersonalSuggestions(ActivitySuggestionDto dto)
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-            var result = await _activitySuggestionService.SuggestActivitiesAsync(userId, dto);
-            return Ok(result);
-        }
+        //[Authorize]
+        //[HttpGet("suggestions/personal")]
+        //public async Task<IActionResult> GetPersonalSuggestions(ActivitySuggestionDto dto)
+        //{
+        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        //    var result = await _activitySuggestionService.SuggestActivitiesAsync(userId, dto);
+        //    return Ok(result);
+        //}
 
-        [Authorize]
-        [HttpPost("suggestions/placement")]
-        public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        //[Authorize]
+        //[HttpPost("suggestions/placement")]
+        //public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
+        //{
+        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
-            if (results == null) return NoContent();
-            if (!results.Any())
-                return NotFound("No suitable placement found.");
+        //    var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
+        //    if (results == null) return NoContent();
+        //    if (!results.Any())
+        //        return NotFound("No suitable placement found.");
 
-            return Ok(results);
-        }
+        //    return Ok(results);
+        //}
 
         //[Authorize]
         //[HttpPost("suggestions/shifted")]

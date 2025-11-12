@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using todo_backend.Models;
+using Activity = todo_backend.Models.Activity;
 
 namespace todo_backend.Data
 {
@@ -12,12 +13,9 @@ namespace todo_backend.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
 
-        public DbSet<TimelineActivity> TimelineActivities { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<ActivityMembers> ActivityMembers { get; set; }
-
-        //public DbSet<ActivityStorage> ActivityStorage { get; set; }
 
         public DbSet<BlockedUsers>  BlockedUsers { get; set; }
 
@@ -25,8 +23,10 @@ namespace todo_backend.Data
 
         public DbSet<Notification> Notification { get; set; }
 
-        public DbSet<TimelineRecurrenceException> TimelineRecurrenceExceptions { get; set; }
-        public DbSet<TimelineRecurrenceInstance> TimelineRecurrenceInstances { get; set; }
+
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityInstance> ActivityInstances { get; set; }
+        public DbSet<ActivityRecurrenceRule> ActivityRecurrenceRules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,49 +63,55 @@ namespace todo_backend.Data
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<TimelineActivity>()
-                .HasOne(a => a.User)
-                .WithMany(u => u.TimelineActivities)
-                .HasForeignKey(a => a.OwnerId)
-                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Activity>()
+              .HasOne(a => a.Owner)
+              .WithMany(u => u.Activities)
+              .HasForeignKey(a => a.OwnerId)
+              .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<TimelineActivity>()
+            modelBuilder.Entity<Activity>()
                 .HasOne(a => a.Category)
                 .WithMany(c => c.TimelineActivities)
                 .HasForeignKey(a => a.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<Activity>()
+            .HasMany(a => a.RecurrenceRules)
+            .WithOne(r => r.Activity)
+            .HasForeignKey(r => r.ActivityId)
+            .OnDelete(DeleteBehavior.NoAction); 
+
+            modelBuilder.Entity<ActivityRecurrenceRule>()
+                .HasMany(r => r.Instances)
+                .WithOne(i => i.RecurrenceRule)
+                .HasForeignKey(i => i.RecurrenceRuleId)
+                .OnDelete(DeleteBehavior.NoAction); 
+
+            modelBuilder.Entity<Activity>()
+                .HasMany(a => a.Instances)
+                .WithOne(i => i.Activity)
+                .HasForeignKey(i => i.ActivityId)
+                .OnDelete(DeleteBehavior.NoAction); 
+
+            modelBuilder.Entity<ActivityInstance>()
+                .HasOne(i => i.RecurrenceRule)
+                .WithMany()
+                .HasForeignKey(i => i.RecurrenceRuleId)
+                .OnDelete(DeleteBehavior.NoAction); 
+
+
+
             //klucz do aktywnosci z znajomymi
-            modelBuilder.Entity<ActivityMembers>()
-                .HasKey(am => new { am.ActivityId, am.UserId });
+            //modelBuilder.Entity<ActivityMembers>()
+            //    .HasKey(am => new { am.ActivityId, am.UserId });
 
 
             // Zaproszenia do aktywnosci
-            modelBuilder.Entity<ActivityMembers>()
-            .HasOne(am => am.Activity)
-            .WithMany(a => a.ActivityMembers)
-            .HasForeignKey(am => am.ActivityId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-
-
-
-
-
-
-
-            //Rekurencja
-            modelBuilder.Entity<TimelineRecurrenceException>()
-                .HasOne(e => e.Activity)
-                .WithMany()
-                .HasForeignKey(e => e.ActivityId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<TimelineRecurrenceInstance>()
-                .HasOne(i => i.Activity)
-                .WithMany()
-                .HasForeignKey(i => i.ActivityId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<ActivityMembers>()
+            //.HasOne(am => am.Activity)
+            //.WithMany(a => a.ActivityMembers)
+            //.HasForeignKey(am => am.ActivityId)
+            //.OnDelete(DeleteBehavior.NoAction);
 
 
 
@@ -115,20 +121,15 @@ namespace todo_backend.Data
 
 
 
-            ////activity storage
-            //// Relacja do User
-            //modelBuilder.Entity<ActivityStorage>()
-            //      .HasOne(e => e.User)
-            //      .WithMany(u => u.ActivityStorage) 
-            //      .HasForeignKey(e => e.UserId)
-            //      .OnDelete(DeleteBehavior.NoAction);
 
-            //// Relacja do Category
-            //modelBuilder.Entity<ActivityStorage>()
-            //      .HasOne(e => e.Category)
-            //      .WithMany(c => c.ActivityStorage) 
-            //      .HasForeignKey(e => e.CategoryId)
-            //      .OnDelete(DeleteBehavior.NoAction);
+
+
+
+
+
+
+
+
 
 
             //Blokowanie
@@ -157,7 +158,7 @@ namespace todo_backend.Data
                 .OnDelete(DeleteBehavior.NoAction); // jeśli chcesz usuwać statystyki przy usuwaniu użytkownika
 
             // Unikalne kody dołączania do aktywości dla nie-znajomych
-            modelBuilder.Entity<TimelineActivity>()
+            modelBuilder.Entity<Models.Activity>()
                 .HasIndex(a => a.JoinCode)
                 .IsUnique();
 

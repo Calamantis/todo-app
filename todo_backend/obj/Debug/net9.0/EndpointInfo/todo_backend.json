@@ -5,6 +5,262 @@
     "version": "v1"
   },
   "paths": {
+    "/api/Activity/user/get-activities": {
+      "get": {
+        "tags": [
+          "Activity"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Activity/get-activity-by-id": {
+      "get": {
+        "tags": [
+          "Activity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Activity/create-activity": {
+      "post": {
+        "tags": [
+          "Activity"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Activity/edit-activity": {
+      "put": {
+        "tags": [
+          "Activity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActivityDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActivityDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActivityDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Activity/delete-activity": {
+      "delete": {
+        "tags": [
+          "Activity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityInstance/user/get-instances": {
+      "get": {
+        "tags": [
+          "ActivityInstance"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityInstance/activity/get-activity-instances": {
+      "get": {
+        "tags": [
+          "ActivityInstance"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityInstance/create-instance": {
+      "post": {
+        "tags": [
+          "ActivityInstance"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInstanceDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInstanceDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityInstance/edit-instance": {
+      "put": {
+        "tags": [
+          "ActivityInstance"
+        ],
+        "parameters": [
+          {
+            "name": "instanceId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInstanceDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInstanceDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityInstance/delete-instance": {
+      "delete": {
+        "tags": [
+          "ActivityInstance"
+        ],
+        "parameters": [
+          {
+            "name": "instanceId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ActivityMembers/browse-recieved": {
       "get": {
         "tags": [
@@ -322,52 +578,30 @@
         }
       }
     },
-    "/suggestions/personal": {
+    "/api/ActivityRecurrenceRule/user/get-recurrence-rules": {
       "get": {
         "tags": [
-          "ActivitySuggestion"
+          "ActivityRecurrenceRule"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityRecurrenceRule/activity/get-activity-recurrence-rules": {
+      "get": {
+        "tags": [
+          "ActivityRecurrenceRule"
         ],
         "parameters": [
           {
-            "name": "CategoryId",
+            "name": "activityId",
             "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "PlannedDurationMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PreferredStart",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span"
-            }
-          },
-          {
-            "name": "PreferredEnd",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span"
-            }
-          },
-          {
-            "name": "PreferredDays",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/DayOfWeek"
-              }
             }
           }
         ],
@@ -378,30 +612,93 @@
         }
       }
     },
-    "/suggestions/placement": {
+    "/api/ActivityRecurrenceRule": {
       "post": {
         "tags": [
-          "ActivitySuggestion"
+          "ActivityRecurrenceRule"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+                "$ref": "#/components/schemas/ActivityRecurrenceRuleDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+                "$ref": "#/components/schemas/ActivityRecurrenceRuleDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+                "$ref": "#/components/schemas/ActivityRecurrenceRuleDto"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityRecurrenceRule/edit-recurrence-rule": {
+      "put": {
+        "tags": [
+          "ActivityRecurrenceRule"
+        ],
+        "parameters": [
+          {
+            "name": "recurrenceRuleId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityRecurrenceRuleDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityRecurrenceRuleDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityRecurrenceRuleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityRecurrenceRule/delete-recurrence-rule": {
+      "delete": {
+        "tags": [
+          "ActivityRecurrenceRule"
+        ],
+        "parameters": [
+          {
+            "name": "recurrenceRuleId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1358,643 +1655,6 @@
         }
       }
     },
-    "/api/TimelineActivity/browse-activities": {
-      "get": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullTimelineActivityDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullTimelineActivityDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullTimelineActivityDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/find-activity": {
-      "get": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/create-activity": {
-      "post": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTimelineActivityDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTimelineActivityDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTimelineActivityDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/convert-activity-to-online": {
-      "patch": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/edit-activity": {
-      "put": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateTimelineActivityDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateTimelineActivityDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateTimelineActivityDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FullTimelineActivityDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/delete-activity": {
-      "delete": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/repeat/{activityId}": {
-      "post": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "string",
-                "format": "date-time"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TimelineActivity/get-timeline": {
-      "get": {
-        "tags": [
-          "TimelineActivity"
-        ],
-        "parameters": [
-          {
-            "name": "from",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "to",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/recurrence-exceptions/{activityId}": {
-      "get": {
-        "tags": [
-          "TimelineRecurrenceException"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/recurrence-exceptions/recurrence-exceptions": {
-      "post": {
-        "tags": [
-          "TimelineRecurrenceException"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceExceptionCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceExceptionCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceExceptionCreateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceExceptionResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/recurrence-exceptions/{exceptionId}": {
-      "delete": {
-        "tags": [
-          "TimelineRecurrenceException"
-        ],
-        "parameters": [
-          {
-            "name": "exceptionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/recurrence-instances/activity/{activityId}": {
-      "get": {
-        "tags": [
-          "TimelineRecurrenceInstance"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/recurrence-instances/{id}": {
-      "get": {
-        "tags": [
-          "TimelineRecurrenceInstance"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "TimelineRecurrenceInstance"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceInstanceUpdateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceInstanceUpdateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceInstanceUpdateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "TimelineRecurrenceInstance"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/recurrence-instances": {
-      "post": {
-        "tags": [
-          "TimelineRecurrenceInstance"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceInstanceCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceInstanceCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TimelineRecurrenceInstanceCreateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TimelineRecurrenceInstanceResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/User/all-users": {
       "get": {
         "tags": [
@@ -2542,39 +2202,127 @@
   },
   "components": {
     "schemas": {
-      "ActivityPlacementSuggestionDto": {
+      "ActivityCreateDto": {
         "type": "object",
         "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRecurring": {
+            "type": "boolean"
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "recurrenceRule": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivityInstanceDto": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "occurrenceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "didOccur": {
+            "type": "boolean"
+          },
+          "isException": {
+            "type": "boolean"
+          },
           "activityId": {
             "type": "integer",
             "format": "int32"
           },
-          "preferredStart": {
+          "recurrenceRuleId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivityRecurrenceRuleDto": {
+        "type": "object",
+        "properties": {
+          "recurrenceRuleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
             "type": "string",
-            "format": "date-span",
             "nullable": true
           },
-          "preferredEnd": {
+          "daysOfWeek": {
             "type": "string",
-            "format": "date-span",
             "nullable": true
           },
-          "preferredDays": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DayOfWeek"
-            },
+          "daysOfMonth": {
+            "type": "string",
             "nullable": true
           },
-          "startDate": {
+          "interval": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "dateRangeStart": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateRangeEnd": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "endDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+          "durationMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -2687,45 +2435,6 @@
           },
           "isAlert": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateTimelineActivityDto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isRecurring": {
-            "type": "boolean"
-          },
-          "recurrenceRule": {
-            "type": "string",
-            "nullable": true
-          },
-          "plannedDurationMinutes": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2868,52 +2577,6 @@
         },
         "additionalProperties": false
       },
-      "FullTimelineActivityDto": {
-        "type": "object",
-        "properties": {
-          "activityId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "plannedDurationMinutes": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "isRecurring": {
-            "type": "boolean"
-          },
-          "recurrenceRule": {
-            "type": "string",
-            "nullable": true
-          },
-          "categoryName": {
-            "type": "string",
-            "nullable": true
-          },
-          "joinCode": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -2956,15 +2619,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "RecurrenceExceptionMode": {
-        "enum": [
-          0,
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "StatisticsDto": {
         "type": "object",
@@ -3015,146 +2669,27 @@
         },
         "additionalProperties": false
       },
-      "TimelineRecurrenceExceptionCreateDto": {
+      "UpdateActivityDto": {
         "type": "object",
         "properties": {
-          "activityId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "exceptionDate": {
+          "title": {
             "type": "string",
-            "format": "date-time"
-          },
-          "newStartTime": {
-            "type": "string",
-            "format": "date-span",
             "nullable": true
           },
-          "newDurationMinutes": {
-            "type": "integer",
-            "format": "int32",
+          "description": {
+            "type": "string",
             "nullable": true
           },
-          "mode": {
-            "$ref": "#/components/schemas/RecurrenceExceptionMode"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TimelineRecurrenceExceptionResponseDto": {
-        "type": "object",
-        "properties": {
-          "exceptionId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "activityId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "exceptionDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "newStartTime": {
-            "type": "string",
-            "format": "date-span",
-            "nullable": true
-          },
-          "newDurationMinutes": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "mode": {
-            "$ref": "#/components/schemas/RecurrenceExceptionMode"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TimelineRecurrenceInstanceCreateDto": {
-        "type": "object",
-        "properties": {
-          "activityId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "occurrenceDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "durationMinutes": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "isCompleted": {
+          "isRecurring": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TimelineRecurrenceInstanceResponseDto": {
-        "type": "object",
-        "properties": {
-          "instanceId": {
-            "type": "integer",
-            "format": "int32"
           },
-          "activityId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "occurrenceDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "durationMinutes": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "isCompleted": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TimelineRecurrenceInstanceUpdateDto": {
-        "type": "object",
-        "properties": {
-          "startTime": {
-            "type": "string",
-            "format": "date-span",
-            "nullable": true
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-span",
-            "nullable": true
-          },
-          "durationMinutes": {
+          "categoryId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "isCompleted": {
-            "type": "boolean",
+          "recurrenceRule": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -3184,49 +2719,6 @@
           "status": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateTimelineActivityDto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "startTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isRecurring": {
-            "type": "boolean"
-          },
-          "recurrenceRule": {
-            "type": "string",
-            "nullable": true
-          },
-          "recurrenceException": {
-            "type": "string",
-            "nullable": true
-          },
-          "plannedDurationMinutes": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

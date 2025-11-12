@@ -84,27 +84,27 @@ namespace todo_backend.Services.CategoryService
         //DELETE usuwanie kategorii
         public async Task<bool> DeleteCategoryAsync(int categoryId, bool deleteActivities, int currentUserId)
         {
-            var category = await _context.Categories
-                .Include(c => c.TimelineActivities)
-                .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
+            //var category = await _context.Categories
+            //    .Include(c => c.TimelineActivities)
+            //    .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
 
-            if (category == null) return false;
+            //if (category == null) return false;
 
-            if (category.UserId != currentUserId)
-                return false; // nie jesteś właścicielem -> odmowa
+            //if (category.UserId != currentUserId)
+            //    return false; // nie jesteś właścicielem -> odmowa
 
-            if (deleteActivities)
-            {
-                // tryb 1: usuń wszystkie aktywności
-                _context.TimelineActivities.RemoveRange(category.TimelineActivities);
-                //_context.ActivityStorage.RemoveRange(category.ActivityStorage);
-            }
+            //if (deleteActivities)
+            //{
+            //    // tryb 1: usuń wszystkie aktywności
+            //    _context.TimelineActivities.RemoveRange(category.TimelineActivities);
+            //    //_context.ActivityStorage.RemoveRange(category.ActivityStorage);
+            //}
 
-            // tryb 2: samo usunięcie kategorii → SetNull zadba o FK
-            _context.Categories.Remove(category);
+            //// tryb 2: samo usunięcie kategorii → SetNull zadba o FK
+            //_context.Categories.Remove(category);
 
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            //_context.Categories.Remove(category);
+            //await _context.SaveChangesAsync();
             return true;
         }
     }

@@ -68,7 +68,7 @@ namespace todo_backend.Services.UserAccountService
         public async Task<bool> DeleteUserAsync(int id)
         {
             var user = await _context.Users
-            .Include(u => u.TimelineActivities)
+            //.Include(u => u.TimelineActivities)
             .Include(u => u.Categories)
             .FirstOrDefaultAsync(u => u.UserId == id);
             if (user == null) return false;
@@ -80,7 +80,7 @@ namespace todo_backend.Services.UserAccountService
             _context.Friendships.RemoveRange(friendships);
 
             // Usuń wszystkie aktywności
-            _context.TimelineActivities.RemoveRange(user.TimelineActivities);
+            //_context.TimelineActivities.RemoveRange(user.TimelineActivities);
 
             //Usuń wszystkie templatki aktywnosci
            // _context.ActivityStorage.RemoveRange(user.ActivityStorage);

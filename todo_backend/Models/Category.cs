@@ -22,7 +22,7 @@ namespace todo_backend.Models
         public bool IsSystem { get; set; } = false;
 
         public User User { get; set; } = null!;
-        public ICollection<TimelineActivity> TimelineActivities { get; set; } = new List<TimelineActivity>();
+        public ICollection<Activity> TimelineActivities { get; set; } = new List<Activity>();
         //public ICollection<ActivityStorage> ActivityStorage { get; set; } = new List<ActivityStorage>();
 
     }

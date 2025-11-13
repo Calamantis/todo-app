@@ -20,6 +20,7 @@ using todo_backend.Services.NotificationService;
 using todo_backend.Services.SecurityService;
 using todo_backend.Services.StatisticsService;
 using todo_backend.Services.TimelineActivityService;
+using todo_backend.Services.TimelineService;
 using todo_backend.Services.UserAccountService;
 using todo_backend.Services.UserFriendActions;
 using todo_backend.Services.UserService;
@@ -92,6 +93,8 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IActivityRecurrenceRuleService, ActivityRecurrenceRuleService>();
 builder.Services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
+
+builder.Services.AddScoped<ITimelineService, TimelineService>();
 
 builder.Services.AddTransient<DataSeeder>();
 

@@ -953,6 +953,32 @@
     ]
   },
   {
+    "ContainingType": "todo_backend.Controllers.TimelineController",
+    "Method": "GetTimelineForUserAsync",
+    "RelativePath": "api/Timeline/user/get-timeline",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "from",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "to",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MyApp.Controllers.UserController",
     "Method": "GetUser",
     "RelativePath": "api/User/{id}",

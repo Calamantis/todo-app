@@ -71,7 +71,7 @@ namespace todo_backend.Services.ActivityService
                     Title = dto.Title,
                     Description = dto.Description,
                     IsRecurring = dto.IsRecurring,
-                    JoinCode = string.Empty, // Możesz ustawić kod, jeśli masz taką logikę
+                    JoinCode = null, // Możesz ustawić kod, jeśli masz taką logikę
                     CategoryId = dto.CategoryId
                 };
 

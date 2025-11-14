@@ -20,6 +20,7 @@ namespace todo_backend.Models
 
         public string? DaysOfWeek { get; set; } // Comma-separated e.g. MON,TUE
         public string? DaysOfMonth { get; set; } // Comma-separated e.g. 1,15,LAST
+        public DateTime? DayOfYear { get; set; }
 
         public int? Interval { get; set; } // Occurrence every n days 
 

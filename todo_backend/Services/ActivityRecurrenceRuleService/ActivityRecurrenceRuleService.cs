@@ -48,6 +48,7 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
                     Type = r.Type,
                     DaysOfWeek = r.DaysOfWeek,
                     DaysOfMonth = r.DaysOfMonth,
+                    DayOfYear = r.DayOfYear,
                     Interval = r.Interval,
                     StartTime = r.StartTime,
                     EndTime = r.EndTime,
@@ -79,6 +80,7 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
                     Type = r.Type,
                     DaysOfWeek = r.DaysOfWeek,
                     DaysOfMonth = r.DaysOfMonth,
+                    DayOfYear = r.DayOfYear,
                     Interval = r.Interval,
                     StartTime = r.StartTime,
                     EndTime = r.EndTime,
@@ -107,6 +109,7 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
                 Type = dto.Type,
                 DaysOfWeek = dto.DaysOfWeek,
                 DaysOfMonth = dto.DaysOfMonth,
+                DayOfYear = dto.DayOfYear,
                 Interval = dto.Interval,
                 StartTime = dto.StartTime,
                 EndTime = dto.EndTime,
@@ -126,6 +129,7 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
                 Type = entity.Type,
                 DaysOfWeek = entity.DaysOfWeek,
                 DaysOfMonth = entity.DaysOfMonth,
+                DayOfYear = entity.DayOfYear,
                 Interval = entity.Interval,
                 StartTime = entity.StartTime,
                 EndTime = entity.EndTime,
@@ -151,6 +155,7 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
             rule.Type = dto.Type;
             rule.DaysOfWeek = dto.DaysOfWeek;
             rule.DaysOfMonth = dto.DaysOfMonth;
+            rule.DayOfYear = dto.DayOfYear;
             rule.Interval = dto.Interval;
             rule.StartTime = dto.StartTime;
             rule.EndTime = dto.EndTime;
@@ -168,6 +173,7 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
                 Type = rule.Type,
                 DaysOfWeek = rule.DaysOfWeek,
                 DaysOfMonth = rule.DaysOfMonth,
+                DayOfYear = rule.DayOfYear,
                 Interval = rule.Interval,
                 StartTime = rule.StartTime,
                 EndTime = rule.EndTime,

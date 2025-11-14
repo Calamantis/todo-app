@@ -7,6 +7,7 @@
         public string Type { get; set; } // DAY / WEEK / MONTH / YEAR
         public string? DaysOfWeek { get; set; } // Comma-separated e.g. MON,TUE
         public string? DaysOfMonth { get; set; } // Comma-separated e.g. 1,15,LAST
+        public DateTime? DayOfYear { get; set; }
         public int? Interval { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }

@@ -2258,10 +2258,6 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
-          },
-          "recurrenceRule": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2331,6 +2327,11 @@
           },
           "daysOfMonth": {
             "type": "string",
+            "nullable": true
+          },
+          "dayOfYear": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           },
           "interval": {

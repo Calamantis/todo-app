@@ -83,7 +83,7 @@ namespace todo_backend.Models
 
         public bool IsActive { get; set; } = true;
 
-        public string? JoinCode { get; set; } = string.Empty;
+        public string? JoinCode { get; set; } = null;
 
         // Relacje
         public List<ActivityRecurrenceRule> RecurrenceRules { get; set; } = new List<ActivityRecurrenceRule>();

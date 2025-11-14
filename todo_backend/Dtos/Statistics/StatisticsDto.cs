@@ -2,9 +2,9 @@
 {
     public class StatisticsDto
     {
-        public string Category { get; set; } = string.Empty;
-        public int TotalDuration { get; set; } // w minutach
-        public DateTime PeriodStart { get; set; }
-        public DateTime PeriodEnd { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; } = "Uncategorized";
+        public int TotalDurationMinutes { get; set; }
+        public int InstanceCount { get; set; } 
     }
 }

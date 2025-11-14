@@ -19,14 +19,27 @@ namespace todo_backend.Controllers
 
         [Authorize]
         [HttpGet("show-statistics")]
-        public async Task<ActionResult<IEnumerable<StatisticsDto>>> GetStatistics([FromQuery] DateTime start, [FromQuery] DateTime end)
+        public async Task<ActionResult<IEnumerable<StatisticsDto>>> GetStatistics(DateTime start, DateTime end)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized();
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
 
-            var stats = await _statisticsService.GenerateUserStatsAsync(userId, start, end);
-            return Ok(stats);
+            try
+            {
+                var statistics = await _statisticsService.GetUserStatistics(userId, start, end);
+
+                if (statistics == null || !statistics.Any())
+                {
+                    return NotFound("No statistics found for the given period.");
+                }
+
+                return Ok(statistics);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
     }

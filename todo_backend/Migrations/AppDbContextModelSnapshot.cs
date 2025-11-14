@@ -76,9 +76,6 @@ namespace todo_backend.Migrations
                     b.Property<int>("ActivityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ActivityRecurrenceRuleRecurrenceRuleId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("DidOccur")
                         .HasColumnType("bit");
 
@@ -106,8 +103,6 @@ namespace todo_backend.Migrations
                     b.HasKey("InstanceId");
 
                     b.HasIndex("ActivityId");
-
-                    b.HasIndex("ActivityRecurrenceRuleRecurrenceRuleId");
 
                     b.HasIndex("RecurrenceRuleId");
 
@@ -422,18 +417,14 @@ namespace todo_backend.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("todo_backend.Models.ActivityRecurrenceRule", null)
+                    b.HasOne("todo_backend.Models.ActivityRecurrenceRule", "ActivityRecurrenceRule")
                         .WithMany("Instances")
-                        .HasForeignKey("ActivityRecurrenceRuleRecurrenceRuleId");
-
-                    b.HasOne("todo_backend.Models.ActivityRecurrenceRule", "RecurrenceRule")
-                        .WithMany()
                         .HasForeignKey("RecurrenceRuleId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Activity");
 
-                    b.Navigation("RecurrenceRule");
+                    b.Navigation("ActivityRecurrenceRule");
                 });
 
             modelBuilder.Entity("todo_backend.Models.ActivityMembers", b =>

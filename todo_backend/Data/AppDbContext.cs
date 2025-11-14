@@ -76,28 +76,28 @@ namespace todo_backend.Data
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Activity>()
-            .HasMany(a => a.RecurrenceRules)
-            .WithOne(r => r.Activity)
-            .HasForeignKey(r => r.ActivityId)
-            .OnDelete(DeleteBehavior.NoAction); 
+                .HasMany(a => a.RecurrenceRules)
+                .WithOne(r => r.Activity)
+                .HasForeignKey(r => r.ActivityId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ActivityRecurrenceRule>()
                 .HasMany(r => r.Instances)
-                .WithOne(i => i.RecurrenceRule)
+                .WithOne(i => i.ActivityRecurrenceRule)
                 .HasForeignKey(i => i.RecurrenceRuleId)
-                .OnDelete(DeleteBehavior.NoAction); 
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Activity>()
                 .HasMany(a => a.Instances)
                 .WithOne(i => i.Activity)
                 .HasForeignKey(i => i.ActivityId)
-                .OnDelete(DeleteBehavior.NoAction); 
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ActivityInstance>()
-                .HasOne(i => i.RecurrenceRule)
-                .WithMany()
+                .HasOne(i => i.ActivityRecurrenceRule)
+                .WithMany(r => r.Instances)
                 .HasForeignKey(i => i.RecurrenceRuleId)
-                .OnDelete(DeleteBehavior.NoAction); 
+                .OnDelete(DeleteBehavior.NoAction);
 
 
 

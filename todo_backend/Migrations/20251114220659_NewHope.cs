@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace todo_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class RecurrenceTests1 : Migration
+    public partial class NewHope : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -149,35 +149,30 @@ namespace todo_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimelineActivities",
+                name: "Activities",
                 columns: table => new
                 {
                     ActivityId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Start_time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End_time = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PlannedDurationMinutes = table.Column<int>(type: "int", nullable: false),
-                    IsManuallyFinished = table.Column<bool>(type: "bit", nullable: false),
-                    Is_recurring = table.Column<bool>(type: "bit", nullable: false),
-                    Recurrence_rule = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsRecurring = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    JoinCode = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true)
+                    JoinCode = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimelineActivities", x => x.ActivityId);
+                    table.PrimaryKey("PK_Activities", x => x.ActivityId);
                     table.ForeignKey(
-                        name: "FK_TimelineActivities_Categories_CategoryId",
+                        name: "FK_Activities_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_TimelineActivities_Users_OwnerId",
+                        name: "FK_Activities_Users_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "Users",
                         principalColumn: "UserId");
@@ -194,12 +189,13 @@ namespace todo_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityMembers", x => new { x.ActivityId, x.UserId });
+                    table.PrimaryKey("PK_ActivityMembers", x => x.ActivityId);
                     table.ForeignKey(
-                        name: "FK_ActivityMembers_TimelineActivities_ActivityId",
+                        name: "FK_ActivityMembers_Activities_ActivityId",
                         column: x => x.ActivityId,
-                        principalTable: "TimelineActivities",
-                        principalColumn: "ActivityId");
+                        principalTable: "Activities",
+                        principalColumn: "ActivityId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ActivityMembers_Users_UserId",
                         column: x => x.UserId,
@@ -209,56 +205,101 @@ namespace todo_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimelineRecurrenceExceptions",
+                name: "ActivityRecurrenceRules",
                 columns: table => new
                 {
-                    ExceptionId = table.Column<int>(type: "int", nullable: false)
+                    RecurrenceRuleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ActivityId = table.Column<int>(type: "int", nullable: false),
-                    ExceptionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NewStartTime = table.Column<TimeSpan>(type: "time", nullable: true),
-                    NewDurationMinutes = table.Column<int>(type: "int", nullable: true),
-                    IsSkipped = table.Column<bool>(type: "bit", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DaysOfWeek = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaysOfMonth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DayOfYear = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Interval = table.Column<int>(type: "int", nullable: true),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    DateRangeStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateRangeEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DurationMinutes = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimelineRecurrenceExceptions", x => x.ExceptionId);
+                    table.PrimaryKey("PK_ActivityRecurrenceRules", x => x.RecurrenceRuleId);
                     table.ForeignKey(
-                        name: "FK_TimelineRecurrenceExceptions_TimelineActivities_ActivityId",
+                        name: "FK_ActivityRecurrenceRules_Activities_ActivityId",
                         column: x => x.ActivityId,
-                        principalTable: "TimelineActivities",
-                        principalColumn: "ActivityId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Activities",
+                        principalColumn: "ActivityId");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimelineRecurrenceInstances",
+                name: "ActivityInstances",
                 columns: table => new
                 {
                     InstanceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ActivityId = table.Column<int>(type: "int", nullable: false),
+                    RecurrenceRuleId = table.Column<int>(type: "int", nullable: true),
                     OccurrenceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     DurationMinutes = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    DidOccur = table.Column<bool>(type: "bit", nullable: false),
+                    IsException = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimelineRecurrenceInstances", x => x.InstanceId);
+                    table.PrimaryKey("PK_ActivityInstances", x => x.InstanceId);
                     table.ForeignKey(
-                        name: "FK_TimelineRecurrenceInstances_TimelineActivities_ActivityId",
+                        name: "FK_ActivityInstances_Activities_ActivityId",
                         column: x => x.ActivityId,
-                        principalTable: "TimelineActivities",
-                        principalColumn: "ActivityId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Activities",
+                        principalColumn: "ActivityId");
+                    table.ForeignKey(
+                        name: "FK_ActivityInstances_ActivityRecurrenceRules_RecurrenceRuleId",
+                        column: x => x.RecurrenceRuleId,
+                        principalTable: "ActivityRecurrenceRules",
+                        principalColumn: "RecurrenceRuleId");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_CategoryId",
+                table: "Activities",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_JoinCode",
+                table: "Activities",
+                column: "JoinCode",
+                unique: true,
+                filter: "[JoinCode] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_OwnerId",
+                table: "Activities",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityInstances_ActivityId",
+                table: "ActivityInstances",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityInstances_RecurrenceRuleId",
+                table: "ActivityInstances",
+                column: "RecurrenceRuleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityMembers_UserId",
                 table: "ActivityMembers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityRecurrenceRules_ActivityId",
+                table: "ActivityRecurrenceRules",
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BlockedUsers_BlockedUserId",
@@ -288,33 +329,6 @@ namespace todo_backend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimelineActivities_CategoryId",
-                table: "TimelineActivities",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TimelineActivities_JoinCode",
-                table: "TimelineActivities",
-                column: "JoinCode",
-                unique: true,
-                filter: "[JoinCode] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TimelineActivities_OwnerId",
-                table: "TimelineActivities",
-                column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TimelineRecurrenceExceptions_ActivityId",
-                table: "TimelineRecurrenceExceptions",
-                column: "ActivityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TimelineRecurrenceInstances_ActivityId",
-                table: "TimelineRecurrenceInstances",
-                column: "ActivityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email",
@@ -324,6 +338,9 @@ namespace todo_backend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ActivityInstances");
+
             migrationBuilder.DropTable(
                 name: "ActivityMembers");
 
@@ -340,13 +357,10 @@ namespace todo_backend.Migrations
                 name: "Statistics");
 
             migrationBuilder.DropTable(
-                name: "TimelineRecurrenceExceptions");
+                name: "ActivityRecurrenceRules");
 
             migrationBuilder.DropTable(
-                name: "TimelineRecurrenceInstances");
-
-            migrationBuilder.DropTable(
-                name: "TimelineActivities");
+                name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -2662,21 +2662,21 @@
       "StatisticsDto": {
         "type": "object",
         "properties": {
-          "category": {
-            "type": "string",
-            "nullable": true
-          },
-          "totalDuration": {
+          "categoryId": {
             "type": "integer",
             "format": "int32"
           },
-          "periodStart": {
+          "categoryName": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
           },
-          "periodEnd": {
-            "type": "string",
-            "format": "date-time"
+          "totalDurationMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "instanceCount": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

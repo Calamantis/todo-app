@@ -15,11 +15,10 @@ namespace todo_backend.Models
         [ForeignKey("ActivityId")]
         public Activity Activity { get; set; }
 
-        public int? RecurrenceRuleId { get; set; }
+        public int? RecurrenceRuleId { get; set; } = null;// Klucz obcy
 
-        // ForeignKey dla ActivityRecurrenceRule
         [ForeignKey("RecurrenceRuleId")]
-        public ActivityRecurrenceRule? RecurrenceRule { get; set; }
+        public ActivityRecurrenceRule? ActivityRecurrenceRule { get; set; }
 
         [Required] // Wymagane pole
         public DateTime OccurrenceDate { get; set; }

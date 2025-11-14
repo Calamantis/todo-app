@@ -4,7 +4,7 @@ namespace todo_backend.Services.StatisticsService
 {
     public interface IStatisticService
     {
-        Task<IEnumerable<StatisticsDto>> GenerateUserStatsAsync(int userId, DateTime periodStart, DateTime periodEnd);
+        Task<IEnumerable<StatisticsDto>> GetUserStatistics(int userId, DateTime start, DateTime end);
     }
 
 }

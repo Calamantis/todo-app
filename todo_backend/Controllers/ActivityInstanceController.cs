@@ -102,5 +102,23 @@ namespace todo_backend.Controllers
             return NoContent();
         }
 
+        [HttpGet("{activityId}/instances/{instanceId}/participants")]
+        public async Task<IActionResult> GetInstanceParticipants(int activityId, int instanceId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            int ownerId = int.Parse(userIdClaim.Value);
+
+            var result = await _service
+                .GetInstanceParticipantsAsync(ownerId, activityId, instanceId);
+
+            if (result == null)
+                return NotFound("Activity, instance not found or you are not the owner.");
+
+            return Ok(result);
+        }
+
+
     }
 }

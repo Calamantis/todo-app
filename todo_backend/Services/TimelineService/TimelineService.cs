@@ -56,7 +56,6 @@ namespace todo_backend.Services.TimelineService
             return instances;
         }
 
-
         //Funkcja generująca wystąpienia w podanym terminue
         public async Task GenerateActivityInstancesAsync(int userId, DateTime from, DateTime to)
         {
@@ -282,6 +281,7 @@ namespace todo_backend.Services.TimelineService
 
         }
 
+        // Filtr do instancji Offline
         private async Task<bool> IsExcludedAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate)
         {
             return await _context.InstanceExclusions.AnyAsync(ex =>
@@ -289,7 +289,7 @@ namespace todo_backend.Services.TimelineService
                 ex.ExcludedDate == occurrenceDate);
         }
 
-
+        //Do kopiowania instancji online
         public async Task CopyOwnerInstancesToParticipantAsync(int currentUserId)
         {
             // 1. Wszystkie membershipy tego usera (dla debug)
@@ -435,7 +435,7 @@ namespace todo_backend.Services.TimelineService
                         EndTime = ownerInstance.EndTime,
                         DurationMinutes = ownerInstance.DurationMinutes,
                         IsActive = ownerInstance.IsActive,
-                        DidOccur = false,                      // uczestnik jeszcze nie odbył
+                        DidOccur = true,                      // uczestnik jeszcze nie odbył
                         IsException = ownerInstance.IsException
                     };
 
@@ -463,7 +463,7 @@ namespace todo_backend.Services.TimelineService
             Console.WriteLine("========== CopyOwnerInstancesToParticipantAsync END ==========\n");
         }
 
-
+        //Filtr do instancji Online
         private async Task<bool> IsExcludedForCopyAsync(int activityId, DateTime occurrenceDate)
         {
             var dateOnly = occurrenceDate.Date;

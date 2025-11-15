@@ -188,5 +188,78 @@ namespace todo_backend.Services.ActivityInstanceService
             return true;
         }
 
+        public async Task<InstanceParticipantsResponseDto?> GetInstanceParticipantsAsync(
+            int ownerId,
+            int activityId,
+            int instanceId)
+        {
+            // 1. Pobierz instancję + aktywność
+            var instance = await _context.ActivityInstances
+                .Include(i => i.Activity)
+                .FirstOrDefaultAsync(i =>
+                    i.InstanceId == instanceId &&
+                    i.ActivityId == activityId);
+
+            if (instance == null)
+                return null;
+
+            //// 2. Sprawdź, czy proszący user jest ownerem tej aktywności
+            //if (instance.Activity.OwnerId != ownerId)
+            //    return null; // możesz tu ewentualnie rzucić Forbidden w kontrolerze
+
+            // 3. Pobierz wszystkich członków aktywności (owner + participants)
+            var members = await _context.ActivityMembers
+                .Include(am => am.User)
+                .Where(am => am.ActivityId == activityId &&
+                             (
+                                 am.Role == "owner" ||
+                                 am.Role == "participant"
+                             ) &&
+                             (
+                                 am.Status == "accepted" || am.Role == "owner"
+                             ))
+                .ToListAsync();
+
+            // 4. Pobierz wykluczenia dotyczące TEJ daty
+            var exclusions = await _context.InstanceExclusions
+                .Where(e =>
+                    e.ActivityId == activityId &&
+                    e.ExcludedDate <= instance.OccurrenceDate &&
+                    e.ExcludedDate >= instance.OccurrenceDate)
+                .ToListAsync();
+
+            // 5. Złóż odpowiedź
+            var response = new InstanceParticipantsResponseDto
+            {
+                ActivityId = activityId,
+                InstanceId = instanceId,
+                OccurrenceDate = instance.OccurrenceDate,
+                StartTime = instance.StartTime,
+                EndTime = instance.EndTime
+            };
+
+            foreach (var m in members)
+            {
+                // sprawdzamy, czy user ma exclusion nachodzące na ten przedział godzin
+                bool isExcluded = exclusions.Any(e =>
+                    e.UserId == m.UserId &&
+                    e.StartTime <= instance.EndTime &&
+                    e.EndTime >= instance.StartTime);
+
+                response.Participants.Add(new InstanceParticipantDto
+                {
+                    UserId = m.UserId,
+                    Username = m.User.FullName,
+                    Email = m.User.Email,
+                    Role = m.Role,
+                    IsAttending = !isExcluded
+                });
+            }
+
+            return response;
+        }
     }
+
+
+
 }

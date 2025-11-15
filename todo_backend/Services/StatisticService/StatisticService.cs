@@ -20,36 +20,31 @@ namespace todo_backend.Services.StatisticsService
 
         public async Task<IEnumerable<StatisticsDto>> GetUserStatistics(int userId, DateTime start, DateTime end)
         {
-            // Pobranie instancji aktywności użytkownika z okresu
+            // Ograniczenie daty końcowej do chwili obecnej
+            var validEnd = end > DateTime.UtcNow ? DateTime.UtcNow : end;
+
+            // Pobieramy instancje przypisane DO KONKRETNEGO UŻYTKOWNIKA
             var activityInstances = await _context.ActivityInstances
-                .Where(i => i.Activity.OwnerId == userId && i.OccurrenceDate >= start && i.OccurrenceDate <= end)
-                .Where(i => i.DidOccur) // Filtrowanie tylko aktywności, które miały miejsce
-                .Include(i => i.Activity) // Pobierz również informacje o aktywności
-                .Include(i => i.Activity.Category) // Pobierz kategorię aktywności
+                .Where(i => i.UserId == userId)
+                .Where(i => i.OccurrenceDate >= start.Date && i.OccurrenceDate <= validEnd.Date)
+                .Where(i => i.DidOccur)
+                .Include(i => i.Activity)
+                .Include(i => i.Activity.Category)
                 .ToListAsync();
 
-            // Agregacja danych po kategoriach
+            // Agregacja wyników po kategoriach
             var categoryStats = activityInstances
                 .GroupBy(i => i.Activity.CategoryId)
                 .Select(g => new StatisticsDto
                 {
-                    //CategoryId = g.Key ?? 1,
                     CategoryName = g.First().Activity.Category?.Name ?? "Uncategorized",
-                    TotalDurationMinutes = g.Sum(i => i.DurationMinutes), // Sumowanie czasu wykonania aktywności
-                    InstanceCount = g.Count() // Liczenie liczby instancji dla danej kategorii
+                    TotalDurationMinutes = g.Sum(i => i.DurationMinutes),
+                    InstanceCount = g.Count()
                 })
-                .ToList();
-
-            // Ogranicz do daty bieżącej, jeżeli `end` jest większy niż `DateTime.UtcNow`
-            categoryStats = categoryStats
                 .Where(stat => stat.InstanceCount > 0)
                 .ToList();
 
             return categoryStats;
         }
-
-
-
-
     }
 }

@@ -15,6 +15,23 @@ namespace todo_backend.Services.ActivityMembersService
             _context = context;
         }
 
+        //GET instancje online ktorych jestesmy uczestnikami
+        public async Task<IEnumerable<ActivityInviteDto>> GetOnlineActivitiesAsync(int userId)
+        {
+            return await _context.ActivityMembers.Where(am => am.UserId == userId && am.Role == "participant" && am.Status == "accepted")
+                .Include(am => am.Activity)
+                .Select(am => new ActivityInviteDto
+                {
+                    ActivityId = am.ActivityId,
+                    ActivityTitle = am.Activity.Title,
+                    InvitedUserId = am.Activity.OwnerId,
+                    FullName = am.Activity.Owner.FullName,
+                    Status = am.Status,
+                    Role = "participant"
+                })
+                .ToListAsync();
+        }
+
 
         ////GET przeglądaj dostane zaproszenia
         //public async Task<IEnumerable<ActivityInviteDto?>> GetSentInvitesAsync(int userId)
@@ -480,5 +497,11 @@ namespace todo_backend.Services.ActivityMembersService
         //    return true;
 
         //}
+
+
+
+
+
+
     }
 }

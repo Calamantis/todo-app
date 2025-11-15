@@ -4,6 +4,7 @@ namespace todo_backend.Services.ActivityMembersService
 {
     public interface IActivityMemberService
     {
+        Task<IEnumerable<ActivityInviteDto>> GetOnlineActivitiesAsync(int userId);
         Task<IEnumerable<ActivityInviteDto>> GetReceivedInvitesAsync(int userId);
         Task<IEnumerable<ActivityInviteDto>> GetAcceptedMembersAsync(int activityId);
         Task<IEnumerable<ActivityInviteDto>> GetSentInvitesAsync(int activityId, int ownerId);

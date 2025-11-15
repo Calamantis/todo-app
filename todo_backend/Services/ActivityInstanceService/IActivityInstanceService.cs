@@ -10,5 +10,8 @@ namespace todo_backend.Services.ActivityInstanceService
         Task<ActivityInstanceDto?> CreateInstanceAsync(ActivityInstanceDto dto, int userId);
         Task<ActivityInstanceDto?> UpdateInstanceAsync(int instanceId, ActivityInstanceDto dto, int userId);
         Task<bool> DeleteInstanceAsync(int instanceId, int userId);
+
+        Task<InstanceParticipantsResponseDto?> GetInstanceParticipantsAsync(int ownerId,int activityId,int instanceId);
+
     }
 }

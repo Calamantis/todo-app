@@ -8,6 +8,7 @@ using todo_backend.Services.ActivityMembersService;
 
 namespace todo_backend.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ActivityMemberController : ControllerBase
@@ -17,6 +18,18 @@ namespace todo_backend.Controllers
         public ActivityMemberController(IActivityMemberService activityMemberService)
         {
             _activityMemberService = activityMemberService;
+        }
+
+        //GET przeglądaj aktywności online
+        [HttpGet("browse-online-activities")]
+        public async Task<IActionResult> GetOnlineActivities()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
+
+            var result = await _activityMemberService.GetOnlineActivitiesAsync(userId);
+            return Ok(result);
         }
 
         ////GET przeglądaj dostane zaproszenia

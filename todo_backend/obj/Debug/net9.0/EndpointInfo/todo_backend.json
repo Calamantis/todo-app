@@ -305,6 +305,50 @@
         }
       }
     },
+    "/api/ActivityInstance/{activityId}/instances/{instanceId}/participants": {
+      "get": {
+        "tags": [
+          "ActivityInstance"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "instanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ActivityMember/browse-online-activities": {
+      "get": {
+        "tags": [
+          "ActivityMember"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ActivityMember/browse-recieved-invites": {
       "get": {
         "tags": [

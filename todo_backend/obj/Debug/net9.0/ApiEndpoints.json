@@ -112,6 +112,27 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
+    "Method": "GetInstanceParticipants",
+    "RelativePath": "api/ActivityInstance/{activityId}/instances/{instanceId}/participants",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "instanceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
     "Method": "GetInstancesByActivityId",
     "RelativePath": "api/ActivityInstance/activity/get-activity-instances",
     "HttpMethod": "GET",
@@ -183,6 +204,16 @@
     "ContainingType": "todo_backend.Controllers.ActivityInstanceController",
     "Method": "GetAllInstancesByUserId",
     "RelativePath": "api/ActivityInstance/user/get-instances",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMemberController",
+    "Method": "GetOnlineActivities",
+    "RelativePath": "api/ActivityMember/browse-online-activities",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

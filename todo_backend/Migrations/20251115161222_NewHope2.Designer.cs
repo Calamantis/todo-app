@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using todo_backend.Data;
 
@@ -11,9 +12,11 @@ using todo_backend.Data;
 namespace todo_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251115161222_NewHope2")]
+    partial class NewHope2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,16 +103,11 @@ namespace todo_backend.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("InstanceId");
 
                     b.HasIndex("ActivityId");
 
                     b.HasIndex("RecurrenceRuleId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ActivityInstances");
                 });
@@ -462,17 +460,9 @@ namespace todo_backend.Migrations
                         .HasForeignKey("RecurrenceRuleId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("todo_backend.Models.User", "User")
-                        .WithMany("ActivityInstances")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Activity");
 
                     b.Navigation("ActivityRecurrenceRule");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("todo_backend.Models.ActivityMember", b =>
@@ -618,8 +608,6 @@ namespace todo_backend.Migrations
             modelBuilder.Entity("todo_backend.Models.User", b =>
                 {
                     b.Navigation("Activities");
-
-                    b.Navigation("ActivityInstances");
 
                     b.Navigation("ActivityMembers");
 

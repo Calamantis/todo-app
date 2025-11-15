@@ -23,6 +23,7 @@ namespace todo_backend.Services.ActivityInstanceService
                 {
                     InstanceId = ai.InstanceId,
                     ActivityId = ai.ActivityId,
+                    UserId = ai.UserId,
                     RecurrenceRuleId = ai.RecurrenceRuleId,
                     OccurrenceDate = ai.OccurrenceDate,
                     StartTime = ai.StartTime,
@@ -52,6 +53,7 @@ namespace todo_backend.Services.ActivityInstanceService
                 {
                     InstanceId = ai.InstanceId,
                     ActivityId = ai.ActivityId,
+                    UserId = ai.UserId,
                     RecurrenceRuleId = ai.RecurrenceRuleId,
                     OccurrenceDate = ai.OccurrenceDate,
                     StartTime = ai.StartTime,
@@ -99,6 +101,7 @@ namespace todo_backend.Services.ActivityInstanceService
             var entity = new ActivityInstance
             {
                 ActivityId = dto.ActivityId,
+                UserId = userId,
                 RecurrenceRuleId = dto.RecurrenceRuleId,
                 OccurrenceDate = dto.OccurrenceDate,
                 StartTime = dto.StartTime,
@@ -117,6 +120,7 @@ namespace todo_backend.Services.ActivityInstanceService
                 InstanceId = entity.InstanceId,
                 ActivityId = entity.ActivityId,
                 RecurrenceRuleId = entity.RecurrenceRuleId,
+                UserId = entity.UserId,
                 OccurrenceDate = entity.OccurrenceDate,
                 StartTime = entity.StartTime,
                 EndTime = entity.EndTime,
@@ -141,6 +145,7 @@ namespace todo_backend.Services.ActivityInstanceService
 
             instance.OccurrenceDate = dto.OccurrenceDate;
             instance.StartTime = dto.StartTime;
+            instance.UserId = userId;
             instance.EndTime = dto.EndTime;
             instance.DurationMinutes = dto.DurationMinutes;
             instance.IsActive = dto.IsActive;
@@ -154,6 +159,7 @@ namespace todo_backend.Services.ActivityInstanceService
                 InstanceId = instance.InstanceId,
                 ActivityId = instance.ActivityId,
                 RecurrenceRuleId = instance.RecurrenceRuleId,
+                UserId = userId,
                 OccurrenceDate = instance.OccurrenceDate,
                 StartTime = instance.StartTime,
                 EndTime = instance.EndTime,

@@ -15,8 +15,8 @@
 //        private readonly AppDbContext _context;
 //        private readonly IRecurrenceService _recurrenceService;
 
-//        public TimelineActivityService(AppDbContext context, IRecurrenceService recurrenceService) 
-//        { 
+//        public TimelineActivityService(AppDbContext context, IRecurrenceService recurrenceService)
+//        {
 //            _context = context;
 //            _recurrenceService = recurrenceService;
 //        }
@@ -177,7 +177,7 @@
 //        }
 
 //        //PUT modyfikacja aktywności
-//        public async Task<FullTimelineActivityDto> UpdateTimelineActivityAsync (int activityId, int currentUserId, UpdateTimelineActivityDto dto)
+//        public async Task<FullTimelineActivityDto> UpdateTimelineActivityAsync(int activityId, int currentUserId, UpdateTimelineActivityDto dto)
 //        {
 //            var entity = await _context.TimelineActivities
 //                .FirstOrDefaultAsync(t => t.ActivityId == activityId && t.OwnerId == currentUserId);

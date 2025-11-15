@@ -15,6 +15,12 @@ namespace todo_backend.Models
         [ForeignKey("ActivityId")]
         public Activity Activity { get; set; }
 
+        [Required]
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+
         public int? RecurrenceRuleId { get; set; } = null;// Klucz obcy
 
         [ForeignKey("RecurrenceRuleId")]

@@ -14,5 +14,6 @@
         // Relacje
         public int ActivityId { get; set; }
         public int? RecurrenceRuleId { get; set; }
+        public int UserId { get; set; }
     }
 }

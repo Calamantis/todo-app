@@ -83,7 +83,6 @@ builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IUserFriendActionsService, UserFriendActionsService>();
 //builder.Services.AddScoped<ITimelineActivityService, TimelineActivityService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-//builder.Services.AddScoped<IActivityMembersService, ActivityMembersService>();
 //builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
 builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
@@ -98,6 +97,7 @@ builder.Services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
 builder.Services.AddScoped<ITimelineService, TimelineService>();
 builder.Services.AddScoped<IInstanceExclusionService, InstanceExclusionService>();
 
+builder.Services.AddScoped<IActivityMemberService, ActivityMemberService>();
 
 builder.Services.AddTransient<DataSeeder>();
 

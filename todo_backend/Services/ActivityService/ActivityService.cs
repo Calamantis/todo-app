@@ -134,5 +134,71 @@ namespace todo_backend.Services.ActivityService
 
             return true;
         }
+
+        //PATCH Przekształć aktywność na PUBLICZNĄ
+        public async Task<bool> ConvertToOnlineAsync(int activityId, int currentUserId)
+        {
+            var activity = await _context.Activities
+                .FirstOrDefaultAsync(a => a.ActivityId == activityId && a.OwnerId == currentUserId);
+
+            if (activity == null)
+                return false; // brak dostępu lub nie istnieje
+
+            if (activity.JoinCode != null)
+                return true; // już jest online
+
+            // 🔹 wygeneruj kod
+            activity.JoinCode = GenerateJoinCode();
+
+            // 🔹 dodaj ownera do ActivityMembers (jeśli nie istnieje)
+            var ownerMemberExists = await _context.ActivityMembers
+                .AnyAsync(m => m.ActivityId == activityId && m.UserId == currentUserId);
+
+            if (!ownerMemberExists)
+            {
+                var ownerMember = new ActivityMember
+                {
+                    ActivityId = activityId,
+                    UserId = currentUserId,
+                    Role = "owner",
+                    Status = "accepted"
+                };
+                _context.ActivityMembers.Add(ownerMember);
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        //PATCH Przekształć aktywność na PRYWATNĄ
+        public async Task<bool> ConvertToOfflineAsync(int activityId, int currentUserId)
+        {
+            var activity = await _context.Activities
+                .FirstOrDefaultAsync(a => a.ActivityId == activityId && a.OwnerId == currentUserId);
+
+            if (activity == null)
+                return false; // brak dostępu lub nie istnieje
+
+            if (activity.JoinCode == null)
+                return true; // już jest offline
+
+            // resetuj kod
+            activity.JoinCode = null;
+
+            // Usuń wszystkie rekordy
+            var membersToRemove = await _context.ActivityMembers.Where(am => am.ActivityId == activityId).ToListAsync();
+            _context.ActivityMembers.RemoveRange(membersToRemove);
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        private static string GenerateJoinCode(int length = 10)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[Random.Shared.Next(s.Length)]).ToArray());
+        }
+
     }
 }

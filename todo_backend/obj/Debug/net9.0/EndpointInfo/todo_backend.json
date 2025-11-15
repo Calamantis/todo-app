@@ -133,6 +133,50 @@
         }
       }
     },
+    "/api/Activity/convert-activity-to-online": {
+      "patch": {
+        "tags": [
+          "Activity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Activity/convert-activity-to-offline": {
+      "patch": {
+        "tags": [
+          "Activity"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ActivityInstance/user/get-instances": {
       "get": {
         "tags": [
@@ -261,10 +305,10 @@
         }
       }
     },
-    "/api/ActivityMembers/browse-recieved": {
+    "/api/ActivityMember/browse-recieved-invites": {
       "get": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "responses": {
           "200": {
@@ -273,22 +317,10 @@
         }
       }
     },
-    "/api/ActivityMembers/show-accepted": {
+    "/api/ActivityMember/browse-participants": {
       "get": {
         "tags": [
-          "ActivityMembers"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/ActivityMembers/browse-invites": {
-      "get": {
-        "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -302,41 +334,15 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullActivityMembersDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullActivityMembersDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullActivityMembersDto"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/ActivityMembers/show-participants": {
+    "/api/ActivityMember/browse-sent-invites": {
       "get": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -350,41 +356,15 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullActivityMembersDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullActivityMembersDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FullActivityMembersDto"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/ActivityMembers/send-invitation": {
+    "/api/ActivityMember/send-invite": {
       "post": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -411,16 +391,15 @@
         }
       }
     },
-    "/api/ActivityMembers/join-by-code/{joinCode}": {
+    "/api/ActivityMember/join-by-code": {
       "post": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
             "name": "joinCode",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -433,10 +412,10 @@
         }
       }
     },
-    "/api/ActivityMembers/update-invite-status": {
+    "/api/ActivityMember/update-invite-status": {
       "patch": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -452,17 +431,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateInviteStatusDto"
+                "$ref": "#/components/schemas/ActivityMemberStatusUpdateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateInviteStatusDto"
+                "$ref": "#/components/schemas/ActivityMemberStatusUpdateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateInviteStatusDto"
+                "$ref": "#/components/schemas/ActivityMemberStatusUpdateDto"
               }
             }
           }
@@ -474,10 +453,10 @@
         }
       }
     },
-    "/api/ActivityMembers/revoke-invite": {
+    "/api/ActivityMember/cancel-invite": {
       "delete": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -504,10 +483,10 @@
         }
       }
     },
-    "/api/ActivityMembers/remove-participant": {
+    "/api/ActivityMember/remove-participant": {
       "delete": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -534,10 +513,10 @@
         }
       }
     },
-    "/api/ActivityMembers/cancel-attendance": {
+    "/api/ActivityMember/leave-activity": {
       "delete": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
@@ -556,14 +535,22 @@
         }
       }
     },
-    "/api/ActivityMembers/remove-everyone": {
+    "/api/ActivityMember/remove-and-block": {
       "delete": {
         "tags": [
-          "ActivityMembers"
+          "ActivityMember"
         ],
         "parameters": [
           {
             "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "targetUserId",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -2430,6 +2417,24 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActivityMemberStatusUpdateDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2684,36 +2689,6 @@
         },
         "additionalProperties": false
       },
-      "FullActivityMembersDto": {
-        "type": "object",
-        "properties": {
-          "activityId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "role": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "string",
-            "nullable": true
-          },
-          "userFullName": {
-            "type": "string",
-            "nullable": true
-          },
-          "userEmail": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "FullFriendshipDetailDto": {
         "type": "object",
         "properties": {
@@ -2923,16 +2898,6 @@
         "properties": {
           "allowMentions": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateInviteStatusDto": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

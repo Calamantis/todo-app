@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace todo_backend.Dtos.ActivityMembers
+namespace todo_backend.Dtos.ActivityMemberDto
 {
-    public class CreateActivityMembersDto
+    public class ActivityMemberCreateDto
     {
         [Required]
         public int ActivityId { get; set; }

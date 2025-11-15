@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace todo_backend.Models
 {
-    public class ActivityMembers
+    public class ActivityMember
     {
         [Key]
         [Required]

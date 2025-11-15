@@ -15,7 +15,7 @@ namespace todo_backend.Data
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<ActivityMembers> ActivityMembers { get; set; }
+        public DbSet<ActivityMember> ActivityMembers { get; set; }
 
         public DbSet<BlockedUsers>  BlockedUsers { get; set; }
 
@@ -113,35 +113,27 @@ namespace todo_backend.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             //klucz do aktywnosci z znajomymi
-            //modelBuilder.Entity<ActivityMembers>()
-            //    .HasKey(am => new { am.ActivityId, am.UserId });
+            modelBuilder.Entity<ActivityMember>()
+                .HasKey(am => new { am.ActivityId, am.UserId });
+
+            modelBuilder.Entity<ActivityMember>()
+                .HasOne(am => am.Activity)
+                .WithMany(a => a.ActivityMembers)
+                .HasForeignKey(am => am.ActivityId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ActivityMember>()
+                .HasOne(am => am.User)
+                .WithMany(u => u.ActivityMembers)
+                .HasForeignKey(am => am.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
-            // Zaproszenia do aktywnosci
-            //modelBuilder.Entity<ActivityMembers>()
-            //.HasOne(am => am.Activity)
-            //.WithMany(a => a.ActivityMembers)
-            //.HasForeignKey(am => am.ActivityId)
-            //.OnDelete(DeleteBehavior.NoAction);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            modelBuilder.Entity<ActivityInstance>()
+                .HasOne(ai => ai.User)
+                .WithMany(u => u.ActivityInstances)
+                .HasForeignKey(ai => ai.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             //Blokowanie
             modelBuilder.Entity<BlockedUsers>()

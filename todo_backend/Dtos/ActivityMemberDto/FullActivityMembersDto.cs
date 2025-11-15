@@ -1,4 +1,4 @@
-﻿namespace todo_backend.Dtos.ActivityMembers
+﻿namespace todo_backend.Dtos.ActivityMemberDto
 {
     public class FullActivityMembersDto
     {

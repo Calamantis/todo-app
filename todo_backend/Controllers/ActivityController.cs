@@ -107,5 +107,37 @@ namespace todo_backend.Controllers
             return NoContent(); // Sukces, brak treści
         }
 
+        [HttpPatch("convert-activity-to-online")]
+        public async Task<IActionResult> ConvertToOnline(int activityId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var result = await _activityService.ConvertToOnlineAsync(activityId, userId);
+            if (!result)
+                return BadRequest("Activity not found or not owned by user.");
+
+            return Ok(new { message = "Activity converted to online successfully." });
+        }
+
+        [HttpPatch("convert-activity-to-offline")]
+        public async Task<IActionResult> ConvertToOffline(int activityId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var result = await _activityService.ConvertToOfflineAsync(activityId, userId);
+            if (!result)
+                return BadRequest("Activity not found or not owned by user.");
+
+            return Ok(new { message = "Activity converted to online successfully." });
+
+        }
     }
 }

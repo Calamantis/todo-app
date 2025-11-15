@@ -15,6 +15,7 @@ using todo_backend.Services.AuthService;
 using todo_backend.Services.BlockedUsersService;
 using todo_backend.Services.CategoryService;
 using todo_backend.Services.FriendshipService;
+using todo_backend.Services.InstanceExclusionService;
 using todo_backend.Services.NotificationService;
 //using todo_backend.Services.RecurrenceService;
 using todo_backend.Services.SecurityService;
@@ -85,7 +86,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 //builder.Services.AddScoped<IActivityMembersService, ActivityMembersService>();
 //builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
 builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
-//builder.Services.AddScoped<IStatisticService, StatisticService>();
+builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 //builder.Services.AddScoped<IRecurrenceService, RecurrenceService>();
 //builder.Services.AddScoped<IActivitySuggestionService, ActivitySuggestionService>();
@@ -95,6 +96,8 @@ builder.Services.AddScoped<IActivityRecurrenceRuleService, ActivityRecurrenceRul
 builder.Services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
 
 builder.Services.AddScoped<ITimelineService, TimelineService>();
+builder.Services.AddScoped<IInstanceExclusionService, InstanceExclusionService>();
+
 
 builder.Services.AddTransient<DataSeeder>();
 

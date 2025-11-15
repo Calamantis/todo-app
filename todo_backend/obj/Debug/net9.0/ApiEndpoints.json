@@ -633,6 +633,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "todo_backend.Controllers.InstanceExclusionController",
+    "Method": "Create",
+    "RelativePath": "api/exclusions/create-exclusion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.InstanceExclusionDto.InstanceExclusionCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.InstanceExclusionController",
+    "Method": "Delete",
+    "RelativePath": "api/exclusions/delete-exclusion",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "exclusionId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.InstanceExclusionController",
+    "Method": "Update",
+    "RelativePath": "api/exclusions/edit-exclusion",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "exclusionId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.InstanceExclusionDto.InstanceExclusionUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.InstanceExclusionController",
+    "Method": "GetByActivity",
+    "RelativePath": "api/exclusions/get-activity-exclusion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.InstanceExclusionController",
+    "Method": "GetByUser",
+    "RelativePath": "api/exclusions/get-user-exclusions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "todo_backend.Controllers.FriendshipController",
     "Method": "GetReceivedInvites",
     "RelativePath": "api/Friendship/{userId}/received",

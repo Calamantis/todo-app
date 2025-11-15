@@ -27,6 +27,7 @@ namespace todo_backend.Data
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityInstance> ActivityInstances { get; set; }
         public DbSet<ActivityRecurrenceRule> ActivityRecurrenceRules { get; set; }
+        public DbSet<InstanceExclusion> InstanceExclusions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -99,7 +100,17 @@ namespace todo_backend.Data
                 .HasForeignKey(i => i.RecurrenceRuleId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<InstanceExclusion>()
+                .HasOne(e => e.User)
+                .WithMany(u => u.InstanceExclusions)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<InstanceExclusion>()
+                .HasOne(e => e.Activity)
+                .WithMany(a => a.InstanceExclusions)
+                .HasForeignKey(e => e.ActivityId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             //klucz do aktywnosci z znajomymi
             //modelBuilder.Entity<ActivityMembers>()

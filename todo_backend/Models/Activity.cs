@@ -88,5 +88,6 @@ namespace todo_backend.Models
         // Relacje
         public List<ActivityRecurrenceRule> RecurrenceRules { get; set; } = new List<ActivityRecurrenceRule>();
         public List<ActivityInstance> Instances { get; set; } = new List<ActivityInstance>();
+        public ICollection<InstanceExclusion> InstanceExclusions { get; set; } = new List<InstanceExclusion>();
     }
 }

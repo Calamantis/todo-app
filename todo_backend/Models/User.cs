@@ -49,6 +49,7 @@ namespace todo_backend.Models
         public ICollection<BlockedUsers> BlockedUsers { get; set; } = new List<BlockedUsers>();
         public ICollection<Statistics> Statistics { get; set; } = new List<Statistics>();
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+        public ICollection<InstanceExclusion> InstanceExclusions { get; set; } = new List<InstanceExclusion>();
     }
 
 

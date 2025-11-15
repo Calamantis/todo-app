@@ -216,6 +216,13 @@ namespace todo_backend.Services.TimelineService
         //Generuje instancje
         private async Task GenerateSingularInstanceAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate)
         {
+            if (await IsExcludedAsync(rule, occurrenceDate))
+            {
+                Console.WriteLine($"[EXCLUDED] Pomijam {occurrenceDate:yyyy-MM-dd} dla ActivityId={rule.ActivityId}");
+                return;
+            }
+
+
             var existingInstance = await _context.ActivityInstances
                 .FirstOrDefaultAsync(i => i.ActivityId == rule.ActivityId && i.OccurrenceDate == occurrenceDate);
 
@@ -238,5 +245,12 @@ namespace todo_backend.Services.TimelineService
             }
         }
 
+
+        private async Task<bool> IsExcludedAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate)
+        {
+            return await _context.InstanceExclusions.AnyAsync(ex =>
+                ex.ActivityId == rule.ActivityId &&
+                ex.ExcludedDate == occurrenceDate);
+        }
     }
 }

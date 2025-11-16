@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "H:\\todo_application\\todo_backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activityinstanceservice\\activityinstanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityinstanceservice\\activityinstanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\instanceexclusion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\instanceexclusion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\timelineservice\\timelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\timelineservice\\timelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -18,11 +30,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 736,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -36,7 +48,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
@@ -46,6 +58,45 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-28T18:49:37.292Z",
               "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InstanceExclusion.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\InstanceExclusion.cs",
+              "RelativeDocumentMoniker": "Models\\InstanceExclusion.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\InstanceExclusion.cs",
+              "RelativeToolTip": "Models\\InstanceExclusion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T10:34:48.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TimelineService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
+              "RelativeDocumentMoniker": "Services\\TimelineService\\TimelineService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
+              "RelativeToolTip": "Services\\TimelineService\\TimelineService.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAQwOEBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T10:23:05.189Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ActivityInstanceService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivityInstanceService\\ActivityInstanceService.cs",
+              "RelativeDocumentMoniker": "Services\\ActivityInstanceService\\ActivityInstanceService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivityInstanceService\\ActivityInstanceService.cs",
+              "RelativeToolTip": "Services\\ActivityInstanceService\\ActivityInstanceService.cs",
+              "ViewState": "AgIAANgAAAAAAAAAAAAAAPsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T10:13:40.962Z",
+              "EditorCaption": ""
             }
           ]
         }

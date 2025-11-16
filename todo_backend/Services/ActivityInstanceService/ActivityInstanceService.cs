@@ -173,11 +173,11 @@ namespace todo_backend.Services.ActivityInstanceService
         // DELETE: Usuwanie instancji
         public async Task<bool> DeleteInstanceAsync(int instanceId, int userId)
         {
-            var instance = await _context.ActivityInstances
-                .Include(ai => ai.Activity)
-                .FirstOrDefaultAsync(ai => ai.InstanceId == instanceId);
+            var instance = await _context.ActivityInstances.FirstOrDefaultAsync(ai => ai.InstanceId == instanceId);
 
-            if (instance == null || instance.Activity.OwnerId != userId)
+            Console.WriteLine("\n\n"+instance);
+
+            if (instance == null || instance.UserId != userId)
             {
                 return false; // Jeśli instancja nie należy do użytkownika, zwróć false
             }
@@ -224,9 +224,12 @@ namespace todo_backend.Services.ActivityInstanceService
             var exclusions = await _context.InstanceExclusions
                 .Where(e =>
                     e.ActivityId == activityId &&
-                    e.ExcludedDate <= instance.OccurrenceDate &&
-                    e.ExcludedDate >= instance.OccurrenceDate)
+                    e.ExcludedDate.Date == instance.OccurrenceDate.Date &&
+                    e.StartTime == instance.StartTime )
                 .ToListAsync();
+
+            foreach (var exclusion in exclusions )
+            Console.WriteLine("\n\n" + exclusions + "\n\n");
 
             // 5. Złóż odpowiedź
             var response = new InstanceParticipantsResponseDto
@@ -245,6 +248,9 @@ namespace todo_backend.Services.ActivityInstanceService
                     e.UserId == m.UserId &&
                     e.StartTime <= instance.EndTime &&
                     e.EndTime >= instance.StartTime);
+
+                if (isExcluded)
+                    continue;
 
                 response.Participants.Add(new InstanceParticipantDto
                 {

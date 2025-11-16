@@ -26,39 +26,56 @@ namespace todo_backend.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
-        //[HttpPost("suggestions/placement")]
-        //public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
-        //{
-        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        [Authorize]
+        [HttpPost("suggestions/placement")]
+        public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
-        //    if (results == null) return NoContent();
-        //    if (!results.Any())
-        //        return NotFound("No suitable placement found.");
+            var results = await _activitySuggestionService.SuggestActivityPlacementAsync(userId, dto);
+            if (results == null) return NoContent();
+            if (!results.Any())
+                return NotFound("No suitable placement found.");
 
-        //    return Ok(results);
-        //}
+            return Ok(results);
+        }
 
-        //[Authorize]
-        //[HttpPost("suggestions/shifted")]
-        //public async Task<IActionResult> SuggestPlacementShifted([FromBody] ActivityPlacementSuggestionDto dto)
-        //{
-        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        [Authorize]
+        [HttpPost("suggestions/shifted")]
+        public async Task<IActionResult> SuggestPlacementShifted([FromBody] ActivityPlacementSuggestionDto dto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var results = await _activitySuggestionService.SuggestActivityPlacementShiftedAsync(userId, dto);
-        //    if (results == null) return NoContent();
-        //    if (!results.Any())
-        //        return NotFound("No suitable placement found.");
+            var results = await _activitySuggestionService.SuggestActivityPlacementShiftedAsync(userId, dto);
+            if (results == null) return NoContent();
+            if (!results.Any())
+                return NotFound("No suitable placement found.");
 
-        //    return Ok(results);
-        //}
+            return Ok(results);
+        }
+
+        [HttpPost("suggesstions/apply-shifted")]
+        public async Task<IActionResult> ApplyPlacementAdjustmentsAsync(
+    [FromBody] ApplyPlacementAdjustmentsDto dto)
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized("Brak identyfikatora użytkownika w tokenie.");
+
+            if (!int.TryParse(userIdClaim.Value, out var userId))
+                return Unauthorized("Nieprawidłowy identyfikator użytkownika.");
+
+            await _activitySuggestionService.ApplyPlacementAdjustmentsAsync(userId, dto);
+
+            return NoContent();
+        }
+
 
         [Authorize]
         [HttpPost("surprise-me")]
@@ -77,6 +94,8 @@ namespace todo_backend.Controllers
 
             return Ok(suggestions);
         }
+
+
 
     }
 }

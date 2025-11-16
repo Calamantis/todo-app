@@ -3,11 +3,28 @@ import { useEffect, useMemo, useState } from "react";
 interface TimelineEvent {
   activityId: number;
   title: string;
-  startTime: string;
+  startTime: string; // pełny ISO DateTime
   endTime?: string;
   colorHex?: string;
   isRecurring: boolean;
   plannedDurationMinutes?: number;
+}
+
+// 🔹 helper: wyciągnięcie userId z JWT
+function getUserIdFromToken(token: string): number | null {
+  try {
+    const [, payload] = token.split(".");
+    const json = JSON.parse(atob(payload));
+    const nameId =
+      json["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"] ??
+      json["nameid"] ??
+      json["sub"];
+
+    if (!nameId) return null;
+    return parseInt(nameId, 10);
+  } catch {
+    return null;
+  }
 }
 
 export default function TimelinePage() {
@@ -48,6 +65,13 @@ export default function TimelinePage() {
       return;
     }
 
+    const userId = getUserIdFromToken(token);
+    if (!userId) {
+      console.error("Nie udało się odczytać userId z tokena.");
+      window.location.href = "/";
+      return;
+    }
+
     setLoading(true);
     setEvents([]);
 
@@ -57,12 +81,41 @@ export default function TimelinePage() {
     to.setDate(from.getDate() + 7);
     to.setHours(23, 59, 59, 999);
 
-    fetch(`/api/TimelineActivity/get-timeline?from=${from.toISOString()}&to=${to.toISOString()}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data: TimelineEvent[]) => {
-        setEvents(data);
+    fetch(
+      `/api/Timeline/user/get-timeline?userId=${userId}&from=${from.toISOString()}&to=${to.toISOString()}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data: any[]) => {
+        // data = ActivityInstanceDto:
+        // { instanceId, occurrenceDate, startTime, endTime, durationMinutes, ... }
+        const mapped: TimelineEvent[] = data.map((d) => {
+          // occurrenceDate: "2025-11-10T00:00:00"
+          // startTime: "20:00:00"
+          const base = new Date(d.occurrenceDate);
+          const [hh, mm, ss] = (d.startTime as string).split(":").map(Number);
+          base.setHours(hh ?? 0, mm ?? 0, ss ?? 0, 0);
+
+          // jeśli chcesz użyć prawdziwego endTime z API, możesz podobnie złożyć z d.endTime
+          return {
+            activityId: d.activityId,
+            // możesz tu później podmienić na d.title, jeśli backend zacznie go zwracać
+            title: `Aktywność #${d.activityId}`,
+            startTime: base.toISOString(),
+            plannedDurationMinutes: d.durationMinutes,
+            colorHex: undefined,
+            isRecurring: d.recurrenceRuleId != null,
+          };
+        });
+
+        setEvents(mapped);
         setLoading(false);
       })
       .catch((err) => {
@@ -71,16 +124,19 @@ export default function TimelinePage() {
       });
   }, [currentWeekStart]);
 
-  // 🔹 lokalne przeliczenie czasu (z UTC -> lokalny)
+  // 🔹 lokalne przeliczenie czasu – teraz BEZ kombinowania z offsetem
   function toLocal(dateStr: string) {
-    const d = new Date(dateStr);
-    return new Date(d.getTime() + d.getTimezoneOffset() * 60000);
+    return new Date(dateStr);
   }
 
   // 🔹 filtr aktywności w obrębie bieżącego tygodnia
   const weekEvents = events.filter((e) => {
     const start = toLocal(e.startTime);
-    return start >= currentWeekStart && start < new Date(currentWeekStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    return (
+      start >= currentWeekStart &&
+      start <
+        new Date(currentWeekStart.getTime() + 7 * 24 * 60 * 60 * 1000)
+    );
   });
 
   // 🔹 ustawienia osi czasu
@@ -127,7 +183,10 @@ export default function TimelinePage() {
 
       {/* 🔹 Główny grid */}
       <div className="overflow-x-auto overflow-y-auto max-h-[80vh] rounded-lg border border-gray-700 bg-gray-950/40">
-        <div className="relative w-full" style={{ height: `${TOTAL_HOURS * PIXELS_PER_HOUR}px` }}>
+        <div
+          className="relative w-full"
+          style={{ height: `${TOTAL_HOURS * PIXELS_PER_HOUR}px` }}
+        >
           {/* Nagłówki dni */}
           <div className="grid grid-cols-8 bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
             <div className="p-2"></div>
@@ -174,17 +233,21 @@ export default function TimelinePage() {
               {weekEvents.map((e, idx) => {
                 const start = toLocal(e.startTime);
                 const durationMinutes = e.plannedDurationMinutes ?? 60;
-                const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+                const end = new Date(
+                  start.getTime() + durationMinutes * 60 * 1000
+                );
 
                 const dayOfWeek = start.getDay() === 0 ? 6 : start.getDay() - 1;
                 const startMinutes = start.getHours() * 60 + start.getMinutes();
-                const top = (startMinutes - HOURS_START * 60) * PIXELS_PER_MINUTE;
+                const top =
+                  (startMinutes - HOURS_START * 60) * PIXELS_PER_MINUTE;
                 const left = (dayOfWeek / 7) * 100;
 
                 let height = durationMinutes * PIXELS_PER_MINUTE;
                 if (height < MIN_HEIGHT) height = MIN_HEIGHT;
 
-                if (start.getHours() < HOURS_START || start.getHours() >= HOURS_END) return null;
+                if (start.getHours() < HOURS_START || start.getHours() >= HOURS_END)
+                  return null;
 
                 return (
                   <div
@@ -198,18 +261,18 @@ export default function TimelinePage() {
                       backgroundColor: e.colorHex || "#3b82f6",
                     }}
                     title={`${e.title} (${start.toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
+                      hour: "2-digit",
+                      minute: "2-digit",
                     })} → ${end.toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
+                      hour: "2-digit",
+                      minute: "2-digit",
                     })})`}
                   >
                     <div className="font-semibold truncate">{e.title}</div>
                     <div className="text-[10px] opacity-80">
                       {start.toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
+                        hour: "2-digit",
+                        minute: "2-digit",
                       })}
                     </div>
                   </div>

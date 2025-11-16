@@ -5,7 +5,7 @@
         
     public DateTime DateLocal { get; set; }        
     public int TotalFreeMinutes {  get; set; } 
-    public DateTime? SuggestedStart {  get; set; }
-    public DateTime? SuggestedEnd { get; set; }
+    public TimeSpan SuggestedStart {  get; set; }
+    public TimeSpan SuggestedEnd { get; set; }
     }
 }

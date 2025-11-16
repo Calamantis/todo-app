@@ -1418,6 +1418,22 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
+    "Method": "ApplyPlacementAdjustmentsAsync",
+    "RelativePath": "suggesstions/apply-shifted",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ApplyPlacementAdjustmentsDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
     "Method": "GetPersonalSuggestions",
     "RelativePath": "suggestions/personal",
     "HttpMethod": "GET",
@@ -1448,6 +1464,38 @@
         "Name": "PreferredDays",
         "Type": "System.Collections.Generic.List\u00601[[System.DayOfWeek, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
+    "Method": "SuggestPlacement",
+    "RelativePath": "suggestions/placement",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ActivityPlacementSuggestionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivitySuggestionController",
+    "Method": "SuggestPlacementShifted",
+    "RelativePath": "suggestions/shifted",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ActivitySuggestionDto.ActivityPlacementSuggestionDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

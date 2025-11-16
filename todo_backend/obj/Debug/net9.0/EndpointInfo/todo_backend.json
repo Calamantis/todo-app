@@ -793,6 +793,99 @@
         }
       }
     },
+    "/suggestions/placement": {
+      "post": {
+        "tags": [
+          "ActivitySuggestion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/suggestions/shifted": {
+      "post": {
+        "tags": [
+          "ActivitySuggestion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityPlacementSuggestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/suggesstions/apply-shifted": {
+      "post": {
+        "tags": [
+          "ActivitySuggestion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyPlacementAdjustmentsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyPlacementAdjustmentsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyPlacementAdjustmentsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/surprise-me": {
       "post": {
         "tags": [
@@ -2539,6 +2632,47 @@
         },
         "additionalProperties": false
       },
+      "ActivityPlacementSuggestionDto": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "preferredStart": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
+          },
+          "preferredEnd": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
+          },
+          "preferredDays": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DayOfWeek"
+            },
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "plannedDuration": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "ActivityRecurrenceRuleDto": {
         "type": "object",
         "properties": {
@@ -2628,6 +2762,40 @@
               "$ref": "#/components/schemas/DayOfWeek"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplyPlacementAdjustmentsDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "suggestedStart": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "suggestedEnd": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "activityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shortenPrevious": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shortenCurrent": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shortenNext": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

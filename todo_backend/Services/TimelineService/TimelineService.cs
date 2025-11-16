@@ -61,7 +61,7 @@ namespace todo_backend.Services.TimelineService
         {
             // 1. Usuń przestarzałe instancje, które wybiegają w przyszłość (dotyczy tylko rekurencyjnych)
             var futureInstances = await _context.ActivityInstances
-                .Where(i => i.RecurrenceRuleId != null && i.OccurrenceDate > DateTime.UtcNow && i.UserId == userId)
+                .Where(i => i.RecurrenceRuleId != null && i.OccurrenceDate > DateTime.UtcNow && i.UserId == userId && i.IsException == false)
                 .ToListAsync();
 
             if (futureInstances.Any())
@@ -278,6 +278,8 @@ namespace todo_backend.Services.TimelineService
         //    }
         //}
 
+
+
         //Generuje instancje z czasem adapcyjnym (srednia z ostatnich 20 wystapien
         private async Task GenerateSingularInstanceAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)
         {
@@ -292,7 +294,8 @@ namespace todo_backend.Services.TimelineService
                 .Where(i => i.ActivityId == rule.ActivityId
                          && i.UserId == userId
                          && i.OccurrenceDate < occurrenceDate
-                         && i.StartTime == rule.StartTime)
+                         && i.StartTime == rule.StartTime
+                         && !i.IsException)
                 .OrderByDescending(i => i.OccurrenceDate)
                 .ThenByDescending(i => i.StartTime)
                 .Take(20)

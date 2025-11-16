@@ -88,7 +88,7 @@ builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 //builder.Services.AddScoped<IRecurrenceService, RecurrenceService>();
-//builder.Services.AddScoped<IActivitySuggestionService, ActivitySuggestionService>();
+builder.Services.AddScoped<IActivitySuggestionService, ActivitySuggestionService>();
 
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IActivityRecurrenceRuleService, ActivityRecurrenceRuleService>();

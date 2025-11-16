@@ -6,5 +6,6 @@ namespace todo_backend.Services.TimelineService
     {
         Task GenerateActivityInstancesAsync(int userId, DateTime from, DateTime to);
         Task<IEnumerable<ActivityInstanceDto>> GetTimelineForUserAsync(int userId, DateTime from, DateTime to);
+        Task<byte[]?> GenerateWeekTimelinePdfAsync(int userId, DateTime date, string username);
     }
 }

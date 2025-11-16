@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using todo_backend.Data;
 using todo_backend.Dtos.ActivityInstance;
 using todo_backend.Models;
@@ -354,7 +357,6 @@ namespace todo_backend.Services.TimelineService
             }
         }
 
-
         // Filtr do instancji Offline
         private async Task<bool> IsExcludedAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)
         {
@@ -556,6 +558,121 @@ namespace todo_backend.Services.TimelineService
         }
 
 
+        public async Task<byte[]?> GenerateWeekTimelinePdfAsync(int userId, DateTime date, string username)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            // 1️⃣ Wyliczamy tydzień: poniedziałek–niedziela
+            var dayOfWeek = (int)date.DayOfWeek; // Sunday = 0
+            if (dayOfWeek == 0) dayOfWeek = 7;   // niedziela -> 7
+            var diff = dayOfWeek - 1;            // poniedziałek = 1
+            var weekStart = date.Date.AddDays(-diff);
+            var weekEnd = weekStart.AddDays(7).AddSeconds(-1);
+
+            // 2️⃣ Generujemy instancje i pobieramy timeline (jak w normalnym endpointzie)
+            await GenerateActivityInstancesAsync(userId, weekStart, weekEnd);
+            var instances = await GetTimelineForUserAsync(userId, weekStart, weekEnd);
+
+            if (instances == null || !instances.Any())
+                return null;
+
+            // 3️⃣ Budowa PDF
+            return BuildWeekTimelinePdf(username, weekStart, weekEnd, instances);
+        }
+
+        private byte[] BuildWeekTimelinePdf(
+            string username,
+            DateTime weekStart,
+            DateTime weekEnd,
+            IEnumerable<ActivityInstanceDto> instances)
+        {
+            var days = instances
+                .OrderBy(i => i.OccurrenceDate)
+                .ThenBy(i => i.StartTime)
+                .GroupBy(i => i.OccurrenceDate.Date)
+                .ToList();
+
+            var document = Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Margin(30);
+                    page.Size(PageSizes.A4);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(10));
+
+                    page.Header().Column(col =>
+                    {
+                        col.Item().Text($"Weekly timeline – {username}")
+                            .FontSize(16).SemiBold();
+
+                        col.Item().Text(
+                            $"{weekStart:yyyy-MM-dd} – {weekEnd:yyyy-MM-dd}")
+                            .FontSize(10).FontColor(Colors.Grey.Darken2);
+                    });
+
+                    page.Content().Column(col =>
+                    {
+                        foreach (var dayGroup in days)
+                        {
+                            var dayDate = dayGroup.Key;
+
+                            col.Item()
+                               .PaddingVertical(5)
+                               .BorderBottom(1)
+                               .BorderColor(Colors.Grey.Lighten2)
+                               .Text(dayDate.ToString("dddd, dd.MM.yyyy"))
+                               .FontSize(12)
+                               .SemiBold();
+
+                            col.Item().Table(table =>
+                            {
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(70);  // Time
+                                    columns.ConstantColumn(40);  // Duration
+                                    columns.RelativeColumn();    // Activity info
+                                });
+
+                                table.Header(header =>
+                                {
+                                    header.Cell().Text("Time").SemiBold();
+                                    header.Cell().Text("Duration").SemiBold();
+                                    header.Cell().Text("Activity").SemiBold();
+                                });
+
+                                foreach (var inst in dayGroup)
+                                {
+                                    var startStr = inst.StartTime.ToString(@"hh\:mm");
+                                    var endStr = inst.EndTime.ToString(@"hh\:mm");
+                                    var durStr = $"{inst.DurationMinutes} min";
+
+                                    table.Cell().Text($"{startStr} – {endStr}");
+                                    table.Cell().Text(durStr);
+
+                                    // jeśli dorzucisz Title/Category do DTO, możesz je tu spokojnie użyć
+                                    var label = $"Activity #{inst.ActivityId}";
+                                    if (inst.IsException)
+                                        label += " (exception)";
+
+                                    table.Cell().Text(label);
+                                }
+                            });
+                        }
+                    });
+
+                    page.Footer()
+                        .AlignRight()
+                        .Text(txt =>
+                        {
+                            txt.Span("Generated: ").FontSize(8);
+                            txt.Span(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm 'UTC'")).FontSize(8);
+                        });
+                });
+            });
+
+            return document.GeneratePdf();
+        }
 
     }
 }

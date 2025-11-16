@@ -40,5 +40,41 @@ namespace todo_backend.Controllers
             return Ok(instances);
         }
 
+        [HttpGet("user/week-pdf")]
+        public async Task<IActionResult> GetWeekTimelinePdf(
+        [FromQuery] int userId,
+        [FromQuery] DateTime date)
+        {
+            // 🔐 autoryzacja jak w GetTimelineForUserAsync
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || int.Parse(userIdClaim.Value) != userId)
+            {
+                return Unauthorized("Użytkownik nie jest autoryzowany do tego żądania.");
+            }
+
+            var username = User.Identity?.Name ?? $"user_{userId}";
+
+            var pdfBytes = await _timelineService.GenerateWeekTimelinePdfAsync(userId, date, username);
+
+            if (pdfBytes == null || pdfBytes.Length == 0)
+            {
+                return NotFound("Brak aktywności w tym tygodniu.");
+            }
+
+            var weekStart = GetWeekStart(date);
+            var weekEnd = weekStart.AddDays(7).AddSeconds(-1);
+            var fileName = $"timeline_week_{weekStart:yyyyMMdd}_{weekEnd:yyyyMMdd}.pdf";
+
+            return File(pdfBytes, "application/pdf", fileName);
+        }
+
+        private DateTime GetWeekStart(DateTime date)
+        {
+            var dow = (int)date.DayOfWeek;
+            if (dow == 0) dow = 7;
+            var diff = dow - 1;
+            return date.Date.AddDays(-diff);
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cFV+yYx7748=",
+  "dgSpecHash": "E6/eE5iNSVE=",
   "success": true,
   "projectFilePath": "H:\\todo_application\\todo_backend\\todo_backend.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,7 @@
     "C:\\Users\\Calamantis\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Calamantis\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Calamantis\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
+    "C:\\Users\\Calamantis\\.nuget\\packages\\questpdf\\2025.7.4\\questpdf.2025.7.4.nupkg.sha512",
     "C:\\Users\\Calamantis\\.nuget\\packages\\scrutor\\3.3.0\\scrutor.3.3.0.nupkg.sha512",
     "C:\\Users\\Calamantis\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\Calamantis\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",

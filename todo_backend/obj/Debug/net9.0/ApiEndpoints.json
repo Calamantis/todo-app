@@ -1096,6 +1096,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "todo_backend.Controllers.TimelineController",
+    "Method": "GetWeekTimelinePdf",
+    "RelativePath": "api/Timeline/user/week-pdf",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MyApp.Controllers.UserController",
     "Method": "GetUser",
     "RelativePath": "api/User/{id}",

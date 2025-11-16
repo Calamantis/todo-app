@@ -245,7 +245,40 @@ namespace todo_backend.Services.TimelineService
             }
         }
 
-        //Generuje instancje
+        //Generuje instancje bez czasu adapcyjnego
+        //private async Task GenerateSingularInstanceAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)
+        //{
+        //    if (await IsExcludedAsync(rule, occurrenceDate, userId))
+        //    {
+        //        Console.WriteLine($"[EXCLUDED] Pomijam {occurrenceDate:yyyy-MM-dd} dla ActivityId={rule.ActivityId}");
+        //        return;
+        //    }
+
+
+        //    var existingInstance = await _context.ActivityInstances
+        //        .FirstOrDefaultAsync(i => i.ActivityId == rule.ActivityId && i.OccurrenceDate == occurrenceDate);
+
+        //    if (existingInstance == null)
+        //    {
+        //        var instance = new ActivityInstance
+        //        {
+        //            ActivityId = rule.ActivityId,
+        //            RecurrenceRuleId = rule.RecurrenceRuleId,
+        //            UserId = userId,
+        //            OccurrenceDate = occurrenceDate,
+        //            StartTime = rule.StartTime,
+        //            EndTime = rule.EndTime,
+        //            DurationMinutes = rule.DurationMinutes,
+        //            IsActive = true,
+        //            DidOccur = true,
+        //            IsException = false // Nowa instancja nie jest wyjątkiem
+        //        };
+
+        //        _context.ActivityInstances.Add(instance);
+        //    }
+        //}
+
+        //Generuje instancje z czasem adapcyjnym (srednia z ostatnich 20 wystapien
         private async Task GenerateSingularInstanceAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)
         {
             if (await IsExcludedAsync(rule, occurrenceDate, userId))
@@ -254,9 +287,42 @@ namespace todo_backend.Services.TimelineService
                 return;
             }
 
+            // 1. Ostatnie 20 instancji tej aktywności dla tego użytkownika (przed tym dniem)
+            var pastInstances = await _context.ActivityInstances
+                .Where(i => i.ActivityId == rule.ActivityId
+                         && i.UserId == userId
+                         && i.OccurrenceDate < occurrenceDate
+                         && i.StartTime == rule.StartTime)
+                .OrderByDescending(i => i.OccurrenceDate)
+                .ThenByDescending(i => i.StartTime)
+                .Take(20)
+                .ToListAsync();
 
+            int durationMinutes;
+
+            if (pastInstances.Any())
+            {
+                durationMinutes = (int)Math.Round(pastInstances.Average(i => i.DurationMinutes));
+                Console.WriteLine($"[DURATION] Średnia z ostatnich {pastInstances.Count} wystąpień = {durationMinutes} min (ActivityId={rule.ActivityId}, UserId={userId}, StartTime={rule.StartTime})");
+            }
+            else
+            {
+                durationMinutes = rule.DurationMinutes;
+                Console.WriteLine($"[DURATION] Brak historii, używam rule.DurationMinutes = {durationMinutes} (ActivityId={rule.ActivityId}, UserId={userId})");
+            }
+
+            // 2. Nowy EndTime = StartTime + średni Duration
+            // Jeśli używasz TimeSpan:
+            var endTime = rule.StartTime.Add(TimeSpan.FromMinutes(durationMinutes));
+            // Jeśli masz TimeOnly zamiast TimeSpan, zamień na:
+            // var endTime = rule.StartTime.AddMinutes(durationMinutes);
+
+            // 3. Sprawdź, czy już istnieje instancja dla tego usera / aktywności / dnia
             var existingInstance = await _context.ActivityInstances
-                .FirstOrDefaultAsync(i => i.ActivityId == rule.ActivityId && i.OccurrenceDate == occurrenceDate);
+                .FirstOrDefaultAsync(i =>
+                    i.ActivityId == rule.ActivityId &&
+                    i.UserId == userId &&
+                    i.OccurrenceDate == occurrenceDate);
 
             if (existingInstance == null)
             {
@@ -267,19 +333,24 @@ namespace todo_backend.Services.TimelineService
                     UserId = userId,
                     OccurrenceDate = occurrenceDate,
                     StartTime = rule.StartTime,
-                    EndTime = rule.EndTime,
-                    DurationMinutes = rule.DurationMinutes,
+                    EndTime = endTime,
+                    DurationMinutes = durationMinutes,
                     IsActive = true,
                     DidOccur = true,
                     IsException = false // Nowa instancja nie jest wyjątkiem
                 };
 
                 _context.ActivityInstances.Add(instance);
+
+                Console.WriteLine($"[CREATE] Nowa instancja: ActivityId={instance.ActivityId}, UserId={instance.UserId}, " +
+                                  $"Date={instance.OccurrenceDate:yyyy-MM-dd}, {instance.StartTime}-{instance.EndTime}, Duration={instance.DurationMinutes}");
             }
-
-
-
+            else
+            {
+                Console.WriteLine($"[SKIP] Instancja już istnieje dla ActivityId={rule.ActivityId}, UserId={userId}, Date={occurrenceDate:yyyy-MM-dd}");
+            }
         }
+
 
         // Filtr do instancji Offline
         private async Task<bool> IsExcludedAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)

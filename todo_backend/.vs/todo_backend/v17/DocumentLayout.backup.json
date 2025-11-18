@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "H:\\todo_application\\todo_backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activitysuggestionservice\\activitysuggestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activitysuggestionservice\\activitysuggestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\timelinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\timelinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\timelineservice\\itimelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\timelineservice\\itimelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activitysuggestionservice\\activitysuggestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activitysuggestionservice\\activitysuggestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activitysuggestionservice\\iactivitysuggestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 736,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Document",
@@ -100,20 +100,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "TimelineController.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\TimelineController.cs",
               "RelativeDocumentMoniker": "Controllers\\TimelineController.cs",
               "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\TimelineController.cs",
               "RelativeToolTip": "Controllers\\TimelineController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwDcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T18:18:29.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T18:18:29.003Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ITimelineService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\TimelineService\\ITimelineService.cs",
               "RelativeDocumentMoniker": "Services\\TimelineService\\ITimelineService.cs",
@@ -121,12 +120,11 @@
               "RelativeToolTip": "Services\\TimelineService\\ITimelineService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T18:17:08.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T18:17:08.092Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TimelineService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
               "RelativeDocumentMoniker": "Services\\TimelineService\\TimelineService.cs",
@@ -134,8 +132,7 @@
               "RelativeToolTip": "Services\\TimelineService\\TimelineService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T16:33:48.696Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T16:33:48.696Z"
             },
             {
               "$type": "Document",
@@ -235,13 +232,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "ActivitySuggestionService.cs",
               "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivitySuggestionService\\ActivitySuggestionService.cs",
               "RelativeDocumentMoniker": "Services\\ActivitySuggestionService\\ActivitySuggestionService.cs",
               "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivitySuggestionService\\ActivitySuggestionService.cs",
               "RelativeToolTip": "Services\\ActivitySuggestionService\\ActivitySuggestionService.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAAJ8CAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHsCAAAAAAAAAAAAAJ0CAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-16T10:38:52.03Z",
               "EditorCaption": ""

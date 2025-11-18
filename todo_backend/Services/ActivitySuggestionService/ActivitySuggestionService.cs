@@ -40,7 +40,7 @@ namespace todo_backend.Services.ActivitySuggestionService
 
             // 🔹 Okno czasowe do analizy historii i stabilności
             var windowFrom = DateTime.UtcNow.AddMonths(-2).Date;
-            var windowTo = DateTime.UtcNow.AddDays(14).Date;
+            var windowTo = DateTime.UtcNow.Date;
 
             // 🔹 1️⃣ Pobierz instancje aktywności użytkownika w tym oknie
             var instanceQuery = _context.ActivityInstances

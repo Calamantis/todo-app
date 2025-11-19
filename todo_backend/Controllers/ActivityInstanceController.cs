@@ -46,14 +46,6 @@ namespace todo_backend.Controllers
             return Ok(instances);
         }
 
-        //// GET: api/activityinstance/daterange
-        //[HttpGet("daterange")]
-        //public async Task<IActionResult> GetInstancesByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int userId)
-        //{
-        //    var instances = await _service.GetInstancesByDateRangeAsync(startDate, endDate, userId);
-        //    return Ok(instances);
-        //}
-
         // POST: api/activityinstance
         [HttpPost("create-instance")]
         public async Task<IActionResult> CreateInstance([FromBody] ActivityInstanceDto dto)

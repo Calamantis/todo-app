@@ -6,7 +6,6 @@ using todo_backend.Data;
 using todo_backend.Dtos.Friendship;
 using todo_backend.Dtos.User;
 using todo_backend.Models;
-using todo_backend.Services.FriendshipService;
 using todo_backend.Services.UserFriendActions;
 
 namespace todo_backend.Controllers
@@ -152,8 +151,5 @@ namespace todo_backend.Controllers
             if (!success) return NotFound("Friendship not found.");
             return NoContent();
         }
-
-        //limity na pola (w encji i dto tworzących)
-        //ismodelvalid --> tutaj chyba w sumie nie ma zbyt co namieszac wiec nie wiem czy needed
     }
 }

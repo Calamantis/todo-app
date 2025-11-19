@@ -8,7 +8,6 @@ using todo_backend.Dtos.Auth;
 using todo_backend.Dtos.User;
 using todo_backend.Models;
 using todo_backend.Services.SecurityService;
-using todo_backend.Services.UserService;
 
 namespace todo_backend.Services.AuthService
 {

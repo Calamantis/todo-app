@@ -9,22 +9,19 @@ using todo_backend.Services.ActivityMembersService;
 using todo_backend.Services.ActivityRecurrenceRuleService;
 using todo_backend.Services.ActivityService;
 
-//using todo_backend.Services.ActivityStorage;
 using todo_backend.Services.ActivitySuggestionService;
+using todo_backend.Services.AdminService;
 using todo_backend.Services.AuthService;
 using todo_backend.Services.BlockedUsersService;
 using todo_backend.Services.CategoryService;
-using todo_backend.Services.FriendshipService;
 using todo_backend.Services.InstanceExclusionService;
+using todo_backend.Services.ModerationService;
 using todo_backend.Services.NotificationService;
-//using todo_backend.Services.RecurrenceService;
 using todo_backend.Services.SecurityService;
 using todo_backend.Services.StatisticsService;
-using todo_backend.Services.TimelineActivityService;
 using todo_backend.Services.TimelineService;
 using todo_backend.Services.UserAccountService;
 using todo_backend.Services.UserFriendActions;
-using todo_backend.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,29 +72,23 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //serwisy
-builder.Services.AddScoped<IFriendshipService, FriendshipService>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IUserFriendActionsService, UserFriendActionsService>();
-//builder.Services.AddScoped<ITimelineActivityService, TimelineActivityService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-//builder.Services.AddScoped<IActivityStorageService, ActivityStorageService>();
 builder.Services.AddScoped<IBlockedUsersService, BlockedUsersService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
-//builder.Services.AddScoped<IRecurrenceService, RecurrenceService>();
 builder.Services.AddScoped<IActivitySuggestionService, ActivitySuggestionService>();
-
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IActivityRecurrenceRuleService, ActivityRecurrenceRuleService>();
 builder.Services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
-
 builder.Services.AddScoped<ITimelineService, TimelineService>();
 builder.Services.AddScoped<IInstanceExclusionService, InstanceExclusionService>();
-
 builder.Services.AddScoped<IActivityMemberService, ActivityMemberService>();
+builder.Services.AddScoped<IModerationService, ModerationService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddTransient<DataSeeder>();
 

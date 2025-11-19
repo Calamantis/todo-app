@@ -479,6 +479,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "CreateModerator",
+    "RelativePath": "api/admin/moderators",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "todo_backend.Dtos.AdminDto.AdminCreateModeratorRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/admin/users/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "PromoteToModerator",
+    "RelativePath": "api/admin/users/{userId}/promote-moderator",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "todo_backend.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -750,62 +798,104 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "GetReceivedInvites",
-    "RelativePath": "api/Friendship/{userId}/received",
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "GetAllActivities",
+    "RelativePath": "api/moderation/activities",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "UpdateActivityDescription",
+    "RelativePath": "api/moderation/activities/{activityId}/description",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
+        "Name": "activityId",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "newValue",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.Friendship.FullFriendshipDetailDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "GetSentInvites",
-    "RelativePath": "api/Friendship/{userId}/sent",
-    "HttpMethod": "GET",
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "ResetActivityDescription",
+    "RelativePath": "api/moderation/activities/{activityId}/description",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
+        "Name": "activityId",
         "Type": "System.Int32",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.Friendship.FullFriendshipDetailDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "AcceptFriendship",
-    "RelativePath": "api/Friendship/accept/{userId}/{friendId}",
-    "HttpMethod": "PATCH",
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "UpdateActivityTitle",
+    "RelativePath": "api/moderation/activities/{activityId}/title",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newValue",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "ResetActivityTitle",
+    "RelativePath": "api/moderation/activities/{activityId}/title",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/moderation/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "UpdateBackgroundImage",
+    "RelativePath": "api/moderation/users/{userId}/background-image",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -815,47 +905,17 @@
         "IsRequired": true
       },
       {
-        "Name": "friendId",
-        "Type": "System.Int32",
-        "IsRequired": true
+        "Name": "newValue",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "DebugClaims",
-    "RelativePath": "api/Friendship/debug/claims",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "GetMyFriends",
-    "RelativePath": "api/Friendship/me",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.Friendship.FullFriendshipDetailDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "todo_backend.Controllers.FriendshipController",
-    "Method": "RemoveFriend",
-    "RelativePath": "api/Friendship/remove/{userId}/{friendId}",
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "ResetBackgroundImage",
+    "RelativePath": "api/moderation/users/{userId}/background-image",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -864,9 +924,115 @@
         "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "UpdateDescription",
+    "RelativePath": "api/moderation/users/{userId}/description",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
       },
       {
-        "Name": "friendId",
+        "Name": "newValue",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "ResetDescription",
+    "RelativePath": "api/moderation/users/{userId}/description",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "UpdateDisplayName",
+    "RelativePath": "api/moderation/users/{userId}/display-name",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newValue",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "ResetDisplayName",
+    "RelativePath": "api/moderation/users/{userId}/display-name",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "UpdateProfileImage",
+    "RelativePath": "api/moderation/users/{userId}/profile-image",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newValue",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ModerationController",
+    "Method": "ResetProfileImage",
+    "RelativePath": "api/moderation/users/{userId}/profile-image",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -1115,89 +1281,6 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MyApp.Controllers.UserController",
-    "Method": "GetUser",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "todo_backend.Dtos.User.UserResponseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "MyApp.Controllers.UserController",
-    "Method": "UpdateUser",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "todo_backend.Dtos.User.UpdateUserDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MyApp.Controllers.UserController",
-    "Method": "DeleteUser",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MyApp.Controllers.UserController",
-    "Method": "GetUsers",
-    "RelativePath": "api/User/all-users",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[todo_backend.Dtos.User.UserResponseDto, todo_backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   },
   {
     "ContainingType": "todo_backend.Controllers.UserAccountController",

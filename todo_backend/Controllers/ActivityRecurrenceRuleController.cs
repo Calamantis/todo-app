@@ -18,14 +18,6 @@ namespace todo_backend.Controllers
             _service = service;
         }
 
-        //// GET: api/activityrecurrencerule
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllRecurrenceRules()
-        //{
-        //    var rules = await _service.GetAllRecurrenceRulesAsync();
-        //    return Ok(rules);
-        //}
-
         // GET: api/activityrecurrencerule/user/{userId}
         [HttpGet("user/get-recurrence-rules")]
         public async Task<IActionResult> GetRecurrenceRulesByUserId()

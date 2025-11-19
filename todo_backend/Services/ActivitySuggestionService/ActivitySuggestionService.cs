@@ -8,7 +8,6 @@ using System.Text.Json.Serialization;
 using todo_backend.Data;
 using todo_backend.Dtos.ActivitySuggestionDto;
 using todo_backend.Models;
-using todo_backend.Services.TimelineActivityService;
 using todo_backend.Services.TimelineService;
 
 namespace todo_backend.Services.ActivitySuggestionService

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\1\1_bg.jpg" />
+    <Content Remove="wwwroot\1\1_profile.jpg" />
+    <Content Remove="wwwroot\UserProfileImages\DefaultBgImage.jpg" />
+    <Content Remove="wwwroot\UserProfileImages\DefaultProfileImage.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
@@ -23,6 +30,13 @@
     <PackageReference Include="QuestPDF" Version="2025.7.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\1\1_bg.jpg" />
+    <None Include="wwwroot\1\1_profile.jpg" />
+    <None Include="wwwroot\UserProfileImages\DefaultBgImage.jpg" />
+    <None Include="wwwroot\UserProfileImages\DefaultProfileImage.jpg" />
   </ItemGroup>
 
 </Project>

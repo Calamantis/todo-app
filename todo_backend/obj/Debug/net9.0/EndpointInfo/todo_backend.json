@@ -2260,21 +2260,80 @@
         "tags": [
           "UserAccount"
         ],
+        "parameters": [
+          {
+            "name": "FullName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ProfileImageUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "BackgroundImageUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Synopsis",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AllowFriendInvites",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "AllowDataStatistics",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
+                "type": "object",
+                "properties": {
+                  "ProfileImage": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "BackgroundImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "ProfileImage": {
+                  "style": "form"
+                },
+                "BackgroundImage": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -3240,32 +3299,6 @@
         "properties": {
           "allowMentions": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateUserDto": {
-        "required": [
-          "fullName"
-        ],
-        "type": "object",
-        "properties": {
-          "fullName": {
-            "maxLength": 50,
-            "minLength": 0,
-            "type": "string"
-          },
-          "profileImageUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "backgroundImageUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "synopsis": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

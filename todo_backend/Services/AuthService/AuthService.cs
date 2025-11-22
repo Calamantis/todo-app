@@ -35,7 +35,10 @@ namespace todo_backend.Services.AuthService
                 Email = dto.Email,
                 PasswordHash = _passwordService.Hash(dto.Password),
                 FullName = dto.FullName,
-                Role = UserRole.User
+                Role = UserRole.User,
+
+                ProfileImageUrl = "/UserProfileImages/DefaultProfileImage.jpg",
+                BackgroundImageUrl = "/UserProfileImages/DefaultBgImage.jpg"
             };
 
             _context.Users.Add(user);

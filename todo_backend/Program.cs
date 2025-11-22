@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using todo_backend.Data;
@@ -138,6 +139,17 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine($"[Seeder] Błąd inicjalizacji danych: {ex.Message}");
     }
 }
+
+
+// Udostępnienie folderu z obrazkami jako zasób statyczny
+app.UseStaticFiles(); // Domyślnie udostępnia folder wwwroot
+
+// Dodanie niestandardowego folderu, z którego będą udostępniane pliki
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UserProfileImages")),
+    RequestPath = "/UserProfileImages"
+});
 
 
 app.UseAuthentication();

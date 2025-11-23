@@ -39,7 +39,8 @@ namespace todo_backend.Services.StatisticsService
                 {
                     CategoryName = g.First().Activity.Category?.Name ?? "Uncategorized",
                     TotalDurationMinutes = g.Sum(i => i.DurationMinutes),
-                    InstanceCount = g.Count()
+                    InstanceCount = g.Count(),
+                    ColorHex = g.First().Activity.Category?.ColorHex ?? "#999999"
                 })
                 .Where(stat => stat.InstanceCount > 0)
                 .ToList();

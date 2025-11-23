@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import { useTheme } from '../components/ThemeContext';
-import ThemeSwitcher from '../components/ThemeSwitcher';
+import NavigationWrapper from '../components/NavigationWrapper';
 
 const LoginPage: React.FC = () => {
   const { login } = useAuth();  // Funkcja login z AuthContext
@@ -50,7 +50,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className={`flex items-center justify-center h-screen ${bgClasses}`}>
-      <ThemeSwitcher/>
+      <NavigationWrapper/>
       <form
         onSubmit={handleLogin}
         className={`p-8 rounded-xl shadow-md w-96 ${formClasses}`}

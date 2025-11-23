@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../components/AuthContext"; // Jeśli używasz AuthContext
-import Navbar from '../components/navbar';
+import NavigationWrapper from '../components/NavigationWrapper';
 import Footer from '../components/Footer';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 
 const UserProfilePage: React.FC = () => {
   const { user } = useAuth();
@@ -44,15 +45,15 @@ const UserProfilePage: React.FC = () => {
   if (error) return <div className="text-red-500">{error}</div>;
 
   // Backend zwraca same ścieżki "/1/1_profile.jpg"
-  const backendBase = "http://localhost:5268/UserProfileImages";
+  const backendBase = "http://localhost:5268";
   
   const profileImg = profileData.profileImageUrl 
     ? `${profileData.profileImageUrl}?${new Date().getTime()}` 
-    : `${backendBase}/default_profile.jpg`;
+    : `${backendBase}/UserProfileImages/DefaultProfileImage.jpg`;
 
   const backgroundImg = profileData.backgroundImageUrl 
     ? `${profileData.backgroundImageUrl}?${new Date().getTime()}` 
-    : `${backendBase}/default_bg.jpg`;
+    : `${backendBase}/UserProfileImages/DefaultBackGround.jpg`;
 
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -129,7 +130,7 @@ const UserProfilePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[var(--background-color)]">
-      <Navbar />
+      <NavigationWrapper />
       {/* Background banner */}
       <div
         className="w-full h-60 bg-cover bg-center"
@@ -137,9 +138,10 @@ const UserProfilePage: React.FC = () => {
       ></div>
 
       {/* Content container */}
-      <div className="max-w-4xl mx-auto relative px-6">
-        <div className="pt-2 pb-10 bg-slate-600 mt-10 rounded-xl shadow-lg p-6">
+<div className="max-w-6xl mx-auto relative px-6 mb-10">
 
+  <div className="mt-10 flex gap-10">
+<div className="flex-1 pt-2 pb-10 bg-primary rounded-xl shadow-lg p-6">
           {/* Flexbox: obrazek + tekst obok */}
           <div className="flex items-center gap-6">
             
@@ -235,8 +237,12 @@ const UserProfilePage: React.FC = () => {
             </button>
           </div>
         </div>
-      </div>
+        <div className="w-64 bg-primary text-white rounded-xl shadow-lg p-6 h-fit">
+      <ThemeSwitcher />
+    </div>
 
+</div>
+      </div>
       <Footer />
     </div>
   );

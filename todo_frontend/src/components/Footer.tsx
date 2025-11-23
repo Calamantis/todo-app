@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-800 text-white py-6 mt-10">
+    <footer className="bg-primary text-white py-6">
       <div className="max-w-6xl mx-auto px-6 flex flex-col items-center md:flex-row justify-between">
         {/* Left Section */}
         <div className="text-center md:text-left">
@@ -21,13 +21,13 @@ const Footer: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="/terms" className="hover:text-blue-400">
+              <a href="/terms-of-service" className="hover:text-blue-400">
                 Terms of Service
               </a>
             </li>
             <li>
               <a href="/contact" className="hover:text-blue-400">
-                Contact Author
+                Contact
               </a>
             </li>
           </ul>

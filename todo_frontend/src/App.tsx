@@ -8,11 +8,11 @@ import { ThemeProvider } from './components/ThemeContext';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
-import RulesPage from './pages/RulesPage';
 import GettingStartedPage from './pages/GettingStartedPage';
 
 import TimelinePage from './pages/TimelinePage';
 import UserProfilePage from './pages/UserProfilePage';
+import StatisticsPage from './pages/StatisticsPage';
 
 import ModerationPanelPage from "./pages/ModerationPanelPage";
 
@@ -20,6 +20,10 @@ import AdminPanelPage from './pages/AdminPanelPage';
 
 import NotFoundPage from './pages/NotFoundPage';
 import UnauthorizedPage from "./pages/UnauthorizedPage";
+import SocialPage from "./pages/SocialPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+import ContactPage from "./pages/ContactPage";
 
 
 
@@ -35,13 +39,17 @@ export default function App() {
         <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage/>} />
-        <Route path="/rules" element={<RulesPage/>} />
+        <Route path="/contact" element={<ContactPage/>} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage/>} />
+        <Route path="/terms-of-service" element={<TermsOfServicePage/>} />
         <Route path="/getting-started" element={<GettingStartedPage/>} />
         
 
         {/* user */}
         <Route path="/timeline" element={<PrivateRoute element={<TimelinePage/>} role="User"/>} />
         <Route path="/profile" element={<PrivateRoute element={<UserProfilePage />} role="User"/>}/>
+        <Route path="/statistics" element={<PrivateRoute element={<StatisticsPage />} role="User" />} /> 
+        <Route path="/social" element={<PrivateRoute element={<SocialPage />} role="User" />} /> 
         {/* <Route path="/activity-creator" element={<ActivityCreatorPage />} />
         <Route path="/notification-creator" element={<NotificationCreatorPage />} />
         <Route path="/statistics" element={<StatisticsPage/>} /> */}

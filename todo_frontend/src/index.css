@@ -3,32 +3,59 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #202020;
-  --secondary-color: #ff9800;
   --background-color: #121212;
+  --primary-color: #282828;
+  --secondary-color: #3f3f3f;
+  --tertiary-color: #575757;        
+  --quaternary-color: #717171;      
+
+  --accent-color: #c050cc;         
+
   --text-color: #ffffff;
+  --text-primary-color: #575757;
+  --text-secondary-color: rgba(194, 128, 22, 0.933);
 }
 
-/* Tryb ciemny */
 [data-theme='light'] {
   --primary-color: #4CAF50;
   --secondary-color: #8BC34A;
+  
+  --tertiary-color: #CDDC39;
+  --quaternary-color: #FFC107;
+  --accent-color: #FF5722;
+
   --background-color: #ccbebb;
   --text-color: #000000;
+  --text-primary-color: #000000;
+  --text-secondary-color: #333333;
 }
 
-/* Tryb niebieski */
+
 [data-theme='blue'] {
   --primary-color: #2196F3;
   --secondary-color: #03A9F4;
+
+  --tertiary-color: #0288D1;
+  --quaternary-color: #81D4FA;
+  --accent-color: #2962FF;
+
   --background-color: #e3f2fd;
   --text-color: #0d47a1;
+  --text-primary-color: #0d47a1;
+  --text-secondary-color: #5472d3;
 }
 
-/* Tryb zielony */
+
 [data-theme='green'] {
   --primary-color: #4CAF50;
   --secondary-color: #8BC34A;
+
+  --tertiary-color: #7CB342;
+  --quaternary-color: #C5E1A5;
+  --accent-color: #1B5E20;
+
   --background-color: #f1f8e9;
   --text-color: #000000;
+  --text-primary-color: #1B5E20;
+  --text-secondary-color: #4CAF50;
 }

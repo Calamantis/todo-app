@@ -3228,6 +3228,10 @@
           "instanceCount": {
             "type": "integer",
             "format": "int32"
+          },
+          "colorHex": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

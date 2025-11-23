@@ -1,0 +1,10 @@
+wwwroot\2\2_profile.jpg
+wwwroot\3\3_profile.jpg
+wwwroot\2\2_bg.jpg
+wwwroot\3\3_bg.jpg
+wwwroot\4\4_profile.jpg
+wwwroot\5\5_profile.jpg
+wwwroot\4\4_bg.jpg
+wwwroot\5\5_bg.jpg
+wwwroot\6\6_bg.jpg
+wwwroot\6\6_profile.jpg

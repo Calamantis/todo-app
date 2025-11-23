@@ -105,7 +105,7 @@ namespace todo_backend.Services.UserAccountService
                     await dto.ProfileImage.CopyToAsync(stream); // Zapisujemy plik na dysku
                 }
 
-                user.ProfileImageUrl = $"/UserProfileImages/{id}/{id}_profile.jpg"; // Ustawiamy pełną ścieżkę w bazie
+                user.ProfileImageUrl = $"/{id}/{id}_profile.jpg"; // Ustawiamy pełną ścieżkę w bazie
             }
 
             // Sprawdzamy, czy plik tła jest dostarczony i zapisujemy go
@@ -126,7 +126,7 @@ namespace todo_backend.Services.UserAccountService
                     await dto.BackgroundImage.CopyToAsync(stream); // Zapisujemy plik na dysku
                 }
 
-                user.BackgroundImageUrl = $"/UserProfileImages/{id}/{id}_bg.jpg"; // Ustawiamy pełną ścieżkę w bazie
+                user.BackgroundImageUrl = $"/{id}/{id}_bg.jpg"; // Ustawiamy pełną ścieżkę w bazie
             }
 
             // Aktualizacja pozostałych danych

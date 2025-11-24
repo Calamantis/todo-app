@@ -33,7 +33,7 @@ namespace todo_backend.Services.TimelineService
 
             var instances = await _context.ActivityInstances
                 .Where(i =>
-                    i.UserId == userId &&                                      // 🔴 kluczowy filtr!
+                    i.UserId == userId &&                                      
                     (i.Activity.OwnerId == userId
                     || participantActivityIds.Contains(i.ActivityId)) &&
                     i.OccurrenceDate.Date >= from.Date &&
@@ -52,7 +52,9 @@ namespace todo_backend.Services.TimelineService
                     DurationMinutes = i.DurationMinutes,
                     IsActive = i.IsActive,
                     DidOccur = i.DidOccur,
-                    IsException = i.IsException
+                    IsException = i.IsException,
+                    CategoryName = i.Activity.Category.Name,
+                    CategoryColorHex = i.Activity.Category.ColorHex
                 })
                 .ToListAsync();
 

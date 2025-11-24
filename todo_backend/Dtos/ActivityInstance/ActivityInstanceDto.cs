@@ -11,6 +11,9 @@
         public bool DidOccur { get; set; }
         public bool IsException { get; set; }
 
+        public string? CategoryName { get; set; }
+        public string? CategoryColorHex { get; set; }
+
         // Relacje
         public int ActivityId { get; set; }
         public int? RecurrenceRuleId { get; set; }

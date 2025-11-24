@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import type { ReactNode } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 interface User {
   token: string;
@@ -27,15 +28,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const userId = localStorage.getItem('userId') ?? '';
 
     if (token && role) {
+      const decodedUserId = userId || getUserIdFromToken(token);
       setUser({
         token,
         role: role as 'Guest' | 'User' | 'Moderator' | 'Admin',
-        userId,
+        userId: decodedUserId || '',
       });
     }
 
     setLoading(false);  // Ustawiamy loading na false po załadowaniu danych
   }, []);
+
+  const getUserIdFromToken = (token: string) => {
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.sub;  // Zmienna 'sub' w JWT często przechowuje userId
+    } catch (error) {
+      console.error("Failed to decode JWT:", error);
+      return null;
+    }
+  };
 
   const login = (token: string, role: string, userId: string) => {
     setUser({

@@ -32,10 +32,10 @@ namespace todo_backend.Controllers
             // Pobieranie instancji aktywności użytkownika w określonym przedziale czasowym
             var instances = await _timelineService.GetTimelineForUserAsync(userId, from, to);
 
-            if (instances == null || !instances.Any())
-            {
-                return NotFound("Brak aktywności w wybranym przedziale czasowym.");
-            }
+            //if (instances == null || !instances.Any())
+            //{
+            //    return NoContent();
+            //}
 
             return Ok(instances);
         }

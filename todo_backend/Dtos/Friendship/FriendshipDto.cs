@@ -5,6 +5,7 @@
         public DateTime FriendsSince { get; set; }
 
         //uproszczone dane znajomego 
+        public int FriendId { get; set; }
         public string FriendFullName { get; set; } = string.Empty;
         public string FriendEmail { get; set; } = string.Empty;
         public string? FriendImage { get; set; } = string.Empty;

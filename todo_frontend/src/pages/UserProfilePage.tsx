@@ -55,6 +55,30 @@ const UserProfilePage: React.FC = () => {
     ? `${profileData.backgroundImageUrl}?${new Date().getTime()}` 
     : `${backendBase}/UserProfileImages/DefaultBackGround.jpg`;
 
+
+  const handleDeleteAccount = async () => {
+  try {
+    const response = await fetch("/api/UserAccount/delete-account", {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user!.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete account");
+    }
+
+    // Jeśli usunięto, możesz przekierować użytkownika do strony logowania
+    alert("Your account has been deleted");
+    // Przekierowanie użytkownika na stronę logowania
+    window.location.href = "/login"; // Możesz również użyć React Routera, aby przekierować
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    setError("Failed to delete account. Please try again.");
+  }
+};
+
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -228,12 +252,18 @@ const UserProfilePage: React.FC = () => {
           </div>
 
           {/* Save Changes Button */}
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 gap-6 flex justify-center">
             <button
               onClick={handleSaveChanges}
               className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600"
             >
               Save Changes
+            </button>
+            <button
+              onClick={handleDeleteAccount}
+              className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600"
+            >
+              Delete Account
             </button>
           </div>
         </div>

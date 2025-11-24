@@ -2747,6 +2747,14 @@
           "isException": {
             "type": "boolean"
           },
+          "categoryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryColorHex": {
+            "type": "string",
+            "nullable": true
+          },
           "activityId": {
             "type": "integer",
             "format": "int32"
@@ -2980,6 +2988,10 @@
       "BlockedUsersDto": {
         "type": "object",
         "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
           "blockedUserId": {
             "type": "integer",
             "format": "int32"
@@ -2988,9 +3000,17 @@
             "type": "string",
             "nullable": true
           },
-          "blockedAt": {
+          "profileImageUrl": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
+          },
+          "backgroundImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "synopsis": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3096,6 +3116,10 @@
           "friendsSince": {
             "type": "string",
             "format": "date-time"
+          },
+          "friendId": {
+            "type": "integer",
+            "format": "int32"
           },
           "friendFullName": {
             "type": "string",
@@ -3337,6 +3361,10 @@
       "UserResponseDto": {
         "type": "object",
         "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "email": {
             "type": "string",
             "nullable": true

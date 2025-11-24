@@ -67,9 +67,12 @@ namespace todo_backend.Services.BlockedUsersService
                 .Include(b => b.BlockedUser) // do pobrania FullName
                 .Select(b => new BlockedUsersDto
                 {
-                    BlockedUserId = b.BlockedUserId,
+                    BlockedUserId = b.BlockedUser.UserId,
+                    Email = b.BlockedUser.Email,
                     FullName = b.BlockedUser.FullName,
-                    BlockedAt = b.BlockedAt
+                    ProfileImageUrl = b.BlockedUser.ProfileImageUrl,
+                    BackgroundImageUrl = b.BlockedUser.BackgroundImageUrl,
+                    Synopsis = b.BlockedUser.Synopsis
                 })
                 .ToListAsync();
         }

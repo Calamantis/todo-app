@@ -6,5 +6,5 @@ wwwroot\4\4_profile.jpg
 wwwroot\5\5_profile.jpg
 wwwroot\4\4_bg.jpg
 wwwroot\5\5_bg.jpg
-wwwroot\6\6_bg.jpg
 wwwroot\6\6_profile.jpg
+wwwroot\6\6_bg.jpg

@@ -25,6 +25,7 @@ namespace todo_backend.Services.UserFriendActions
                 .Where(f => f.Status == "accepted" && (f.UserId == userId || f.FriendId == userId))
                 .Select(f => new FriendshipDto
                 {
+                    FriendId = f.UserId,
                     FriendsSince = f.FriendsSince,
                     // jeśli ja jestem UserId, to znajomym jest FriendId, w przeciwnym razie odwrotnie
                     FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,
@@ -48,6 +49,7 @@ namespace todo_backend.Services.UserFriendActions
                       u => u.UserId,
                       (f, u) => new FriendshipDto
                       {
+                          FriendId = f.FriendId,
                           FriendsSince = f.FriendsSince,
                           FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,
                           FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email,
@@ -68,6 +70,7 @@ namespace todo_backend.Services.UserFriendActions
                       u => u.UserId,
                       (f, u) => new FriendshipDto
                       {
+                          FriendId = f.UserId,
                           FriendsSince = f.FriendsSince,
                           FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,
                           FriendEmail = f.UserId == userId ? f.Friend.Email : f.User.Email,
@@ -81,17 +84,47 @@ namespace todo_backend.Services.UserFriendActions
         //GET users -> browse users (to send friend request to)
         public async Task<IEnumerable<UserResponseDto>> BrowseUsersAsync(int userId)
         {
+            // 1) Pobierz ID znajomych
+            var friendIds = await _context.Friendships
+                .Where(f => f.UserId == userId || f.FriendId == userId)
+                .Select(f => f.UserId == userId ? f.FriendId : f.UserId)
+                .ToListAsync();
+
+            // 2) Pobierz zablokowanych przeze mnie
+            var iBlockedIds = await _context.BlockedUsers
+                .Where(b => b.UserId == userId)
+                .Select(b => b.BlockedUserId)
+                .ToListAsync();
+
+            // 3) Pobierz tych, którzy zablokowali mnie
+            var blockedMeIds = await _context.BlockedUsers
+                .Where(b => b.BlockedUserId == userId)
+                .Select(b => b.UserId)
+                .ToListAsync();
+
+            // 4) Połącz wszystkie ID wykluczeń
+            var excluded = friendIds
+                .Concat(iBlockedIds)
+                .Concat(blockedMeIds)
+                .ToHashSet();
+
             var users = await _context.Users
-               .Where(u => u.AllowFriendInvites && u.UserId != userId)
-               .Select(u => new UserResponseDto
-               {
-                   Email = u.Email,
-                   FullName = u.FullName,
-                   ProfileImageUrl = u.ProfileImageUrl,
-                   BackgroundImageUrl = u.BackgroundImageUrl,
-                   Synopsis = u.Synopsis
-               })
-               .ToListAsync();
+                   .Where(u =>
+                       u.AllowFriendInvites &&
+                       u.UserId != userId &&
+                       !excluded.Contains(u.UserId)
+                   )
+                   .Select(u => new UserResponseDto
+                   {
+                       UserId = u.UserId,
+                       Email = u.Email,
+                       FullName = u.FullName,
+                       ProfileImageUrl = u.ProfileImageUrl,
+                       BackgroundImageUrl = u.BackgroundImageUrl,
+                       Synopsis = u.Synopsis
+                   })
+                   .ToListAsync();
+
 
             return users;
         }

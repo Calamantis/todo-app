@@ -110,8 +110,7 @@
               "RelativeToolTip": "Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T20:11:38.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T20:11:38.249Z"
             },
             {
               "$type": "Document",
@@ -123,8 +122,7 @@
               "RelativeToolTip": "Models\\Category.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T20:10:37.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T20:10:37.941Z"
             },
             {
               "$type": "Document",
@@ -136,8 +134,7 @@
               "RelativeToolTip": "Services\\TimelineService\\TimelineService.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAADcAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T20:09:41.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T20:09:41.76Z"
             },
             {
               "$type": "Document",
@@ -162,8 +159,7 @@
               "RelativeToolTip": "Controllers\\BlockedUsersController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T17:53:55.326Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T17:53:55.326Z"
             },
             {
               "$type": "Document",
@@ -175,8 +171,7 @@
               "RelativeToolTip": "Dtos\\Friendship\\FriendshipDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T16:08:00.281Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T16:08:00.281Z"
             },
             {
               "$type": "Document",
@@ -188,8 +183,7 @@
               "RelativeToolTip": "Services\\UserFriendActions\\IUserFriendActionsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T15:56:48.111Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T15:56:48.111Z"
             },
             {
               "$type": "Document",
@@ -201,8 +195,7 @@
               "RelativeToolTip": "Dtos\\User\\UserResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T15:23:52.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T15:23:52.218Z"
             },
             {
               "$type": "Document",
@@ -214,8 +207,7 @@
               "RelativeToolTip": "Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T15:23:32.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T15:23:32.382Z"
             },
             {
               "$type": "Document",
@@ -227,8 +219,7 @@
               "RelativeToolTip": "Models\\BlockedUsers.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T15:25:08.674Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T15:25:08.674Z"
             },
             {
               "$type": "Document",
@@ -240,8 +231,7 @@
               "RelativeToolTip": "Services\\BlockedUsersService\\BlockedUsersService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAEUAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T14:46:56.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T14:46:56.285Z"
             },
             {
               "$type": "Document",
@@ -253,8 +243,7 @@
               "RelativeToolTip": "Services\\UserFriendActions\\UserFriendActionsService.cs",
               "ViewState": "AgIAADwAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T13:41:35.974Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T13:41:35.974Z"
             },
             {
               "$type": "Document",
@@ -266,8 +255,7 @@
               "RelativeToolTip": "Dtos\\Statistics\\StatisticsDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T14:05:00.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T14:05:00.276Z"
             },
             {
               "$type": "Document",
@@ -279,8 +267,7 @@
               "RelativeToolTip": "Services\\StatisticService\\StatisticService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAiwCoAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T14:04:40.584Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T14:04:40.584Z"
             },
             {
               "$type": "Document",
@@ -292,8 +279,7 @@
               "RelativeToolTip": "Services\\UserAccountService\\IUserAccountService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T17:53:36.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T17:53:36.749Z"
             },
             {
               "$type": "Document",
@@ -305,8 +291,7 @@
               "RelativeToolTip": "Dtos\\User\\UpdateUserDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T17:47:50.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T17:47:50.414Z"
             },
             {
               "$type": "Document",
@@ -318,8 +303,7 @@
               "RelativeToolTip": "Dtos\\User\\UserProfileResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T17:47:46.894Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T17:47:46.894Z"
             },
             {
               "$type": "Document",
@@ -331,8 +315,7 @@
               "RelativeToolTip": "Controllers\\UserAccountController.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAD4AAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T16:13:23.458Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T16:13:23.458Z"
             },
             {
               "$type": "Document",
@@ -344,8 +327,7 @@
               "RelativeToolTip": "Services\\UserAccountService\\UserAccountService.cs",
               "ViewState": "AgIAAI0AAAAAAAAAAAAAAIAAAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T15:49:16.803Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T15:49:16.803Z"
             },
             {
               "$type": "Document",
@@ -357,8 +339,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAIIAAAAAAAAAAAAAAJYAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T15:36:40.652Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T15:36:40.652Z"
             },
             {
               "$type": "Document",
@@ -370,8 +351,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-20T20:19:59.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T20:19:59.096Z"
             }
           ]
         },

@@ -13,9 +13,9 @@ const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({
   onDelete,
   onClose,
 }) => {
+  if (!category) return null;
   const { user } = useAuth();
   const handleDelete = async () => {
-    console.log(category);
     try {
         if (!user) return;
         const response = await fetch(`/api/Category/delete-category?id=${category.categoryId}`, {

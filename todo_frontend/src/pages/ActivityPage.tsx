@@ -53,24 +53,28 @@ const ActivityPage: React.FC = () => {
     fetchCategories();
   }, []);
 
-  const handleAddCategory = (name: string, colorHex: string) => {
-    // Dodaj nową kategorię do listy (możesz wysłać to do backendu)
-    setCategories([...categories, { name, colorHex }]);
+  const handleAddCategory = () => {
+    // Kategorię dodał już backend, zamknij modal i odśwież listę
+    setShowAddCategoryModal(false);
+    fetchCategories(); // Odśwież kategorii z API
   };
 
    const handleEditCategory = (id: number, name: string, colorHex: string) => {
     // Zaktualizuj kategorię w liście
     setCategories(
       categories.map((category) =>
-        category.id === id ? { ...category, name, colorHex } : category
+        category.categoryId === id ? { ...category, name, colorHex } : category
       )
     );
     setShowEditCategoryModal(false); // Zamknij modal po edycji
+    fetchCategories(); // Odśwież kategorii z API
   };
 
   const handleDeleteCategory = (id: number) => {
-    setCategories(categories.filter((category) => category.id !== id)); // Usuwamy kategorię
+    setCategories(categories.filter((category) => category.categoryId !== id)); // Usuwamy kategorię
+    console.log(id);
     setShowDeleteCategoryModal(false); // Zamknij modal po usunięciu
+    fetchCategories(); // Odśwież kategorii z API
   };
 
   const handleEditButtonClick = (category: any) => {
@@ -79,10 +83,14 @@ const ActivityPage: React.FC = () => {
     setShowEditCategoryModal(true);
   };
 
-    const handleDeleteButtonClick = (category: any) => {
-    console.log(category);
-    setCategoryToDelete(category); // Ustawiamy kategorię do usunięcia
-    setShowDeleteCategoryModal(true); // Wyświetlamy modal usuwania
+    const handleDeleteButtonClick = (categoryId: number) => {
+      console.log("Category ID to delete:", categoryId);
+    const categoryToDelete = categories.find((cat) => cat.categoryId === categoryId);
+    if (categoryToDelete) {
+      console.log(categoryToDelete);
+      setCategoryToDelete(categoryToDelete); // Ustawiamy kategorię do usunięcia
+      setShowDeleteCategoryModal(true); // Wyświetlamy modal usuwania
+    }
   };
 
     const handleCloseModal = () => {
@@ -92,13 +100,13 @@ const ActivityPage: React.FC = () => {
   };
 
   useEffect(() => {
-  console.log("Category to delete:", categoryToEdit); // Wypisuje po zaktualizowaniu stanu
+  console.log("Category to edit", categoryToEdit); // Wypisuje po zaktualizowaniu stanu
 }, [categoryToEdit]);
 
   useEffect(() => {
   console.log("Category to delete:", categoryToDelete); // Wypisuje po zaktualizowaniu stanu
 }, [categoryToDelete]);
-  
+
   return (
     <div>
       <NavigationWrapper />
@@ -130,8 +138,8 @@ const ActivityPage: React.FC = () => {
                 {loading && <div>Loading categories...</div>}
                 {error && <div className="text-red-500">{error}</div>}
                 {categories.length > 0 ? (
-                  categories.map((category, idx) => (
-                    <CategoryListItem key={idx} category={category} onEdit={handleEditButtonClick} onDelete={handleDeleteButtonClick}  />
+                  categories.map((category) => (
+                    <CategoryListItem key={category.categoryId} category={category} onEdit={handleEditButtonClick} onDelete={handleDeleteButtonClick}  />
                   ))
                 ) : (
                   <div>No categories found.</div>
@@ -156,7 +164,7 @@ const ActivityPage: React.FC = () => {
       )}
 
       {/* Modal dla usuwania kategorii */}
-      {showDeleteCategoryModal && (
+      {showDeleteCategoryModal && categoryToDelete && (
         <DeleteCategoryModal
           category={categoryToDelete}
           onDelete={handleDeleteCategory}

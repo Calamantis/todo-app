@@ -64,7 +64,8 @@ import { Pencil, Trash2 } from "lucide-react";
 
 // Typ kategorii
 interface Category {
-  id: number;
+  categoryId: number;
+  id?: number;
   name: string;
   colorHex: string;
 }
@@ -72,7 +73,7 @@ interface Category {
 interface CategoryListItemProps {
   category: Category;
   onEdit?: (category: Category) => void;
-  onDelete?: (categoryId: number) => void;
+  onDelete?: (category: number) => void;
 }
 
 const CategoryListItem: React.FC<CategoryListItemProps> = ({
@@ -107,7 +108,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onDelete?.(category.id); // Przekazujemy id kategorii do funkcji onDelete
+            onDelete?.(category.categoryId); // Przekazujemy categoryId do funkcji onDelete
           }}
           className="text-white/80 hover:text-red-400 transition"
         >

@@ -4,7 +4,7 @@ import { useAuth } from "../AuthContext";
 // Typ dla kategorii
 interface AddCategoryModalProps {
   onClose: () => void; // Funkcja do zamknięcia modalu
-  onAddCategory: (name: string, colorHex: string) => void; // Funkcja dodająca kategorię
+  onAddCategory: () => void; // Funkcja dodająca kategorię
 }
 
 const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
@@ -38,7 +38,8 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
       }
 
       // Po udanym dodaniu, wywołaj funkcję onAddCategory
-      onAddCategory(name, colorHex);
+      onAddCategory();
+      onClose(); // Zamknij modal
     } catch (error: unknown) {
         if (error instanceof Error) {
         alert(error.message); // Typowanie error jako Error

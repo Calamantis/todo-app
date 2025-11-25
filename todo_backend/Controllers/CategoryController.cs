@@ -39,7 +39,7 @@ namespace todo_backend.Controllers
         //POST dodawanie kategorii
         [Authorize]
         [HttpPost("create-category")]
-        public async Task<IActionResult> CreateCategory(CategoryDto dto)
+        public async Task<IActionResult> CreateCategory(ModifyCategoryDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null) return Unauthorized();
@@ -56,7 +56,7 @@ namespace todo_backend.Controllers
         //PUT modyfikowanie kategorii
         [Authorize]
         [HttpPut("update-category")]
-        public async Task<IActionResult> UpdateCategory(CategoryDto dto, int id)
+        public async Task<IActionResult> UpdateCategory(ModifyCategoryDto dto, int id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null) return Unauthorized();
@@ -74,7 +74,7 @@ namespace todo_backend.Controllers
         //DELETE usuwanie kategorii
         [Authorize]
         [HttpDelete("delete-category")]
-        public async Task<IActionResult> DeleteCategory(int id, [FromQuery] bool deleteActivities = false)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var currentUserId))
@@ -82,7 +82,7 @@ namespace todo_backend.Controllers
 
             int userId = int.Parse(userIdClaim.Value);
 
-            var success = await _categoryService.DeleteCategoryAsync(id, deleteActivities, userId);
+            var success = await _categoryService.DeleteCategoryAsync(id,userId);
             if (!success) return NotFound();
 
             return NoContent();

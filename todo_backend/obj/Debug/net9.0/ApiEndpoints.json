@@ -670,7 +670,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "todo_backend.Dtos.Category.CategoryDto",
+        "Type": "todo_backend.Dtos.Category.ModifyCategoryDto",
         "IsRequired": true
       }
     ],
@@ -688,11 +688,6 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": false
-      },
-      {
-        "Name": "deleteActivities",
-        "Type": "System.Boolean",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -707,7 +702,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "todo_backend.Dtos.Category.CategoryDto",
+        "Type": "todo_backend.Dtos.Category.ModifyCategoryDto",
         "IsRequired": true
       },
       {

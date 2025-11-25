@@ -1269,17 +1269,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryDto"
+                "$ref": "#/components/schemas/ModifyCategoryDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryDto"
+                "$ref": "#/components/schemas/ModifyCategoryDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryDto"
+                "$ref": "#/components/schemas/ModifyCategoryDto"
               }
             }
           }
@@ -1310,17 +1310,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryDto"
+                "$ref": "#/components/schemas/ModifyCategoryDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryDto"
+                "$ref": "#/components/schemas/ModifyCategoryDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryDto"
+                "$ref": "#/components/schemas/ModifyCategoryDto"
               }
             }
           }
@@ -1344,14 +1344,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "deleteActivities",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
             }
           }
         ],
@@ -3021,6 +3013,10 @@
         ],
         "type": "object",
         "properties": {
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "name": {
             "maxLength": 50,
             "minLength": 1,
@@ -3199,6 +3195,25 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ModifyCategoryDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "colorHex": {
+            "maxLength": 7,
             "type": "string",
             "nullable": true
           }

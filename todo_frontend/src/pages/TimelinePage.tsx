@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "../components/AuthContext";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ActivityBlock from "../components/timeline_components/ActivityBlock";
+import NavigationWrapper from "../components/NavigationWrapper";
+import Footer from "../components/Footer";
 
 // Helper: Oblicz daty dla danego tygodnia (od poniedziałku do niedzieli)
 const getWeekDates = (date: Date) => {
@@ -74,80 +76,84 @@ const TimelinePage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
+      <div className="flex items-center justify-center h-screen bg-primary text-white">
         <p>Loading timeline...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="flex justify-between items-center mb-6">
-        <button
-          onClick={() => changeWeek(-1)}
-          className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-md transition"
-        >
-          <ArrowLeft size={18} />
-        </button>
+    <div>
+      <NavigationWrapper/>
+        <div className="min-h-screen bg-[var(--background-color)] text-white p-6">
+          <div className="flex justify-between items-center mb-6">
+            <button
+              onClick={() => changeWeek(-1)}
+              className="px-4 py-2 bg-primary hover:bg-secondary rounded-md transition"
+            >
+              <ArrowLeft size={18} />
+            </button>
 
-        <div className="text-lg font-medium">
-          {startOfWeek.toLocaleDateString()} - {endOfWeek.toLocaleDateString()}
-        </div>
+            <div className="text-lg font-medium">
+              {startOfWeek.toLocaleDateString()} - {endOfWeek.toLocaleDateString()}
+            </div>
 
-        <button
-          onClick={() => changeWeek(1)}
-          className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-md transition"
-        >
-          <ArrowRight size={18} />
-        </button>
-      </div>
-
-      <div className="overflow-x-auto overflow-y-auto max-h-[80vh] rounded-lg border border-gray-700 bg-gray-950/40 custom-scrollbar">
-        <div className="relative w-full">
-          <div className="grid grid-cols-8 bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
-            <div className="p-2"></div>
-            {Array.from({ length: 7 }).map((_, index) => {
-              const day = new Date(startOfWeek);
-              day.setDate(startOfWeek.getDate() + index); // Wyznaczamy datę dla każdego dnia tygodnia
-              return (
-                <div key={index} className="p-2 text-center font-semibold border-l border-gray-700">
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][index]}{" "}
-                  {day.toLocaleDateString("pl-PL", { year: "numeric", month: "short", day: "numeric" })}
-                </div>
-              );
-            })}
+            <button
+              onClick={() => changeWeek(1)}
+              className="px-4 py-2 bg-primary hover:bg-secondary rounded-md transition"
+            >
+              <ArrowRight size={18} />
+            </button>
           </div>
 
-          <div>
-            {/* Siatka godzin */}
-            <div className="grid grid-cols-8 relative w-full">
-              <div className="flex flex-col border-r border-gray-700 text-right text-gray-400 text-xs sm:text-sm">
-                {Array.from({ length: 24 }).map((_, i) => (
-                  <div key={i} className="border-t border-gray-800 pr-2" style={{ height: "60px" }}>
-                    {i}:00
-                  </div>
-                ))}
+          <div className="overflow-x-auto overflow-y-auto max-h-[80vh] rounded-lg border border-[var(--background-color)] bg-primary custom-scrollbar">
+            <div className="relative w-full">
+              <div className="grid grid-cols-8 bg-primary border-b border-[var(--background-color)] sticky top-0 z-10">
+                <div className="p-2"></div>
+                {Array.from({ length: 7 }).map((_, index) => {
+                  const day = new Date(startOfWeek);
+                  day.setDate(startOfWeek.getDate() + index); // Wyznaczamy datę dla każdego dnia tygodnia
+                  return (
+                    <div key={index} className="p-2 text-center font-semibold border-l border-[var(--background-color)]">
+                      {["Mon, ", "Tue, ", "Wed, ", "Thu, ", "Fri, ", "Sat, ", "Sun, "][index]}{" "}
+                      {day.toLocaleDateString("en-EN", { month: "short", day: "numeric" })}
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Kolumny dni */}
-              <div className="col-span-7 grid grid-cols-7 border-t border-gray-700 relative">
-                {Array.from({ length: 24 }).map((_, i) => (
-                  <div
-                    key={`row-${i}`}
-                    className="absolute w-full border-t border-gray-800"
-                    style={{ top: `${i * 60}px` }}
-                  />
-                ))}
+              <div>
+                {/* Siatka godzin */}
+                <div className="grid grid-cols-8 relative w-full">
+                  <div className="flex flex-col border-r border-[var(--background-color)] text-right text-gray-400 text-xs sm:text-sm">
+                    {Array.from({ length: 24 }).map((_, i) => (
+                      <div key={i} className="border-t border-[var(--background-color)] pr-2" style={{ height: "60px" }}>
+                        {i}:00
+                      </div>
+                    ))}
+                  </div>
 
-                {/* 🔹 Aktywności */}
-                {activities.map((activity, idx) => (
-                  <ActivityBlock key={idx} activity={activity} />
-                ))}
+                  {/* Kolumny dni */}
+                  <div className="col-span-7 grid grid-cols-7 relative">
+                    {Array.from({ length: 24 }).map((_, i) => (
+                      <div
+                        key={`row-${i}`}
+                        className="absolute w-full border-t border-[var(--background-color)]"
+                        style={{ top: `${i * 60}px` }}
+                      />
+                    ))}
+
+                    {/* 🔹 Aktywności */}
+                    {activities.map((activity, idx) => (
+                      <ActivityBlock key={idx} activity={activity} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      <Footer/>            
     </div>
   );
 };

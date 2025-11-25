@@ -2,11 +2,8 @@
 
 namespace todo_backend.Dtos.Category
 {
-    public class CategoryDto
+    public class ModifyCategoryDto
     {
-
-        public int CategoryId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = string.Empty;

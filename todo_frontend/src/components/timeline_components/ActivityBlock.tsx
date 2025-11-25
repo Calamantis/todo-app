@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAuth } from "../AuthContext";
 
 // Interfejs dla aktywności
 interface Activity {
@@ -18,6 +19,11 @@ interface ActivityBlockProps {
 
 const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   const { occurrenceDate, startTime, endTime, categoryName, categoryColorHex } = activity;
+  // const { user } = useAuth();
+
+  //stan dla szczegółów z hovera
+  // const [activityDetails, setActivityDetails] = useState<{ title: string; description: string } | null>(null);
+  // const [isHovered, setIsHovered] = useState(false); // Do obsługi stanu hover
 
   // Parsowanie daty i godziny
   const datePart = occurrenceDate.split("T")[0]; // Wyciągamy tylko datę (np. "2025-11-24")
@@ -43,9 +49,32 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   if (height < 40) height = 40;
 
    // Funkcja wywoływana na hoverze
-  const handleMouseEnter = () => {
-    console.log(`Hovering over activity ${activity.instanceId}`);
-  };
+   const handleMouseEnter = async () => {
+  //     setIsHovered(true);
+      console.log(`Hovering over activity ${activity.instanceId}`);
+      
+  //     // Wykonaj zapytanie do API, aby pobrać tytuł i opis aktywności
+  //     try {
+  //       const response = await fetch(`/api/Activity/get-activity-by-id?activityId=${activity.activityId}`,
+  //       {
+  //           method: "GET",
+  //           headers: {
+  //             Authorization: `Bearer ${user!.token}`,
+  //           },
+  //         }
+  //       );
+  //       const data = await response.json();
+  //       // Ustaw dane w stanie
+  //       if (response.ok) {
+  //         setActivityDetails({ title: data.title, description: data.description });
+  //       } else {
+  //         setActivityDetails(null); // W razie błędu ustawiamy null
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching activity details:", error);
+  //       setActivityDetails(null); // W razie błędu ustawiamy null
+  //     }
+ };
 
   // Funkcja wywoływana po kliknięciu
   const handleClick = () => {

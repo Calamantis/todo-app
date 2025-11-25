@@ -24,6 +24,7 @@ namespace todo_backend.Services.CategoryService
                 .Where(c => c.UserId == id || c.IsSystem == true)
                 .Select(c => new CategoryDto
                 {
+                    CategoryId = c.CategoryId,
                     Name = c.Name,
                     ColorHex = c.ColorHex
                 })
@@ -31,7 +32,7 @@ namespace todo_backend.Services.CategoryService
         }
 
         //POST dodawanie kategorii
-        public async Task<CategoryDto?> CreateCategoryAsync(CategoryDto dto, int id)
+        public async Task<CategoryDto?> CreateCategoryAsync(ModifyCategoryDto dto, int id)
         {
             var exists = await _context.Categories
                 .AnyAsync(c => c.UserId == id && c.Name == dto.Name);
@@ -56,7 +57,7 @@ namespace todo_backend.Services.CategoryService
         }
 
         //PUT modyfikowanie kategorii
-        public async Task<CategoryDto?> UpdateCategoryAsync(CategoryDto dto, int id, int currentUserId)
+        public async Task<CategoryDto?> UpdateCategoryAsync(ModifyCategoryDto dto, int id, int currentUserId)
         {
             var category = await _context.Categories.FindAsync(id); //id kategorii a nie uzytkownika
             if (category == null) return null;
@@ -82,29 +83,21 @@ namespace todo_backend.Services.CategoryService
         }
 
         //DELETE usuwanie kategorii
-        public async Task<bool> DeleteCategoryAsync(int categoryId, bool deleteActivities, int currentUserId)
+        public async Task<bool> DeleteCategoryAsync(int categoryId, int currentUserId)
         {
-            //var category = await _context.Categories
-            //    .Include(c => c.TimelineActivities)
-            //    .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
+            var category = await _context.Categories
+                .Include(c => c.TimelineActivities)
+                .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
 
-            //if (category == null) return false;
+            if (category == null) return false;
 
-            //if (category.UserId != currentUserId)
-            //    return false; // nie jesteś właścicielem -> odmowa
+            if (category.UserId != currentUserId)
+                return false; // nie jesteś właścicielem -> odmowa
 
-            //if (deleteActivities)
-            //{
-            //    // tryb 1: usuń wszystkie aktywności
-            //    _context.TimelineActivities.RemoveRange(category.TimelineActivities);
-            //    //_context.ActivityStorage.RemoveRange(category.ActivityStorage);
-            //}
+            _context.Categories.Remove(category);
 
-            //// tryb 2: samo usunięcie kategorii → SetNull zadba o FK
-            //_context.Categories.Remove(category);
-
-            //_context.Categories.Remove(category);
-            //await _context.SaveChangesAsync();
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
             return true;
         }
     }

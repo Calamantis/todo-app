@@ -12,6 +12,7 @@ import AboutPage from './pages/AboutPage';
 import GettingStartedPage from './pages/GettingStartedPage';
 
 import TimelinePage from './pages/TimelinePage';
+import ActivityPage from "./pages/ActivityPage";
 import UserProfilePage from './pages/UserProfilePage';
 import StatisticsPage from './pages/StatisticsPage';
 
@@ -49,6 +50,7 @@ export default function App() {
 
         {/* user */}
         <Route path="/timeline" element={<PrivateRoute element={<TimelinePage/>} role="User"/>} />
+        <Route path="/activity" element={<PrivateRoute element={<ActivityPage/>} role="User"/>} />
         <Route path="/profile" element={<PrivateRoute element={<UserProfilePage />} role="User"/>}/>
         <Route path="/statistics" element={<PrivateRoute element={<StatisticsPage />} role="User" />} /> 
         <Route path="/social" element={<PrivateRoute element={<SocialPage />} role="User" />} /> 

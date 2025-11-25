@@ -7,11 +7,31 @@
   display: none; /* Ukrywa pasek przewijania */
 }
 
+
+.pretty-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pretty-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pretty-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  /* background: var(--accent-color); */
+  border-radius: 10px;
+}
+
+.pretty-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+
 :root {
   --background-color: #121212;
   --primary-color: #282828;
   --secondary-color: #3f3f3f;
-  --tertiary-color: #575757;        
+  --teritary-color: #575757;        
   --quaternary-color: #717171;      
 
   --accent-color: #c050cc;         

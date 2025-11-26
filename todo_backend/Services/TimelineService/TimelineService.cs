@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System.Data;
 using todo_backend.Data;
 using todo_backend.Dtos.ActivityInstance;
 using todo_backend.Models;
@@ -288,7 +289,7 @@ namespace todo_backend.Services.TimelineService
         //Generuje instancje z czasem adapcyjnym (srednia z ostatnich 20 wystapien
         private async Task GenerateSingularInstanceAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)
         {
-            if (await IsExcludedAsync(rule, occurrenceDate, userId))
+            if (await IsExcludedAsync(rule, occurrenceDate, rule.StartTime, rule.EndTime, userId))
             {
                 Console.WriteLine($"[EXCLUDED] Pomijam {occurrenceDate:yyyy-MM-dd} dla ActivityId={rule.ActivityId}");
                 return;
@@ -360,11 +361,13 @@ namespace todo_backend.Services.TimelineService
         }
 
         // Filtr do instancji Offline
-        private async Task<bool> IsExcludedAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, int userId)
+        private async Task<bool> IsExcludedAsync(ActivityRecurrenceRule rule, DateTime occurrenceDate, TimeSpan startTime, TimeSpan endTime, int userId)
         {
             return await _context.InstanceExclusions.AnyAsync(ex =>
                 ex.ActivityId == rule.ActivityId &&
                 ex.ExcludedDate == occurrenceDate &&
+                ex.StartTime == startTime &&
+                ex.EndTime == endTime &&
                 ex.UserId == userId);
         }
 
@@ -497,7 +500,7 @@ namespace todo_backend.Services.TimelineService
                         continue;
                     }
 
-                    if (await IsExcludedForCopyAsync(ownerInstance.ActivityId, ownerInstance.OccurrenceDate, currentUserId))
+                    if (await IsExcludedForCopyAsync(ownerInstance.ActivityId, ownerInstance.OccurrenceDate, ownerInstance.StartTime, ownerInstance.EndTime, currentUserId))
                     {
                         Console.WriteLine($"[STEP 4]   SKIP kopiowania: istnieje exclusion dla ActivityId={ownerInstance.ActivityId} " +
                                           $"w dniu {ownerInstance.OccurrenceDate:yyyy-MM-dd}");
@@ -543,13 +546,15 @@ namespace todo_backend.Services.TimelineService
         }
 
         //Filtr do instancji Online
-        private async Task<bool> IsExcludedForCopyAsync(int activityId, DateTime occurrenceDate, int userId)
+        private async Task<bool> IsExcludedForCopyAsync(int activityId, DateTime occurrenceDate, TimeSpan startTime, TimeSpan endTime, int userId)
         {
             var dateOnly = occurrenceDate.Date;
 
             var isExcluded = await _context.InstanceExclusions.AnyAsync(ex =>
                 ex.ActivityId == activityId &&
                 ex.ExcludedDate.Date == dateOnly &&
+                ex.StartTime == startTime &&
+                ex.EndTime == endTime &&
                 ex.UserId == userId);
 
             Console.WriteLine(

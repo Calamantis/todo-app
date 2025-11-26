@@ -38,9 +38,11 @@ interface Props {
   activity: Activity;
   onEdit?: (activity: Activity) => void;
   onDelete?: (activityId: number) => void;
+  onSelect?: (activity: Activity) => void;
+  isSelected?: boolean;
 }
 
-const ExpandableActivityItem: React.FC<Props> = ({ activity, onEdit, onDelete }) => {
+const ExpandableActivityItem: React.FC<Props> = ({ activity, onEdit, onDelete, onSelect, isSelected }) => {
   const { user } = useAuth();
   const [expanded, setExpanded] = useState(false);
   const [rules, setRules] = useState<RecurrenceRule[]>([]);
@@ -109,7 +111,7 @@ const ExpandableActivityItem: React.FC<Props> = ({ activity, onEdit, onDelete })
   return (
     <div>
       <div className="relative flex items-center">
-        <ActivityListItem activity={activity} onEdit={onEdit} onDelete={onDelete} />
+        <ActivityListItem activity={activity} onEdit={onEdit} onDelete={onDelete} onSelect={onSelect} isSelected={isSelected} />
         {activity.isRecurring && (
           <button
             onClick={(e) => {

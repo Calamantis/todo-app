@@ -39,6 +39,10 @@ namespace todo_backend.Services.ActivityInstanceService
         // GET: Instancje po ID aktywności
         public async Task<IEnumerable<ActivityInstanceDto>> GetInstancesByActivityIdAsync(int activityId, int userId)
         {
+
+            var now = DateTime.Now;
+            var oneDayAgo = now.AddDays(-1);
+
             var activity = await _context.Activities
                 .FirstOrDefaultAsync(a => a.ActivityId == activityId && a.OwnerId == userId);
 
@@ -48,7 +52,7 @@ namespace todo_backend.Services.ActivityInstanceService
             }
 
             return await _context.ActivityInstances
-                .Where(ai => ai.ActivityId == activityId)
+                .Where(ai => ai.ActivityId == activityId && ai.OccurrenceDate > oneDayAgo)
                 .Select(ai => new ActivityInstanceDto
                 {
                     InstanceId = ai.InstanceId,
@@ -171,22 +175,65 @@ namespace todo_backend.Services.ActivityInstanceService
         }
 
         // DELETE: Usuwanie instancji
+        //public async Task<bool> DeleteInstanceAsync(int instanceId, int userId)
+        //{
+        //    var instance = await _context.ActivityInstances.FirstOrDefaultAsync(ai => ai.InstanceId == instanceId);
+
+        //    Console.WriteLine("\n\n"+instance);
+
+        //    if (instance == null || instance.UserId != userId)
+        //    {
+        //        return false; // Jeśli instancja nie należy do użytkownika, zwróć false
+        //    }
+
+        //    _context.ActivityInstances.Remove(instance);
+        //    await _context.SaveChangesAsync();
+
+        //    return true;
+        //}
+
         public async Task<bool> DeleteInstanceAsync(int instanceId, int userId)
         {
-            var instance = await _context.ActivityInstances.FirstOrDefaultAsync(ai => ai.InstanceId == instanceId);
-
-            Console.WriteLine("\n\n"+instance);
+            var instance = await _context.ActivityInstances
+                .FirstOrDefaultAsync(ai => ai.InstanceId == instanceId);
 
             if (instance == null || instance.UserId != userId)
             {
-                return false; // Jeśli instancja nie należy do użytkownika, zwróć false
+                return false;
             }
 
-            _context.ActivityInstances.Remove(instance);
-            await _context.SaveChangesAsync();
+            var now = DateTime.Now;
 
+            // 1) PRZYSZŁA INSTANCJA + MA REGUŁĘ?
+            if (instance.OccurrenceDate > now && instance.RecurrenceRuleId.HasValue)
+            {
+                // ➜ Dodajemy rekord exclusion zamiast usuwać instancję
+                var exclusion = new InstanceExclusion
+                {
+                    UserId = userId,
+                    ActivityId = instance.ActivityId,
+                    ExcludedDate = instance.OccurrenceDate.Date,
+                    StartTime = instance.StartTime,
+                    EndTime = instance.EndTime
+
+                };
+
+                _context.InstanceExclusions.Add(exclusion);
+
+                // Instancji NIE usuwamy — generator będzie wiedział, aby jej nie utworzyć
+            }
+            else
+            {
+                // 2) PRZESZŁA INSTANCJA LUB BRAK REGUŁY
+                //    ➜ Usuwamy normalnie
+                _context.ActivityInstances.Remove(instance);
+            }
+
+            await _context.SaveChangesAsync();
             return true;
         }
+
+
 
         public async Task<InstanceParticipantsResponseDto?> GetInstanceParticipantsAsync(
             int ownerId,

@@ -83,9 +83,10 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
 }) => {
   return (
     <div
-      className="flex items-center justify-between p-3 mb-3 rounded-lg cursor-pointer transition hover:opacity-75"
+      className="flex items-center justify-between p-3 rounded-lg cursor-pointer transition hover:opacity-75 border-2"
       style={{
         background: `linear-gradient(to right, ${category.colorHex} 75%, rgba(0,0,0,0) 75%)`,
+        borderColor: category.colorHex,
       }}
     >
       {/* Nazwa kategorii */}

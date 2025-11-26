@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using todo_backend.Data;
 using todo_backend.Dtos.ActivityDto;
 using todo_backend.Models;
@@ -27,6 +28,7 @@ namespace todo_backend.Services.ActivityService
                     IsRecurring = a.IsRecurring,
                     CategoryId = a.CategoryId,
                     CategoryName = a.Category != null ? a.Category.Name : null,
+                    ColorHex = a.Category !=null ? a.Category.ColorHex : null,
                     JoinCode = a.JoinCode
                 })
                 .ToListAsync();
@@ -49,6 +51,8 @@ namespace todo_backend.Services.ActivityService
                 IsRecurring = activity.IsRecurring,
                 CategoryId = activity.CategoryId,
                 CategoryName = activity.Category?.Name,
+                ColorHex = activity.Category != null ? activity.Category.ColorHex : null,
+                isFriendsOnly = activity.isFriendsOnly,
                 JoinCode = activity.JoinCode
             };
         }
@@ -65,7 +69,7 @@ namespace todo_backend.Services.ActivityService
                     if (category == null) return null; // Jeśli kategoria nie istnieje, zwróć null
                 }
 
-                var entity = new Activity
+                var entity = new todo_backend.Models.Activity
                 {
                     OwnerId = currentUserId,
                     Title = dto.Title,
@@ -85,7 +89,9 @@ namespace todo_backend.Services.ActivityService
                     Description = entity.Description,
                     IsRecurring = entity.IsRecurring,
                     JoinCode = entity.JoinCode,
-                    CategoryName = category?.Name
+                    CategoryName = category?.Name,
+                    isFriendsOnly = entity.isFriendsOnly,
+                    ColorHex = category?.ColorHex
                 };
             }
             catch
@@ -117,6 +123,8 @@ namespace todo_backend.Services.ActivityService
                 IsRecurring = activity.IsRecurring,
                 CategoryId = activity.CategoryId,
                 CategoryName = activity.Category?.Name,
+                ColorHex = activity.Category?.ColorHex,
+                isFriendsOnly = activity.isFriendsOnly,
                 JoinCode = activity.JoinCode
             };
         }
@@ -170,6 +178,39 @@ namespace todo_backend.Services.ActivityService
             return true;
         }
 
+
+        //PATCH Przekształć aktywność na FRIENDS ONLY
+        public async Task<bool> ConvertToFriendsOnlyAsync(int activityId, int currentUserId)
+        {
+            var activity = await _context.Activities
+                .FirstOrDefaultAsync(a => a.ActivityId == activityId && a.OwnerId == currentUserId);
+
+            if (activity == null)
+                return false; // brak dostępu lub nie istnieje
+
+            if (activity.isFriendsOnly == true)
+                return true; // już jest online
+
+            // 🔹 dodaj ownera do ActivityMembers (jeśli nie istnieje)
+            var ownerMemberExists = await _context.ActivityMembers
+                .AnyAsync(m => m.ActivityId == activityId && m.UserId == currentUserId);
+
+            if (!ownerMemberExists)
+            {
+                var ownerMember = new ActivityMember
+                {
+                    ActivityId = activityId,
+                    UserId = currentUserId,
+                    Role = "owner",
+                    Status = "accepted"
+                };
+                _context.ActivityMembers.Add(ownerMember);
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         //PATCH Przekształć aktywność na PRYWATNĄ
         public async Task<bool> ConvertToOfflineAsync(int activityId, int currentUserId)
         {
@@ -184,6 +225,7 @@ namespace todo_backend.Services.ActivityService
 
             // resetuj kod
             activity.JoinCode = null;
+            activity.isFriendsOnly = false;
 
             // Usuń wszystkie rekordy
             var membersToRemove = await _context.ActivityMembers.Where(am => am.ActivityId == activityId).ToListAsync();

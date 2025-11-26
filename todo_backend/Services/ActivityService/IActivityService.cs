@@ -11,6 +11,7 @@ namespace todo_backend.Services.ActivityService
         Task<bool> DeleteActivityAsync(int activityId, int currentUserId);
 
         Task<bool> ConvertToOnlineAsync(int activityId, int currentUserId);
+        Task<bool> ConvertToFriendsOnlyAsync(int activityId, int currentUserId);
         Task<bool> ConvertToOfflineAsync(int activityId, int currentUserId);
     }
 }

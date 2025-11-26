@@ -188,14 +188,31 @@ namespace todo_backend.Services.ActivityRecurrenceRuleService
         public async Task<bool> DeleteRecurrenceRuleAsync(int recurrenceRuleId, int userId)
         {
             var rule = await _context.ActivityRecurrenceRules
-                    .Include(r => r.Activity)
-                    .FirstOrDefaultAsync(r => r.RecurrenceRuleId == recurrenceRuleId);
+         .FirstOrDefaultAsync(r => r.RecurrenceRuleId == recurrenceRuleId);
 
             if (rule == null) return false;
 
-            _context.ActivityRecurrenceRules.Remove(rule);
-            await _context.SaveChangesAsync();
+            var now = DateTime.Now;
 
+            // Pobieramy wszystkie instancje powiązane z tą regułą
+            var instances = await _context.ActivityInstances
+                .Where(i => i.RecurrenceRuleId == recurrenceRuleId)
+                .ToListAsync();
+
+            // INSTANCJE PRZESZŁE → zostawiamy, odpinamy regułę
+            foreach (var instance in instances.Where(i => i.OccurrenceDate <= now))
+            {
+                instance.RecurrenceRuleId = null;
+            }
+
+            // INSTANCJE PRZYSZŁE → usuwamy
+            var futureInstances = instances.Where(i => i.OccurrenceDate > now).ToList();
+            _context.ActivityInstances.RemoveRange(futureInstances);
+
+            // Na końcu usuwamy samą regułę
+            _context.ActivityRecurrenceRules.Remove(rule);
+
+            await _context.SaveChangesAsync();
             return true;
         }
 

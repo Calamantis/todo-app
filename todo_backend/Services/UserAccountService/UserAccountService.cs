@@ -207,15 +207,15 @@ namespace todo_backend.Services.UserAccountService
             return true;
         }
 
-        public async Task<bool?> ToggleAllowMentionsAsync(int id)
+        public async Task<bool?> ToggleAllowTimelineAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return null;
 
-            user.AllowMentions = !user.AllowMentions;
+            user.AllowTimeline = !user.AllowTimeline;
             await _context.SaveChangesAsync();
 
-            return user.AllowMentions;
+            return user.AllowTimeline;
         }
 
         public async Task<bool?> ToggleAllowFriendInvitesAsync(int id)

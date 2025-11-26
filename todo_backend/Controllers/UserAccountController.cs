@@ -74,13 +74,13 @@ namespace todo_backend.Controllers
 
         [Authorize]
         [HttpPost("allow-mentions")]
-        public async Task<IActionResult> UpdateAllowMentions(UpdateAllowMentionsDto dto)
+        public async Task<IActionResult> UpdateAllowTimeline(UpdateAllowTimelineDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null) return Unauthorized();
             int userId = int.Parse(userIdClaim.Value);
 
-            var success = await _userAccountService.ToggleAllowMentionsAsync(userId);
+            var success = await _userAccountService.ToggleAllowTimelineAsync(userId);
             if (success == null) return NotFound();
 
             return NoContent();

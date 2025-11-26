@@ -27,10 +27,6 @@ namespace todo_backend.Controllers
             int userId = int.Parse(userIdClaim.Value);
 
             var activities = await _activityService.GetActivitiesByUserIdAsync(userId);
-            if (activities == null || !activities.Any())
-            {
-                return NotFound("Nie znaleziono żadnych aktywności.");
-            }
 
             return Ok(activities);
         }
@@ -121,6 +117,22 @@ namespace todo_backend.Controllers
                 return BadRequest("Activity not found or not owned by user.");
 
             return Ok(new { message = "Activity converted to online successfully." });
+        }
+
+        [HttpPatch("convert-activity-to-friendsonly")]
+        public async Task<IActionResult> ConvertToFriendsOnly(int activityId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var result = await _activityService.ConvertToFriendsOnlyAsync(activityId, userId);
+            if (!result)
+                return BadRequest("Activity not found or not owned by user.");
+
+            return Ok(new { message = "Activity converted to friends-only successfully." });
         }
 
         [HttpPatch("convert-activity-to-offline")]

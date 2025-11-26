@@ -10,7 +10,7 @@ namespace todo_backend.Services.UserAccountService
         Task<UserProfileResponseDto> GetUserDetailsAsync(int id);
         Task<UserProfileResponseDto> UpdateUserAsync(int id, UpdateUserDto dto);
         Task<bool> DeleteUserAsync(int id);
-        Task<bool?> ToggleAllowMentionsAsync(int id);
+        Task<bool?> ToggleAllowTimelineAsync(int id);
         Task<bool?> ToggleAllowFriendInvitesAsync(int id);
     }
 }

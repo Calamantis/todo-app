@@ -20,7 +20,7 @@ namespace todo_backend.Models
         [MaxLength(50)]
         public string FullName { get; set; } = string.Empty;
 
-        public bool AllowMentions { get; set; } = true;
+        public bool AllowTimeline { get; set; } = true;
 
         public bool AllowFriendInvites { get; set; } = true;
 

@@ -4,6 +4,11 @@ import NavigationWrapper from "../components/NavigationWrapper";
 import Footer from "../components/Footer";
 import Panel from "../components/social_components/Panel";
 
+import ActivityListItem from "../components/activity_components/ActivityListItem";
+import ExpandableActivityItem from "../components/activity_components/ExpandableActivityItem";
+import AddActivityModal from "../components/activity_components/AddActivityModal";
+import EditActivityModal from "../components/activity_components/EditActivityModal";
+import DeleteActivityModal from "../components/activity_components/DeleteActivityModal";
 import CategoryListItem from "../components/category_components/CategoryListItem"; 
 import AddCategoryModal from "../components/category_components/AddCategoryModal";
 import EditCategoryModal from "../components/category_components/EditCategoryModal";
@@ -16,7 +21,13 @@ const ActivityPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const [activities, setActivities] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
+  const [showAddActivityModal, setShowAddActivityModal] = useState(false);
+  const [showEditActivityModal, setShowEditActivityModal] = useState(false);
+  const [activityToEdit, setActivityToEdit] = useState<any>(null);
+  const [showDeleteActivityModal, setShowDeleteActivityModal] = useState(false);
+  const [activityToDelete, setActivityToDelete] = useState<any>(null);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [showEditCategoryModal, setShowEditCategoryModal] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState<any>(null);
@@ -48,9 +59,34 @@ const ActivityPage: React.FC = () => {
     }
   };
 
-  // Pobieranie kategorii po załadowaniu komponentu
+  // Funkcja do pobrania aktywności z API
+  const fetchActivities = async () => {
+    if (!user) return;
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch("/api/Activity/user/get-activities",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+      if (!response.ok) throw new Error("Failed to load activities");
+      const data = await response.json();
+      setActivities(data);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Pobieranie kategorii i aktywności po załadowaniu komponentu
   useEffect(() => {
     fetchCategories();
+    fetchActivities();
   }, []);
 
   const handleAddCategory = () => {
@@ -93,10 +129,33 @@ const ActivityPage: React.FC = () => {
     }
   };
 
+  const handleEditActivityClick = (activity: any) => {
+    setActivityToEdit(activity);
+    setShowEditActivityModal(true);
+  };
+
+  const handleDeleteActivityClick = (activityId: number) => {
+    console.log("Delete activity:", activityId);
+    const activity = activities.find((act) => act.activityId === activityId);
+    if (activity) {
+      setActivityToDelete(activity);
+      setShowDeleteActivityModal(true);
+    }
+  };
+
+  const handleDeleteActivity = (id: number) => {
+    setActivities(activities.filter((activity) => activity.activityId !== id));
+    setShowDeleteActivityModal(false);
+    fetchActivities();
+  };
+
     const handleCloseModal = () => {
     setShowAddCategoryModal(false);
     setShowEditCategoryModal(false);
     setShowDeleteCategoryModal(false);
+    setShowAddActivityModal(false);
+    setShowEditActivityModal(false);
+    setShowDeleteActivityModal(false);
   };
 
   useEffect(() => {
@@ -113,17 +172,21 @@ const ActivityPage: React.FC = () => {
       <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] p-4 md:p-6">
         <div className="max-w-9xl mx-auto">
           <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* Panel 1: Activity */}
-            <Panel title="Activity" onAdd={() => console.log("Add Activity")}>
-              {/* Aktywności */}
-              1
-            </Panel>
-
-            {/* Panel 2: Activity Recurrence Rule */}
-            <Panel title="Activity Recurrence Rule" onAdd={() => console.log("Add Recurrence Rule")}>
-              {/* Zasady rekurencji */}
-              2
-            </Panel>
+            {/* Unified Panel: Activities (with expandable recurrence rules) */}
+            <div className="lg:col-span-2">
+              <Panel title="Activities" onAdd={() => setShowAddActivityModal(true)}>
+                {/* Aktywności */}
+                {loading && <div>Loading activities...</div>}
+                {error && <div className="text-red-500">{error}</div>}
+                {activities.length > 0 ? (
+                  activities.map((activity) => (
+                    <ExpandableActivityItem key={activity.activityId} activity={activity} onEdit={handleEditActivityClick} onDelete={handleDeleteActivityClick}  />
+                  ))
+                ) : (
+                  <div>No activities found.</div>
+                )}
+              </Panel>
+            </div>
 
             <div className="flex flex-col gap-4 min-h-[80vh]">
               {/* Panel 3: Activity Instance */}
@@ -151,6 +214,23 @@ const ActivityPage: React.FC = () => {
         </div>
       </div>
 
+      {showAddActivityModal && (
+        <AddActivityModal
+          onClose={() => setShowAddActivityModal(false)}
+          onCreate={() => fetchActivities()}
+          categories={categories.map((c) => ({ categoryId: c.categoryId, name: c.name }))}
+        />
+      )}
+
+      {showEditActivityModal && activityToEdit && (
+        <EditActivityModal
+          activity={activityToEdit}
+          onClose={() => setShowEditActivityModal(false)}
+          onEditActivity={() => fetchActivities()}
+          categories={categories.map((c) => ({ categoryId: c.categoryId, name: c.name }))}
+        />
+      )}
+
       {showAddCategoryModal && (
         <AddCategoryModal onAddCategory={handleAddCategory} onClose={handleCloseModal} />
       )}
@@ -168,6 +248,15 @@ const ActivityPage: React.FC = () => {
         <DeleteCategoryModal
           category={categoryToDelete}
           onDelete={handleDeleteCategory}
+          onClose={handleCloseModal}
+        />
+      )}
+
+      {/* Modal dla usuwania aktywności */}
+      {showDeleteActivityModal && activityToDelete && (
+        <DeleteActivityModal
+          activity={activityToDelete}
+          onDelete={handleDeleteActivity}
           onClose={handleCloseModal}
         />
       )}

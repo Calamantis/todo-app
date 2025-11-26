@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "todo_backend.Controllers.ActivityController",
+    "Method": "ConvertToFriendsOnly",
+    "RelativePath": "api/Activity/convert-activity-to-friendsonly",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityController",
     "Method": "ConvertToOffline",
     "RelativePath": "api/Activity/convert-activity-to-offline",
     "HttpMethod": "PATCH",
@@ -1315,7 +1331,7 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.UserAccountController",
-    "Method": "UpdateAllowMentions",
+    "Method": "UpdateAllowTimeline",
     "RelativePath": "api/UserAccount/allow-mentions",
     "HttpMethod": "POST",
     "IsController": true,
@@ -1323,7 +1339,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "todo_backend.Dtos.User.UpdateAllowMentionsDto",
+        "Type": "todo_backend.Dtos.User.UpdateAllowTimelineDto",
         "IsRequired": true
       }
     ],

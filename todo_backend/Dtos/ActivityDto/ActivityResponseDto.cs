@@ -7,7 +7,11 @@
         public string? Description { get; set; }
         public bool IsRecurring { get; set; }
         public int? CategoryId { get; set; }
-        public string? CategoryName { get; set; }  // Zawiera nazwę kategorii, jeśli jest przypisana
+        public string? CategoryName { get; set; }
+
+        public bool isFriendsOnly { get; set; }
+
+        public string? ColorHex { get; set; }
         public string? JoinCode { get; set; }
     }
 }

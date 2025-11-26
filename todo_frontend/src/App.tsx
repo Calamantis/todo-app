@@ -11,6 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 import AboutPage from './pages/AboutPage';
 import GettingStartedPage from './pages/GettingStartedPage';
 
+import OnlineActivitiesPage from './pages/OnlineActivitiesPage';
+
 import TimelinePage from './pages/TimelinePage';
 import ActivityPage from "./pages/ActivityPage";
 import UserProfilePage from './pages/UserProfilePage';
@@ -54,6 +56,7 @@ export default function App() {
         <Route path="/profile" element={<PrivateRoute element={<UserProfilePage />} role="User"/>}/>
         <Route path="/statistics" element={<PrivateRoute element={<StatisticsPage />} role="User" />} /> 
         <Route path="/social" element={<PrivateRoute element={<SocialPage />} role="User" />} /> 
+        <Route path="/online-activity" element={<PrivateRoute element={<OnlineActivitiesPage/>} role="User"/>} />
         {/* <Route path="/activity-creator" element={<ActivityCreatorPage />} />
         <Route path="/notification-creator" element={<NotificationCreatorPage />} />
         <Route path="/statistics" element={<StatisticsPage/>} /> */}

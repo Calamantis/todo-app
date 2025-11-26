@@ -8,7 +8,7 @@ const Avatar: React.FC<{ src?: string; size?: number }> = ({
   const backendBase = "http://localhost:5268";
 
   // Jeśli backend zwrócił ścieżkę typu "/5/5_profile.jpg"
-  const resolvedSrc = src ? `${backendBase}/${src}?${Date.now()}` : `${backendBase}/DefaultProfileImage.jpg`;
+  const resolvedSrc = src ? `${backendBase}/${src}?${Date.now()}` : `${backendBase}/UserProfileImages/DefaultProfileImage.jpg`;
 
   const fallback = `${backendBase}/UserProfileImages/DefaultProfileImage.jpg`;
 

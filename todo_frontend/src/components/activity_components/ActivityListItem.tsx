@@ -40,10 +40,6 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
 
   // derive privacy/status from joinCode and isFriendsOnly
   const status = activity.joinCode ? "Public" : activity.isFriendsOnly ? "Friends-only" : "Private";
-  console.log("Activity status:", status);
-  console.log("Activity joinCode:", activity.joinCode);
-  console.log("Activity isFriendsOnly:", activity.isFriendsOnly);
-
   // ----- PRIVACY PATCH CALLS -----
 
   const patchPrivacy = async (path: string) => {

@@ -283,6 +283,7 @@ const ActivityPage: React.FC = () => {
                       onDelete={handleDeleteActivityClick} 
                       onSelect={handleSelectActivity}
                       isSelected={selectedActivity?.activityId === activity.activityId}
+                      onPrivacyChanged={fetchActivities}
                     />
                   ))
                 ) : (

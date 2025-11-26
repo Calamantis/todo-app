@@ -29,6 +29,7 @@ namespace todo_backend.Services.ActivityService
                     CategoryId = a.CategoryId,
                     CategoryName = a.Category != null ? a.Category.Name : null,
                     ColorHex = a.Category !=null ? a.Category.ColorHex : null,
+                    isFriendsOnly = a.isFriendsOnly,
                     JoinCode = a.JoinCode
                 })
                 .ToListAsync();
@@ -190,6 +191,8 @@ namespace todo_backend.Services.ActivityService
 
             if (activity.isFriendsOnly == true)
                 return true; // już jest online
+
+            activity.isFriendsOnly = true;
 
             // 🔹 dodaj ownera do ActivityMembers (jeśli nie istnieje)
             var ownerMemberExists = await _context.ActivityMembers

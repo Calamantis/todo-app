@@ -571,6 +571,7 @@ namespace todo_backend.Services.ActivitySuggestionService
 
                     return new
                     {
+                        i.Activity.ActivityId,
                         i.Activity.Title,
                         i.Activity.CategoryId,
                         CategoryName = i.Activity.Category?.Name ?? "Unknown",
@@ -582,6 +583,7 @@ namespace todo_backend.Services.ActivitySuggestionService
                 })
                 .GroupBy(x => new
                 {
+                    x.ActivityId,
                     x.Title,
                     x.CategoryId,
                     x.CategoryName,
@@ -591,6 +593,7 @@ namespace todo_backend.Services.ActivitySuggestionService
                 })
                 .Select(g => new
                 {
+                    g.Key.ActivityId,
                     g.Key.Title,
                     g.Key.CategoryId,
                     g.Key.CategoryName,
@@ -652,7 +655,7 @@ namespace todo_backend.Services.ActivitySuggestionService
                 suggestions.Add(new SuggestedTimelineActivityDto
                 {
                     // tu nie mamy konkretnego ActivityId użytkownika, więc używamy CategoryId jako "id grupy"
-                    ActivityId = g.CategoryId ?? 0,
+                    ActivityId = g.ActivityId,
                     Title = g.Title,
                     CategoryName = g.CategoryName,
                     SuggestedDurationMinutes = (int)Math.Round(g.AvgDuration),

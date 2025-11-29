@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../AuthContext";
-import Avatar from "../../components/social_components/Avatar";
+import Avatar from "../social_components/Avatar";
 import { Check, X } from "lucide-react";
 
 interface ReceivedInvite {

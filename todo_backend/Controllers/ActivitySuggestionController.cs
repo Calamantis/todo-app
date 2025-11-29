@@ -7,6 +7,8 @@ using todo_backend.Services.ActivitySuggestionService;
 
 namespace todo_backend.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class ActivitySuggestionController : ControllerBase
     {
         private readonly IActivitySuggestionService _activitySuggestionService;
@@ -18,7 +20,7 @@ namespace todo_backend.Controllers
 
 
         [Authorize]
-        [HttpGet("suggestions/personal")]
+        [HttpPost("personal")]
         public async Task<IActionResult> GetPersonalSuggestions(ActivitySuggestionDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -27,7 +29,7 @@ namespace todo_backend.Controllers
         }
 
         [Authorize]
-        [HttpPost("suggestions/placement")]
+        [HttpPost("placement")]
         public async Task<IActionResult> SuggestPlacement([FromBody] ActivityPlacementSuggestionDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -44,7 +46,7 @@ namespace todo_backend.Controllers
         }
 
         [Authorize]
-        [HttpPost("suggestions/shifted")]
+        [HttpPost("shifted")]
         public async Task<IActionResult> SuggestPlacementShifted([FromBody] ActivityPlacementSuggestionDto dto)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -60,7 +62,7 @@ namespace todo_backend.Controllers
             return Ok(results);
         }
 
-        [HttpPost("suggesstions/apply-shifted")]
+        [HttpPost("apply-shifted")]
         public async Task<IActionResult> ApplyPlacementAdjustmentsAsync(
     [FromBody] ApplyPlacementAdjustmentsDto dto)
         {

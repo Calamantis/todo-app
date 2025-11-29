@@ -92,21 +92,91 @@ namespace todo_backend.Services.ActivityInstanceService
         //}
 
         // POST: Tworzenie nowej instancji
+        //public async Task<ActivityInstanceDto?> CreateInstanceAsync(ActivityInstanceDto dto, int userId)
+        //{
+        //    var activity = await _context.Activities
+        //        .FirstOrDefaultAsync(a => a.ActivityId == dto.ActivityId && a.OwnerId == userId);
+
+        //    if (activity == null)
+        //    {
+        //        return null; // Jeśli aktywność nie należy do użytkownika, zwróć null
+        //    }
+
+        //    var entity = new ActivityInstance
+        //    {
+        //        ActivityId = dto.ActivityId,
+        //        UserId = userId,
+        //        RecurrenceRuleId = dto.RecurrenceRuleId,
+        //        OccurrenceDate = dto.OccurrenceDate,
+        //        StartTime = dto.StartTime,
+        //        EndTime = dto.EndTime,
+        //        DurationMinutes = dto.DurationMinutes,
+        //        IsActive = dto.IsActive,
+        //        DidOccur = dto.DidOccur,
+        //        IsException = dto.IsException
+        //    };
+
+        //    _context.ActivityInstances.Add(entity);
+        //    await _context.SaveChangesAsync();
+
+        //    return new ActivityInstanceDto
+        //    {
+        //        InstanceId = entity.InstanceId,
+        //        ActivityId = entity.ActivityId,
+        //        RecurrenceRuleId = entity.RecurrenceRuleId,
+        //        UserId = entity.UserId,
+        //        OccurrenceDate = entity.OccurrenceDate,
+        //        StartTime = entity.StartTime,
+        //        EndTime = entity.EndTime,
+        //        DurationMinutes = entity.DurationMinutes,
+        //        IsActive = entity.IsActive,
+        //        DidOccur = entity.DidOccur,
+        //        IsException = entity.IsException
+        //    };
+        //}
+
         public async Task<ActivityInstanceDto?> CreateInstanceAsync(ActivityInstanceDto dto, int userId)
         {
+            // 1) Pobieramy aktywność BEZ sprawdzania ownera
             var activity = await _context.Activities
-                .FirstOrDefaultAsync(a => a.ActivityId == dto.ActivityId && a.OwnerId == userId);
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(a => a.ActivityId == dto.ActivityId);
 
             if (activity == null)
             {
-                return null; // Jeśli aktywność nie należy do użytkownika, zwróć null
+                Console.WriteLine(dto);
+            Console.WriteLine(dto.ActivityId);
+            Console.WriteLine("siema, zwracam null hihi");
+            return null;
             }
 
-            var entity = new ActivityInstance
+            // 2) Jeśli aktywność nie należy do użytkownika → klonujemy
+            if (activity.OwnerId != userId)
             {
-                ActivityId = dto.ActivityId,
+                var clone = new Activity
+                {
+                    OwnerId = userId,
+                    Title = activity.Title,
+                    Description = activity.Description,
+                    IsRecurring = false,   // instancje są zawsze jednorazowe
+                    CategoryId = null, //jak na razie null nie chce mi sie kopiowac jeszcze kategorii
+                    JoinCode = null,
+                    isFriendsOnly = false
+                };
+
+                _context.Activities.Add(clone);
+                await _context.SaveChangesAsync();
+
+                // podmieniamy activity na klona
+                activity = clone;
+            }
+
+            // 3) Tworzymy instancję dla właściciela
+            var instance = new ActivityInstance
+            {
+                ActivityId = activity.ActivityId,   // <- ZAWSZE poprawne ID
                 UserId = userId,
-                RecurrenceRuleId = dto.RecurrenceRuleId,
+                RecurrenceRuleId = null,
                 OccurrenceDate = dto.OccurrenceDate,
                 StartTime = dto.StartTime,
                 EndTime = dto.EndTime,
@@ -116,24 +186,24 @@ namespace todo_backend.Services.ActivityInstanceService
                 IsException = dto.IsException
             };
 
-            _context.ActivityInstances.Add(entity);
+            _context.ActivityInstances.Add(instance);
             await _context.SaveChangesAsync();
 
             return new ActivityInstanceDto
             {
-                InstanceId = entity.InstanceId,
-                ActivityId = entity.ActivityId,
-                RecurrenceRuleId = entity.RecurrenceRuleId,
-                UserId = entity.UserId,
-                OccurrenceDate = entity.OccurrenceDate,
-                StartTime = entity.StartTime,
-                EndTime = entity.EndTime,
-                DurationMinutes = entity.DurationMinutes,
-                IsActive = entity.IsActive,
-                DidOccur = entity.DidOccur,
-                IsException = entity.IsException
+                InstanceId = instance.InstanceId,
+                ActivityId = instance.ActivityId,
+                UserId = instance.UserId,
+                OccurrenceDate = instance.OccurrenceDate,
+                StartTime = instance.StartTime,
+                EndTime = instance.EndTime,
+                DurationMinutes = instance.DurationMinutes,
+                IsActive = instance.IsActive,
+                DidOccur = instance.DidOccur,
+                IsException = instance.IsException
             };
         }
+
 
         // PUT: Aktualizacja instancji
         public async Task<ActivityInstanceDto?> UpdateInstanceAsync(int instanceId, ActivityInstanceDto dto, int userId)

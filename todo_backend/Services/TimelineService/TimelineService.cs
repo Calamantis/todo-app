@@ -38,7 +38,7 @@ namespace todo_backend.Services.TimelineService
                     (i.Activity.OwnerId == userId
                     || participantActivityIds.Contains(i.ActivityId)) &&
                     i.OccurrenceDate.Date >= from.Date &&
-                    i.OccurrenceDate.Date <= to.Date)
+                    i.OccurrenceDate.Date <= to.Date && i.UserId == userId)
                 .Include(i => i.Activity)
                 .ThenInclude(a => a.Category)
                 .Select(i => new ActivityInstanceDto

@@ -5,6 +5,9 @@ import ActivityBlock from "../components/timeline_components/ActivityBlock";
 import NavigationWrapper from "../components/NavigationWrapper";
 import Footer from "../components/Footer";
 
+import ActivitySuggestionForm from "../components/activitySuggestion_components/ActivitySuggestionForm";
+import ActivitySuggestionModal from "../components/activitySuggestion_components/ActivitySuggestionModal";
+
 // Helper: Oblicz daty dla danego tygodnia (od poniedziałku do niedzieli)
 const getWeekDates = (date: Date) => {
   const startOfWeek = new Date(date);
@@ -28,6 +31,11 @@ const TimelinePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(new Date());
+
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [showSuggestionsModal, setShowSuggestionsModal] = useState(false);
+  const [suggestionStart, setSuggestionStart] = useState("");
+  const [suggestionEnd, setSuggestionEnd] = useState("");
 
   // Wybór daty: początek i koniec tygodnia
   const { startOfWeek, endOfWeek } = useMemo(() => getWeekDates(currentWeekStart), [currentWeekStart]);
@@ -123,6 +131,19 @@ const TimelinePage: React.FC = () => {
               </div>
 
               <div>
+                
+                <ActivitySuggestionForm
+                  onResults={(res) => {
+                    setSuggestions(res);
+                    setShowSuggestionsModal(true);
+                  }}
+                  onTimeChange={(start, end) => {
+                    setSuggestionStart(start);
+                    setSuggestionEnd(end);
+                  }}
+                />
+
+
                 {/* Siatka godzin */}
                 <div className="grid grid-cols-8 relative w-full">
                   <div className="flex flex-col border-r border-[var(--background-color)] text-right text-gray-400 text-xs sm:text-sm">
@@ -152,6 +173,18 @@ const TimelinePage: React.FC = () => {
               </div>
             </div>
           </div>
+
+
+            {showSuggestionsModal && suggestions.length > 0 && (
+              <ActivitySuggestionModal
+                suggestions={suggestions}
+                onClose={() => setShowSuggestionsModal(false)}
+                startTime={suggestionStart}
+                endTime={suggestionEnd}
+              />
+            )}
+
+
         </div>
       <Footer/>            
     </div>

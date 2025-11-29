@@ -759,55 +759,30 @@
         }
       }
     },
-    "/suggestions/personal": {
-      "get": {
+    "/api/ActivitySuggestion/personal": {
+      "post": {
         "tags": [
           "ActivitySuggestion"
         ],
-        "parameters": [
-          {
-            "name": "CategoryId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PlannedDurationMinutes",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PreferredStart",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span"
-            }
-          },
-          {
-            "name": "PreferredEnd",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span"
-            }
-          },
-          {
-            "name": "PreferredDays",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/DayOfWeek"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivitySuggestionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivitySuggestionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivitySuggestionDto"
               }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -815,7 +790,7 @@
         }
       }
     },
-    "/suggestions/placement": {
+    "/api/ActivitySuggestion/placement": {
       "post": {
         "tags": [
           "ActivitySuggestion"
@@ -846,7 +821,7 @@
         }
       }
     },
-    "/suggestions/shifted": {
+    "/api/ActivitySuggestion/shifted": {
       "post": {
         "tags": [
           "ActivitySuggestion"
@@ -877,7 +852,7 @@
         }
       }
     },
-    "/suggesstions/apply-shifted": {
+    "/api/ActivitySuggestion/apply-shifted": {
       "post": {
         "tags": [
           "ActivitySuggestion"
@@ -908,7 +883,7 @@
         }
       }
     },
-    "/surprise-me": {
+    "/api/ActivitySuggestion/surprise-me": {
       "post": {
         "tags": [
           "ActivitySuggestion"

@@ -6,6 +6,15 @@ import OnlineActivityListItem from "../components/onlineActivity_components/Onli
 import type { OnlineActivity } from "../components/onlineActivity_components/OnlineActivityListItem";
 import { useAuth } from "../components/AuthContext";
 import OnlineActivityInviteModal from "../components/onlineActivity_components/OnlineActivityInviteModal";
+import SentInvitationsList from "../components/onlineActivity_components/SentInvitationsList";
+import ParticipantsList from "../components/onlineActivity_components/ParticipantsList";
+import ReceivedInvitationsList from "../components/onlineActivity_components/ReceivedInvitationsList";
+import ParticipatingActivitiesList from "../components/onlineActivity_components/ParticipatingActivitiesList";
+import JoinByCodePanel from "../components/onlineActivity_components/JoinByCodePanel";
+
+
+
+
 
 const OnlineActivitiesPage: React.FC = () => {
   const { user } = useAuth();
@@ -80,38 +89,34 @@ const OnlineActivitiesPage: React.FC = () => {
             </Panel>
 
             {/* Panel 2 — Placeholder */}
-            <Panel title="(Reserved)">
-              <div>This panel is reserved for future features.</div>
+            <Panel title="Online activities you participate in">
+                <ParticipatingActivitiesList />
             </Panel>
 
             {/* Panel 3 — Participants placeholder */}
             <Panel title="Participants" small>
-              {!selectedActivity ? (
-                <div>Select an activity to view participants.</div>
-              ) : (
-                <div>
-                  <div className="font-semibold mb-2">
-                    Activity: {selectedActivity.title}
-                  </div>
-                  (Participants will be fetched here)
-                </div>
-              )}
+              <ParticipantsList activityId={selectedActivity?.activityId ?? null} />
             </Panel>
 
           </div>
 
           {/* BOTTOM PANELS */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
 
             <Panel title="Received Invitations" small>
-              <div>(Future feature)</div>
+              <ReceivedInvitationsList />
             </Panel>
 
-            <Panel title="Sent Invitations" small>
-              <div>(Future feature)</div>
-            </Panel>
+          <Panel title="Sent Invitations" small>
+            <SentInvitationsList activityId={selectedActivity?.activityId ?? null} />
+          </Panel>
+
+                        <Panel title="Join Activity via Code" small>
+            <JoinByCodePanel onJoined={() => fetchActivities()} />
+          </Panel>
 
           </div>
+
 
         </div>
 

@@ -4,11 +4,11 @@ import { useAuth } from "../AuthContext";
 import Avatar from "../../components/social_components/Avatar";
 
 interface UserPreview {
-  userId: number;
-  fullName: string;
-  email?: string;
-  profileImageUrl?: string;
-  backgroundImageUrl?: string;
+  friendId: number;
+  friendFullName: string;
+  friendEmail?: string;
+  friendImage?: string;
+  friendBackground?: string;
   synopsis?: string;
 }
 
@@ -69,8 +69,8 @@ useEffect(() => {
 
   setFiltered(
     friends.filter((f) => {
-      const name = f.fullName?.toLowerCase() ?? "";
-      const email = f.email?.toLowerCase() ?? "";
+      const name = f.friendFullName?.toLowerCase() ?? "";
+      const email = f.friendEmail?.toLowerCase() ?? "";
       return name.includes(s) || email.includes(s);
     })
   );
@@ -129,21 +129,21 @@ useEffect(() => {
           <div className="flex flex-col gap-2">
             {filtered.map((f) => (
               <div
-                key={f.userId}
+                key={f.friendId}
                 className="relative group rounded-lg px-2 py-2 flex items-center justify-between hover:bg-white/10 transition"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <Avatar
-                    src={f.profileImageUrl}
+                    src={f.friendImage}
                     size={36}
                   />
                   <div className="min-w-0">
                     <div className="font-medium truncate">
-                      {f.fullName}
+                      {f.friendFullName}
                     </div>
-                    {f.email && (
+                    {f.friendEmail && (
                       <div className="text-xs opacity-70 truncate">
-                        {f.email}
+                        {f.friendEmail}
                       </div>
                     )}
                   </div>
@@ -153,7 +153,7 @@ useEffect(() => {
                 <button
                   className="opacity-80 hover:opacity-100"
                   title="Invite to activity"
-                  onClick={() => sendInvite(f.userId)}
+                  onClick={() => sendInvite(f.friendId)}
                 >
                   <UserPlus size={18} />
                 </button>

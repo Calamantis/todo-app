@@ -25,7 +25,7 @@ namespace todo_backend.Services.UserFriendActions
                 .Where(f => f.Status == "accepted" && (f.UserId == userId || f.FriendId == userId))
                 .Select(f => new FriendshipDto
                 {
-                    FriendId = f.UserId,
+                    FriendId = f.UserId == userId ? f.FriendId : f.UserId,
                     FriendsSince = f.FriendsSince,
                     // jeśli ja jestem UserId, to znajomym jest FriendId, w przeciwnym razie odwrotnie
                     FriendFullName = f.UserId == userId ? f.Friend.FullName : f.User.FullName,

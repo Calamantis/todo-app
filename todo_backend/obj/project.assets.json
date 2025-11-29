@@ -5513,23 +5513,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\2paci\\.nuget\\packages\\": {},
+    "C:\\Users\\Calamantis\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Inzynierka\\todo-app\\todo_backend\\todo_backend.csproj",
+      "projectUniqueName": "H:\\todo_application\\todo_backend\\todo_backend.csproj",
       "projectName": "todo_backend",
-      "projectPath": "D:\\Inzynierka\\todo-app\\todo_backend\\todo_backend.csproj",
-      "packagesPath": "C:\\Users\\2paci\\.nuget\\packages\\",
-      "outputPath": "D:\\Inzynierka\\todo-app\\todo_backend\\obj\\",
+      "projectPath": "H:\\todo_application\\todo_backend\\todo_backend.csproj",
+      "packagesPath": "C:\\Users\\Calamantis\\.nuget\\packages\\",
+      "outputPath": "H:\\todo_application\\todo_backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\2paci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Calamantis\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

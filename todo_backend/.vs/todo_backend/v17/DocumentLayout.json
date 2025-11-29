@@ -1,161 +1,165 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Inzynierka\\todo-app\\todo_backend\\",
+  "WorkspaceRootPath": "H:\\todo_application\\todo_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\activityservice\\activityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityservice\\activityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\timelineservice\\timelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\timelineservice\\timelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\activityinstanceservice\\activityinstanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityinstanceservice\\activityinstanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\activityinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\activityinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\instanceexclusionservice\\instanceexclusionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\instanceexclusionservice\\instanceexclusionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\instanceexclusion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\instanceexclusion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\activityrecurrenceruleservice\\activityrecurrenceruleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityrecurrenceruleservice\\activityrecurrenceruleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\activityrecurrencerule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\activityrecurrencerule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\controllers\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\activityservice\\iactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityservice\\iactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\categoryservice\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\categoryservice\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\activitymemberservice\\activitymemberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activitymemberservice\\activitymemberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activitymemberservice\\activitymemberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\activitydto\\activityresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\activitydto\\activityresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\activitymemberdto\\activityinvitedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\activitymemberdto\\activityinvitedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\activity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\activity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activityinstanceservice\\activityinstanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityinstanceservice\\activityinstanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\user\\updateallowtimelinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\user\\updateallowtimelinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\activityinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\activityinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\controllers\\useraccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\useraccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\useraccountservice\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\useraccountservice\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\useraccountservice\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\useraccountservice\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\category\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\category\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\categoryservice\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\categoryservice\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\controllers\\timelinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\timelinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\activityinstance\\activityinstancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\activityinstance\\activityinstancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\userfriendactions\\userfriendactionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\userfriendactions\\userfriendactionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\userfriendactions\\userfriendactionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\controllers\\blockeduserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activityservice\\activityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityservice\\activityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\timelineservice\\timelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\timelineservice\\timelineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\instanceexclusionservice\\instanceexclusionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\instanceexclusionservice\\instanceexclusionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\instanceexclusion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\instanceexclusion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activityrecurrenceruleservice\\activityrecurrenceruleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityrecurrenceruleservice\\activityrecurrenceruleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\activityrecurrencerule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\activityrecurrencerule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\activityservice\\iactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\activityservice\\iactivityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\categoryservice\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\categoryservice\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\activitydto\\activityresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\activitydto\\activityresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\activity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\activity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\user\\updateallowtimelinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\user\\updateallowtimelinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\useraccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\useraccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\useraccountservice\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\useraccountservice\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\useraccountservice\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\useraccountservice\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\category\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\category\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\categoryservice\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\categoryservice\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\timelinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\timelinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\activityinstance\\activityinstancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\activityinstance\\activityinstancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\controllers\\blockeduserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:controllers\\blockeduserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\blockedusersservice\\blockedusersservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\blockedusersservice\\blockedusersservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\blockedusersservice\\blockedusersservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\blockedusersdto\\blockedusersdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\blockedusersdto\\blockedusersdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\blockedusersdto\\blockedusersdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\userfriendactions\\iuserfriendactionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\userfriendactions\\iuserfriendactionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\userfriendactions\\iuserfriendactionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\friendship\\friendshipdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\friendship\\friendshipdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\friendship\\friendshipdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\user\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\user\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\user\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\user\\updateuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\user\\updateuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\user\\updateuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\user\\userprofileresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\user\\userprofileresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\user\\userprofileresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\dtos\\statistics\\statisticsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\dtos\\statistics\\statisticsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:dtos\\statistics\\statisticsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\services\\statisticservice\\statisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\services\\statisticservice\\statisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:services\\statisticservice\\statisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|d:\\inzynierka\\todo-app\\todo_backend\\models\\blockedusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|h:\\todo_application\\todo_backend\\models\\blockedusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BF5120A-E10B-0E24-BAAF-56F5B042691C}|todo_backend.csproj|solutionrelative:models\\blockedusers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -166,39 +170,54 @@
       "DocumentGroups": [
         {
           "DockedWidth": 813,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 12,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ActivityInviteDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\ActivityMemberDto\\ActivityInviteDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\ActivityMemberDto\\ActivityInviteDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\ActivityMemberDto\\ActivityInviteDto.cs",
+              "RelativeToolTip": "Dtos\\ActivityMemberDto\\ActivityInviteDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T13:03:34.654Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "ActivityInstance.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\ActivityInstance.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\ActivityInstance.cs",
               "RelativeDocumentMoniker": "Models\\ActivityInstance.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\ActivityInstance.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\ActivityInstance.cs",
               "RelativeToolTip": "Models\\ActivityInstance.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T16:23:55.86Z"
+              "WhenOpened": "2025-11-26T16:23:55.86Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "ActivityInstanceService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityInstanceService\\ActivityInstanceService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivityInstanceService\\ActivityInstanceService.cs",
               "RelativeDocumentMoniker": "Services\\ActivityInstanceService\\ActivityInstanceService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityInstanceService\\ActivityInstanceService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivityInstanceService\\ActivityInstanceService.cs",
               "RelativeToolTip": "Services\\ActivityInstanceService\\ActivityInstanceService.cs",
               "ViewState": "AgIAAGYAAAAAAAAAAAAEwHcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T16:21:56.174Z"
+              "WhenOpened": "2025-11-26T16:21:56.174Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "ActivityRecurrenceRule.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\ActivityRecurrenceRule.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\ActivityRecurrenceRule.cs",
               "RelativeDocumentMoniker": "Models\\ActivityRecurrenceRule.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\ActivityRecurrenceRule.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\ActivityRecurrenceRule.cs",
               "RelativeToolTip": "Models\\ActivityRecurrenceRule.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -206,11 +225,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "ActivityRecurrenceRuleService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityRecurrenceRuleService\\ActivityRecurrenceRuleService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivityRecurrenceRuleService\\ActivityRecurrenceRuleService.cs",
               "RelativeDocumentMoniker": "Services\\ActivityRecurrenceRuleService\\ActivityRecurrenceRuleService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityRecurrenceRuleService\\ActivityRecurrenceRuleService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivityRecurrenceRuleService\\ActivityRecurrenceRuleService.cs",
               "RelativeToolTip": "Services\\ActivityRecurrenceRuleService\\ActivityRecurrenceRuleService.cs",
               "ViewState": "AgIAALAAAAAAAAAAAAAswNAAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -218,11 +237,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "IActivityService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityService\\IActivityService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivityService\\IActivityService.cs",
               "RelativeDocumentMoniker": "Services\\ActivityService\\IActivityService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityService\\IActivityService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivityService\\IActivityService.cs",
               "RelativeToolTip": "Services\\ActivityService\\IActivityService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -230,11 +249,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "ActivityController.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\ActivityController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\ActivityController.cs",
               "RelativeDocumentMoniker": "Controllers\\ActivityController.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\ActivityController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\ActivityController.cs",
               "RelativeToolTip": "Controllers\\ActivityController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAADwv4YAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -242,11 +261,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "Activity.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\Activity.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\Activity.cs",
               "RelativeDocumentMoniker": "Models\\Activity.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\Activity.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\Activity.cs",
               "RelativeToolTip": "Models\\Activity.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAowCAAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -254,11 +273,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "TimelineService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
               "RelativeDocumentMoniker": "Services\\TimelineService\\TimelineService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\TimelineService\\TimelineService.cs",
               "RelativeToolTip": "Services\\TimelineService\\TimelineService.cs",
               "ViewState": "AgIAADcAAAAAAAAAAAAEwEsAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -266,24 +285,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "ActivityService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityService\\ActivityService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivityService\\ActivityService.cs",
               "RelativeDocumentMoniker": "Services\\ActivityService\\ActivityService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityService\\ActivityService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivityService\\ActivityService.cs",
               "RelativeToolTip": "Services\\ActivityService\\ActivityService.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAIwB8AAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAIwBcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T11:15:20.206Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-26T11:15:20.206Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "InstanceExclusion.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\InstanceExclusion.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\InstanceExclusion.cs",
               "RelativeDocumentMoniker": "Models\\InstanceExclusion.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\InstanceExclusion.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\InstanceExclusion.cs",
               "RelativeToolTip": "Models\\InstanceExclusion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -291,11 +309,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "InstanceExclusionService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\InstanceExclusionService\\InstanceExclusionService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\InstanceExclusionService\\InstanceExclusionService.cs",
               "RelativeDocumentMoniker": "Services\\InstanceExclusionService\\InstanceExclusionService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\InstanceExclusionService\\InstanceExclusionService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\InstanceExclusionService\\InstanceExclusionService.cs",
               "RelativeToolTip": "Services\\InstanceExclusionService\\InstanceExclusionService.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAA9wCwAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -303,23 +321,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
               "Title": "ActivityMemberService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityMemberService\\ActivityMemberService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\ActivityMemberService\\ActivityMemberService.cs",
               "RelativeDocumentMoniker": "Services\\ActivityMemberService\\ActivityMemberService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\ActivityMemberService\\ActivityMemberService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\ActivityMemberService\\ActivityMemberService.cs",
               "RelativeToolTip": "Services\\ActivityMemberService\\ActivityMemberService.cs",
-              "ViewState": "AgIAAOUAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T12:28:57.076Z"
+              "WhenOpened": "2025-11-26T12:28:57.076Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "ICategoryService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\CategoryService\\ICategoryService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\CategoryService\\ICategoryService.cs",
               "RelativeDocumentMoniker": "Services\\CategoryService\\ICategoryService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\CategoryService\\ICategoryService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\CategoryService\\ICategoryService.cs",
               "RelativeToolTip": "Services\\CategoryService\\ICategoryService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -327,11 +346,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "CategoryDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\Category\\CategoryDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\Category\\CategoryDto.cs",
               "RelativeDocumentMoniker": "Dtos\\Category\\CategoryDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\Category\\CategoryDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\Category\\CategoryDto.cs",
               "RelativeToolTip": "Dtos\\Category\\CategoryDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -339,11 +358,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "ActivityInstanceDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
               "RelativeDocumentMoniker": "Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
               "RelativeToolTip": "Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -351,11 +370,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "User.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\User.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\User.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\User.cs",
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA5wBYAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -363,11 +382,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "UserAccountService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserAccountService\\UserAccountService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserAccountService\\UserAccountService.cs",
               "RelativeDocumentMoniker": "Services\\UserAccountService\\UserAccountService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserAccountService\\UserAccountService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\UserAccountService\\UserAccountService.cs",
               "RelativeToolTip": "Services\\UserAccountService\\UserAccountService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA4AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -375,11 +394,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "ActivityResponseDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\ActivityDto\\ActivityResponseDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\ActivityDto\\ActivityResponseDto.cs",
               "RelativeDocumentMoniker": "Dtos\\ActivityDto\\ActivityResponseDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\ActivityDto\\ActivityResponseDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\ActivityDto\\ActivityResponseDto.cs",
               "RelativeToolTip": "Dtos\\ActivityDto\\ActivityResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -387,11 +406,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "UpdateAllowTimelineDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UpdateAllowTimelineDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\User\\UpdateAllowTimelineDto.cs",
               "RelativeDocumentMoniker": "Dtos\\User\\UpdateAllowTimelineDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UpdateAllowTimelineDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\User\\UpdateAllowTimelineDto.cs",
               "RelativeToolTip": "Dtos\\User\\UpdateAllowTimelineDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -399,11 +418,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "IUserAccountService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserAccountService\\IUserAccountService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserAccountService\\IUserAccountService.cs",
               "RelativeDocumentMoniker": "Services\\UserAccountService\\IUserAccountService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserAccountService\\IUserAccountService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\UserAccountService\\IUserAccountService.cs",
               "RelativeToolTip": "Services\\UserAccountService\\IUserAccountService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -411,11 +430,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "UserAccountController.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\UserAccountController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\UserAccountController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserAccountController.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\UserAccountController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\UserAccountController.cs",
               "RelativeToolTip": "Controllers\\UserAccountController.cs",
               "ViewState": "AgIAAD4AAAAAAAAAAAAQwEwAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -423,23 +442,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\appsettings.json",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\appsettings.json",
+              "ToolTip": "H:\\todo_application\\todo_backend\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-20T20:19:59.096Z"
+              "WhenOpened": "2025-11-20T20:19:59.096Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "CategoryService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\CategoryService\\CategoryService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\CategoryService\\CategoryService.cs",
               "RelativeDocumentMoniker": "Services\\CategoryService\\CategoryService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\CategoryService\\CategoryService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\CategoryService\\CategoryService.cs",
               "RelativeToolTip": "Services\\CategoryService\\CategoryService.cs",
               "ViewState": "AgIAAEsAAAAAAAAAAAAAAFUAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -447,11 +467,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "CategoryController.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\CategoryController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoryController.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\CategoryController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\CategoryController.cs",
               "RelativeToolTip": "Controllers\\CategoryController.cs",
               "ViewState": "AgIAADcAAAAAAAAAAAAcwFQAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -459,11 +479,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "Category.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\Category.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\Category.cs",
               "RelativeDocumentMoniker": "Models\\Category.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\Category.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\Category.cs",
               "RelativeToolTip": "Models\\Category.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -471,11 +491,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "TimelineController.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\TimelineController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\TimelineController.cs",
               "RelativeDocumentMoniker": "Controllers\\TimelineController.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\TimelineController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\TimelineController.cs",
               "RelativeToolTip": "Controllers\\TimelineController.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAACUAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -483,11 +503,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "BlockedUsersController.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\BlockedUsersController.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Controllers\\BlockedUsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\BlockedUsersController.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Controllers\\BlockedUsersController.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Controllers\\BlockedUsersController.cs",
               "RelativeToolTip": "Controllers\\BlockedUsersController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -495,11 +515,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "FriendshipDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\Friendship\\FriendshipDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\Friendship\\FriendshipDto.cs",
               "RelativeDocumentMoniker": "Dtos\\Friendship\\FriendshipDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\Friendship\\FriendshipDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\Friendship\\FriendshipDto.cs",
               "RelativeToolTip": "Dtos\\Friendship\\FriendshipDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -507,11 +527,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "IUserFriendActionsService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserFriendActions\\IUserFriendActionsService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserFriendActions\\IUserFriendActionsService.cs",
               "RelativeDocumentMoniker": "Services\\UserFriendActions\\IUserFriendActionsService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserFriendActions\\IUserFriendActionsService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\UserFriendActions\\IUserFriendActionsService.cs",
               "RelativeToolTip": "Services\\UserFriendActions\\IUserFriendActionsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -519,11 +539,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "UserResponseDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UserResponseDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\User\\UserResponseDto.cs",
               "RelativeDocumentMoniker": "Dtos\\User\\UserResponseDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UserResponseDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\User\\UserResponseDto.cs",
               "RelativeToolTip": "Dtos\\User\\UserResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -531,11 +551,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "BlockedUsersDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
               "RelativeDocumentMoniker": "Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
               "RelativeToolTip": "Dtos\\BlockedUsersDto\\BlockedUsersDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -543,11 +563,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "BlockedUsers.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\BlockedUsers.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Models\\BlockedUsers.cs",
               "RelativeDocumentMoniker": "Models\\BlockedUsers.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Models\\BlockedUsers.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Models\\BlockedUsers.cs",
               "RelativeToolTip": "Models\\BlockedUsers.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -555,11 +575,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "BlockedUsersService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\BlockedUsersService\\BlockedUsersService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\BlockedUsersService\\BlockedUsersService.cs",
               "RelativeDocumentMoniker": "Services\\BlockedUsersService\\BlockedUsersService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\BlockedUsersService\\BlockedUsersService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\BlockedUsersService\\BlockedUsersService.cs",
               "RelativeToolTip": "Services\\BlockedUsersService\\BlockedUsersService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAEUAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -567,23 +587,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 4,
               "Title": "UserFriendActionsService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserFriendActions\\UserFriendActionsService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\UserFriendActions\\UserFriendActionsService.cs",
               "RelativeDocumentMoniker": "Services\\UserFriendActions\\UserFriendActionsService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\UserFriendActions\\UserFriendActionsService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\UserFriendActions\\UserFriendActionsService.cs",
               "RelativeToolTip": "Services\\UserFriendActions\\UserFriendActionsService.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T13:41:35.974Z"
+              "WhenOpened": "2025-11-24T13:41:35.974Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "StatisticsDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\Statistics\\StatisticsDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\Statistics\\StatisticsDto.cs",
               "RelativeDocumentMoniker": "Dtos\\Statistics\\StatisticsDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\Statistics\\StatisticsDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\Statistics\\StatisticsDto.cs",
               "RelativeToolTip": "Dtos\\Statistics\\StatisticsDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -591,11 +612,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "StatisticService.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\StatisticService\\StatisticService.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Services\\StatisticService\\StatisticService.cs",
               "RelativeDocumentMoniker": "Services\\StatisticService\\StatisticService.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Services\\StatisticService\\StatisticService.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Services\\StatisticService\\StatisticService.cs",
               "RelativeToolTip": "Services\\StatisticService\\StatisticService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAiwCoAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -603,11 +624,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "UpdateUserDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UpdateUserDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\User\\UpdateUserDto.cs",
               "RelativeDocumentMoniker": "Dtos\\User\\UpdateUserDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UpdateUserDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\User\\UpdateUserDto.cs",
               "RelativeToolTip": "Dtos\\User\\UpdateUserDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -615,11 +636,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "UserProfileResponseDto.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UserProfileResponseDto.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Dtos\\User\\UserProfileResponseDto.cs",
               "RelativeDocumentMoniker": "Dtos\\User\\UserProfileResponseDto.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Dtos\\User\\UserProfileResponseDto.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Dtos\\User\\UserProfileResponseDto.cs",
               "RelativeToolTip": "Dtos\\User\\UserProfileResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -627,11 +648,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Inzynierka\\todo-app\\todo_backend\\Program.cs",
+              "DocumentMoniker": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Inzynierka\\todo-app\\todo_backend\\Program.cs",
+              "ToolTip": "H:\\todo_application\\todo_backend\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAIIAAAAAAAAAAAAAAJYAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

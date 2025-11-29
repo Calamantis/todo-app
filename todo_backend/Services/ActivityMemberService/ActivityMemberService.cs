@@ -26,6 +26,9 @@ namespace todo_backend.Services.ActivityMembersService
                     ActivityTitle = am.Activity.Title,
                     InvitedUserId = am.Activity.OwnerId,
                     FullName = am.Activity.Owner.FullName,
+                    Email = am.Activity.Owner.Email,
+                    ProfileImage = am.Activity.Owner.ProfileImageUrl,
+                    BackgroundImage = am.Activity.Owner.ProfileImageUrl,
                     Status = am.Status,
                     Role = "participant"
                 })
@@ -66,6 +69,9 @@ namespace todo_backend.Services.ActivityMembersService
                     ActivityTitle = am.Activity.Title,
                     InvitedUserId = am.Activity.OwnerId,
                     FullName = am.Activity.Owner.FullName,
+                    Email = am.Activity.Owner.Email,
+                    ProfileImage = am.Activity.Owner.ProfileImageUrl,
+                    BackgroundImage = am.Activity.Owner.ProfileImageUrl,
                     Status = am.Status,
                     Role = "participant"
                 })
@@ -105,6 +111,9 @@ namespace todo_backend.Services.ActivityMembersService
                     ActivityTitle = am.Activity.Title,
                     InvitedUserId = am.UserId,
                     FullName = am.User.FullName,
+                    Email = am.User.Email,
+                    ProfileImage = am.User.ProfileImageUrl,
+                    BackgroundImage = am.User.BackgroundImageUrl,
                     Status = am.Status,
                     Role = am.Role
                 })
@@ -155,6 +164,9 @@ namespace todo_backend.Services.ActivityMembersService
                     ActivityTitle = am.Activity.Title,
                     InvitedUserId = am.UserId,
                     FullName = am.User.FullName,
+                    Email = am.User.Email,
+                    ProfileImage = am.User.ProfileImageUrl,
+                    BackgroundImage = am.User.BackgroundImageUrl,
                     Status = am.Status,
                     Role = am.Role
                 })
@@ -242,7 +254,13 @@ namespace todo_backend.Services.ActivityMembersService
 
             // sprawdź czy owner -> friend jest znajomym
             bool areFriends = await _context.Friendships
-                .AnyAsync(f => f.UserId == ownerId && f.FriendId == friendId && f.Status == "accepted");
+                .AnyAsync(f =>
+                    f.Status == "accepted" &&
+                    (
+                        (f.UserId == ownerId && f.FriendId == friendId) ||
+                        (f.UserId == friendId && f.FriendId == ownerId)
+                    )
+                );
 
             if (!areFriends) return false;
 

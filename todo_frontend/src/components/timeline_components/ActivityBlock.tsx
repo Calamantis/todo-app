@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../AuthContext";
+import ActivityDetailsModal from "./ActivityDetailsModal";
 
 // Interfejs dla aktywności
 interface Activity {
@@ -19,11 +19,8 @@ interface ActivityBlockProps {
 
 const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   const { occurrenceDate, startTime, endTime, categoryName, categoryColorHex } = activity;
+  const [modalOpen, setModalOpen] = useState(false);
   // const { user } = useAuth();
-
-  //stan dla szczegółów z hovera
-  // const [activityDetails, setActivityDetails] = useState<{ title: string; description: string } | null>(null);
-  // const [isHovered, setIsHovered] = useState(false); // Do obsługi stanu hover
 
   // Parsowanie daty i godziny
   const datePart = occurrenceDate.split("T")[0]; // Wyciągamy tylko datę (np. "2025-11-24")
@@ -48,38 +45,10 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   let height = duration; // Wysokość aktywności zależna od czasu trwania
   if (height < 40) height = 40;
 
-   // Funkcja wywoływana na hoverze
-   const handleMouseEnter = async () => {
-  //     setIsHovered(true);
-      console.log(`Hovering over activity ${activity.instanceId}`);
-      
-  //     // Wykonaj zapytanie do API, aby pobrać tytuł i opis aktywności
-  //     try {
-  //       const response = await fetch(`/api/Activity/get-activity-by-id?activityId=${activity.activityId}`,
-  //       {
-  //           method: "GET",
-  //           headers: {
-  //             Authorization: `Bearer ${user!.token}`,
-  //           },
-  //         }
-  //       );
-  //       const data = await response.json();
-  //       // Ustaw dane w stanie
-  //       if (response.ok) {
-  //         setActivityDetails({ title: data.title, description: data.description });
-  //       } else {
-  //         setActivityDetails(null); // W razie błędu ustawiamy null
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching activity details:", error);
-  //       setActivityDetails(null); // W razie błędu ustawiamy null
-  //     }
- };
-
   // Funkcja wywoływana po kliknięciu
   const handleClick = () => {
     console.log(`Clicked on activity ${activity.instanceId}`);
-    // Tutaj można dodać kod do otwierania modala
+    setModalOpen(true);
   };
 
   // Tworzymy datę dla wyświetlenia dnia tygodnia
@@ -92,6 +61,7 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   })}`;
 
   return (
+    <>
     <div
       className="absolute rounded-md text-xs sm:text-sm text-center px-2 py-1 overflow-hidden shadow-md border border-gray-700"
       style={{
@@ -101,7 +71,6 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
         width: `${100 / 7}%`,
         backgroundColor: categoryColorHex || "#3b82f6",
       }}
-      onMouseEnter={handleMouseEnter} // Obsługa hovera
       onClick={handleClick} // Obsługa kliknięcia
     >
       <div className="font-semibold truncate">{categoryName || "Unknown Activity"}</div>
@@ -113,6 +82,15 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
       </div>
       <div className="text-[10px] opacity-80 mt-1">{formattedDate}</div> {/* Dodana data obok dnia tygodnia */}
     </div>
+
+      {modalOpen && (
+        <ActivityDetailsModal 
+          instance={activity}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
+
+    </>
   );
 };
 

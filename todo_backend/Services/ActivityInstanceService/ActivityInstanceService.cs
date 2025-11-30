@@ -275,7 +275,7 @@ namespace todo_backend.Services.ActivityInstanceService
             var now = DateTime.Now;
 
             // 1) PRZYSZŁA INSTANCJA + MA REGUŁĘ?
-            if (instance.OccurrenceDate > now && instance.RecurrenceRuleId.HasValue)
+            if (instance.RecurrenceRuleId.HasValue)
             {
                 // ➜ Dodajemy rekord exclusion zamiast usuwać instancję
                 var exclusion = new InstanceExclusion
@@ -289,6 +289,7 @@ namespace todo_backend.Services.ActivityInstanceService
                 };
 
                 _context.InstanceExclusions.Add(exclusion);
+                _context.ActivityInstances.RemoveRange(instance);
 
                 // Instancji NIE usuwamy — generator będzie wiedział, aby jej nie utworzyć
             }

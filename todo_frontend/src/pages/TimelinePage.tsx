@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "../components/AuthContext";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Activity, ArrowLeft, ArrowRight } from "lucide-react";
 import ActivityBlock from "../components/timeline_components/ActivityBlock";
 import NavigationWrapper from "../components/NavigationWrapper";
 import Footer from "../components/Footer";
 
 import ActivitySuggestionForm from "../components/activitySuggestion_components/ActivitySuggestionForm";
 import ActivitySuggestionModal from "../components/activitySuggestion_components/ActivitySuggestionModal";
+
+import PlacementForm from "../components/activitySuggestion_components/PlacementForm";
+import ActivityPlacementModal from "../components/activitySuggestion_components/ActivityPlacementModal";
+
+import ShiftedPlacementForm from "../components/activitySuggestion_components/ShiftedPlacementForm";
+import ShiftedPlacementModal from "../components/activitySuggestion_components/ShiftedPlacementModal";
 
 // Helper: Oblicz daty dla danego tygodnia (od poniedziałku do niedzieli)
 const getWeekDates = (date: Date) => {
@@ -36,6 +42,17 @@ const TimelinePage: React.FC = () => {
   const [showSuggestionsModal, setShowSuggestionsModal] = useState(false);
   const [suggestionStart, setSuggestionStart] = useState("");
   const [suggestionEnd, setSuggestionEnd] = useState("");
+
+  const [placementResults, setPlacementResults] = useState<any[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activityId, setActivityId] = useState<number | null>(null);
+  const [isRecurring, setRecurring] = useState<boolean>(false);
+
+  const [shiftedResults, setShiftedResults] = useState<any[]>([]);
+  const [shiftedOpen, setShiftedOpen] = useState(false);
+  const [shiftActivityId, setShiftActivityId] = useState<number | null>(null);
+  const [shiftRecurring, setShiftRecurring] = useState(false);
+
 
   // Wybór daty: początek i koniec tygodnia
   const { startOfWeek, endOfWeek } = useMemo(() => getWeekDates(currentWeekStart), [currentWeekStart]);
@@ -144,6 +161,24 @@ const TimelinePage: React.FC = () => {
                 />
 
 
+                  <PlacementForm
+                    onResults={(results, actId, isRecurring) => {
+                      setPlacementResults(results);
+                      setActivityId(actId);
+                      setRecurring(isRecurring);
+                      setModalOpen(true);
+                    }}
+                  />
+
+                  <ShiftedPlacementForm
+                    onResults={(results, actId, recurring) => {
+                      setShiftedResults(results);
+                      setShiftActivityId(actId);
+                      setShiftRecurring(recurring);
+                      setShiftedOpen(true);
+                    }}
+                  />
+
                 {/* Siatka godzin */}
                 <div className="grid grid-cols-8 relative w-full">
                   <div className="flex flex-col border-r border-[var(--background-color)] text-right text-gray-400 text-xs sm:text-sm">
@@ -184,6 +219,23 @@ const TimelinePage: React.FC = () => {
               />
             )}
 
+              {modalOpen && activityId !== null && (
+                <ActivityPlacementModal
+                  activityId={activityId}
+                  results={placementResults}
+                  isRecurring={isRecurring}
+                  onClose={() => setModalOpen(false)}
+                />
+              )}
+
+              {shiftedOpen && shiftActivityId !== null && (
+                <ShiftedPlacementModal
+                  activityId={shiftActivityId}
+                  results={shiftedResults}
+                  isRecurring={shiftRecurring}
+                  onClose={() => setShiftedOpen(false)}
+                />
+              )}
 
         </div>
       <Footer/>            

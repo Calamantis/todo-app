@@ -198,8 +198,7 @@
               "RelativeToolTip": "Services\\ActivitySuggestionService\\ActivitySuggestionService.cs",
               "ViewState": "AgIAAFcCAAAAAAAAAAAAAFMCAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-29T20:17:57.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T20:17:57.009Z"
             },
             {
               "$type": "Document",
@@ -211,8 +210,7 @@
               "RelativeToolTip": "Controllers\\ActivityInstanceController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-29T20:12:38.947Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T20:12:38.947Z"
             },
             {
               "$type": "Document",
@@ -237,8 +235,7 @@
               "RelativeToolTip": "Controllers\\ActivityRecurrenceRuleController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-29T16:13:43.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T16:13:43.128Z"
             },
             {
               "$type": "Document",
@@ -250,8 +247,7 @@
               "RelativeToolTip": "Controllers\\ActivitySuggestionController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-29T16:13:34.23Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T16:13:34.23Z"
             },
             {
               "$type": "Document",
@@ -263,8 +259,7 @@
               "RelativeToolTip": "Dtos\\ActivityMemberDto\\ActivityInviteDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-29T13:03:34.654Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T13:03:34.654Z"
             },
             {
               "$type": "Document",
@@ -276,8 +271,7 @@
               "RelativeToolTip": "Models\\ActivityInstance.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T16:23:55.86Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-26T16:23:55.86Z"
             },
             {
               "$type": "Document",
@@ -337,8 +331,7 @@
               "RelativeToolTip": "Models\\Activity.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAowCAAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T12:36:45.431Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-26T12:36:45.431Z"
             },
             {
               "$type": "Document",
@@ -350,8 +343,7 @@
               "RelativeToolTip": "Services\\TimelineService\\TimelineService.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACgAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T20:09:41.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T20:09:41.76Z"
             },
             {
               "$type": "Document",
@@ -363,8 +355,7 @@
               "RelativeToolTip": "Services\\ActivityService\\ActivityService.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAAAGUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T11:15:20.206Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-26T11:15:20.206Z"
             },
             {
               "$type": "Document",
@@ -400,8 +391,7 @@
               "RelativeToolTip": "Services\\ActivityMemberService\\ActivityMemberService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T12:28:57.076Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-26T12:28:57.076Z"
             },
             {
               "$type": "Document",
@@ -437,8 +427,7 @@
               "RelativeToolTip": "Dtos\\ActivityInstance\\ActivityInstanceDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T20:11:38.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T20:11:38.249Z"
             },
             {
               "$type": "Document",

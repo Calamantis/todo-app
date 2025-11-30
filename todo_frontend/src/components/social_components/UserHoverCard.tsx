@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "./Avatar";
+import FriendTimelineModal from "./FriendTimelineModal";
+import OnlineActivityInviteSingleModal from "./OnlineActivityInviteSingleModal";
 import {
   UserPlus,
   UserMinus,
@@ -22,6 +24,10 @@ const UserHoverCard: React.FC<{
   onClose?: () => void;
   onAction?: () => void;
 }> = ({ user, variant, modal = false, onClose, onAction }) => {
+
+  const [timelineModalOpen, setTimelineModalOpen] = useState(false);
+  const [inviteModalOpen, setInviteModalOpen] = useState(false);
+
 
   // ===== AUTH & USERID =====
   const { user: auth } = useAuth();
@@ -127,13 +133,21 @@ const UserHoverCard: React.FC<{
             {/* FRIEND */}
             {variant === "friend" && (
               <>
-                <button className="hover:text-white" title="View timeline">
+                <button
+                  onClick={() => setTimelineModalOpen(true)}
+                  className="hover:text-white"
+                  title="View timeline"
+                >
                   <Eye size={18} />
                 </button>
 
-                <button className="hover:text-white" title="Invite to activity">
+                <button
+                  onClick={() => setInviteModalOpen(true)}
+                  className="hover:text-white"
+                >
                   <CalendarPlus size={18} />
                 </button>
+
 
                 <div className="mx-2 opacity-40">|</div>
 
@@ -221,6 +235,21 @@ const UserHoverCard: React.FC<{
                 </button>
               </>
             )}
+
+
+              {timelineModalOpen && (
+                <FriendTimelineModal
+                  userId={userId}
+                  onClose={() => setTimelineModalOpen(false)}
+                />
+              )}
+
+              {inviteModalOpen && (
+                <OnlineActivityInviteSingleModal
+                  friendId={userId}
+                  onClose={() => setInviteModalOpen(false)}
+                />
+              )}
 
           </div>
         </div>

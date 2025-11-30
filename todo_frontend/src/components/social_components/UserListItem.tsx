@@ -4,6 +4,11 @@ import UserHoverCard from "./UserHoverCard";
 //import UserModal from "./UserModal";
 import { socialApi } from "../../services/socialActions";
 import { useAuth } from "../AuthContext";
+
+import FriendTimelineModal from "../social_components/FriendTimelineModal";
+import OnlineActivityInviteSingleModal from "../social_components/OnlineActivityInviteSingleModal";
+
+
 import {
   UserPlus,
   UserMinus,
@@ -22,6 +27,9 @@ const UserListItem: React.FC<{
   onAction?: () => void;
 }> = ({ user, variant, compact, onAction }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const [inviteModalOpen, setInviteModalOpen] = useState(false);
+  const [timelineModalOpen, setTimelineModalOpen] = useState(false);
 
   const { user: auth } = useAuth();
   const token = auth?.token || "";
@@ -69,11 +77,28 @@ const UserListItem: React.FC<{
 
         {variant === "friend" && (
           <>
-            <button className="hover:opacity-100" title="View timeline">
+
+            <button
+              className="hover:opacity-100"
+              title="View timeline"
+              onClick={(e) => {
+                e.stopPropagation();
+                setTimelineModalOpen(true);
+              }}
+            >
               <Eye size={18} />
             </button>
 
-            <button className="hover:opacity-100" title="Invite to activity">
+
+
+            <button
+              className="hover:opacity-100"
+              title="Invite to activity"
+              onClick={(e) => {
+                e.stopPropagation();
+                setInviteModalOpen(true);
+              }}
+            >
               <CalendarPlus size={18} />
             </button>
 
@@ -193,6 +218,21 @@ const UserListItem: React.FC<{
             onClose={() => setMobileOpen(false)}
           />
         )}
+
+        {timelineModalOpen && (
+          <FriendTimelineModal
+            userId={userId}
+            onClose={() => setTimelineModalOpen(false)}
+          />
+        )}
+
+        {inviteModalOpen && (
+          <OnlineActivityInviteSingleModal
+            friendId={userId}
+            onClose={() => setInviteModalOpen(false)}
+          />
+        )}
+
 
     </div>
   );

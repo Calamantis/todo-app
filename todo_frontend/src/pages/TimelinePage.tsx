@@ -99,6 +99,51 @@ const TimelinePage: React.FC = () => {
     setCurrentWeekStart(newDate);
   };
 
+const getWeekEnd = (weekStart: Date) => {
+  const end = new Date(weekStart);
+  end.setDate(end.getDate() + 6);
+  return end;
+};
+
+const downloadWeekPdf = async () => {
+  if (!user) return;
+
+  const weekEnd = getWeekEnd(currentWeekStart);
+
+  // tutaj currentWeekEnd to Date (np. niedziela)
+  const weekEndIso = new Date(weekEnd)
+    .toISOString()
+    .substring(0, 10);
+
+  const url = `/api/Timeline/user/week-pdf?userId=${user.userId}&date=${weekEndIso}`;
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!res.ok) {
+    alert("Failed to download PDF.");
+    return;
+  }
+
+  const blob = await res.blob();
+  const fileURL = window.URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = fileURL;
+  link.download = `timeline_week_${weekEndIso}.pdf`;
+  link.click();
+
+  window.URL.revokeObjectURL(fileURL);
+};
+
+
+
+
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-primary text-white">
@@ -110,7 +155,16 @@ const TimelinePage: React.FC = () => {
   return (
     <div>
       <NavigationWrapper/>
+
         <div className="min-h-screen bg-[var(--background-color)] text-white p-6">
+
+        <button
+          onClick={downloadWeekPdf}
+          className="px-4 py-2 rounded bg-accent text-black font-semibold hover:opacity-80 transition"
+        >
+          Print current week to PDF
+        </button>
+
           <div className="flex justify-between items-center mb-6">
             <button
               onClick={() => changeWeek(-1)}

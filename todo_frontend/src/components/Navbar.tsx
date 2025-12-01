@@ -12,6 +12,8 @@ import {
   ChartColumn,
   LogOut,
   Users,
+  CalendarPlus,
+  Calendars
 } from "lucide-react";
 
 const Navbar: React.FC = () => {
@@ -56,6 +58,16 @@ const Navbar: React.FC = () => {
           <Link className="flex items-center gap-1 hover:text-blue-400" to="/notifications">
             <Bell size={20} />
             <span>Notifications</span>
+          </Link>
+
+          <Link className="flex items-center gap-1 hover:text-blue-400" to="/activity">
+            <CalendarPlus size={20} />
+            <span>Activity</span>
+          </Link>
+
+          <Link className="flex items-center gap-1 hover:text-blue-400" to="/online-activity">
+            <Calendars size={20} />
+            <span>Online activities</span>
           </Link>
 
           <Link className="flex items-center gap-1 hover:text-blue-400" to="/social">

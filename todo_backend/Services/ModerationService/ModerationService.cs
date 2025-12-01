@@ -10,8 +10,8 @@ namespace todo_backend.Services.ModerationService
         private readonly AppDbContext _context;
         private readonly ILogger<ModerationService> _logger;
 
-        private const string DefaultProfileImagePath = "\\TempImageTests\\DefaultProfileImage.png";
-        private const string DefaultBackgroundImagePath = "\\TempImageTests\\DefaultBgImage.jpg";
+        private const string DefaultProfileImagePath = "/UserProfileImages/DefaultProfileImage.jpg";
+        private const string DefaultBackgroundImagePath = "/UserProfileImages/DefaultBgImage.jpg";
 
         public ModerationService(AppDbContext context, ILogger<ModerationService> logger)
         {
@@ -25,7 +25,7 @@ namespace todo_backend.Services.ModerationService
 
             return users.Select(u => new ModeratedUserDto
             {
-                Id = u.UserId,
+                UserId = u.UserId,
                 Email = u.Email,
                 DisplayName = u.FullName,
                 Description = u.Synopsis,
@@ -107,18 +107,46 @@ namespace todo_backend.Services.ModerationService
             await _context.SaveChangesAsync();
         }
 
+        //public async Task<IEnumerable<ModeratedActivityDto>> GetAllActivitiesAsync()
+        //{
+        //    var activities = await _context.Activities.ToListAsync();
+
+        //    return activities.Select(a => new ModeratedActivityDto
+        //    {
+        //        ActivityId = a.ActivityId,
+        //        OwnerId = a.OwnerId,
+        //        Title = a.Title,
+        //        Description = a.Description,
+        //        IsRecurring = a.IsRecurring
+        //    });
+        //}
+
         public async Task<IEnumerable<ModeratedActivityDto>> GetAllActivitiesAsync()
         {
-            var activities = await _context.Activities.ToListAsync();
-
-            return activities.Select(a => new ModeratedActivityDto
+            return await (
+                from a in _context.Activities
+                join u in _context.Users on a.OwnerId equals u.UserId
+                select new
+                {
+                    Activity = a,
+                    OwnerEmail = u.Email,
+                    Instances = _context.ActivityInstances.Count(i => i.ActivityId == a.ActivityId)
+                }
+            )
+            .Select(x => new ModeratedActivityDto
             {
-                ActivityId = a.ActivityId,
-                OwnerId = a.OwnerId,
-                Title = a.Title,
-                Description = a.Description,
-                IsRecurring = a.IsRecurring
-            });
+                ActivityId = x.Activity.ActivityId,
+                OwnerId = x.Activity.OwnerId,
+                OwnerEmail = x.OwnerEmail,
+
+                Title = x.Activity.Title,
+                Description = x.Activity.Description,
+                IsRecurring = x.Activity.IsRecurring,
+
+                IsOnline = x.Activity.JoinCode != null || x.Activity.isFriendsOnly, // NEW
+                InstancesCount = x.Instances                                        // NEW
+            })
+            .ToListAsync();
         }
 
         public async Task UpdateActivityTitleAsync(int activityId, string value)

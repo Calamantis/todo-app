@@ -47,6 +47,11 @@ const LoginPage: React.FC = () => {
     login(token, role, userId);
 
     // Przekierowanie na stronę "timeline" po udanym logowaniu
+    if (role === 'Admin' || role === 'Moderator') {
+      navigate('/moderation-panel');
+      return;
+    }
+
     navigate('/timeline');
   } catch (err) {
     console.error(err);

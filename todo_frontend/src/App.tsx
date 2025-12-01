@@ -51,23 +51,21 @@ export default function App() {
         
 
         {/* user */}
-        <Route path="/timeline" element={<PrivateRoute element={<TimelinePage/>} role="User"/>} />
-        <Route path="/activity" element={<PrivateRoute element={<ActivityPage/>} role="User"/>} />
-        <Route path="/profile" element={<PrivateRoute element={<UserProfilePage />} role="User"/>}/>
-        <Route path="/statistics" element={<PrivateRoute element={<StatisticsPage />} role="User" />} /> 
-        <Route path="/social" element={<PrivateRoute element={<SocialPage />} role="User" />} /> 
-        <Route path="/online-activity" element={<PrivateRoute element={<OnlineActivitiesPage/>} role="User"/>} />
-        {/* <Route path="/activity-creator" element={<ActivityCreatorPage />} />
-        <Route path="/notification-creator" element={<NotificationCreatorPage />} />
-        <Route path="/statistics" element={<StatisticsPage/>} /> */}
+        <Route path="/timeline" element={<PrivateRoute element={<TimelinePage/>} allowedRoles={['User', 'Moderator', 'Admin']} />} />
+        <Route path="/activity" element={<PrivateRoute element={<ActivityPage/>} allowedRoles={['User', 'Moderator', 'Admin']}/>} />
+        <Route path="/profile" element={<PrivateRoute element={<UserProfilePage />} allowedRoles={['User', 'Moderator', 'Admin']} />}/>
+        <Route path="/statistics" element={<PrivateRoute element={<StatisticsPage />} allowedRoles={['User', 'Moderator', 'Admin']} />} /> 
+        <Route path="/social" element={<PrivateRoute element={<SocialPage />} allowedRoles={['User', 'Moderator', 'Admin']}/>} /> 
+        <Route path="/online-activity" element={<PrivateRoute element={<OnlineActivitiesPage/>} allowedRoles={['User', 'Moderator', 'Admin']}/>} />
+        <Route path="/activity" element={<PrivateRoute element={<ActivityPage/>} allowedRoles={['User', 'Moderator', 'Admin']}/>} />
 
         {/* moderator */} 
 
-        <Route path="/moderation-panel" element={<PrivateRoute element={<ModerationPanelPage/>} role="Moderator"/> } />
+        <Route path="/moderation-panel" element={<PrivateRoute element={<ModerationPanelPage/>} allowedRoles={['Moderator', 'Admin']} /> } />
 
         {/* admin */} 
 
-        <Route path="/administrative-panel" element={<PrivateRoute element={<AdminPanelPage/>} role="Admin" /> } />
+        <Route path="/administrative-panel" element={<PrivateRoute element={<AdminPanelPage/>} allowedRoles={['Admin']} /> } />
 
 
         {/* not found */} 

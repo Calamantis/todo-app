@@ -28,6 +28,7 @@ namespace todo_backend.Data
         public DbSet<ActivityInstance> ActivityInstances { get; set; }
         public DbSet<ActivityRecurrenceRule> ActivityRecurrenceRules { get; set; }
         public DbSet<InstanceExclusion> InstanceExclusions { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -181,6 +182,13 @@ namespace todo_backend.Data
                 .HasOne(r => r.User)
                 .WithMany(u => u.Notifications)
                 .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //Logi administracyjne
+            modelBuilder.Entity<AuditLog>()
+                .HasOne(e => e.User)
+                .WithMany() // lub .WithMany(u => u.AuditLogs) jeśli chcesz kolekcję
+                .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
         }

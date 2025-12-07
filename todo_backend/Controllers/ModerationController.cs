@@ -32,56 +32,95 @@ namespace todo_backend.Controllers
         [HttpPut("users/{userId:int}/profile-image")]
         public async Task<IActionResult> UpdateProfileImage(int userId, string newValue)
         {
-            await _moderationService.UpdateUserProfileImageAsync(userId, newValue);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+            await _moderationService.UpdateUserProfileImageAsync(moderatorId, userId, newValue);
             return NoContent();
         }
 
         [HttpDelete("users/{userId:int}/profile-image")]
         public async Task<IActionResult> ResetProfileImage(int userId)
         {
-            await _moderationService.ResetUserProfileImageAsync(userId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.ResetUserProfileImageAsync(moderatorId, userId);
             return NoContent();
         }
 
         [HttpPut("users/{userId:int}/background-image")]
         public async Task<IActionResult> UpdateBackgroundImage(int userId, string newValue)
         {
-            await _moderationService.UpdateUserBackgroundImageAsync(userId, newValue);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.UpdateUserBackgroundImageAsync(moderatorId, userId, newValue);
             return NoContent();
         }
 
         [HttpDelete("users/{userId:int}/background-image")]
         public async Task<IActionResult> ResetBackgroundImage(int userId)
         {
-            await _moderationService.ResetUserBackgroundImageAsync(userId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.ResetUserBackgroundImageAsync(moderatorId,userId);
             return NoContent();
         }
 
         [HttpPut("users/{userId:int}/display-name")]
         public async Task<IActionResult> UpdateDisplayName(int userId, string newValue)
         {
-            await _moderationService.UpdateUserDisplayNameAsync(userId, newValue);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.UpdateUserDisplayNameAsync(moderatorId, userId, newValue);
             return NoContent();
         }
 
         [HttpDelete("users/{userId:int}/display-name")]
         public async Task<IActionResult> ResetDisplayName(int userId)
         {
-            await _moderationService.ResetUserDisplayNameAsync(userId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.ResetUserDisplayNameAsync(moderatorId, userId);
             return NoContent();
         }
 
         [HttpPut("users/{userId:int}/description")]
         public async Task<IActionResult> UpdateDescription(int userId, string newValue)
         {
-            await _moderationService.UpdateUserDescriptionAsync(userId, newValue);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.UpdateUserDescriptionAsync(moderatorId, userId, newValue);
             return NoContent();
         }
 
         [HttpDelete("users/{userId:int}/description")]
         public async Task<IActionResult> ResetDescription(int userId)
         {
-            await _moderationService.ResetUserDescriptionAsync(userId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.ResetUserDescriptionAsync(moderatorId, userId);
             return NoContent();
         }
 
@@ -97,28 +136,48 @@ namespace todo_backend.Controllers
         [HttpPut("activities/{activityId:int}/title")]
         public async Task<IActionResult> UpdateActivityTitle(int activityId, string newValue)
         {
-            await _moderationService.UpdateActivityTitleAsync(activityId, newValue);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.UpdateActivityTitleAsync(moderatorId, activityId, newValue);
             return NoContent();
         }
 
         [HttpDelete("activities/{activityId:int}/title")]
         public async Task<IActionResult> ResetActivityTitle(int activityId)
         {
-            await _moderationService.ResetActivityTitleAsync(activityId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.ResetActivityTitleAsync(moderatorId, activityId);
             return NoContent();
         }
 
         [HttpPut("activities/{activityId:int}/description")]
         public async Task<IActionResult> UpdateActivityDescription(int activityId, string newValue)
         {
-            await _moderationService.UpdateActivityDescriptionAsync(activityId, newValue);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.UpdateActivityDescriptionAsync(moderatorId, activityId, newValue);
             return NoContent();
         }
 
         [HttpDelete("activities/{activityId:int}/description")]
         public async Task<IActionResult> ResetActivityDescription(int activityId)
         {
-            await _moderationService.ResetActivityDescriptionAsync(activityId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int moderatorId = int.Parse(userIdClaim.Value);
+
+
+            await _moderationService.ResetActivityDescriptionAsync(moderatorId, activityId);
             return NoContent();
         }
 

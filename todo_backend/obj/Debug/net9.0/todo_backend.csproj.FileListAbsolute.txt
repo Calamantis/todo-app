@@ -390,7 +390,6 @@ D:\Inzynierka\todo-app\todo_backend\obj\Debug\net9.0\refint\todo_backend.dll
 D:\Inzynierka\todo-app\todo_backend\obj\Debug\net9.0\todo_backend.pdb
 D:\Inzynierka\todo-app\todo_backend\obj\Debug\net9.0\todo_backend.genruntimeconfig.cache
 D:\Inzynierka\todo-app\todo_backend\obj\Debug\net9.0\ref\todo_backend.dll
-H:\todo_application\todo_backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 H:\todo_application\todo_backend\bin\Debug\net9.0\LatoFont\Lato-Black.ttf
 H:\todo_application\todo_backend\bin\Debug\net9.0\LatoFont\Lato-BlackItalic.ttf
 H:\todo_application\todo_backend\bin\Debug\net9.0\LatoFont\Lato-Bold.ttf
@@ -478,3 +477,4 @@ D:\Inzynierka\todo-app\todo_backend\bin\Debug\net9.0\runtimes\win-x86\native\zli
 H:\todo_application\todo_backend\bin\Debug\net9.0\todo_backend.staticwebassets.runtime.json
 D:\Inzynierka\todo-app\todo_backend\bin\Debug\net9.0\todo_backend.staticwebassets.runtime.json
 D:\Inzynierka\todo-app\todo_backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+H:\todo_application\todo_backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

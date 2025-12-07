@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
 using todo_backend.Dtos.AdminDto;
 using todo_backend.Models;
+using todo_backend.Services.AuditLogService;
 using todo_backend.Services.SecurityService;
 
 namespace todo_backend.Services.AdminService
@@ -11,14 +12,16 @@ namespace todo_backend.Services.AdminService
     {
         private readonly AppDbContext _context;
         private readonly IPasswordService _passwordService;
+        private readonly IAuditLogService _logger;
 
-        public AdminService(AppDbContext context, IPasswordService passwordService)
+        public AdminService(AppDbContext context, IPasswordService passwordService, IAuditLogService logger)
         {
             _context = context;
             _passwordService = passwordService;
+            _logger = logger;
         }
 
-        public async Task PromoteToModeratorAsync(int targetUserId)
+        public async Task PromoteToModeratorAsync(int adminId, int targetUserId)
         {
             var user = await _context.Users.FindAsync(targetUserId)
                 ?? throw new KeyNotFoundException("User not found.");
@@ -28,9 +31,10 @@ namespace todo_backend.Services.AdminService
 
             user.Role = UserRole.Moderator;
             await _context.SaveChangesAsync();
+            await _logger.LogAsync(adminId, "PROMOTE_MODERATOR", "Moderator", targetUserId, "Promoted user to moderator");
         }
 
-        public async Task<int> CreateModeratorAccountAsync(string email, string fullName, string rawPassword)
+        public async Task<int> CreateModeratorAccountAsync(int adminId, string email, string fullName, string rawPassword)
         {
             // bardzo uproszczona walidacja:
             if (await _context.Users.AnyAsync(u => u.Email == email))
@@ -53,7 +57,7 @@ namespace todo_backend.Services.AdminService
             return user.UserId;
         }
 
-        public async Task DeleteUserAsync(int targetUserId)
+        public async Task DeleteUserAsync(int adminId, int targetUserId)
         {
             var user = await _context.Users.FindAsync(targetUserId)
                 ?? throw new KeyNotFoundException("User not found.");
@@ -66,6 +70,8 @@ namespace todo_backend.Services.AdminService
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
+            await _logger.LogAsync(adminId, "DELETE_USER", "User", targetUserId, "Permanently deleted users account");
+
         }
 
     }

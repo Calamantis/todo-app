@@ -23,6 +23,7 @@ using todo_backend.Services.StatisticsService;
 using todo_backend.Services.TimelineService;
 using todo_backend.Services.UserAccountService;
 using todo_backend.Services.UserFriendActions;
+using todo_backend.Services.AuditLogService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +91,7 @@ builder.Services.AddScoped<IInstanceExclusionService, InstanceExclusionService>(
 builder.Services.AddScoped<IActivityMemberService, ActivityMemberService>();
 builder.Services.AddScoped<IModerationService, ModerationService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IAuditLogService, AuditLogService>();
 
 builder.Services.AddTransient<DataSeeder>();
 

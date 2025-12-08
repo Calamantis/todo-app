@@ -29,7 +29,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import ContactPage from "./pages/ContactPage";
 
-
+import NotificationsPage from "./pages/NotificationsPage";
 
 
 
@@ -58,6 +58,7 @@ export default function App() {
         <Route path="/social" element={<PrivateRoute element={<SocialPage />} allowedRoles={['User', 'Moderator', 'Admin']}/>} /> 
         <Route path="/online-activity" element={<PrivateRoute element={<OnlineActivitiesPage/>} allowedRoles={['User', 'Moderator', 'Admin']}/>} />
         <Route path="/activity" element={<PrivateRoute element={<ActivityPage/>} allowedRoles={['User', 'Moderator', 'Admin']}/>} />
+        <Route path="/notifications" element={<PrivateRoute element={<NotificationsPage/>} allowedRoles={['User', 'Moderator', 'Admin']}/>} />
 
         {/* moderator */} 
 

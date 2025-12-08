@@ -2,11 +2,8 @@
 {
     public class CreateNotificationDto
     {
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public DateTime RemindTime { get; set; }
-        public bool IsRecurring { get; set; }
-        public string? RecurrenceRule { get; set; }
-        public bool isAlert { get; set; } = false;
+        public string Title { get; set; } = null!;
+        public string Message { get; set; } = null!;
+        public DateTime? VisibleFrom { get; set; }
     }
 }

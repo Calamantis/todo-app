@@ -15,20 +15,17 @@ namespace todo_backend.Models
         public string Title { get; set; } = string.Empty;
 
         [MaxLength(500)]
-        public string? Description { get; set; }
+        public string Message { get; set; }
 
-        [Required]
-        public DateTime RemindTime { get; set; }
-
-        public bool IsRecurring { get; set; } = false;
-
-        [MaxLength(100)]
-        public string? RecurrenceRule { get; set; }
-
-        public bool IsAlert { get; set; } = false;
+        //[Required]
+        //public DateTime RemindTime { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public DateTime? VisibleFrom { get; set; }
+
+        public bool IsRead { get; set; }
 
         public User User { get; set; } = null!;
     }

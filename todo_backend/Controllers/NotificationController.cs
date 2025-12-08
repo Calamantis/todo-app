@@ -17,102 +17,56 @@ namespace todo_backend.Controllers
             _notificationService = notificationService;
         }
 
-        //GET all reminders
-        [Authorize]
-        [HttpGet("my-reminders")]
-        public async Task<ActionResult<IEnumerable<NotificationDto>>> GetReminders()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized();
-
-            var reminders = await _notificationService.GetRemindersAsync(userId);
-            return Ok(reminders);
-        }
-
-        //GET all alerts
-        [Authorize]
-        [HttpGet("my-alerts")]
-        public async Task<ActionResult<IEnumerable<NotificationDto>>> GetAlerts()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized();
-
-            var alerts = await _notificationService.GetAlertsAsync(userId);
-            return Ok(alerts);
-        }
-
-        //GET alert by id
-        [Authorize]
-        [HttpGet("find-alert-by-id")]
-        public async Task<ActionResult<NotificationDto>> GetAlertById(int alertId)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized();
-
-            var alert = await _notificationService.GetAlertByIdAsync(userId, alertId);
-            if (alert == null) return NotFound();
-            return Ok(alert);
-        }
-
-        //GET reminder by id
-        [Authorize]
-        [HttpGet("find-reminder-by-id")]
-        public async Task<ActionResult<NotificationDto>> GetReminderById(int reminderId)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized();
-
-            var reminder = await _notificationService.GetReminderByIdAsync(userId, reminderId);
-            if (reminder == null) return NotFound();
-            return Ok(reminder);
-        }
-
-        //PUT edit any of both
-        [Authorize]
-        [HttpPut("edit-notification")]
-        public async Task<ActionResult<NotificationDto>> EditNotification(int notifId,[FromBody] EditNotificationDto dto)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized();
-
-            var notif = await _notificationService.EditNotificationAsync(userId, notifId, dto);
-            if (notif == null) return NotFound();
-            return Ok(notif);
-
-        }
-
-        //POST create any of both
         [Authorize]
         [HttpPost("create-notification")]
-        public async Task<ActionResult<NotificationDto>> CreateNotification([FromBody] CreateNotificationDto dto)
+        public async Task<IActionResult> Create(CreateNotificationDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
                 return Unauthorized();
 
-            var notif = await _notificationService.CreateNotificationAsync(userId, dto);
-            if (notif == null) return NotFound();
-            return Ok(notif);
+            var result = await _notificationService.CreateNotificationAsync(dto, userId);
+            return Ok(result);
         }
 
-        //DELETE delete any of both
         [Authorize]
-        [HttpDelete("delete-notification")]
-        public async Task<IActionResult> DeleteNotification(int notifId)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetForUser()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
                 return Unauthorized();
 
-            var notif = await _notificationService.DeleteNotificationAsync(userId, notifId);
-            if (!notif) return NotFound();
+            var result = await _notificationService.GetUserNotificationsAsync(userId);
+            return Ok(result);
+        }
 
-            return NoContent();
+        [Authorize]
+        [HttpPost("{notificationId}/mark-as-read")]
+        public async Task<IActionResult> MarkRead(int notificationId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                return Unauthorized();
+
+            await _notificationService.MarkAsReadAsync(notificationId, userId);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpDelete("{notificationId}")]
+        public async Task<IActionResult> Delete(int notificationId, [FromQuery] int userId)
+        {
+            await _notificationService.DeleteNotificationAsync(notificationId, userId);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpDelete("delete-read")]
+        public async Task<IActionResult> DeleteAllRead([FromQuery] int userId)
+        {
+            var deleted = await _notificationService.DeleteAllReadAsync(userId);
+            return Ok(new { deleted });
         }
 
     }

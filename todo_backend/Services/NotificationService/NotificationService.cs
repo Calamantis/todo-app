@@ -14,141 +14,90 @@ namespace todo_backend.Services.NotificationService
             _context = context;
         }
 
-        //GET all alerts
-        public async Task<IEnumerable<NotificationDto?>> GetAlertsAsync(int userId)
+        public async Task<NotificationDto> CreateNotificationAsync(CreateNotificationDto dto, int userId)
         {
-            var ar = await _context.Notification
-                .Where(ar => ar.IsAlert == true && ar.UserId == userId)
-                .Select(ar => new NotificationDto
-                {
-                    NotificationId = ar.NotificationId,
-                    Title = ar.Title,
-                    Description = ar.Description,
-                    RemindTime = ar.RemindTime,
-                    IsRecurring = ar.IsRecurring,
-                    RecurrenceRule = ar.RecurrenceRule
-                }).ToListAsync();
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+                throw new Exception($"User with id {userId} not found");
 
-            return ar;
-        }
+            var notif = new Notification
+            {
+                UserId = userId,
+                Title = dto.Title,
+                Message = dto.Message,
+                VisibleFrom = dto.VisibleFrom,
+                CreatedAt = DateTime.UtcNow,
+            };
 
-        //GET all user's reminders
-        public async Task <IEnumerable<NotificationDto?>> GetRemindersAsync(int userId)
-        {
-            var ar = await _context.Notification
-                .Where (ar => ar.IsAlert == false && ar.UserId == userId)
-                .Select(ar => new NotificationDto
-                {
-                    NotificationId = ar.NotificationId,
-                    Title = ar.Title,
-                    Description = ar.Description,
-                    RemindTime = ar.RemindTime,
-                    IsRecurring = ar.IsRecurring,
-                    RecurrenceRule = ar.RecurrenceRule
-                }).ToListAsync();
-
-            return ar;
-        }
-
-        //GET alert by id
-        public async Task<NotificationDto?> GetAlertByIdAsync(int userId, int alertId)
-        {
-            var ar = await _context.Notification
-                .Where(ar => ar.IsAlert == true && ar.NotificationId == alertId && ar.UserId == userId)
-                .Select(ar => new NotificationDto
-                {
-                    NotificationId = ar.NotificationId,
-                    Title = ar.Title,
-                    Description = ar.Description,
-                    RemindTime = ar.RemindTime,
-                    IsRecurring = ar.IsRecurring,
-                    RecurrenceRule = ar.RecurrenceRule
-                }).FirstOrDefaultAsync();
-
-            return ar;
-        }
-
-        //GET reminder by id
-        public async Task<NotificationDto?> GetReminderByIdAsync(int userId, int reminderId)
-        {
-            var ar = await _context.Notification
-                .Where(ar => ar.IsAlert == false && ar.NotificationId == reminderId && ar.UserId == userId)
-                .Select(ar => new NotificationDto
-                {
-                    NotificationId = ar.NotificationId,
-                    Title = ar.Title,
-                    Description = ar.Description,
-                    RemindTime = ar.RemindTime,
-                    IsRecurring = ar.IsRecurring,
-                    RecurrenceRule = ar.RecurrenceRule
-                }).FirstOrDefaultAsync();
-
-            return ar;
-        }
-
-        //PUT edit any of both
-        public async Task<NotificationDto?> EditNotificationAsync(int userId,int notifId, EditNotificationDto notification)
-        {
-            var notif = await _context.Notification.FirstOrDefaultAsync(n => n.NotificationId == notifId && n.UserId == userId);
-            if (notif == null) return null;
-
-            notif.Title = notification.Title;
-            notif.Description = notification.Description;
-            notif.RemindTime = notification.RemindTime;
-            notif.IsRecurring = notification.IsRecurring;
-            notif.RecurrenceRule = notification.RecurrenceRule;
-
+            _context.Notification.Add(notif);
             await _context.SaveChangesAsync();
 
             return new NotificationDto
             {
                 NotificationId = notif.NotificationId,
                 Title = notif.Title,
-                Description = notif.Description,
-                RemindTime = notif.RemindTime,
-                IsRecurring = notif.IsRecurring,
-                RecurrenceRule = notif.RecurrenceRule
+                Message = notif.Message,
+                IsRead = notif.IsRead,
+                VisibleFrom = notif.VisibleFrom,
+                CreatedAt = notif.CreatedAt
             };
         }
 
-        //POST create any of both
-        public async Task<NotificationDto> CreateNotificationAsync(int userId, CreateNotificationDto dto)
+        public async Task<IEnumerable<NotificationDto>> GetUserNotificationsAsync(int userId)
         {
-            var entity = new Notification
-            {
-                UserId = userId,
-                Title = dto.Title,
-                Description = dto.Description,
-                RemindTime = dto.RemindTime,
-                IsRecurring = dto.IsRecurring,
-                RecurrenceRule = dto.RecurrenceRule,
-                IsAlert = dto.isAlert
-            };
+            return await _context.Notification
+                .Where(n => n.UserId == userId)
+                .OrderByDescending(n => n.CreatedAt)
+                .Select(n => new NotificationDto
+                {
+                    NotificationId = n.NotificationId,
+                    Title = n.Title,
+                    Message = n.Message,
+                    IsRead = n.IsRead,
+                    VisibleFrom = n.VisibleFrom,
+                    CreatedAt = n.CreatedAt
+                })
+                .ToListAsync();
+        }
 
-            _context.Notification.Add(entity);
+        public async Task MarkAsReadAsync(int notificationId, int userId)
+        {
+            var notif = await _context.Notification
+                .FirstOrDefaultAsync(n => n.NotificationId == notificationId && n.UserId == userId);
+
+            if (notif == null)
+                throw new Exception("Notification not found or access denied");
+
+            notif.IsRead = true;
             await _context.SaveChangesAsync();
-
-            return new NotificationDto
-            {
-                NotificationId = entity.NotificationId,
-                Title = entity.Title,
-                Description = entity.Description,
-                RemindTime = entity.RemindTime,
-                IsRecurring = entity.IsRecurring,
-                RecurrenceRule = entity.RecurrenceRule
-            };
         }
 
-        //DELETE delete any of both
-        public async Task<bool> DeleteNotificationAsync(int userId, int notifId)
+        public async Task DeleteNotificationAsync(int notificationId, int userId)
         {
-            var notif = await _context.Notification.FirstOrDefaultAsync(n => n.UserId == userId && n.NotificationId == notifId);
-            if (notif == null) return false;
+            var notif = await _context.Notification
+                .FirstOrDefaultAsync(n => n.NotificationId == notificationId && n.UserId == userId);
+
+            if (notif == null)
+                throw new Exception("Notification not found or access denied");
 
             _context.Notification.Remove(notif);
             await _context.SaveChangesAsync();
-
-            return true;
         }
+
+        public async Task<int> DeleteAllReadAsync(int userId)
+        {
+            var readNotifications = await _context.Notification
+                .Where(n => n.UserId == userId && n.IsRead)
+                .ToListAsync();
+
+            if (!readNotifications.Any())
+                return 0;
+
+            _context.Notification.RemoveRange(readNotifications);
+            await _context.SaveChangesAsync();
+
+            return readNotifications.Count;
+        }
+
     }
 }

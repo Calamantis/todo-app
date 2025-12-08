@@ -3,10 +3,10 @@
     public class NotificationDto
     {
         public int NotificationId { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public DateTime RemindTime { get; set; }
-        public bool IsRecurring { get; set; }
-        public string? RecurrenceRule { get; set; }
+        public string Title { get; set; } = null!;
+        public string Message { get; set; } = null!;
+        public bool IsRead { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? VisibleFrom { get; set; }
     }
 }

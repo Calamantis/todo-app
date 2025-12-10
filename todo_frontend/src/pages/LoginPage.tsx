@@ -60,9 +60,9 @@ const LoginPage: React.FC = () => {
 };
 
   const formClasses = themeStyles[theme]; // Dynamiczne przypisanie klas motywu
-  const inputClasses = `w-full mt-1 p-2 rounded bg-[var(--background-color)] border-[var(--primary-color)] focus:outline-none`;
-  const buttonClasses = `w-full bg-[var(--primary-color)] hover:bg-[var(--secondary-color)] text-white font-semibold py-2 rounded`;
-  const bgClasses = `bg-[var(--background-color)]`;
+  const inputClasses = `w-full mt-1 p-2 rounded bg-surface-2 focus:outline-none`;
+  const buttonClasses = `w-full bg-accent-0 hover:bg-accent-1 text-text-0 font-semibold py-2 rounded`;
+  const bgClasses = `bg-surface-0`;
 
   return (
     <div>
@@ -96,12 +96,12 @@ const LoginPage: React.FC = () => {
           />
         </label>
         <div className="mb-4">
-        <a href="/register" className="text-xs underline text-[var(--accent-color)]">First time here? Create an account.</a>
+        <a href="/register" className="text-xs underline text-accent-1">First time here? Create an account.</a>
         {error && <p className="text-red-400 mb-4 text-center">{error}</p>}
         </div>
         <button
           type="submit"
-          className={`w-full ${buttonClasses} text-white font-semibold py-2 rounded`}
+          className={`w-full ${buttonClasses} text-text-0 font-semibold py-2 rounded`}
         >
           Log in
         </button>

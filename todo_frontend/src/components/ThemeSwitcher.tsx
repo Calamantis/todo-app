@@ -18,7 +18,7 @@ const ThemeSwitcher: React.FC = () => {
           key={t}
           onClick={() => setTheme(t as any)}
           className={`w-full py-2 rounded-lg text-center capitalize
-            ${theme === t ? 'bg-[var(--background-color)] text-[var(--text-color)]' : 'bg-[var(--tertiary-color)] text-[var(--text-color)] hover:bg-[var(--background-color)]-100'}
+            ${theme === t ? 'bg-surface-0 text-text-0' : 'bg-[var(--tertiary-color)] text-[var(--text-color)] hover:bg-[var(--background-color)]-100'}
             transition-all`}
         >
           {t}

@@ -74,5 +74,23 @@ namespace todo_backend.Services.AdminService
 
         }
 
+        public async Task DeleteActivityAsync(int adminId, int activityId)
+        {
+            var activity = await _context.Activities.FindAsync(activityId)
+                ?? throw new KeyNotFoundException("Activity not found.");
+
+            _context.Activities.Remove(activity);
+
+            await _context.SaveChangesAsync();
+
+            await _logger.LogAsync(
+                adminId,
+                "DELETE_ACTIVITY",
+                "Activity",
+                activityId,
+                $"Permanently deleted user activity."
+            );
+        }
+
     }
 }

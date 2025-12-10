@@ -158,12 +158,13 @@ const downloadWeekPdf = async () => {
 
         <div className="min-h-screen bg-[var(--background-color)] text-white p-6">
 
+ {/*}
         <button
           onClick={downloadWeekPdf}
           className="px-4 py-2 rounded bg-accent text-black font-semibold hover:opacity-80 transition"
         >
           Print current week to PDF
-        </button>
+        </button> */}
 
           <div className="flex justify-between items-center mb-6">
             <button

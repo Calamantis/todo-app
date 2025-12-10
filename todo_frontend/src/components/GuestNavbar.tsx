@@ -16,7 +16,7 @@ const GuestNavbar: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-primary text-white shadow-md">
+    <nav className="w-full bg-surface-1 text-text-0 shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
@@ -28,7 +28,7 @@ const GuestNavbar: React.FC = () => {
         {/* MOBILE BUTTON */}
         <button
           onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 rounded hover:bg-white/10"
+          className="lg:hidden p-2 rounded"
         >
           {open ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -36,27 +36,17 @@ const GuestNavbar: React.FC = () => {
         {/* DESKTOP MENU */}
         <div className="hidden lg:flex items-center gap-6">
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/getting-started">
-            <Play size={20} />
-            Getting Started
-          </Link>
-
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/terms-of-service">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/terms-of-service">
             <FileText size={20} />
             Terms of Service
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/contact">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/contact">
             <Send size={20} />
             Contact
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/about">
-            <BadgeInfo size={20} />
-            About Us
-          </Link>
-
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/login">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/login">
             <LogIn size={20} />
             Login
           </Link>
@@ -68,9 +58,7 @@ const GuestNavbar: React.FC = () => {
         <div className="lg:hidden bg-primary border-t border-white/20 px-6 pb-6 animate-fadeIn">
           <div className="flex flex-col gap-4 mt-4">
 
-            <Link to="/GettingStartedPage" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-              <Play size={20} /> Getting Started
-            </Link>
+
 
             <Link to="/RulesPage" className="flex items-center gap-2" onClick={() => setOpen(false)}>
               <FileText size={20} /> Terms of Service
@@ -80,9 +68,7 @@ const GuestNavbar: React.FC = () => {
               <Send size={20} /> Contact
             </Link>
 
-            <Link to="/AboutPage" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-              <BadgeInfo size={20} /> About Us
-            </Link>
+
 
             <Link to="/login" className="flex items-center gap-2" onClick={() => setOpen(false)}>
               <LogIn size={20} /> Login

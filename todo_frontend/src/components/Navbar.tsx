@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="w-full bg-primary text-white shadow-md">
+    <nav className="w-full bg-surface-1 text-text-0 shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
@@ -50,44 +50,44 @@ const Navbar: React.FC = () => {
         {/* DESKTOP MENU */}
         <div className="hidden lg:flex items-center gap-6">
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/timeline">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/timeline">
             <Calendar size={20} />
             <span>Timeline</span>
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/notifications">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/notifications">
             <Bell size={20} />
             <span>Notifications</span>
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/activity">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/activity">
             <CalendarPlus size={20} />
             <span>Activity</span>
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/online-activity">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/online-activity">
             <Calendars size={20} />
             <span>Online activities</span>
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/social">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/social">
             <Users size={20} />
             <span>Social</span>
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/profile">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/profile">
             <User size={20} />
             <span>Profile</span>
           </Link>
 
-          <Link className="flex items-center gap-1 hover:text-blue-400" to="/statistics">
+          <Link className="flex items-center gap-1 hover:text-accent-1" to="/statistics">
             <ChartColumn size={20} />
             <span>Statistics</span>
           </Link>
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1 hover:text-red-400"
+            className="flex items-center gap-1 hover:text-accent-1"
           >
             <LogOut size={20} />
             <span>Logout</span>
@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-red-400"
+              className="flex items-center gap-2 hover:text-accent-1"
             >
               <LogOut size={20} />
               Logout

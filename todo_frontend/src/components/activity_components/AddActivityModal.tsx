@@ -57,18 +57,18 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({ onClose, onCreate, 
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white p-6 rounded-lg w-96">
-        <h2 className="text-xl font-semibold mb-4">Add Activity</h2>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 text-white">
+      <div className="bg-primary p-6 rounded-lg w-96">
+        <h2 className="text-xl  font-semibold mb-4">Add Activity</h2>
 
         <div className="mb-3">
           <label className="block text-sm font-medium mb-1">Title</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 border rounded" />
+          <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 border rounded bg-secondary" />
         </div>
 
         <div className="mb-3">
           <label className="block text-sm font-medium mb-1">Description</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-2 border rounded" />
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-2 border rounded bg-secondary" />
         </div>
 
         <div className="mb-3 flex items-center gap-3">
@@ -80,7 +80,7 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({ onClose, onCreate, 
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Category</label>
-          <select value={categoryId ?? ""} onChange={(e) => setCategoryId(e.target.value ? Number(e.target.value) : null)} className="w-full p-2 border rounded">
+          <select value={categoryId ?? ""} onChange={(e) => setCategoryId(e.target.value ? Number(e.target.value) : null)} className="w-full p-2 border rounded bg-secondary">
             <option value="">No category</option>
             {categories.map((c) => (
               <option key={c.categoryId} value={c.categoryId}>{c.name}</option>
@@ -90,7 +90,7 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({ onClose, onCreate, 
 
         <div className="flex justify-end gap-3">
           <button onClick={onClose} className="px-4 py-2 bg-gray-400 text-white rounded">Cancel</button>
-          <button onClick={handleSubmit} disabled={loading} className="px-4 py-2 bg-blue-600 text-white rounded">{loading ? 'Creating...' : 'Create'}</button>
+          <button onClick={handleSubmit} disabled={loading} className="px-4 py-2 bg-accent text-white rounded">{loading ? 'Creating...' : 'Create'}</button>
         </div>
       </div>
     </div>

@@ -71,7 +71,7 @@ const AddActivityInstanceModal: React.FC<AddActivityInstanceModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white dark:bg-slate-800 p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className= "bg-primary p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto text-white">
         <h2 className="text-xl font-semibold mb-4">Add Activity Instance</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -83,7 +83,7 @@ const AddActivityInstanceModal: React.FC<AddActivityInstanceModalProps> = ({
               required
               value={occurrenceDate}
               onChange={(e) => setOccurrenceDate(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 border rounded-lg bg-secondary"
             />
           </div>
 
@@ -95,7 +95,7 @@ const AddActivityInstanceModal: React.FC<AddActivityInstanceModalProps> = ({
               required
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 border rounded-lg bg-secondary"
             />
           </div>
 
@@ -107,7 +107,7 @@ const AddActivityInstanceModal: React.FC<AddActivityInstanceModalProps> = ({
               required
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 border rounded-lg bg-secondary"
             />
           </div>
 
@@ -119,7 +119,7 @@ const AddActivityInstanceModal: React.FC<AddActivityInstanceModalProps> = ({
               min="0"
               value={durationMinutes}
               onChange={(e) => setDurationMinutes(parseInt(e.target.value) || 0)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 border rounded-lg bg-secondary"
             />
           </div>
 
@@ -136,7 +136,7 @@ const AddActivityInstanceModal: React.FC<AddActivityInstanceModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-accent text-white rounded hover:bg-blue-700 disabled:opacity-50"
             >
               {loading ? "Creating..." : "Create"}
             </button>

@@ -23,7 +23,7 @@ const AdminNavbar: React.FC = () => {
   };
 
   return (
-    <nav className="w-full bg-primary text-white shadow-md">
+    <nav className="w-full bg-surface-1 text-text-0 shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
@@ -48,7 +48,7 @@ const AdminNavbar: React.FC = () => {
             <span className="uppercase text-xs opacity-80">Moderative actions</span>
             <div className="flex gap-6 mt-1">
 
-              <Link className="flex items-center gap-1 hover:text-blue-400" to="/moderation-panel">
+              <Link className="flex items-center gap-1 hover:text-accent-1" to="/moderation-panel">
                 <ShieldAlert size={20} />
                 Moderation Panel
               </Link>
@@ -60,7 +60,7 @@ const AdminNavbar: React.FC = () => {
             <span className="uppercase text-xs opacity-80">Administrative actions</span>
             <div className="flex gap-6 mt-1">
 
-              <Link className="flex items-center gap-1 hover:text-blue-400" to="/administrative-panel">
+              <Link className="flex items-center gap-1 hover:text-accent-1" to="/administrative-panel">
                 <ShieldAlert size={20} />
                 Administrative Panel
               </Link>
@@ -70,7 +70,7 @@ const AdminNavbar: React.FC = () => {
           {/* Logout */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1 hover:text-red-400"
+            className="flex items-center gap-1 hover:text-accent-1"
           >
             <LogOut size={20} />
             <span>Logout</span>
@@ -106,7 +106,7 @@ const AdminNavbar: React.FC = () => {
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-red-400"
+              className="flex items-center gap-2 hover:text-accent-1"
             >
               <LogOut size={20} />
               Logout

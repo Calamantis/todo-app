@@ -85,5 +85,15 @@ namespace todo_backend.Controllers
 
             return Ok(dto);
         }
+
+        [HttpDelete("{activityId}")]
+        public async Task<IActionResult> DeleteActivity(int activityId)
+        {
+            var adminId = int.Parse(User.FindFirst("sub")!.Value);
+
+            await _adminService.DeleteActivityAsync(adminId, activityId);
+
+            return NoContent();
+        }
     }
 }

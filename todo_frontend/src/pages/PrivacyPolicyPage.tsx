@@ -6,8 +6,8 @@ const PrivacyPolicyPage: React.FC = () => {
   return (
     <div>
         <NavigationWrapper/>
-    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] px-6 py-10">
-      <div className="max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-xl shadow-xl p-8 backdrop-blur-md">
+    <div className="min-h-screen bg-surface-0 text-text-0 px-6 py-10">
+      <div className="max-w-5xl mx-auto bg-surface-1 rounded-xl shadow-xl p-8 backdrop-blur-md">
 
         <h1 className="text-4xl font-bold mb-6 text-center">
           Privacy Policy

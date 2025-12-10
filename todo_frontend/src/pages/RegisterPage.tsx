@@ -47,9 +47,9 @@ const RegisterPage: React.FC = () => {
   };
 
   const formClasses = themeStyles[theme]; // Dynamiczne przypisanie klas motywu
-  const inputClasses = `w-full mt-1 p-2 rounded bg-[var(--background-color)] border-[var(--primary-color)] focus:outline-none`;
-  const buttonClasses = `w-full bg-[var(--primary-color)] hover:bg-[var(--secondary-color)] text-white font-semibold py-2 rounded`;
-  const bgClasses = `bg-[var(--background-color)]`;
+  const inputClasses = `w-full mt-1 p-2 rounded bg-surface-2 focus:outline-none`;
+  const buttonClasses = `w-full bg-accent-0 hover:bg-accent-1 text-text-0 font-semibold py-2 rounded`;
+  const bgClasses = `bg-surface-0`;
 
   return (
     <div>
@@ -102,14 +102,14 @@ const RegisterPage: React.FC = () => {
 
           <button
             type="submit"
-            className={`w-full ${buttonClasses} text-white font-semibold py-2 rounded`}
+            className={`w-full ${buttonClasses} text-text-0 font-semibold py-2 rounded`}
           >
             Register
           </button>
 
           {/* Link to Login */}
           <div className="mt-4 text-center">
-            <a href="/login" className="text-xs underline text-[var(--accent-color)]">
+            <a href="/login" className="text-xs underline text-accent-0">
               Already have an account? Log in here.
             </a>
           </div>

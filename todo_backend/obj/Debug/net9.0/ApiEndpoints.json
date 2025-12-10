@@ -622,6 +622,22 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "DeleteActivity",
+    "RelativePath": "api/admin/{activityId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
     "Method": "CreateModerator",
     "RelativePath": "api/admin/moderators",
     "HttpMethod": "POST",

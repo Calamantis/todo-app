@@ -26,8 +26,8 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [theme, setTheme] = useState<Theme>('light'); // Domyślny motyw
 
   const themeStyles: Record<Theme, string> = {
-    light: 'bg-white text-black',
-    dark: 'bg-gray-900 text-white',
+    light: 'bg-surface-1 text-text-0',
+    dark: 'bg-surface-1 text-text-0',
     blue: 'bg-blue-500 text-white',
     green: 'bg-green-500 text-white',
   };
@@ -37,8 +37,12 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     if (savedTheme) {
       setTheme(savedTheme);
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
     }
   }, []);
+
 
   // Funkcja zmieniająca motyw
   const changeTheme = (theme: Theme) => {

@@ -63,7 +63,7 @@ const OnlineActivitiesPage: React.FC = () => {
     <div>
       <NavigationWrapper />
 
-      <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] p-4 md:p-6">
+      <div className="min-h-screen bg-surface-0 text-text-0 p-4 md:p-6">
         <div className="max-w-9xl mx-auto">
 
           {/* TOP */}
@@ -88,32 +88,33 @@ const OnlineActivitiesPage: React.FC = () => {
               )}
             </Panel>
 
-            {/* Panel 2 — Placeholder */}
-            <Panel title="Online activities you participate in">
-                <ParticipatingActivitiesList />
-            </Panel>
-
             {/* Panel 3 — Participants placeholder */}
             <Panel title="Participants" small>
               <ParticipantsList activityId={selectedActivity?.activityId ?? null} />
-            </Panel>
-
-          </div>
-
-          {/* BOTTOM PANELS */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
-
-            <Panel title="Received Invitations" small>
-              <ReceivedInvitationsList />
             </Panel>
 
           <Panel title="Sent Invitations" small>
             <SentInvitationsList activityId={selectedActivity?.activityId ?? null} />
           </Panel>
 
+          </div>
+
+          {/* BOTTOM PANELS */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+
+
+            {/* Panel 2 — Placeholder */}
+            <Panel title="Online activities you participate in">
+                <ParticipatingActivitiesList />
+            </Panel>
+
                         <Panel title="Join Activity via Code" small>
             <JoinByCodePanel onJoined={() => fetchActivities()} />
           </Panel>
+
+            <Panel title="Received Invitations" small>
+              <ReceivedInvitationsList />
+            </Panel>
 
           </div>
 

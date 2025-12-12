@@ -50,7 +50,7 @@ namespace todo_backend.Controllers
             if (userIdClaim == null) return Unauthorized();
             int userId = int.Parse(userIdClaim.Value);
 
-            var result = await _activityMemberService.GetAcceptedMembersAsync(activityId);
+            var result = await _activityMemberService.GetAcceptedMembersAsync(activityId, userId);
             return Ok(result);
         }
 

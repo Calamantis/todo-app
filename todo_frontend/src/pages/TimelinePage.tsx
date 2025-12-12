@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "../components/AuthContext";
-import { Activity, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import ActivityBlock from "../components/timeline_components/ActivityBlock";
 import NavigationWrapper from "../components/NavigationWrapper";
 import Footer from "../components/Footer";
@@ -13,6 +13,12 @@ import ActivityPlacementModal from "../components/activitySuggestion_components/
 
 import ShiftedPlacementForm from "../components/activitySuggestion_components/ShiftedPlacementForm";
 import ShiftedPlacementModal from "../components/activitySuggestion_components/ShiftedPlacementModal";
+
+import AccordionItem from "../components/timeline_components/AccordionItem";
+import { AccordionGroup } from "../components/timeline_components/AccordionGroup";
+
+import TimelineCalendar from "../components/timeline_components/TimelineCalendar";
+
 
 // Helper: Oblicz daty dla danego tygodnia (od poniedziałku do niedzieli)
 const getWeekDates = (date: Date) => {
@@ -146,7 +152,7 @@ const downloadWeekPdf = async () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-primary text-white">
+      <div className="flex items-center justify-center h-screen bg-primary text-text-0">
         <p>Loading timeline...</p>
       </div>
     );
@@ -156,115 +162,63 @@ const downloadWeekPdf = async () => {
     <div>
       <NavigationWrapper/>
 
-        <div className="min-h-screen bg-[var(--background-color)] text-white p-6">
+        <div className="min-h-screen bg-surface-0 text-text-0 p-6">
 
- {/*}
-        <button
-          onClick={downloadWeekPdf}
-          className="px-4 py-2 rounded bg-accent text-black font-semibold hover:opacity-80 transition"
-        >
-          Print current week to PDF
-        </button> */}
+ 
+<AccordionGroup>
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-start mb-6">
 
-          <div className="flex justify-between items-center mb-6">
-            <button
-              onClick={() => changeWeek(-1)}
-              className="px-4 py-2 bg-primary hover:bg-secondary rounded-md transition"
-            >
-              <ArrowLeft size={18} />
-            </button>
+    <AccordionItem id="export" title="Export Tools">
+      <button
+        onClick={downloadWeekPdf}
+        className="px-4 py-2 rounded bg-accent-0 text-text-0 font-semibold hover:bg-accent-1 transition"
+      >
+        Print current week to PDF
+      </button>
+    </AccordionItem>
 
-            <div className="text-lg font-medium">
-              {startOfWeek.toLocaleDateString()} - {endOfWeek.toLocaleDateString()}
-            </div>
+    <AccordionItem id="suggestions" title="Activity Suggestions">
+      <ActivitySuggestionForm
+        onResults={(res) => {
+          setSuggestions(res);
+          setShowSuggestionsModal(true);
+        }}
+        onTimeChange={(start, end) => {
+          setSuggestionStart(start);
+          setSuggestionEnd(end);
+        }}
+      />
+    </AccordionItem>
 
-            <button
-              onClick={() => changeWeek(1)}
-              className="px-4 py-2 bg-primary hover:bg-secondary rounded-md transition"
-            >
-              <ArrowRight size={18} />
-            </button>
-          </div>
+    <AccordionItem id="placement" title="Placement Finder">
+      <PlacementForm
+        onResults={(results, actId, isRecurring) => {
+          setPlacementResults(results);
+          setActivityId(actId);
+          setRecurring(isRecurring);
+          setModalOpen(true);
+        }}
+      />
+    </AccordionItem>
 
-          <div className="overflow-x-auto overflow-y-auto max-h-[80vh] rounded-lg border border-[var(--background-color)] bg-primary custom-scrollbar">
-            <div className="relative w-full">
-              <div className="grid grid-cols-8 bg-primary border-b border-[var(--background-color)] sticky top-0 z-10">
-                <div className="p-2"></div>
-                {Array.from({ length: 7 }).map((_, index) => {
-                  const day = new Date(startOfWeek);
-                  day.setDate(startOfWeek.getDate() + index); // Wyznaczamy datę dla każdego dnia tygodnia
-                  return (
-                    <div key={index} className="p-2 text-center font-semibold border-l border-[var(--background-color)]">
-                      {["Mon, ", "Tue, ", "Wed, ", "Thu, ", "Fri, ", "Sat, ", "Sun, "][index]}{" "}
-                      {day.toLocaleDateString("en-EN", { month: "short", day: "numeric" })}
-                    </div>
-                  );
-                })}
-              </div>
+    <AccordionItem id="shift" title="Shifted Placement Finder">
+      <ShiftedPlacementForm
+        onResults={(results, actId, recurring) => {
+          setShiftedResults(results);
+          setShiftActivityId(actId);
+          setShiftRecurring(recurring);
+          setShiftedOpen(true);
+        }}
+      />
+    </AccordionItem>
 
-              <div>
-                
-                <ActivitySuggestionForm
-                  onResults={(res) => {
-                    setSuggestions(res);
-                    setShowSuggestionsModal(true);
-                  }}
-                  onTimeChange={(start, end) => {
-                    setSuggestionStart(start);
-                    setSuggestionEnd(end);
-                  }}
-                />
+  </div>
+</AccordionGroup>
 
+      
+<TimelineCalendar/>
 
-                  <PlacementForm
-                    onResults={(results, actId, isRecurring) => {
-                      setPlacementResults(results);
-                      setActivityId(actId);
-                      setRecurring(isRecurring);
-                      setModalOpen(true);
-                    }}
-                  />
-
-                  <ShiftedPlacementForm
-                    onResults={(results, actId, recurring) => {
-                      setShiftedResults(results);
-                      setShiftActivityId(actId);
-                      setShiftRecurring(recurring);
-                      setShiftedOpen(true);
-                    }}
-                  />
-
-                {/* Siatka godzin */}
-                <div className="grid grid-cols-8 relative w-full">
-                  <div className="flex flex-col border-r border-[var(--background-color)] text-right text-gray-400 text-xs sm:text-sm">
-                    {Array.from({ length: 24 }).map((_, i) => (
-                      <div key={i} className="border-t border-[var(--background-color)] pr-2" style={{ height: "60px" }}>
-                        {i}:00
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Kolumny dni */}
-                  <div className="col-span-7 grid grid-cols-7 relative">
-                    {Array.from({ length: 24 }).map((_, i) => (
-                      <div
-                        key={`row-${i}`}
-                        className="absolute w-full border-t border-[var(--background-color)]"
-                        style={{ top: `${i * 60}px` }}
-                      />
-                    ))}
-
-                    {/* 🔹 Aktywności */}
-                    {activities.map((activity, idx) => (
-                      <ActivityBlock key={idx} activity={activity} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+          
             {showSuggestionsModal && suggestions.length > 0 && (
               <ActivitySuggestionModal
                 suggestions={suggestions}

@@ -98,12 +98,14 @@ namespace todo_backend.Services.ActivityMembersService
         //    return sentInvites;
         //}
 
-        public async Task<IEnumerable<ActivityInviteDto>> GetAcceptedMembersAsync(int activityId)
+        public async Task<IEnumerable<ActivityInviteDto>> GetAcceptedMembersAsync(int activityId, int userId)
         {
             return await _context.ActivityMembers
                 .Where(am =>
                     am.ActivityId == activityId &&
-                    am.Status == "accepted")
+                    am.Status == "accepted" &&
+                    am.Role == "participant")
+                    
                 .Include(am => am.User)
                 .Select(am => new ActivityInviteDto
                 {

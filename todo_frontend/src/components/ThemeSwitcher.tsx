@@ -7,9 +7,9 @@ const ThemeSwitcher: React.FC = () => {
   const themes = ['light', 'dark', 'blue', 'green'];
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 bg-surface-1 p-4 rounded-lg shadow-md">
 
-      <h3 className="text-xl font-semibold mb-2 text-center">
+      <h3 className="text-xl font-semibold mb-2 text-center text-text-0">
         Application Theme
       </h3>
 
@@ -18,7 +18,7 @@ const ThemeSwitcher: React.FC = () => {
           key={t}
           onClick={() => setTheme(t as any)}
           className={`w-full py-2 rounded-lg text-center capitalize
-            ${theme === t ? 'bg-surface-0 text-text-0' : 'bg-[var(--tertiary-color)] text-[var(--text-color)] hover:bg-[var(--background-color)]-100'}
+            ${theme === t ? 'bg-accent-0 hover:bg-accent-1 text-text-0' : 'bg-surface-2 text-text-0 hover:bg-surface-3'}
             transition-all`}
         >
           {t}

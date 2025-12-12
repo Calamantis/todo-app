@@ -59,7 +59,7 @@ const UserListItem: React.FC<{
 
   return (
     <div
-      className="relative group rounded-lg px-2 py-2 flex items-center justify-between hover:bg-white/10 transition"
+      className="relative group rounded-lg px-2 py-2 flex items-center justify-between hover:bg-surface-2 transition"
       onClick={() => setMobileOpen(true)}
     >
       <div className="flex items-center gap-3 min-w-0">
@@ -79,7 +79,7 @@ const UserListItem: React.FC<{
           <>
 
             <button
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="View timeline"
               onClick={(e) => {
                 e.stopPropagation();
@@ -92,7 +92,7 @@ const UserListItem: React.FC<{
 
 
             <button
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Invite to activity"
               onClick={(e) => {
                 e.stopPropagation();
@@ -109,7 +109,7 @@ const UserListItem: React.FC<{
                 e.stopPropagation();
                 doRemoveFriend();
               }}
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Remove"
             >
               <UserMinus size={18} />
@@ -123,7 +123,7 @@ const UserListItem: React.FC<{
                   await socialApi.blockUser(userId, token);
                 });
               }}
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Remove & Block"
             >
               <ShieldBan size={18} />
@@ -137,7 +137,7 @@ const UserListItem: React.FC<{
               e.stopPropagation();
               doUnblock();
             }}
-            className="hover:opacity-100"
+            className="hover:text-accent-0"
             title="Unblock"
           >
             <ShieldOff size={18} />
@@ -151,7 +151,7 @@ const UserListItem: React.FC<{
                 e.stopPropagation();
                 doSendInvite();
               }}
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Add friend"
             >
               <UserPlus size={18} />
@@ -162,7 +162,7 @@ const UserListItem: React.FC<{
                 e.stopPropagation();
                 doBlock();
               }}
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Block"
             >
               <ShieldBan size={18} />
@@ -176,7 +176,7 @@ const UserListItem: React.FC<{
               e.stopPropagation();
               doCancelInvite();
             }}
-            className="hover:opacity-100"
+            className="hover:text-accent-0"
             title="Cancel"
           >
             <X size={18} />
@@ -190,7 +190,7 @@ const UserListItem: React.FC<{
                 e.stopPropagation();
                 doAcceptInvite();
               }}
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Accept"
             >
               <Check size={18} />
@@ -201,7 +201,7 @@ const UserListItem: React.FC<{
                 e.stopPropagation();
                 doRejectInvite();
               }}
-              className="hover:opacity-100"
+              className="hover:text-accent-0"
               title="Reject"
             >
               <X size={18} />

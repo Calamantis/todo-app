@@ -52,8 +52,8 @@ const OnlineActivityInviteSingleModal: React.FC<Props> = ({ friendId, onClose })
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
-      <div className="bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl w-full max-w-md p-6 border border-white/10 relative">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+      <div className="bg-surface-1 text-text-0 rounded-xl w-full max-w-md p-6 relative">
 
         <button onClick={onClose} className="absolute top-3 right-3">
           <X size={22} />
@@ -70,7 +70,7 @@ const OnlineActivityInviteSingleModal: React.FC<Props> = ({ friendId, onClose })
             {activities.map(a => (
               <div
                 key={a.activityId}
-                className="p-3 rounded border border-white/10 bg-white/5 flex justify-between items-center"
+                className="p-3 rounded bg-surface-2 flex justify-between items-center"
               >
                 <div>
                   <div className="font-semibold">{a.title}</div>
@@ -79,7 +79,7 @@ const OnlineActivityInviteSingleModal: React.FC<Props> = ({ friendId, onClose })
 
                 <button
                   onClick={() => sendInvite(a.activityId)}
-                  className="hover:text-accent"
+                  className="hover:text-accent-0"
                 >
                   <Send size={20} />
                 </button>

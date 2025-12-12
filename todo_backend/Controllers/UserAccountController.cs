@@ -28,14 +28,14 @@ namespace todo_backend.Controllers
             if (userIdClaim == null) return Unauthorized();
             int userId = int.Parse(userIdClaim.Value);
 
-            var profileImageUrl = $"{Request.Scheme}://{Request.Host}/{userId}/{userId}_profile.jpg";
-            var backgroundImageUrl = $"{Request.Scheme}://{Request.Host}/{userId}/{userId}_bg.jpg";
+            //var profileImageUrl = $"{Request.Scheme}://{Request.Host}/{userId}/{userId}_profile.jpg";
+            //var backgroundImageUrl = $"{Request.Scheme}://{Request.Host}/{userId}/{userId}_bg.jpg";
 
             var user = await _userAccountService.GetUserDetailsAsync(userId);
             if (user == null) return NotFound();
 
-            user.ProfileImageUrl = profileImageUrl;
-            user.BackgroundImageUrl = backgroundImageUrl;
+           // user.ProfileImageUrl = profileImageUrl;
+           // user.BackgroundImageUrl = backgroundImageUrl;
 
             return Ok(user);
         }

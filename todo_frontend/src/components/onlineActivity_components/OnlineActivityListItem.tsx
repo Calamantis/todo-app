@@ -47,15 +47,15 @@ const OnlineActivityListItem: React.FC<OnlineActivityListItemProps> = ({
     >
       {/* LEFT */}
       <div className="flex-1 min-w-0 pr-4">
-        <div className="font-semibold text-gray-900 truncate">
+        <div className="font-semibold text-text-0 truncate">
           {activity.title}
         </div>
 
-        <div className="text-sm text-gray-600 truncate">
+        <div className="text-sm text-text-0 truncate">
           {activity.description}
         </div>
 
-        <div className="mt-1 text-xs text-gray-500">
+        <div className="mt-1 text-xs text-text-0">
           {status}
         </div>
       </div>
@@ -69,7 +69,7 @@ const OnlineActivityListItem: React.FC<OnlineActivityListItemProps> = ({
                 e.stopPropagation();
                 onInvite?.(activity);
             }}
-            className="text-gray-600 hover:text-blue-600 transition"
+            className="text-text-0 hover:text-accent-0 transition"
             >
             <UserPlus size={20} />
             </button>

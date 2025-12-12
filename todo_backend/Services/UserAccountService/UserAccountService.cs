@@ -38,8 +38,8 @@ namespace todo_backend.Services.UserAccountService
             {
                 Email = entity.Email,
                 FullName = entity.FullName,
-                ProfileImageUrl = profileImageUrl,
-                BackgroundImageUrl = backgroundImageUrl,
+                ProfileImageUrl = entity.ProfileImageUrl,
+                BackgroundImageUrl = entity.BackgroundImageUrl,
                 Synopsis = entity.Synopsis,
                 AllowFriendInvites = entity.AllowFriendInvites,
                 AllowDataStatistics = entity.AllowDataStatistics

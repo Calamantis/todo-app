@@ -43,7 +43,6 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   const left = (dayOfWeek / 7) * 100; // Pozycja na osi dni tygodnia
 
   let height = duration; // Wysokość aktywności zależna od czasu trwania
-  if (height < 40) height = 40;
 
   // Funkcja wywoływana po kliknięciu
   const handleClick = () => {
@@ -63,7 +62,7 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
   return (
     <>
     <div
-      className="absolute rounded-md text-xs sm:text-sm text-center px-2 py-1 overflow-hidden shadow-md border border-gray-700"
+      className="absolute rounded-md text-xs sm:text-sm text-center px-2 py-1 overflow-hidden shadow-md border border-surface-1"
       style={{
         top: `${top}px`,
         left: `${left}%`,
@@ -74,13 +73,13 @@ const ActivityBlock: React.FC<ActivityBlockProps> = ({ activity }) => {
       onClick={handleClick} // Obsługa kliknięcia
     >
       <div className="font-semibold truncate">{categoryName || "Unknown Activity"}</div>
-      <div className="text-[10px] opacity-80">
+      <div className="text-[10px] opacity-80 h-4 justify-center flex items-center">
         {start.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         })}
       </div>
-      <div className="text-[10px] opacity-80 mt-1">{formattedDate}</div> {/* Dodana data obok dnia tygodnia */}
+      <div className="text-[10px] opacity-80">{formattedDate}</div> {/* Dodana data obok dnia tygodnia */}
     </div>
 
       {modalOpen && (

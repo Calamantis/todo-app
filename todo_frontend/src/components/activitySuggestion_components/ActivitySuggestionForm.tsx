@@ -162,7 +162,7 @@ const ActivitySuggestionForm: React.FC<ActivitySuggestionFormProps> = ({
       <label className="text-sm font-medium">
         Category (optional):
         <select
-          className="w-full p-2 mt-1 rounded bg-black/20 border border-white/10"
+          className="w-full p-2 mt-1 rounded bg-surface-2"
           value={categoryId ?? ""}
           onChange={(e) => {
             const value = e.target.value === "" ? null : Number(e.target.value);
@@ -182,7 +182,7 @@ const ActivitySuggestionForm: React.FC<ActivitySuggestionFormProps> = ({
       <input
         type="number"
         placeholder="Planned Duration (minutes)"
-        className="p-2 rounded bg-black/20 border border-white/10"
+        className="p-2 rounded bg-surface-2"
         onChange={(e) =>
           setPlannedDuration(e.target.value ? Number(e.target.value) : null)
         }
@@ -191,7 +191,7 @@ const ActivitySuggestionForm: React.FC<ActivitySuggestionFormProps> = ({
       {/* START TIME */}
       <input
         type="time"
-        className="p-2 rounded bg-black/20 border border-white/10"
+        className="p-2 rounded bg-surface-2"
         onChange={(e) => {
           setPreferredStart(e.target.value);
           onTimeChange?.(e.target.value, preferredEnd);
@@ -201,7 +201,7 @@ const ActivitySuggestionForm: React.FC<ActivitySuggestionFormProps> = ({
       {/* END TIME */}
       <input
         type="time"
-        className="p-2 rounded bg-black/20 border border-white/10"
+        className="p-2 rounded bg-surface-2"
         onChange={(e) => {
           setPreferredEnd(e.target.value);
           onTimeChange?.(preferredStart, e.target.value);
@@ -209,36 +209,26 @@ const ActivitySuggestionForm: React.FC<ActivitySuggestionFormProps> = ({
       />
 
       {/* DAYS PICKER */}
-      <div className="flex gap-2">
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mb-2">
         {[0, 1, 2, 3, 4, 5, 6].map((day) => (
           <button
             key={day}
             type="button"
             onClick={() => toggleDay(day)}
-            className={`px-3 py-1 rounded ${
-              preferredDays.includes(day) ? "bg-accent" : "bg-black/30"
+            className={`px-3 py-1 rounded w-full ${
+              preferredDays.includes(day) ? "bg-accent-0" : "bg-surface-2"
             }`}
           >
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][day]}
           </button>
         ))}
       </div>
-
-      {/* <button
-        onClick={fetchSuggestions}
-        disabled={loading}
-        className="px-4 py-2 rounded bg-accent text-black font-semibold"
-      >
-        {loading ? "Loading…" : "Get Suggestions"}
-      </button> */}
-
-
 <div className="flex gap-3">
 
   <button
     onClick={fetchSuggestions}
     disabled={loading}
-    className="flex-1 px-4 py-2 rounded bg-accent text-black font-semibold"
+    className="flex-1 px-4 py-2 rounded bg-surface-2 text-text-0 hover:bg-accent-0"
   >
     {loading ? "Loading…" : "Get Suggestions"}
   </button>
@@ -246,9 +236,9 @@ const ActivitySuggestionForm: React.FC<ActivitySuggestionFormProps> = ({
   <button
     onClick={fetchSurpriseSuggestions}
     disabled={loading}
-    className="flex-1 px-4 py-2 rounded bg-purple-500 text-white font-semibold"
+    className="flex-1 px-4 py-2 rounded bg-surface-2 text-text-0 hover:bg-accent-0"
   >
-    {loading ? "…" : "Surprise Me 🎲"}
+    {loading ? "…" : "Surprise Me"}
   </button>
 
 </div>

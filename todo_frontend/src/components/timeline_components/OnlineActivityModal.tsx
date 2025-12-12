@@ -42,7 +42,7 @@ const OnlineActivityModal: React.FC<OnlineActivityModalProps> = ({ activity, ins
         <b>Participants:</b>
         <div className="flex flex-col gap-2 mt-2">
           {participants.map(p => (
-            <div key={p.invitedUserId} className="flex items-center gap-3 bg-white/5 p-2 rounded">
+            <div key={p.invitedUserId} className="flex items-center gap-3 bg-surface-2 p-2 rounded">
               <Avatar src={p.profileImage} size={32} />
               <div>
                 <div className="font-semibold">{p.fullName}</div>

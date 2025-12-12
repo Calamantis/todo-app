@@ -1,114 +1,3 @@
-// import { useState } from "react";
-// import { Trash2, Check } from "lucide-react";
-// import { useAuth } from "../AuthContext";
-
-// export interface ActivityDetails {
-//   activityId: number;
-//   title: string;
-//   description: string;
-//   isRecurring: boolean;
-//   categoryId: number | null;
-//   categoryName: string | null;
-//   colorHex: string | null;
-//   joinCode: string | null;
-//   isFriendsOnly: boolean;
-// }
-
-// export interface ActivityInstanceData {
-//   instanceId: number;
-//   activityId: number;
-//   occurrenceDate: string;
-//   startTime: string;
-//   endTime: string;
-//   durationMinutes: number;
-// }
-
-// interface OfflineActivityModalProps {
-//   activity: ActivityDetails;
-//   instance: ActivityInstanceData;
-// }
-
-// const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({ activity, instance}) => {
-//   const { user } = useAuth();
-
-//   const [start, setStart] = useState(instance.startTime);
-//   const [end, setEnd] = useState(instance.endTime);
-
-//   const editTime = async () => {
-//     if (!user) return;
-//     await fetch(`/api/ActivityInstance/update-time?id=${instance.instanceId}`, {
-//       method: "PATCH",
-//       headers: { 
-//         Authorization: `Bearer ${user.token}`,
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify({
-//         startTime: start,
-//         endTime: end
-//       })
-//     });
-
-//     alert("Updated!");
-//   };
-
-//   const removeInstance = async () => {
-//     if (!user) return;
-//     await fetch(`/api/ActivityInstance/delete-instance?InstanceId=${instance.instanceId}`, {
-//       method: "DELETE",
-//       headers: { Authorization: `Bearer ${user.token}` }
-//     });
-
-//     alert("Removed!");
-//   };
-
-//   return (
-//     <div className="flex flex-col gap-3">
-
-//       <h2 className="text-xl font-bold">{activity.title}</h2>
-//       <p className="text-sm opacity-80">{activity.description}</p>
-
-//       <div className="flex flex-col gap-2">
-//         <label>Start time:</label>
-//         <input
-//           type="time"
-//           value={start}
-//           onChange={e => setStart(e.target.value)}
-//           className="bg-black/20 p-2 rounded border border-white/20"
-//         />
-
-//         <label>End time:</label>
-//         <input
-//           type="time"
-//           value={end}
-//           onChange={e => setEnd(e.target.value)}
-//           className="bg-black/20 p-2 rounded border border-white/20"
-//         />
-//       </div>
-
-//       {/* BUTTONS */}
-//       <div className="flex justify-between mt-3">
-//         <button
-//           onClick={removeInstance}
-//           className="px-3 py-2 bg-red-600 text-white rounded flex items-center gap-1"
-//         >
-//           <Trash2 size={18} /> Delete
-//         </button>
-
-//         <button
-//           onClick={editTime}
-//           className="px-3 py-2 bg-green-500 text-black rounded flex items-center gap-1"
-//         >
-//           <Check size={18} /> Save
-//         </button>
-//       </div>
-
-//     </div>
-//   );
-// };
-
-// export default OfflineActivityModal;
-
-
 import React, { useState } from "react";
 import { Check, X } from "lucide-react";
 import { useAuth } from "../AuthContext";
@@ -217,7 +106,7 @@ const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
-            className="w-full p-2 mt-1 rounded bg-black/20 border border-white/10"
+            className="w-full p-2 mt-1 rounded bg-surface-2"
           />
         </label>
 
@@ -227,7 +116,7 @@ const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({
             type="time"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
-            className="w-full p-2 mt-1 rounded bg-black/20 border border-white/10"
+            className="w-full p-2 mt-1 rounded bg-surface-2"
           />
         </label>
 
@@ -243,8 +132,9 @@ const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({
             type="checkbox"
             checked={isActive}
             onChange={() => setIsActive(!isActive)}
+            className="accent-accent-0"
           />
-          Active?
+          Active
         </label>
 
         <label className="flex items-center gap-2">
@@ -252,8 +142,9 @@ const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({
             type="checkbox"
             checked={didOccur}
             onChange={() => setDidOccur(!didOccur)}
+            className="accent-accent-0"
           />
-          Did occur?
+          Did occur
         </label>
 
         <label className="flex items-center gap-2">
@@ -261,8 +152,9 @@ const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({
             type="checkbox"
             checked={isException}
             onChange={() => setIsException(!isException)}
+            className="accent-accent-0"
           />
-          Exception?
+          Exception
         </label>
       </div>
 
@@ -270,14 +162,14 @@ const OfflineActivityModal: React.FC<OfflineActivityModalProps> = ({
       <div className="flex justify-end gap-3 mt-4">
         <button
           onClick={onClose}
-          className="px-4 py-2 bg-red-500/20 border border-red-500/40 rounded text-red-300 hover:bg-red-500/30"
+          className="px-4 py-2 bg-surface-2 rounded text-text-0 flex items-center gap-2 hover:bg-accent-0"
         >
-          <X size={16} />
+          <X size={16} /> Cancel
         </button>
 
         <button
           onClick={saveChanges}
-          className="px-4 py-2 bg-accent text-black rounded font-semibold flex items-center gap-2"
+          className="px-4 py-2 bg-accent text-text-0 rounded flex items-center gap-2 bg-surface-2 hover:bg-accent-0"
         >
           <Check size={18} /> Save
         </button>

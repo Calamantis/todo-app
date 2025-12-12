@@ -23,8 +23,8 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
     <div
       className={`p-4 mb-3 rounded-lg border flex justify-between items-start ${
         isRead
-          ? "bg-white/5 border-white/10"
-          : "bg-blue-600/20 border-blue-400/40"
+          ? "bg-surface-2 border-surface-2"
+          : "bg-surface-4 border-surface-4"
       }`}
     >
       <div>
@@ -39,7 +39,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         {!isRead && (
           <button
             onClick={() => onMarkRead(notificationId)}
-            className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded flex items-center gap-1"
+            className="px-3 py-1 bg-green-600 hover:bg-green-700 text-text-0 rounded flex items-center gap-1"
           >
             <Check size={16} /> Read
           </button>
@@ -47,7 +47,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
 
         <button
           onClick={() => onDelete(notificationId)}
-          className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded flex items-center gap-1"
+          className="px-3 py-1 bg-red-600 hover:bg-red-700 text-text-0 rounded flex items-center gap-1"
         >
           <Trash2 size={16} /> Remove
         </button>

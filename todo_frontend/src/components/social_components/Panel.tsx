@@ -11,7 +11,7 @@ const Panel: React.FC<{
   return (
     <div
       className={[
-        "bg-white/5 border border-white/10 rounded-xl shadow-md",
+        "bg-surface-1 border border-surface-2 rounded-xl shadow-md",
         "p-4 flex flex-col",
         small ? "min-h-[20vh] max-h-[60vh]" : "min-h-[20vh] max-h-[121.7vh]",
       ].join(" ")}
@@ -29,7 +29,7 @@ const Panel: React.FC<{
                 onAdd();
               }}
             >
-              <Plus size={22} className="text-quaternary hover:text-accent"/>
+              <Plus size={22} className="text-accent-0 hover:text-accent-1"/>
             </button>
         )}
       </div>

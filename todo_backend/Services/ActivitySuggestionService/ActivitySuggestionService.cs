@@ -463,6 +463,11 @@ namespace todo_backend.Services.ActivitySuggestionService
                         .OrderBy(ev => ev.Start)
                         .FirstOrDefault();
 
+                    var activityTitles = await _context.Activities
+                        .Where(a => a.OwnerId == userId)
+                        .ToDictionaryAsync(a => a.ActivityId, a => a.Title);
+
+
                     var related = new List<(int ActivityId, DateTime Start, DateTime End)>();
 
                     related.AddRange(overlapping.Select(ev => (ev.ActivityId, ev.Start, ev.End)));
@@ -480,7 +485,7 @@ namespace todo_backend.Services.ActivitySuggestionService
                     var overlappingDtos = distinctRelated.Select(ev => new ActivityBasicInfoDto
                     {
                         ActivityId = ev.ActivityId,
-                        Title = string.Empty,   // jak coś, dociągniesz Title osobnym zapytaniem po ActivityId
+                        Title = activityTitles.TryGetValue(ev.ActivityId, out var title) ? title : "(unknown)",
                         StartTime = ev.Start,
                         EndTime = ev.End
                     }).ToList();

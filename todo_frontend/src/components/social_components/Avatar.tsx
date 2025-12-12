@@ -17,7 +17,7 @@ const Avatar: React.FC<{ src?: string; size?: number }> = ({
       src={resolvedSrc}
       alt="avatar"
       style={{ width: size, height: size }}
-      className="rounded-full object-cover border border-white/20"
+      className="rounded-full object-cover border border-surface-1"
       onError={(e) => {
         const img = e.currentTarget as HTMLImageElement;
 

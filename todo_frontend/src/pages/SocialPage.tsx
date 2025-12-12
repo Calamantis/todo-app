@@ -155,7 +155,7 @@ const SocialPage: React.FC = () => {
   // loading screen
   if (loading) {
     return (
-      <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] flex items-center justify-center">
+      <div className="min-h-screen bg-surface-0 text-text-0 flex items-center justify-center">
         Loading social…
       </div>
     );
@@ -164,7 +164,7 @@ const SocialPage: React.FC = () => {
   return (
     <div>
       <NavigationWrapper />
-      <div className="bg-[var(--background-color)] text-[var(--text-color)] p-4 md:p-6">
+      <div className="bg-surface-0 text-text-0 p-4 md:p-6">
         <div className="max-w-9xl mx-auto">
           {error && <p className="text-red-400 mb-4">{error}</p>}
 
@@ -203,8 +203,8 @@ const SocialPage: React.FC = () => {
 
             {/* BROWSE USERS */}
             <Panel title="Find users" icon={<Search size={18} />}>
-              <div className="top-0 bg-[var(--primary-color)] z-10">
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+              <div className="top-0 z-10">
+                <div className="flex items-center gap-2 bg-surface-1 rounded-lg px-3 py-2">
                   <input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

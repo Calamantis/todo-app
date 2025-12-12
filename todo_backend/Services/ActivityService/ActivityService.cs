@@ -40,7 +40,7 @@ namespace todo_backend.Services.ActivityService
         {
             var activity = await _context.Activities
                 .Include(a => a.Category)
-                .FirstOrDefaultAsync(a => a.ActivityId == activityId && a.OwnerId == currentUserId);
+                .FirstOrDefaultAsync(a => a.ActivityId == activityId);
 
             if (activity == null) return null;
 

@@ -78,7 +78,7 @@ const UserHoverCard: React.FC<{
         }
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative rounded-xl overflow-hidden bg-[#1f1f1f] border border-white/10">
+        <div className="relative rounded-xl overflow-hidden bg-surface-1 ">
 
           {/* Close btn */}
           {modal && (
@@ -116,11 +116,11 @@ const UserHoverCard: React.FC<{
           <div className="p-3 flex gap-3">
             <Avatar src={user.profileImageUrl} size={50} />
             <div className="min-w-0">
-              <div className="font-semibold text-white truncate">
+              <div className="font-semibold text-text-0 truncate">
                 {user.fullName}
               </div>
               {user.synopsis && (
-                <div className="text-xs text-white/80 mt-1 line-clamp-3">
+                <div className="text-xs text-text-0 mt-1 line-clamp-3">
                   {user.synopsis}
                 </div>
               )}
@@ -128,14 +128,14 @@ const UserHoverCard: React.FC<{
           </div>
 
           {/* ACTIONS */}
-          <div className="px-3 pb-3 flex items-center justify-center gap-3 text-white/80">
+          <div className="px-3 pb-3 flex items-center justify-center gap-3 text-text-0">
 
             {/* FRIEND */}
             {variant === "friend" && (
               <>
                 <button
                   onClick={() => setTimelineModalOpen(true)}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="View timeline"
                 >
                   <Eye size={18} />
@@ -143,7 +143,7 @@ const UserHoverCard: React.FC<{
 
                 <button
                   onClick={() => setInviteModalOpen(true)}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                 >
                   <CalendarPlus size={18} />
                 </button>
@@ -153,7 +153,7 @@ const UserHoverCard: React.FC<{
 
                 <button
                   onClick={doRemoveFriend}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="Remove friend"
                 >
                   <UserMinus size={18} />
@@ -164,7 +164,7 @@ const UserHoverCard: React.FC<{
                     await socialApi.removeFriend(userId, token);
                     await socialApi.blockUser(userId, token);
                   })}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="Remove & Block"
                 >
                   <ShieldBan size={18} />
@@ -177,7 +177,7 @@ const UserHoverCard: React.FC<{
               <>
                 <button
                   onClick={doSendInvite}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="Add friend"
                 >
                   <UserPlus size={18} />
@@ -185,7 +185,7 @@ const UserHoverCard: React.FC<{
 
                 <button
                   onClick={doBlock}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="Block"
                 >
                   <ShieldBan size={18} />
@@ -197,7 +197,7 @@ const UserHoverCard: React.FC<{
             {variant === "blocked" && (
               <button
                 onClick={doUnblock}
-                className="hover:text-white"
+                className="hover:text-accent-0"
                 title="Unblock"
               >
                 <ShieldOff size={18} />
@@ -208,7 +208,7 @@ const UserHoverCard: React.FC<{
             {variant === "sent" && (
               <button
                 onClick={doCancelInvite}
-                className="hover:text-white"
+                className="hover:text-accent-0"
                 title="Cancel invite"
               >
                 <X size={18} />
@@ -220,7 +220,7 @@ const UserHoverCard: React.FC<{
               <>
                 <button
                   onClick={doAcceptInvite}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="Accept"
                 >
                   <Check size={18} />
@@ -228,7 +228,7 @@ const UserHoverCard: React.FC<{
 
                 <button
                   onClick={doRejectInvite}
-                  className="hover:text-white"
+                  className="hover:text-accent-0"
                   title="Reject"
                 >
                   <X size={18} />

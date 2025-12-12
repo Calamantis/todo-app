@@ -79,18 +79,18 @@ const createInstance = async () => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-[var(--card-bg)] text-[var(--text-color)] p-6 rounded-xl max-w-md w-full border border-white/10 shadow-xl">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-xl max-w-md w-full shadow-xl">
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Available Time Slot</h2>
-          <button onClick={onClose} className="opacity-70 hover:opacity-100">
+          <button onClick={onClose} className="text-text-0 hover:bg-surface-2 rounded">
             <X size={22} />
           </button>
         </div>
 
         {/* INFO */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 bg-surface-2 p-4 rounded-lg mb-4">
           <div><b>Date:</b> {displayDate}</div>
           <div>
             <b>Suggested time:</b> {current.suggestedStart} → {current.suggestedEnd}
@@ -106,14 +106,14 @@ const createInstance = async () => {
           <button
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
             disabled={index === 0}
-            className="opacity-70 hover:opacity-100"
+            className="text-accent-0 hover:text-accent-1 rounded-lg"
           >
             <ChevronLeft size={26} />
           </button>
 
           <button
             onClick={createInstance}
-            className="px-4 py-2 bg-accent text-black rounded font-semibold flex items-center gap-2"
+            className="px-4 py-2 bg-accent-0 hover:bg-accent-1 text-text-0 rounded font-semibold flex items-center gap-2"
           >
             <Check size={18} /> Choose
           </button>
@@ -121,7 +121,7 @@ const createInstance = async () => {
           <button
             onClick={() => setIndex((i) => Math.min(results.length - 1, i + 1))}
             disabled={index === results.length - 1}
-            className="opacity-70 hover:opacity-100"
+            className="text-accent-0 hover:text-accent-1 rounded-lg"
           >
             <ChevronRight size={26} />
           </button>

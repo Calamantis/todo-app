@@ -52,17 +52,6 @@ const OnlineActivityInviteModal: React.FC<OnlineActivityInviteModalProps> = ({
     fetchFriends();
   }, []);
 
-  // SEARCH FILTER
-//   useEffect(() => {
-//     const s = search.toLowerCase();
-//     setFiltered(
-//       friends.filter(
-//         (f) =>
-//           f.fullName.toLowerCase().includes(s) ||
-//           f.email?.toLowerCase().includes(s)
-//       )
-//     );
-//   }, [search, friends]);
 
 useEffect(() => {
   const s = search.toLowerCase();
@@ -101,7 +90,7 @@ useEffect(() => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-30">
-      <div className="bg-[var(--card-bg)] text-[var(--text-color)] p-6 rounded-xl w-full max-w-md max-h-[80vh] overflow-y-auto shadow-xl border border-white/10">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-xl w-full max-w-md max-h-[80vh] overflow-y-auto shadow-xl border border-white/10">
         
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4">
@@ -117,7 +106,7 @@ useEffect(() => {
           placeholder="Search friend..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full mb-4 p-2 rounded-lg bg-black/20 border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full mb-4 p-2 rounded-lg bg-surface-2 focus:outline-none focus:ring-2 focus:ring-accent"
         />
 
         {/* FRIEND LIST */}
@@ -130,7 +119,7 @@ useEffect(() => {
             {filtered.map((f) => (
               <div
                 key={f.friendId}
-                className="relative group rounded-lg px-2 py-2 flex items-center justify-between hover:bg-white/10 transition"
+                className="relative group rounded-lg px-2 py-2 flex items-center justify-between hover:bg-surface-2 transition"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <Avatar
@@ -151,7 +140,7 @@ useEffect(() => {
 
                 {/* Invite Button */}
                 <button
-                  className="opacity-80 hover:opacity-100"
+                  className="hover:text-accent-1"
                   title="Invite to activity"
                   onClick={() => sendInvite(f.friendId)}
                 >

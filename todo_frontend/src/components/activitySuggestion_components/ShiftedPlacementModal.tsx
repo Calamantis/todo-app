@@ -41,6 +41,16 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
   const current = results[index];
   if (!current) return null;
 
+  const formatDate = (iso: string) =>
+  new Date(iso).toISOString().split("T")[0];
+
+  const formatTime = (iso: string) =>
+    new Date(iso).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+
   const applyShift = async () => {
     if (!user) return;
 
@@ -73,24 +83,25 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-[var(--card-bg)] text-[var(--text-color)] p-6 rounded-xl max-w-lg w-full border border-white/10 shadow-xl">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-xl max-w-lg w-full shadow-xl">
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Shifted Placement</h2>
-          <button onClick={onClose}>
+          <button onClick={onClose} className="text-text-0 hover:bg-surface-2 rounded">
             <X size={22} />
           </button>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 bg-surface-2 p-4 rounded-lg mb-4">
           <div>
-            <b>Date:</b> {current.date.split("T")[0]}
+            <b>Date:</b> {formatDate(current.date)}
           </div>
 
-          <div>
-            <b>Suggested:</b> {current.suggestedStart} → {current.suggestedEnd}
-          </div>
+            <div>
+              <b>Suggested:</b>{" "}
+              {formatTime(current.suggestedStart)} → {formatTime(current.suggestedEnd)}
+            </div>
 
           <div>
             <b>Overlapping activities:</b>
@@ -99,7 +110,8 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
           <ul className="ml-4 list-disc">
             {current.overlappingActivities.map(a => (
               <li key={a.activityId}>
-                {a.title} ({a.startTime} - {a.endTime})
+                {a.title}{" "}
+                {formatTime(a.startTime)} - {formatTime(a.endTime)}
               </li>
             ))}
           </ul>
@@ -107,7 +119,7 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
           <div className="mt-3 flex flex-col gap-2">
             <label>
               Shorten previous:
-              <input type="number" className="w-full p-1 bg-black/20 border border-white/10 rounded"
+              <input type="number" className="w-full p-1 bg-surface-1 rounded"
                 value={shortenPrev}
                 onChange={e => setShortenPrev(Number(e.target.value))}
               />
@@ -115,7 +127,7 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
 
             <label>
               Shorten current activity:
-              <input type="number" className="w-full p-1 bg-black/20 border border-white/10 rounded"
+              <input type="number" className="w-full p-1 bg-surface-1 rounded"
                 value={shortenCurrent}
                 onChange={e => setShortenCurrent(Number(e.target.value))}
               />
@@ -123,7 +135,7 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
 
             <label>
               Shorten next:
-              <input type="number" className="w-full p-1 bg-black/20 border border-white/10 rounded"
+              <input type="number" className="w-full p-1 bg-surface-1 rounded"
                 value={shortenNext}
                 onChange={e => setShortenNext(Number(e.target.value))}
               />
@@ -137,13 +149,14 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
           <button
             onClick={() => setIndex(i => Math.max(0, i - 1))}
             disabled={index === 0}
+            className="text-accent-0 hover:text-accent-1"
           >
             <ChevronLeft size={26} />
           </button>
 
           <button
             onClick={applyShift}
-            className="px-4 py-2 bg-accent text-black rounded font-semibold flex items-center gap-2"
+            className="px-4 py-2 bg-accent-0 hover:bg-accent-1 text-text-0 rounded font-semibold flex items-center gap-2"
           >
             <Check size={18} /> Apply
           </button>
@@ -151,6 +164,7 @@ const ShiftedPlacementModal: React.FC<ModalProps> = ({
           <button
             onClick={() => setIndex(i => Math.min(results.length - 1, i + 1))}
             disabled={index === results.length - 1}
+            className="text-accent-0 hover:text-accent-1"
           >
             <ChevronRight size={26} />
           </button>

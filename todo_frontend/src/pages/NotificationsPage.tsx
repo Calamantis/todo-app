@@ -4,7 +4,7 @@ import NavigationWrapper from "../components/NavigationWrapper";
 import Footer from "../components/Footer";
 import NotificationList from "../components/notification_components/NotificationList";
 
-import { Bell, PlusCircle, XCircle, Loader2 } from "lucide-react";
+import { Bell, XCircle, Loader2 } from "lucide-react";
 
 interface Notification {
   notificationId: number;
@@ -136,14 +136,14 @@ const NotificationsPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="h-[50vh] flex justify-center items-center">
+      <div className="h-[50vh] flex justify-center items-center bg-surface-0">
         <Loader2 size={40} className="animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] flex flex-col">
+    <div className="min-h-screen bg-surface-0 text-text-0 flex flex-col">
       <NavigationWrapper />
 
       <div className="flex-1 p-6 max-w-5xl mx-auto">
@@ -152,27 +152,27 @@ const NotificationsPage: React.FC = () => {
         </h1>
 
         {/* CREATE NOTIFICATION */}
-        <div className="bg-[var(--card-bg)] p-6 rounded-xl border border-white/10 shadow-lg mb-8">
+        <div className="bg-surface-1 p-6 rounded-xl shadow-lg mb-8">
           <h2 className="text-xl mb-3 font-semibold flex items-center gap-2">
-            <PlusCircle size={20} /> Create Notification (TEST MODE)
+            Create Notification
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <input
-              className="p-2 rounded bg-black/20 border border-white/10"
+              className="p-2 rounded bg-surface-2"
               placeholder="Title..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <input
-              className="p-2 rounded bg-black/20 border border-white/10"
+              className="p-2 rounded bg-surface-2"
               placeholder="Message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
             <input
               type="datetime-local"
-              className="p-2 rounded bg-black/20 border border-white/10"
+              className="p-2 rounded bg-surface-2"
               value={visibleFrom}
               onChange={(e) => setVisibleFrom(e.target.value)}
             />
@@ -180,7 +180,7 @@ const NotificationsPage: React.FC = () => {
 
           <button
             onClick={createNotification}
-            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+            className="mt-4 px-4 py-2 bg-accent-0 hover:bg-accent-1 rounded text-text-0"
           >
             Create Notification
           </button>
@@ -190,14 +190,14 @@ const NotificationsPage: React.FC = () => {
         <div className="mb-6 flex justify-end">
           <button
             onClick={deleteAllRead}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded flex items-center gap-2 text-white"
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded flex items-center gap-2 text-text-0"
           >
             <XCircle size={18} /> Delete all read
           </button>
         </div>
 
         {/* NOTIFICATION LIST */}
-        <div className="bg-[var(--card-bg)] p-6 rounded-xl border border-white/10 shadow-lg">
+        <div className="bg-surface-1 p-6 rounded-xl shadow-lg">
           <NotificationList
             items={notifications}
             onMarkRead={markAsRead}

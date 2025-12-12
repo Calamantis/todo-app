@@ -75,18 +75,18 @@ const ActivitySuggestionModal: React.FC<ActivitySuggestionModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-[var(--card-bg)] text-[var(--text-color)] p-6 rounded-xl max-w-md w-full border border-white/10 shadow-xl">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-xl max-w-md w-full shadow-xl">
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Suggested Activity</h2>
-          <button onClick={onClose} className="opacity-70 hover:opacity-100">
+          <button onClick={onClose} className="text-text-0 hover:bg-surface-2 rounded">
             <X size={22} />
           </button>
         </div>
 
         {/* INFO */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 bg-surface-2 p-4 rounded-lg">
           <div className="font-bold text-lg">{current.title}</div>
           <div>Category: {current.categoryName ?? "—"}</div>
           <div>Suggested Duration: {current.suggestedDurationMinutes} minutes</div>
@@ -109,8 +109,9 @@ const ActivitySuggestionModal: React.FC<ActivitySuggestionModalProps> = ({
               type="checkbox"
               checked={isException}
               onChange={() => setIsException(!isException)}
+              className="accent-accent-0"
             />
-            Mark as exception?
+            Exception
           </label>
 
           <div className="text-xs opacity-60 mt-2">
@@ -124,14 +125,14 @@ const ActivitySuggestionModal: React.FC<ActivitySuggestionModalProps> = ({
           <button
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
             disabled={index === 0}
-            className="opacity-70 hover:opacity-100"
+            className="text-accent-0 hover:text-accent-1 rounded-lg"
           >
             <ChevronLeft size={26} />
           </button>
 
           <button
             onClick={createInstance}
-            className="px-4 py-2 bg-accent text-black rounded font-semibold flex items-center gap-2"
+            className="px-4 py-2 bg-accent-0 hover:bg-accent-1 text-text-0 rounded font-semibold flex items-center gap-2"
           >
             <Check size={18} /> Choose
           </button>
@@ -139,7 +140,7 @@ const ActivitySuggestionModal: React.FC<ActivitySuggestionModalProps> = ({
           <button
             onClick={() => setIndex((i) => Math.min(suggestions.length - 1, i + 1))}
             disabled={index === suggestions.length - 1}
-            className="opacity-70 hover:opacity-100"
+            className="text-accent-0 hover:text-accent-1"
           >
             <ChevronRight size={26} />
           </button>

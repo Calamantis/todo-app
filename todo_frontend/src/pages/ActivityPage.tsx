@@ -246,7 +246,7 @@ const ActivityPage: React.FC = () => {
   return (
     <div>
       <NavigationWrapper />
-      <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] p-4 md:p-6">
+      <div className="min-h-screen bg-surface-0 text-text-0 p-4 md:p-6">
         <div className="max-w-9xl mx-auto">
           {/* Panel 1: Category - Full Width */}
           <div className="mb-4">

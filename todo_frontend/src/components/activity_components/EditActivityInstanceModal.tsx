@@ -111,17 +111,17 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96 max-h-[90vh] overflow-y-auto">
+      <div className="bg-surface-1 text-text-0 rounded-lg shadow-lg p-6 w-96 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             Edit Activity Instance
           </h2>
-          <button
+          {/* <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            className="text-gray-500 hover:text-accent-0 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <X size={24} />
-          </button>
+          </button> */}
         </div>
 
         {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -129,7 +129,7 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Occurrence Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium mb-1">
               Occurrence Date
             </label>
             <input
@@ -138,13 +138,13 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
               value={formData.occurrenceDate}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              className="w-full px-3 py-2 rounded-md bg-surface-2"
             />
           </div>
 
           {/* Start Time */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium mb-1">
               Start Time
             </label>
             <input
@@ -153,13 +153,13 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
               value={formData.startTime}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              className="w-full px-3 py-2 rounded-md bg-surface-2"
             />
           </div>
 
           {/* End Time */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium mb-1">
               End Time
             </label>
             <input
@@ -168,7 +168,7 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
               value={formData.endTime}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              className="w-full px-3 py-2 rounded-md bg-surface-2"
             />
           </div>
 
@@ -180,9 +180,9 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
                 name="isException"
                 checked={formData.isException}
                 onChange={handleInputChange}
-                className="w-4 h-4 mr-2"
+                className="w-4 h-4 mr-2 accent-accent-0"
               />
-              <span className="text-gray-700 dark:text-gray-300">Is Exception</span>
+              <span className="text-text-0">Is Exception</span>
             </label>
           </div>
 
@@ -191,14 +191,14 @@ const EditActivityInstanceModal: React.FC<EditActivityInstanceModalProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-md transition"
+              className="flex-1 bg-red-600 hover:bg-red-500 text-text-0 font-medium py-2 rounded-md transition"
             >
               {loading ? "Saving..." : "Save"}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium py-2 rounded-md transition"
+              className="flex-1  bg-surface-3 hover:bg-accent-0 text-text-0 font-medium py-2 rounded-md transition"
             >
               Cancel
             </button>

@@ -51,7 +51,7 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="bg-white p-6 rounded-lg w-1/3">
+      <div className="bg-surface-1 p-6 rounded-lg w-1/3 text-text-0">
         <h2 className="text-xl font-semibold mb-4">Add Category</h2>
 
         <div className="mb-4">
@@ -61,8 +61,9 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           <input
             id="name"
             type="text"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 bg-surface-2 rounded"
             value={name}
+            placeholder="Type a name"
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -74,17 +75,17 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           <input
             id="color"
             type="color"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 bg-surface-2 rounded"
             value={colorHex}
             onChange={(e) => setColorHex(e.target.value)}
           />
         </div>
 
         <div className="flex justify-end gap-4">
-          <button onClick={onClose} className="px-4 py-2 bg-gray-400 text-white rounded">
+          <button onClick={onClose} className="px-4 py-2 bg-red-600 hover:bg-red-500 text-text-0 rounded">
             Cancel
           </button>
-          <button onClick={handleSubmit} className="px-4 py-2 bg-blue-600 text-white rounded">
+          <button onClick={handleSubmit} className="px-4 py-2 bg-surface-4 hover:bg-accent-0 text-text-0 rounded">
             Add Category
           </button>
         </div>

@@ -297,12 +297,12 @@ const ActivityPage: React.FC = () => {
               <Panel title="Activity Instance" onAdd={() => selectedActivity && setShowAddInstanceModal(true)}>
                 {selectedActivity ? (
                   <>
-                    <div className="mb-2 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                    <div className="mb-2 text-xs font-semibold text-text-0">
                       {selectedActivity.title}
                     </div>
-                    {loadingInstances && <div className="text-sm text-gray-500">Loading instances...</div>}
+                    {loadingInstances && <div className="text-sm">Loading instances...</div>}
                     {!loadingInstances && instances.length === 0 && (
-                      <div className="text-sm text-gray-500">No instances found.</div>
+                      <div className="text-sm">No instances found.</div>
                     )}
                     {instances.map((instance) => (
                       <ActivityInstanceListItem 
@@ -314,7 +314,7 @@ const ActivityPage: React.FC = () => {
                     ))}
                   </>
                 ) : (
-                  <div className="text-sm text-gray-500">Select an activity to view instances</div>
+                  <div className="text-sm">Select an activity to view instances</div>
                 )}
               </Panel>
             </div>

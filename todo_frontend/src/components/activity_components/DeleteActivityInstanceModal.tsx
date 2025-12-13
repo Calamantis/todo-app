@@ -68,26 +68,26 @@ const DeleteActivityInstanceModal: React.FC<DeleteActivityInstanceModalProps> = 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96">
+      <div className="bg-surface-1 rounded-lg shadow-lg p-6 w-96">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-bold text-text-0">
             Delete Activity Instance
           </h2>
-          <button
+          {/* <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <X size={24} />
-          </button>
+          </button> */}
         </div>
 
         {error && <div className="text-red-500 mb-4">{error}</div>}
 
-        <div className="mb-6">
-          <p className="text-gray-700 dark:text-gray-300 mb-2">
+        <div className="mb-6 bg-surface-2 p-4 rounded-md text-text-0">
+          <p className="mb-2">
             Are you sure you want to delete this instance?
           </p>
-          <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-md text-sm">
+          <div className="p-3 rounded-md text-sm">
             <p>
               <strong>Date:</strong> {date}
             </p>
@@ -104,13 +104,13 @@ const DeleteActivityInstanceModal: React.FC<DeleteActivityInstanceModalProps> = 
           <button
             onClick={handleConfirmDelete}
             disabled={loading}
-            className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-md transition"
+            className="flex-1 bg-red-600 hover:bg-red-500 text-text-0 font-medium py-2 rounded-md transition"
           >
             {loading ? "Deleting..." : "Delete"}
           </button>
           <button
             onClick={onClose}
-            className="flex-1 bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium py-2 rounded-md transition"
+            className="flex-1 bg-surface-3 hover:bg-accent-0 text-text-0 font-medium py-2 rounded-md transition"
           >
             Cancel
           </button>

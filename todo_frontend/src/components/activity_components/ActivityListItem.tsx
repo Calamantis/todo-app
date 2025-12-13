@@ -68,7 +68,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
     <div
       onClick={() => onSelect?.(activity)}
       className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition hover:opacity-75 border-2 w-[80%] ${
-        isSelected ? "ring-2 ring-blue-500 dark:ring-blue-400" : ""
+        isSelected ? "ring-2 ring-surface-2" : ""
       }`}
       style={{
         background: accentBg,
@@ -77,26 +77,26 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
     >
       {/* LEFT SIDE */}
       <div className="flex-1 min-w-0 pr-4">
-        <div className="font-semibold text-gray-900 truncate">
+        <div className="font-semibold text-text-0 truncate">
           {activity.title}
         </div>
 
-        <div className="text-sm text-gray-600 truncate">
+        <div className="text-sm text-text-0 opacity-80 truncate">
           {activity.description}
         </div>
 
         {activity.categoryName && (
-          <div className="text-xs text-gray-500 mt-1 truncate">
+          <div className="text-xs text-text-0 opacity-80 mt-1 truncate">
             Category: {activity.categoryName}
           </div>
         )}
 
         <div className="mt-1 text-xs flex items-center gap-2">
           {activity.isRecurring && (
-            <span className="text-blue-600 font-semibold">Recurring</span>
+            <span className="text-text-0 opacity-80 font-semibold">Recurring</span>
           )}
           {activity.isRecurring && <span className="text-gray-300">|</span>}
-          <span className="text-gray-500">{status}</span>
+          <span className="text-text-0 opacity-80">{status}</span>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
             e.stopPropagation();
             setPublic();
           }}
-          className="text-gray-600 hover:text-green-600 transition"
+          className="text-text-0 hover:text-green-600 transition"
           title="Make Public"
         >
           <Globe size={18} />
@@ -120,7 +120,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
             e.stopPropagation();
             setFriendsOnly();
           }}
-          className="text-gray-600 hover:text-blue-600 transition"
+          className="text-text-0 hover:text-blue-600 transition"
           title="Friends Only"
         >
           <Users size={18} />
@@ -131,7 +131,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
             e.stopPropagation();
             setPrivate();
           }}
-          className="text-gray-600 hover:text-purple-600 transition"
+          className="text-text-0 hover:text-purple-600 transition"
           title="Private"
         >
           <Lock size={18} />
@@ -143,7 +143,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
             e.stopPropagation();
             onEdit?.(activity);
           }}
-          className="text-gray-600 hover:text-yellow-600 transition"
+          className="text-text-0 hover:text-yellow-600 transition"
         >
           <Pencil size={18} />
         </button>
@@ -154,7 +154,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
             e.stopPropagation();
             onDelete?.(activity.activityId);
           }}
-          className="text-gray-600 hover:text-red-600 transition"
+          className="text-text-0 hover:text-red-600 transition"
         >
           <Trash2 size={18} />
         </button>

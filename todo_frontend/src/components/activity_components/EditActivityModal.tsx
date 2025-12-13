@@ -75,7 +75,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white p-6 rounded-lg w-96">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-lg w-96">
         <h2 className="text-xl font-semibold mb-4">Edit Activity</h2>
 
         <div className="mb-3">
@@ -83,7 +83,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 bg-surface-2 rounded"
           />
         </div>
 
@@ -92,7 +92,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 bg-surface-2 rounded"
           />
         </div>
 
@@ -102,6 +102,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({
             checked={isRecurring}
             onChange={(e) => setIsRecurring(e.target.checked)}
             id="recurring"
+            className="accent-accent-0"
           />
           <label htmlFor="recurring" className="text-sm">Recurring</label>
         </div>
@@ -111,7 +112,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({
           <select
             value={categoryId ?? ""}
             onChange={(e) => setCategoryId(e.target.value ? Number(e.target.value) : null)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 bg-surface-2 rounded"
           >
             <option value="">No category</option>
             {categories.map((c) => (
@@ -123,14 +124,14 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({
         <div className="flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-400 text-white rounded"
+            className="px-4 py-2 bg-red-600 hover:bg-red-500 text-text-0 rounded"
             disabled={loading}
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="px-4 py-2 bg-blue-600 text-white rounded"
+            className="px-4 py-2 bg-surface-3 hover:bg-accent-0 text-text-0 rounded"
             disabled={loading}
           >
             {loading ? "Saving..." : "Save Changes"}

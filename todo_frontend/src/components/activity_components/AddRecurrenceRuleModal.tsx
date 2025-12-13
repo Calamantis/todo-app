@@ -82,12 +82,12 @@ const AddRecurrenceRuleModal: React.FC<AddRecurrenceRuleModalProps> = ({ activit
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white dark:bg-slate-800 p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Add Recurrence Rule</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Type</label>
-            <select value={type} onChange={(e) => setType(e.target.value)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700">
+            <select value={type} onChange={(e) => setType(e.target.value)} className="w-full px-3 py-2 rounded-lg bg-surface-2">
               <option value="DAY">Daily</option>
               <option value="WEEK">Weekly</option>
               <option value="MONTH">Monthly</option>
@@ -97,63 +97,63 @@ const AddRecurrenceRuleModal: React.FC<AddRecurrenceRuleModalProps> = ({ activit
 
           <div>
             <label className="block text-sm font-medium mb-1">Interval</label>
-            <input type="number" min={1} value={interval} onChange={(e) => setInterval(parseInt(e.target.value) || 1)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+            <input type="number" min={1} value={interval} onChange={(e) => setInterval(parseInt(e.target.value) || 1)} className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
           </div>
 
           {type === "WEEK" && (
             <div>
               <label className="block text-sm font-medium mb-1">Days of Week (comma-separated 0-6)</label>
-              <input type="text" value={daysOfWeek} onChange={(e) => setDaysOfWeek(e.target.value)} placeholder="e.g. 1,3,5" className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+              <input type="text" value={daysOfWeek} onChange={(e) => setDaysOfWeek(e.target.value)} placeholder="e.g. 1,3,5" className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
             </div>
           )}
 
           {type === "MONTH" && (
             <div>
               <label className="block text-sm font-medium mb-1">Days of Month (comma-separated, LAST for last day)</label>
-              <input type="text" value={daysOfMonth} onChange={(e) => setDaysOfMonth(e.target.value)} placeholder="e.g. 1,15,LAST" className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+              <input type="text" value={daysOfMonth} onChange={(e) => setDaysOfMonth(e.target.value)} placeholder="e.g. 1,15,LAST" className="w-full px-3 py-2 bg-surface-2 rounded-lg" />
             </div>
           )}
 
           {type === "YEAR" && (
             <div>
               <label className="block text-sm font-medium mb-1">Day of Year</label>
-              <input type="date" value={dayOfYear ? new Date(dayOfYear).toISOString().split("T")[0] : ""} onChange={(e) => setDayOfYear(e.target.value)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+              <input type="date" value={dayOfYear ? new Date(dayOfYear).toISOString().split("T")[0] : ""} onChange={(e) => setDayOfYear(e.target.value)} className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
             </div>
           )}
 
           <div>
             <label className="block text-sm font-medium mb-1">Start Time</label>
-            <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+            <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">End Time</label>
-            <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+            <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="w-full px-3 py-2 bg-surface-2 rounded-lg" />
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Duration (minutes)</label>
-            <input type="number" min={0} value={durationMinutes} onChange={(e) => setDurationMinutes(parseInt(e.target.value) || 0)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+            <input type="number" min={0} value={durationMinutes} onChange={(e) => setDurationMinutes(parseInt(e.target.value) || 0)} className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Date Range Start</label>
-            <input type="date" value={dateRangeStart} onChange={(e) => setDateRangeStart(e.target.value)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+            <input type="date" value={dateRangeStart} onChange={(e) => setDateRangeStart(e.target.value)} className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Date Range End</label>
-            <input type="date" value={dateRangeEnd} onChange={(e) => setDateRangeEnd(e.target.value)} className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700" />
+            <input type="date" value={dateRangeEnd} onChange={(e) => setDateRangeEnd(e.target.value)} className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
           </div>
 
           <div className="flex items-center">
-            <input type="checkbox" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} className="rounded" />
+            <input type="checkbox" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} className="rounded accent-accent-0" />
             <label className="ml-2 text-sm font-medium">Active</label>
           </div>
 
           <div className="flex justify-end gap-4 pt-4">
-            <button type="button" onClick={onClose} disabled={loading} className="px-4 py-2 bg-gray-400 text-white rounded">Cancel</button>
-            <button type="submit" disabled={loading} className="px-4 py-2 bg-green-600 text-white rounded">{loading ? "Creating..." : "Create"}</button>
+            <button type="button" onClick={onClose} disabled={loading} className="px-4 py-2 bg-red-600 hover:bg-red-500 text-text-0 rounded">Cancel</button>
+            <button type="submit" disabled={loading} className="px-4 py-2 bg-surface-3 hover:bg-accent-0 text-text-0 rounded">{loading ? "Creating..." : "Create"}</button>
           </div>
         </form>
       </div>

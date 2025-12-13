@@ -112,7 +112,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white dark:bg-slate-800 p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-surface-1 p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Edit Recurrence Rule</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -122,7 +122,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             >
               <option value="DAY">Daily</option>
               <option value="WEEK">Weekly</option>
@@ -139,7 +139,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               min="1"
               value={interval}
               onChange={(e) => setInterval(parseInt(e.target.value) || 1)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             />
           </div>
 
@@ -152,7 +152,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
                 placeholder="e.g., 1,3,5"
                 value={daysOfWeek}
                 onChange={(e) => setDaysOfWeek(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+                className="w-full px-3 py-2 rounded-lg bg-surface-2"
               />
             </div>
           )}
@@ -166,7 +166,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
                 placeholder="e.g., 1,15,LAST"
                 value={daysOfMonth}
                 onChange={(e) => setDaysOfMonth(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+                className="w-full px-3 py-2 rounded-lg bg-surface-2"
               />
             </div>
           )}
@@ -179,7 +179,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
                 type="date"
                 value={dayOfYear ? new Date(dayOfYear).toISOString().split("T")[0] : ""}
                 onChange={(e) => setDayOfYear(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+                className="w-full px-3 py-2 rounded-lg bg-surface-2"
               />
             </div>
           )}
@@ -191,7 +191,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               type="time"
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             />
           </div>
 
@@ -202,7 +202,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               type="time"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             />
           </div>
 
@@ -214,7 +214,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               min="0"
               value={durationMinutes}
               onChange={(e) => setDurationMinutes(parseInt(e.target.value) || 0)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             />
           </div>
 
@@ -225,7 +225,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               type="date"
               value={dateRangeStart}
               onChange={(e) => setDateRangeStart(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             />
           </div>
 
@@ -236,7 +236,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               type="date"
               value={dateRangeEnd}
               onChange={(e) => setDateRangeEnd(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600"
+              className="w-full px-3 py-2 rounded-lg bg-surface-2"
             />
           </div>
 
@@ -246,7 +246,7 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               type="checkbox"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="rounded"
+              className="rounded accent-accent-0"
             />
             <label className="ml-2 text-sm font-medium">Active</label>
           </div>
@@ -257,14 +257,14 @@ const EditRecurrenceRuleModal: React.FC<EditRecurrenceRuleModalProps> = ({
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 disabled:opacity-50"
+              className="px-4 py-2 bg-red-600 hover:bg-red-500 text-text-0 rounded"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-surface-3 hover:bg-accent-0 text-text-0 rounded"
             >
               {loading ? "Saving..." : "Save"}
             </button>

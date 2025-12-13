@@ -161,37 +161,35 @@ const AdminPanelPage: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--background-color)] text-[var(--text-color)]">
+    <div className="min-h-screen flex flex-col bg-surface-0 text-text-0">
       <NavigationWrapper />
 
-      <div className="flex-1 p-6 max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Admin Panel</h1>
-
+      <div className="flex-1 p-6 mx-auto">
         {/* GRID 3 PANELS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-1 xl:grid-cols-4 gap-6">
 
           {/* PANEL 1 — CREATE MODERATOR */}
-          <div className="bg-[var(--card-bg)] p-6 rounded-xl border border-white/10 shadow-lg">
+          <div className="bg-surface-1 p-6 rounded-xl shadow-lg h-fit">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
               <UserPlus size={20} /> Create Moderator
             </h2>
 
             <div className="grid grid-cols-1 gap-3">
               <input
-                className="p-2 rounded bg-black/20 border border-white/10"
+                className="p-2 rounded bg-surface-2"
                 placeholder="Email…"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
-                className="p-2 rounded bg-black/20 border border-white/10"
+                className="p-2 rounded bg-surface-2"
                 placeholder="Full name…"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
               <input
                 type="password"
-                className="p-2 rounded bg-black/20 border border-white/10"
+                className="p-2 rounded bg-surface-2"
                 placeholder="Password…"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -200,62 +198,15 @@ const AdminPanelPage: React.FC = () => {
 
             <button
               onClick={createModerator}
-              className="mt-4 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white"
+              className="mt-4 px-4 py-2 rounded bg-accent-0 hover:bg-accent-1 text-text-0 w-full"
             >
               Create Moderator
             </button>
           </div>
 
-          {/* PANEL 2 — USER LIST */}
-          <div className="bg-[var(--card-bg)] p-6 rounded-xl border border-white/10 shadow-lg">
-            <h2 className="text-2xl font-semibold mb-4">All Users</h2>
-
-            <div className="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10 mb-4">
-              <Search size={18} />
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search users…"
-                className="bg-transparent outline-none flex-1"
-              />
-            </div>
-
-            {filteredUsers.map((u) => {
-              const profile = u.profileImageUrl
-                ? `http://localhost:5268/${u.profileImageUrl}`
-                : `http://localhost:5268/UserProfileImages/DefaultProfileImage.jpg`;
-
-              return (
-                <div
-                  key={u.userId}
-                  className="p-4 mb-3 bg-white/5 rounded-lg border border-white/10 flex justify-between items-center"
-                >
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={profile}
-                      className="w-12 h-12 rounded-full object-cover border border-white/10"
-                    />
-                    <div>
-                      <div className="font-semibold">{u.fullName}</div>
-                      <div className="text-sm opacity-70">{u.email}</div>
-                      <div className="text-xs opacity-50">{u.role}</div>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => deleteUser(u.userId)}
-                    className="px-2 py-1 rounded bg-red-600/30 hover:bg-red-600/60 flex items-center gap-1"
-                  >
-                    <Trash2 size={18} /> Delete
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
           {/* PANEL 3 — SYSTEM LOGS */}
-          <div className="bg-[var(--card-bg)] p-6 rounded-xl border border-white/10 shadow-lg">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+          <div className="bg-surface-1 p-6 rounded-xl shadow-lg h-fit">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text-0">
               <List size={20} /> System Logs
             </h2>
 
@@ -266,7 +217,7 @@ const AdminPanelPage: React.FC = () => {
                 logs.map((log) => (
                   <div
                     key={log.logId}
-                    className="p-3 bg-white/5 rounded-lg border border-white/10"
+                    className="p-3 bg-surface-2 rounded-lg"
                   >
                     <div className="font-semibold">
                       {log.action} — {log.entityType} #{log.entityId}
@@ -286,7 +237,7 @@ const AdminPanelPage: React.FC = () => {
 
 
               {/* PANEL 4 — DELETE ACTIVITY */}
-              <div className="bg-[var(--card-bg)] p-6 rounded-xl border border-white/10 shadow-lg">
+              <div className="bg-surface-1 p-6 rounded-xl h-fit shadow-lg">
                 <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
                   <Trash2 size={20} /> Delete Activity
                 </h2>
@@ -296,7 +247,7 @@ const AdminPanelPage: React.FC = () => {
                   placeholder="Activity ID…"
                   value={activityIdToDelete}
                   onChange={(e) => setActivityIdToDelete(e.target.value)}
-                  className="p-2 rounded bg-black/20 border border-white/10 w-full"
+                  className="p-2 rounded bg-surface-2 w-full"
                 />
 
                 <button
@@ -307,6 +258,52 @@ const AdminPanelPage: React.FC = () => {
                 </button>
               </div>
 
+          {/* PANEL 2 — USER LIST */}
+          <div className="bg-surface-1 p-6 rounded-xl shadow-lg h-fit">
+            <h2 className="text-2xl font-semibold mb-4">Delete users account</h2>
+
+            <div className="flex items-center gap-2 bg-surface-2 px-3 py-2 rounded-lg  mb-4">
+              <Search size={18} />
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search users…"
+                className="bg-transparent outline-none flex-1"
+              />
+            </div>
+
+            {filteredUsers.map((u) => {
+              const profile = u.profileImageUrl
+                ? `http://localhost:5268/${u.profileImageUrl}`
+                : `http://localhost:5268/UserProfileImages/DefaultProfileImage.jpg`;
+
+              return (
+                <div
+                  key={u.userId}
+                  className="p-4 mb-3 bg-surface-2 rounded-lg flex justify-between items-center"
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={profile}
+                      className="w-12 h-12 rounded-full object-cover border border-surface-2"
+                    />
+                    <div>
+                      <div className="font-semibold">{u.fullName}</div>
+                      <div className="text-sm opacity-70">{u.email}</div>
+                      <div className="text-xs opacity-50">{u.role}</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => deleteUser(u.userId)}
+                    className="px-2 py-1 rounded bg-red-600/30 hover:bg-red-600/60 flex items-center gap-1 text-text-0"
+                  >
+                    <Trash2 size={18} /> Delete
+                  </button>
+                </div>
+              );
+            })}
+          </div>
 
 
         </div>

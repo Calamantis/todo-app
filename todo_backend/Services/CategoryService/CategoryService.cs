@@ -63,12 +63,12 @@ namespace todo_backend.Services.CategoryService
             if (category == null) return null;
 
             if (category.UserId != currentUserId)
-                throw new UnauthorizedAccessException("You cannot edit someone else's category.");
+                return null;
 
             var nameExists = await _context.Categories
                 .AnyAsync(c => c.UserId == currentUserId && c.Name == dto.Name && c.CategoryId != id);
             if (nameExists)
-                throw new InvalidOperationException("Category name already exists.");
+                return null;
 
             category.Name = dto.Name;
             category.ColorHex = dto.ColorHex;

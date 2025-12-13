@@ -119,7 +119,7 @@ const ExpandableActivityItem: React.FC<Props> = ({ activity, onEdit, onDelete, o
               e.stopPropagation();
               toggleExpand();
             }}
-            className="absolute right-16 text-gray-600 hover:text-gray-900 transition"
+            className="absolute right-16 text-text-0 hover:text-accent-0 transition"
           >
             <ChevronDown size={18} style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s" }} />
           </button>
@@ -127,16 +127,16 @@ const ExpandableActivityItem: React.FC<Props> = ({ activity, onEdit, onDelete, o
       </div>
 
       {expanded && activity.isRecurring && (
-        <div className="ml-4 mt-2 pl-3 border-l-2 border-gray-300">
+        <div className="ml-4 mt-2 pl-3 border-l-2 border-text-0">
           <div className="flex items-center justify-between mb-2">
             {loadingRules ? (
-              <div className="text-sm text-gray-500">Loading rules...</div>
+              <div className="text-sm text-text-0 opacity-80">Loading rules...</div>
             ) : (
-              <div className="text-sm text-gray-500">{rules.length === 0 ? "No recurrence rules." : `${rules.length} rule(s)`}</div>
+              <div className="text-sm text-text-0 opacity-80">{rules.length === 0 ? "No recurrence rules." : `${rules.length} rule(s)`}</div>
             )}
 
             <div>
-              <button onClick={() => setShowAddRuleModal(true)} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Add rule</button>
+              <button onClick={() => setShowAddRuleModal(true)} className="px-2 py-1 bg-surface-3 text-text-0 text-xs rounded hover:bg-accent-0">Add rule</button>
             </div>
           </div>
 
@@ -172,7 +172,7 @@ const ExpandableActivityItem: React.FC<Props> = ({ activity, onEdit, onDelete, o
             }
 
             return (
-              <div key={rule.recurrenceRuleId} className="text-xs text-gray-700 dark:text-gray-300 mb-3 p-3 bg-gray-50 dark:bg-slate-700 rounded border-l-2 border-gray-300">
+              <div key={rule.recurrenceRuleId} className="text-xs text-text-0 mb-3 p-3 bg-surface-2 rounded border-l-2 border-text-0">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <div className="mb-2"><strong>Recurrence:</strong> {recurrenceText}</div>

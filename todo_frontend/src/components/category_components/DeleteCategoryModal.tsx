@@ -44,15 +44,15 @@ const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="bg-white p-6 rounded-lg w-1/3">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-lg w-1/3">
         <h2 className="text-xl font-semibold mb-4">Delete Category</h2>
         <p className="mb-4">Are you sure you want to delete the category "{category.name}"?</p>
 
         <div className="flex justify-end gap-4">
-          <button onClick={onClose} className="px-4 py-2 bg-gray-400 text-white rounded">
+          <button onClick={onClose} className="px-4 py-2 bg-surface-2 hover:bg-surface-3 text-text-0 rounded">
             Cancel
           </button>
-          <button onClick={handleDelete} className="px-4 py-2 bg-red-600 text-white rounded">
+          <button onClick={handleDelete} className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded">
             Delete
           </button>
         </div>

@@ -29,7 +29,7 @@ const Panel: React.FC<{
                 onAdd();
               }}
             >
-              <Plus size={22} className="text-accent-0 hover:text-accent-1"/>
+              <Plus size={22} className="text-text-0 hover:text-accent-1"/>
             </button>
         )}
       </div>

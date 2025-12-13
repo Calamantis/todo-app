@@ -53,10 +53,10 @@ const ModerationUsersSection: React.FC<Props> = ({
   }, [search, users]);
 
   return (
-    <div className="bg-[var(--card-bg)] border border-white/10 p-5 rounded-xl shadow-lg">
+    <div className="bg-surface-1 border border-surface-2 p-5 rounded-xl shadow-lg">
 
       {/* SEARCH BAR */}
-      <div className="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10 w-full mb-4">
+      <div className="flex items-center gap-2 bg-surface-2 px-3 py-2 rounded-lg  w-full mb-4">
         <Search size={18} />
         <input
           type="text"
@@ -85,7 +85,7 @@ const ModerationUsersSection: React.FC<Props> = ({
         return (
           <div
             key={u.userId}
-            className="mb-5 rounded-xl overflow-hidden bg-white/5 border border-white/10 shadow-sm"
+            className="mb-5 rounded-xl overflow-hidden bg-surface-2 border border-surface-2 shadow-sm"
           >
             {/* BACKGROUND HEADER */}
             <div
@@ -98,7 +98,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                 className="
                   absolute -bottom-6 left-4
                   w-14 h-14 rounded-full object-cover 
-                  border-2 border-[var(--card-bg)]
+                  border-2 border-surface-2
                   shadow-lg
                 "
               />
@@ -118,7 +118,7 @@ const ModerationUsersSection: React.FC<Props> = ({
               )}
 
               {/* ACTION BUTTONS */}
-              <div className="flex flex-wrap gap-3 mt-4">
+              <div className="grid md:grid-cols-4 gap-3 mt-4 grid-cols-2">
 
                 {/* DISPLAY NAME */}
                 <button
@@ -129,16 +129,16 @@ const ModerationUsersSection: React.FC<Props> = ({
                       field: "display-name",
                     })
                   }
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40 justify-center"
                 >
                   <Pencil size={16} /> Edit name
                 </button>
 
                 <button
                   onClick={() => doDelete("user", u.userId, "display-name")}
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40 justify-center"
                 >
-                  <Trash2 size={16} /> Remove
+                  <Trash2 size={16} /> Remove name
                 </button>
 
                 {/* DESCRIPTION */}
@@ -150,16 +150,16 @@ const ModerationUsersSection: React.FC<Props> = ({
                       field: "description",
                     })
                   }
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40 justify-center"
                 >
                   <Pencil size={16} /> Edit desc
                 </button>
 
                 <button
                   onClick={() => doDelete("user", u.userId, "description")}
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40 justify-center"
                 >
-                  <Trash2 size={16} /> Remove
+                  <Trash2 size={16} /> Remove desc
                 </button>
 
                 {/* PROFILE IMAGE */}
@@ -171,14 +171,14 @@ const ModerationUsersSection: React.FC<Props> = ({
                       field: "profile-image",
                     })
                   }
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-green-600/20 hover:bg-green-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-green-600/20 hover:bg-green-600/40 justify-center"
                 >
                   <Image size={16} /> Set profile
                 </button>
 
                 <button
                   onClick={() => doDelete("user", u.userId, "profile-image")}
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40 justify-center"
                 >
                   <Trash2 size={16} /> Remove profile
                 </button>
@@ -192,14 +192,14 @@ const ModerationUsersSection: React.FC<Props> = ({
                       field: "background-image",
                     })
                   }
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-green-600/20 hover:bg-green-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-green-600/20 hover:bg-green-600/40 justify-center"
                 >
-                  <Image size={16} /> Set background
+                  <Image size={16} /> Set bg
                 </button>
 
                 <button
                   onClick={() => doDelete("user", u.userId, "background-image")}
-                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40"
+                  className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40 justify-center"
                 >
                   <Trash2 size={16} /> Remove bg
                 </button>

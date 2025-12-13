@@ -44,7 +44,7 @@ const ModerationActivitiesSection: React.FC<Props> = ({
   }, [search, activities]);
 
   return (
-    <div className="bg-[var(--card-bg)] border border-white/10 p-5 rounded-xl shadow-lg">
+    <div className="bg-surface-1 border border-surface-2 p-5 rounded-xl shadow-lg">
 
       <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
         Activities
@@ -55,7 +55,7 @@ const ModerationActivitiesSection: React.FC<Props> = ({
       {filteredActivities.map((a) => (
         <div
           key={a.activityId}
-          className="mb-4 p-4 rounded-lg bg-white/5 border border-white/10"
+          className="mb-4 p-4 rounded-lg bg-surface-2"
         >
           {/* HEADER */}
           <div className="flex justify-between items-start">
@@ -64,30 +64,7 @@ const ModerationActivitiesSection: React.FC<Props> = ({
               <div className="opacity-70 text-sm">
                 Owner: {a.ownerEmail}
               </div>
-            </div>
-
-            {/* ACTION BUTTONS */}
-            <div className="flex gap-3">
-              <button
-                onClick={() =>
-                  setEditModal({
-                    id: a.activityId,
-                    type: "activity",
-                    field: "title",
-                  })
-                }
-                className="p-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/30"
-              >
-                <Pencil size={18} />
-              </button>
-
-              <button
-                onClick={() => doDelete("activity", a.activityId, "title")}
-                className="p-2 rounded-lg bg-red-600/20 hover:bg-red-600/30"
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
+            </div>            
           </div>
 
           {/* DESCRIPTION */}
@@ -132,7 +109,30 @@ const ModerationActivitiesSection: React.FC<Props> = ({
           </div>
 
           {/* EDIT DESCRIPTION */}
-          <div className="flex gap-3 mt-3">
+          <div className="grid grid-cols-2 gap-3 mt-4 md:grid-cols-4">
+
+
+              <button
+                onClick={() =>
+                  setEditModal({
+                    id: a.activityId,
+                    type: "activity",
+                    field: "title",
+                  })
+                }
+                className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40 justify-center"
+              >
+                <Pencil size={18} /> Edit title
+              </button>
+
+              <button
+                onClick={() => doDelete("activity", a.activityId, "title")}
+                className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40 justify-center"
+              >
+                <Trash2 size={18} /> Remove title
+              </button>
+
+
             <button
               onClick={() =>
                 setEditModal({
@@ -141,14 +141,14 @@ const ModerationActivitiesSection: React.FC<Props> = ({
                   field: "description",
                 })
               }
-              className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40"
+              className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40 justify-center"
             >
               <Pencil size={16} /> Edit desc
             </button>
 
             <button
               onClick={() => doDelete("activity", a.activityId, "description")}
-              className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40"
+              className="flex items-center gap-1 px-2 py-1 rounded bg-red-600/20 hover:bg-red-600/40 justify-center"
             >
               <Trash2 size={16} /> Remove desc
             </button>

@@ -29,18 +29,14 @@ const ActivityInstanceListItem: React.FC<ActivityInstanceListItemProps> = ({
   onDelete 
 }) => {
   const date = new Date(instance.occurrenceDate).toLocaleDateString("pl-PL");
-  const accentBg = instance.categoryColorHex
-    ? `linear-gradient(to right, ${instance.categoryColorHex} 75%, rgba(0,0,0,0) 75%)`
-    : `linear-gradient(to right, #636060 75%, rgba(0,0,0,0) 75%)`;
 
   return (
     <div
-      className="flex items-center justify-between p-3 mb-2 rounded-lg text-sm dark:text-gray-100"
-      style={{ background: accentBg }}
+      className="flex items-center justify-between p-3 mb-2 rounded-lg text-sm bg-surface-2"
     >
       <div className="flex-1">
-        <div className="font-semibold text-gray-900 dark:text-gray-100">{date}</div>
-        <div className="text-xs text-gray-600 dark:text-gray-400">
+        <div className="font-semibold text-text-0">{date}</div>
+        <div className="text-xs text-text-0 opacity-70">
           {instance.startTime} - {instance.endTime} ({instance.durationMinutes}m)
         </div>
         <div className="mt-1 text-xs flex items-center gap-2">

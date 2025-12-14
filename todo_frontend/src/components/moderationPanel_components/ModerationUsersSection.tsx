@@ -121,7 +121,7 @@ const ModerationUsersSection: React.FC<Props> = ({
               <div className="grid md:grid-cols-4 gap-3 mt-4 grid-cols-2">
 
                 {/* DISPLAY NAME */}
-                <button
+                {/* <button
                   onClick={() =>
                     setEditModal({
                       id: u.userId,
@@ -132,7 +132,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                   className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40 justify-center"
                 >
                   <Pencil size={16} /> Edit name
-                </button>
+                </button> */}
 
                 <button
                   onClick={() => doDelete("user", u.userId, "display-name")}
@@ -142,7 +142,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                 </button>
 
                 {/* DESCRIPTION */}
-                <button
+                {/* <button
                   onClick={() =>
                     setEditModal({
                       id: u.userId,
@@ -153,7 +153,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                   className="flex items-center gap-1 px-2 py-1 rounded bg-blue-600/20 hover:bg-blue-600/40 justify-center"
                 >
                   <Pencil size={16} /> Edit desc
-                </button>
+                </button> */}
 
                 <button
                   onClick={() => doDelete("user", u.userId, "description")}
@@ -163,7 +163,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                 </button>
 
                 {/* PROFILE IMAGE */}
-                <button
+                {/* <button
                   onClick={() =>
                     setEditModal({
                       id: u.userId,
@@ -174,7 +174,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                   className="flex items-center gap-1 px-2 py-1 rounded bg-green-600/20 hover:bg-green-600/40 justify-center"
                 >
                   <Image size={16} /> Set profile
-                </button>
+                </button> */}
 
                 <button
                   onClick={() => doDelete("user", u.userId, "profile-image")}
@@ -184,7 +184,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                 </button>
 
                 {/* BACKGROUND IMAGE */}
-                <button
+                {/* <button
                   onClick={() =>
                     setEditModal({
                       id: u.userId,
@@ -195,7 +195,7 @@ const ModerationUsersSection: React.FC<Props> = ({
                   className="flex items-center gap-1 px-2 py-1 rounded bg-green-600/20 hover:bg-green-600/40 justify-center"
                 >
                   <Image size={16} /> Set bg
-                </button>
+                </button> */}
 
                 <button
                   onClick={() => doDelete("user", u.userId, "background-image")}

@@ -623,7 +623,7 @@
   {
     "ContainingType": "todo_backend.Controllers.AdminController",
     "Method": "DeleteActivity",
-    "RelativePath": "api/admin/{activityId}",
+    "RelativePath": "api/admin/activities/{activityId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -638,6 +638,16 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "GetModerators",
+    "RelativePath": "api/admin/moderators",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
     "Method": "CreateModerator",
     "RelativePath": "api/admin/moderators",
     "HttpMethod": "POST",
@@ -647,6 +657,22 @@
       {
         "Name": "request",
         "Type": "todo_backend.Dtos.AdminDto.AdminCreateModeratorRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "DeleteModerator",
+    "RelativePath": "api/admin/moderators/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

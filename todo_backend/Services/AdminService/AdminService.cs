@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
 using todo_backend.Dtos.AdminDto;
+using todo_backend.Dtos.ModerationDto;
 using todo_backend.Models;
 using todo_backend.Services.AuditLogService;
 using todo_backend.Services.SecurityService;
@@ -76,21 +77,80 @@ namespace todo_backend.Services.AdminService
 
         public async Task DeleteActivityAsync(int adminId, int activityId)
         {
+            // 1️⃣ Usuń uczestników aktywności (ActivityMembers)
+            var members = await _context.ActivityMembers
+                .Where(m => m.ActivityId == activityId)
+                .ToListAsync();
+
+            Console.WriteLine($"[DELETE_ACTIVITY] Members count: {members.Count}");
+
+            if (members.Any())
+                _context.ActivityMembers.RemoveRange(members);
+
+            // 2️⃣ Usuń instancje aktywności
+            var instances = await _context.ActivityInstances
+                .Where(i => i.ActivityId == activityId)
+                .ToListAsync();
+
+            Console.WriteLine($"[DELETE_ACTIVITY] Instances count: {instances.Count}");
+
+            if (instances.Any())
+                _context.ActivityInstances.RemoveRange(instances);
+
+            // 3️⃣ Usuń samą aktywność
             var activity = await _context.Activities.FindAsync(activityId)
                 ?? throw new KeyNotFoundException("Activity not found.");
 
             _context.Activities.Remove(activity);
 
+            // 4️⃣ Zapisz wszystko w jednej transakcji
             await _context.SaveChangesAsync();
 
+            // 5️⃣ Audit log
             await _logger.LogAsync(
                 adminId,
                 "DELETE_ACTIVITY",
                 "Activity",
                 activityId,
-                $"Permanently deleted user activity."
+                "Permanently deleted activity with members and instances"
             );
         }
 
+
+
+
+        public async Task<IEnumerable<ModeratorDto>> GetModeratorsAsync()
+        {
+            return await _context.Users
+                .Where(u => u.Role == UserRole.Moderator)
+                .Select(u => new ModeratorDto
+                {
+                    UserId = u.UserId,
+                    Email = u.Email,
+                    FullName = u.FullName
+                })
+                .OrderBy(u => u.Email)
+                .ToListAsync();
+        }
+
+        public async Task DeleteModeratorAsync(int adminId, int moderatorId)
+        {
+            var user = await _context.Users.FindAsync(moderatorId)
+                ?? throw new KeyNotFoundException("User not found.");
+
+            if (user.Role != UserRole.Moderator)
+                throw new InvalidOperationException("User is not a moderator.");
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            await _logger.LogAsync(
+                adminId,
+                "DELETE_MODERATOR",
+                "User",
+                moderatorId,
+                "Permanently deleted moderator account"
+            );
+        }
     }
 }

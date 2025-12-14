@@ -1,4 +1,5 @@
 ﻿using todo_backend.Dtos.AdminDto;
+using todo_backend.Dtos.ModerationDto;
 
 namespace todo_backend.Services.AdminService
 {
@@ -8,5 +9,7 @@ namespace todo_backend.Services.AdminService
         Task<int> CreateModeratorAccountAsync(int adminId, string email, string fullName, string rawPassword);
         Task DeleteUserAsync(int adminId, int targetUserId);
         Task DeleteActivityAsync(int adminId, int activityId);
+        Task<IEnumerable<ModeratorDto>> GetModeratorsAsync();
+        Task DeleteModeratorAsync(int adminId, int moderatorId);
     }
 }

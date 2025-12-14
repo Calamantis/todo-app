@@ -31,20 +31,33 @@ const ModerationActivitiesSection: React.FC<Props> = ({
   doDelete
 }) => {
 
-  const filteredActivities = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return activities;
+const [query, setQuery] = useState("");
 
-    return activities.filter(
-      (a) =>
-        a.title?.toLowerCase().includes(q) ||
-        a.description?.toLowerCase().includes(q) ||
-        a.ownerEmail?.toLowerCase().includes(q)
-    );
-  }, [search, activities]);
+const filteredActivities = useMemo(() => {
+  const q = query.trim().toLowerCase();
+  if (!q) return activities;
+
+  return activities.filter((a) =>
+    a.title?.toLowerCase().includes(q) ||
+    a.ownerEmail?.toLowerCase().includes(q) ||
+    a.description?.toLowerCase().includes(q)
+  );
+}, [activities, query]);
+
+
 
   return (
     <div className="bg-surface-1 border border-surface-2 p-5 rounded-xl shadow-lg">
+
+<input
+  type="text"
+  placeholder="Search by title or owner..."
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  className="mb-4 w-full px-3 py-2 rounded bg-surface-2 text-sm"
+/>
+
+
 
       <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
         Activities

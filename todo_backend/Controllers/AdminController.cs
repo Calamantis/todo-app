@@ -22,6 +22,13 @@ namespace todo_backend.Controllers
             _auditLogService = auditLogService;
         }
 
+        [HttpGet("moderators")]
+        public async Task<IActionResult> GetModerators()
+        {
+            var moderators = await _adminService.GetModeratorsAsync();
+            return Ok(moderators);
+        }
+
         // POST: api/admin/moderators (tworzenie nowego konta moderatora)
         [HttpPost("moderators")]
         public async Task<IActionResult> CreateModerator(AdminCreateModeratorRequestDto request)
@@ -86,14 +93,29 @@ namespace todo_backend.Controllers
             return Ok(dto);
         }
 
-        [HttpDelete("{activityId}")]
+        [HttpDelete("activities/{activityId}")]
         public async Task<IActionResult> DeleteActivity(int activityId)
         {
-            var adminId = int.Parse(User.FindFirst("sub")!.Value);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int adminId = int.Parse(userIdClaim.Value);
 
             await _adminService.DeleteActivityAsync(adminId, activityId);
 
             return NoContent();
         }
+
+        // 🔹 DELETE /api/admin/moderators/{id}
+        [HttpDelete("moderators/{id}")]
+        public async Task<IActionResult> DeleteModerator(int id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int adminId = int.Parse(userIdClaim.Value);
+
+            await _adminService.DeleteModeratorAsync(adminId, id);
+            return NoContent();
+        }
+
     }
 }

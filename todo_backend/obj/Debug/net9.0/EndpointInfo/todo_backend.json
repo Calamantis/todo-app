@@ -941,6 +941,16 @@
       }
     },
     "/api/admin/moderators": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Admin"
@@ -1079,7 +1089,7 @@
         }
       }
     },
-    "/api/admin/{activityId}": {
+    "/api/admin/activities/{activityId}": {
       "delete": {
         "tags": [
           "Admin"
@@ -1087,6 +1097,29 @@
         "parameters": [
           {
             "name": "activityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/moderators/{id}": {
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {

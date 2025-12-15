@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
                         ${visibleCount >= lines.length ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
           >
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/register")}
               className="px-8 py-3 rounded-2xl font-semibold text-lg
                          bg-white text-black hover:bg-gray-200
                          shadow-xl shadow-black/40 transition"

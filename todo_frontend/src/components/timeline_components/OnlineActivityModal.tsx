@@ -24,7 +24,7 @@ const OnlineActivityModal: React.FC<OnlineActivityModalProps> = ({ activity, ins
   useEffect(() => {
     if (!user) return;
 
-    fetch(`/api/ActivityMember/browse-participants?activityId=${activity.activityId}`, {
+    fetch(`/api/ActivityMember/browse-participants-all?activityId=${activity.activityId}`, {
       headers: { Authorization: `Bearer ${user.token}` }
     })
       .then(r => r.json())

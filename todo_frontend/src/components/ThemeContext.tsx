@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
 // Typy dostępnych motywów
-type Theme = 'light' | 'dark' | 'blue' | 'green';
+type Theme = 'light' | 'dark' | 'blue' | 'green' | 'contrast';
 
 interface ThemeContextType {
   theme: Theme;
@@ -23,13 +23,14 @@ export const useTheme = (): ThemeContextType => {
 
 // Provider do ustawiania motywu
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('light'); // Domyślny motyw
+  const [theme, setTheme] = useState<Theme>('dark'); // Domyślny motyw
 
   const themeStyles: Record<Theme, string> = {
     light: 'bg-surface-1 text-text-0',
     dark: 'bg-surface-1 text-text-0',
     blue: 'bg-blue-500 text-white',
     green: 'bg-green-500 text-white',
+    contrast: 'bg-black text-yellow-400',
   };
 
   // Ustawiamy motyw przy pierwszym załadowaniu aplikacji

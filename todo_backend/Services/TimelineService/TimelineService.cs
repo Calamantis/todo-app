@@ -331,7 +331,8 @@ namespace todo_backend.Services.TimelineService
                 .FirstOrDefaultAsync(i =>
                     i.ActivityId == rule.ActivityId &&
                     i.UserId == userId &&
-                    i.OccurrenceDate == occurrenceDate);
+                    i.OccurrenceDate == occurrenceDate &&
+                    (i.StartTime == rule.StartTime || i.EndTime == rule.EndTime));
 
             if (existingInstance == null)
             {

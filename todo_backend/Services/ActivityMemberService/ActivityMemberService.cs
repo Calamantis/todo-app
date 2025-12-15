@@ -122,6 +122,29 @@ namespace todo_backend.Services.ActivityMembersService
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<ActivityInviteDto>> GetAcceptedMembersAsyncWithOwner(int activityId, int userId)
+        {
+            return await _context.ActivityMembers
+                .Where(am =>
+                    am.ActivityId == activityId &&
+                    am.Status == "accepted")
+
+                .Include(am => am.User)
+                .Select(am => new ActivityInviteDto
+                {
+                    ActivityId = am.ActivityId,
+                    ActivityTitle = am.Activity.Title,
+                    InvitedUserId = am.UserId,
+                    FullName = am.User.FullName,
+                    Email = am.User.Email,
+                    ProfileImage = am.User.ProfileImageUrl,
+                    BackgroundImage = am.User.BackgroundImageUrl,
+                    Status = am.Status,
+                    Role = am.Role
+                })
+                .ToListAsync();
+        }
+
 
         ////GET przeglądaj wysłane zaproszenia
         //public async Task<IEnumerable<FullActivityMembersDto?>> GetSentInvitesAsync(int activityId, int requestingUserId)

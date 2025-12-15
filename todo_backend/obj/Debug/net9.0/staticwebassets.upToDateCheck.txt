@@ -1,2 +1,4 @@
 wwwroot\UserProfileImages\DefaultBgImage.jpg
 wwwroot\1\1_profile.jpg
+wwwroot\12\12_bg.jpg
+wwwroot\12\12_profile.jpg

@@ -4,7 +4,7 @@ import { useTheme } from './ThemeContext';
 const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
-  const themes = ['light', 'dark', 'blue', 'green'];
+  const themes = ['light', 'dark', 'blue', 'green', 'contrast'];
 
   return (
     <div className="flex flex-col gap-3 bg-surface-1 p-4 rounded-lg shadow-md">

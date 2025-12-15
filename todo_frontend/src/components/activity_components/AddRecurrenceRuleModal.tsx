@@ -36,6 +36,19 @@ const AddRecurrenceRuleModal: React.FC<AddRecurrenceRuleModalProps> = ({ activit
   const [durationMinutes, setDurationMinutes] = useState(60);
   const [isActive, setIsActive] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [selectedDays, setSelectedDays] = useState<number[]>([]);
+
+
+  const WEEK_DAYS = [
+    { value: 1, label: "Monday" },
+    { value: 2, label: "Tuesday" },
+    { value: 3, label: "Wednesday" },
+    { value: 4, label: "Thursday" },
+    { value: 5, label: "Friday" },
+    { value: 6, label: "Saturday" },
+    { value: 0, label: "Sunday" }
+  ];
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +58,7 @@ const AddRecurrenceRuleModal: React.FC<AddRecurrenceRuleModalProps> = ({ activit
       const body: NewRecurrenceRule = {
         activityId,
         type,
-        daysOfWeek: daysOfWeek || undefined,
+        daysOfWeek:type === "WEEK" && selectedDays.length > 0 ? selectedDays.join(",") : undefined,
         daysOfMonth: daysOfMonth || undefined,
         dayOfYear: dayOfYear || undefined,
         interval,
@@ -82,7 +95,7 @@ const AddRecurrenceRuleModal: React.FC<AddRecurrenceRuleModalProps> = ({ activit
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-surface-1 text-text-0 p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-surface-1 text-text-0 p-6 rounded-lg w-full max-w-md max-h-[95vh] overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Add Recurrence Rule</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -102,8 +115,32 @@ const AddRecurrenceRuleModal: React.FC<AddRecurrenceRuleModalProps> = ({ activit
 
           {type === "WEEK" && (
             <div>
-              <label className="block text-sm font-medium mb-1">Days of Week (comma-separated 0-6)</label>
-              <input type="text" value={daysOfWeek} onChange={(e) => setDaysOfWeek(e.target.value)} placeholder="e.g. 1,3,5" className="w-full px-3 py-2 bg-surface-2 rounded-lg " />
+              <label className="block text-sm font-medium mb-2">
+                Days of Week
+              </label>
+
+              <div className="grid grid-cols-2 gap-2">
+                {WEEK_DAYS.map((d) => (
+                  <label
+                    key={d.value}
+                    className="flex items-center gap-2 text-sm"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedDays.includes(d.value)}
+                      onChange={(e) => {
+                        setSelectedDays((prev) =>
+                          e.target.checked
+                            ? [...prev, d.value]
+                            : prev.filter((x) => x !== d.value)
+                        );
+                      }}
+                      className="accent-accent-0"
+                    />
+                    {d.label}
+                  </label>
+                ))}
+              </div>
             </div>
           )}
 

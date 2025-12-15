@@ -97,6 +97,9 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({
           )}
           {activity.isRecurring && <span className="text-gray-300">|</span>}
           <span className="text-text-0 opacity-80">{status}</span>
+          {activity.joinCode && (
+          <span className="text-text-0 opacity-80">| &nbsp; {activity.joinCode}</span>
+          )}
         </div>
       </div>
 

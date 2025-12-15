@@ -102,10 +102,16 @@ namespace todo_backend.Services.UserFriendActions
                 .Select(b => b.UserId)
                 .ToListAsync();
 
+            var Admins = await _context.Users
+                .Where(a => a.Role == UserRole.Admin || a.Role == UserRole.Moderator)
+                .Select(a => a.UserId)
+                .ToListAsync();
+
             // 4) Połącz wszystkie ID wykluczeń
             var excluded = friendIds
                 .Concat(iBlockedIds)
                 .Concat(blockedMeIds)
+                .Concat(Admins)
                 .ToHashSet();
 
             var users = await _context.Users

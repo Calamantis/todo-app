@@ -54,6 +54,17 @@ namespace todo_backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("browse-participants-all")]
+        public async Task<IActionResult> GetAcceptedMembersWithOwner(int activityId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int userId = int.Parse(userIdClaim.Value);
+
+            var result = await _activityMemberService.GetAcceptedMembersAsyncWithOwner(activityId, userId);
+            return Ok(result);
+        }
+
         [HttpGet("browse-sent-invites")]
         public async Task<IActionResult> GetSentInvites(int activityId)
         {

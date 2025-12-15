@@ -254,6 +254,22 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.ActivityMemberController",
+    "Method": "GetAcceptedMembersWithOwner",
+    "RelativePath": "api/ActivityMember/browse-participants-all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "activityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.ActivityMemberController",
     "Method": "GetReceivedInvites",
     "RelativePath": "api/ActivityMember/browse-recieved-invites",
     "HttpMethod": "GET",

@@ -405,6 +405,28 @@
         }
       }
     },
+    "/api/ActivityMember/browse-participants-all": {
+      "get": {
+        "tags": [
+          "ActivityMember"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ActivityMember/browse-sent-invites": {
       "get": {
         "tags": [

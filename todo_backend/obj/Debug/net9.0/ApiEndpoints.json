@@ -680,6 +680,43 @@
   },
   {
     "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "UpdateModerator",
+    "RelativePath": "api/admin/moderators/{moderatorId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "moderatorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.ModerationDto.UpdateModeratorDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
+    "Method": "ChangeAdminPassword",
+    "RelativePath": "api/admin/password",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "todo_backend.Dtos.AdminDto.ChangeAdminPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "todo_backend.Controllers.AdminController",
     "Method": "DeleteUser",
     "RelativePath": "api/admin/users/{userId}",
     "HttpMethod": "DELETE",

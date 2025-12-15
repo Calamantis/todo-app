@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Trash2, Shield } from "lucide-react";
+import { Trash2, Shield, Pencil } from "lucide-react";
+import EditModeratorModal from "../adminPanel_components/EditModeratorModal";
 
 interface Moderator {
   userId: number;
@@ -14,6 +15,7 @@ interface Props {
 const ModeratorsListPanel: React.FC<Props> = ({ token }) => {
   const [moderators, setModerators] = useState<Moderator[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState<Moderator | null>(null);
 
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -73,12 +75,33 @@ const ModeratorsListPanel: React.FC<Props> = ({ token }) => {
               <div className="text-sm opacity-70">{m.email}</div>
             </div>
 
-            <button
-              onClick={() => removeModerator(m.userId)}
-              className="px-2 py-1 rounded bg-red-600/30 hover:bg-red-600/60 flex items-center gap-1"
-            >
-              <Trash2 size={18} />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setEditing(m)}
+                className="px-2 py-1 rounded bg-yellow-600/20 hover:bg-yellow-600/40"
+                title="Edit moderator"
+              >
+                <Pencil size={18} />
+              </button>
+
+              <button
+                onClick={() => removeModerator(m.userId)}
+                className="px-2 py-1 rounded bg-red-600/30 hover:bg-red-600/60"
+                title="Remove moderator"
+              >
+                <Trash2 size={18} />
+              </button>
+            </div>
+
+            {editing && (
+              <EditModeratorModal
+                moderator={editing}
+                token={token}
+                onClose={() => setEditing(null)}
+                onSaved={fetchModerators}
+              />
+            )}
+
           </div>
         ))
       )}

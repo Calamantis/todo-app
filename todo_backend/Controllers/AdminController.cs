@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using todo_backend.Dtos.AdminDto;
 using todo_backend.Dtos.AuditLogDto;
+using todo_backend.Dtos.ModerationDto;
 using todo_backend.Services.AdminService;
 using todo_backend.Services.AuditLogService;
 
@@ -102,6 +103,31 @@ namespace todo_backend.Controllers
 
             await _adminService.DeleteActivityAsync(adminId, activityId);
 
+            return NoContent();
+        }
+
+        [HttpPatch("moderators/{moderatorId}")]
+        public async Task<IActionResult> UpdateModerator(
+        int moderatorId,
+        [FromBody] UpdateModeratorDto dto)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int adminId = int.Parse(userIdClaim.Value);
+
+            await _adminService.UpdateModeratorAsync(adminId, moderatorId, dto);
+            return NoContent();
+        }
+
+        [HttpPatch("password")]
+        public async Task<IActionResult> ChangeAdminPassword(
+        [FromBody] ChangeAdminPasswordDto dto)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+            int adminId = int.Parse(userIdClaim.Value);
+
+            await _adminService.ChangeAdminPasswordAsync(adminId, dto);
             return NoContent();
         }
 

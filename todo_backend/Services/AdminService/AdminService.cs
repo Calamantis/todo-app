@@ -75,6 +75,65 @@ namespace todo_backend.Services.AdminService
 
         }
 
+        public async Task UpdateModeratorAsync(
+        int adminId,
+        int moderatorId,
+        UpdateModeratorDto dto)
+        {
+            var moderator = await _context.Users.FindAsync(moderatorId)
+                ?? throw new KeyNotFoundException("Moderator not found.");
+
+            if (moderator.Role != UserRole.Moderator)
+                throw new InvalidOperationException("Target user is not a moderator.");
+
+            if (!string.IsNullOrWhiteSpace(dto.Email))
+                moderator.Email = dto.Email;
+
+            if (!string.IsNullOrWhiteSpace(dto.FullName))
+                moderator.FullName = dto.FullName;
+
+            if (!string.IsNullOrWhiteSpace(dto.NewPassword))
+                moderator.PasswordHash = _passwordService.Hash(dto.NewPassword);
+
+            await _context.SaveChangesAsync();
+
+            await _logger.LogAsync(
+                adminId,
+                "UPDATE_MODERATOR",
+                "User",
+                moderatorId,
+                "Administrator updated moderator data"
+            );
+        }
+
+        public async Task ChangeAdminPasswordAsync(
+        int adminId,
+        ChangeAdminPasswordDto dto)
+        {
+            var admin = await _context.Users.FindAsync(adminId)
+                ?? throw new KeyNotFoundException("Admin not found.");
+
+            if (admin.Role != UserRole.Admin)
+                throw new UnauthorizedAccessException("Only admin can change admin password.");
+
+            // 🔐 weryfikacja obecnego hasła
+            if (!_passwordService.Verify(dto.CurrentPassword, admin.PasswordHash))
+                throw new InvalidOperationException("Current password is incorrect.");
+
+            // 🔁 ustawienie nowego hasła
+            admin.PasswordHash = _passwordService.Hash(dto.NewPassword);
+
+            await _context.SaveChangesAsync();
+
+            await _logger.LogAsync(
+                adminId,
+                "CHANGE_ADMIN_PASSWORD",
+                "User",
+                adminId,
+                "Administrator changed own password"
+            );
+        }
+
         public async Task DeleteActivityAsync(int adminId, int activityId)
         {
             // 1️⃣ Usuń uczestników aktywności (ActivityMembers)

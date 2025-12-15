@@ -5,16 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using todo_backend.Data;
 using todo_backend.Models;
+using todo_backend.Services.SecurityService;
 
 namespace todo_backend.Services
 {
     public class DataSeeder
     {
         private readonly AppDbContext _context;
+        private readonly IPasswordService _passwordService;
 
-        public DataSeeder(AppDbContext context)
+        public DataSeeder(AppDbContext context, IPasswordService passwordService)
         {
             _context = context;
+            _passwordService = passwordService;
         }
 
         public async Task SeedAsync()
@@ -22,6 +25,7 @@ namespace todo_backend.Services
             await _context.Database.MigrateAsync();
 
             await SeedSystemCategoriesAsync();
+            await SeedAdminAccountAsync();
         }
 
         private async Task SeedSystemCategoriesAsync()
@@ -43,5 +47,26 @@ namespace todo_backend.Services
             await _context.Categories.AddRangeAsync(categories);
             await _context.SaveChangesAsync();
         }
+
+        private async Task SeedAdminAccountAsync()
+        {
+            // Jeśli admin już istnieje — nie rób nic
+            if (await _context.Users.AnyAsync(u => u.Role == UserRole.Admin))
+                return;
+
+            var admin = new User
+            {
+                Email = "admin@example.com",
+                FullName = "System Administrator",
+                Role = UserRole.Admin,
+                ProfileImageUrl = "/TempImageTests/DefaultProfileImage.png",
+                BackgroundImageUrl = "/TempImageTests/DefaultBgImage.jpg",
+                PasswordHash = _passwordService.Hash("admin123!@#.")
+            };
+
+            await _context.Users.AddAsync(admin);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

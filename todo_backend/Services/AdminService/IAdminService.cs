@@ -11,5 +11,7 @@ namespace todo_backend.Services.AdminService
         Task DeleteActivityAsync(int adminId, int activityId);
         Task<IEnumerable<ModeratorDto>> GetModeratorsAsync();
         Task DeleteModeratorAsync(int adminId, int moderatorId);
+        Task UpdateModeratorAsync(int adminId,int moderatorId, UpdateModeratorDto dto);
+        Task ChangeAdminPasswordAsync(int adminId, ChangeAdminPasswordDto dto);
     }
 }
